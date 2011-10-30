@@ -1,0 +1,30 @@
+﻿@CHARSET "UTF-8";
+.menu ul{
+	list-style:none;
+}
+.menu li{
+	float:left; 
+	position:relative; 
+	margin-right: 20px; 
+	display:block;
+}
+.menu li:hover{
+	background: yellow;
+}
+.list tr, th, td{
+	border: 2px solid black;
+}
+.list{
+	width: 700px;
+}
+#prev{
+	float: left;
+}
+#next{
+	float: right;
+}
+footer{
+	font-size: 10pt;
+	font-style: italic;
+	text-align: center;
+}
