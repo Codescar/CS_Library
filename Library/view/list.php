@@ -5,15 +5,11 @@
 $link = connect();
 $query = "SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT ".$page*$items.",". $items ." ;";
 $results = mysql_query($query, $link) or die(mysql_error());
-// try to find if the book is unavailable !
-/*$query2 = "SELECT * FROM booklist LEFT JOIN lend ON booklist.id = lend.book_id WHERE lend.returned = '0' ORDER BY booklist.id ASC  LIMIT ".$page*$items.",". $items .";";
-$results2 = mysql_query($query2, $link) or die(mysql_error());
-$row2 = mysql_fetch_array($results2);*/
 ?>
 <div class="list">
 	<table>
 	<tr>
-		<th>ID</th><th>Τίτλος</th><th>Συγγραφέας/Εκδόσεις</th><?php /*<th>Διαθεσιμότητα</th> */ ?>
+		<th>ID</th><th>Τίτλος</th><th>Συγγραφέας/Εκδόσεις</th><th>Διαθεσιμότητα</th>
 	</tr>
 	<?php
 		$i = $page * $items + 1;
@@ -30,10 +26,10 @@ $row2 = mysql_fetch_array($results2);*/
 				echo "</a>";
 			echo 	"</td><td>
 					". $row['2'];
-			/*if(in_array($row['0'],$row2))
+			if($row['5'] == 1)
 				echo "<td>Δανεισμένο</td>";
 			else
-				echo "<td>Ελεύθερο</td>";*/
+				echo "<td>Ελεύθερο</td>";
 		}
 		mysql_close($link);
 	?>
