@@ -8,7 +8,7 @@ class Lbdb{
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
-		echo $connection, $hostname, $username, $password, $dbname;
+		echo $this->connection, $this->hostname, $this->username, $this->password, $this->dbname;
 		$this->db_connect();
 	}
 	
