@@ -2,9 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-$link = connect();
-$query = "SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT ".$page*$items.",". $items ." ;";
-$results = mysql_query($query, $link) or die(mysql_error());
+	$books = $db->get_books($page*$items, $items);
 ?>
 <div class="list">
 	<table>
@@ -13,7 +11,8 @@ $results = mysql_query($query, $link) or die(mysql_error());
 	</tr>
 	<?php
 		$i = $page * $items + 1;
-		while($row = mysql_fetch_row($results)){
+		
+		foreach($books as $row){
 			echo "<tr><td>
 					". $i++ ."
 					</td><td>";
@@ -25,13 +24,13 @@ $results = mysql_query($query, $link) or die(mysql_error());
 			if($flag == 1)
 				echo "</a>";
 			echo 	"</td><td>
-					". $row['2'];
+					". $row['2']."</td>";
 			if($row['5'] == 0)
 				echo "<td>Δανεισμένο</td>";
 			else
 				echo "<td>Ελεύθερο</td>";
 		}
-		mysql_close($link);
+		$db->__destruct();
 	?>
 	</table>
 	<?php if($page >= 1) { ?>
