@@ -8,7 +8,6 @@ class Lbdb{
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
-		echo $this->connection, $this->hostname, $this->username, $this->password, $this->dbname;
 		$this->db_connect();
 	}
 	
@@ -19,9 +18,9 @@ class Lbdb{
 	function db_connect(){
 		$this->connection = mysql_connect($this->hostname, $this->username, $this->password) 
 			or die("Could not connect: ".mysql_error());
-		mysql_select_db($this->dbname, $con)
+		mysql_select_db($this->dbname, $this->connection)
 			or die("Error selecting database: ".mysql_error());
-		mysql_query("SET NAMES 'utf8'", $con)
+		mysql_query("SET NAMES 'utf8'", $this->connection)
 			or die(mysql_error());
 	}
 	
