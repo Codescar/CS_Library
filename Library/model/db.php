@@ -1,6 +1,6 @@
 ﻿<?php
 class Lbdb{
-	private $connection, $hostname, $username, $password, $name;
+	private $connection, $hostname, $username, $password, $dbname;
 	function __construct()
 	{
 		global $db_hostname, $db_username, $db_password, $db_name;
@@ -8,6 +8,7 @@ class Lbdb{
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
+		echo $connection, $hostname, $username, $password, $dbname;
 		$this->db_connect();
 	}
 	
