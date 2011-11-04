@@ -26,7 +26,7 @@ $results = mysql_query($query, $link) or die(mysql_error());
 				echo "</a>";
 			echo 	"</td><td>
 					". $row['2'];
-			if($row['5'] == 1)
+			if($row['5'] == 0)
 				echo "<td>Δανεισμένο</td>";
 			else
 				echo "<td>Ελεύθερο</td>";
