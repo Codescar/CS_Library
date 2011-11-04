@@ -7,7 +7,7 @@
 	$items = 20;
 
 	/* Debug Mode, Default: False */
-	$debug = false;
+	$debug = true;
 	
 	$title = "Δανειστική Βιβλιοθήκη 15ου Συστήματος Προσκόπων Αθηνών";
 	
