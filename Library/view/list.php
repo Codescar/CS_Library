@@ -7,7 +7,7 @@
 <div class="list">
 	<table>
 	<tr>
-		<th>ID</th><th>Τίτλος</th><th>Συγγραφέας/Εκδόσεις</th><th>Διαθεσιμότητα</th>
+		<th>ID</th><th>Τίτλος</th><th>Διαθεσιμότητα</th><th>Συγγραφέας/Εκδόσεις</th>
 	</tr>
 	<?php
 		$i = $page * $items + 1;

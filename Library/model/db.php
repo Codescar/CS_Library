@@ -43,6 +43,29 @@ class Lbdb{
 		array_pop($books);
 		return $books;
 	}
+	
+	/*
+	 * Searches for a specific book or books througth the library
+	 * Mode 1 searches only in title
+	 * Mode 2 searches both title and writer_organization
+	 */
+	function search($string, $mode, $limit_offset, $items){
+		$s = mysql_real_escape_string(trim(mysql_real_escape_string($string)));
+		$query = "SELECT * FROM `booklist` WHERE ";
+		if(mode == '1')
+			$query .= " booklist.title LIKE \"%$s%\" OR ";
+		
+		if(mode == '2')
+			$query .= " booklist.writer_or LIKE \"%$s%\" ";
+		else
+			$query .= " 1 = 2 ";
+		$query .= "ORDER BY booklist.id ASC LIMIT ".$limit_offset.",". $items ." ;";
+		
+		$res = $this->db_query($query);
+		for($i = 0; $books[$i] = mysql_fetch_array($res); $i++);
+		array_pop($books);
+		return $books;
+	}
 }
 
 $db = new Lbdb();

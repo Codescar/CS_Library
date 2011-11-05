@@ -8,17 +8,7 @@ if(!isset($_GET['search']) || $_GET['search'] == "" || (!isset($_GET['title']) &
 	echo "Λάθος αναζήτηση";
 }
 else {
-	$link = connect();
-	$s = mysql_real_escape_string(trim(mysql_real_escape_string($_GET['search'])));
-	$query = "SELECT * FROM `booklist` WHERE ";
-	if(isset($_GET['title']))
-		$query .= " booklist.title LIKE \"%$s%\" OR ";
-	if(isset($_GET['writer_or']))
-		$query .= " booklist.writer_or LIKE \"%$s%\" ";
-	else
-		$query .= " 1 = 2 ";
-	$query .= "ORDER BY booklist.id ASC LIMIT ".$page*$items.",". $items ." ;";
-	$results = mysql_query($query, $link) or die(mysql_error());
+	$books = $db->search($_GET['search'], $mode, $page*$items, $items);
 ?>
 <div class="list">
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br/>
@@ -30,7 +20,7 @@ else {
 	</tr>
 	<?php
 		$i = $page * $items + 1;
-		while($row = mysql_fetch_row($results)){
+		foreach($books as $row){
 			echo "<tr><td>".
 					$i++ 
 					."</td><td>".
