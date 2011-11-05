@@ -21,7 +21,7 @@
 				$flag = 1;
 			}
 			echo 	$row['1'];
-			if($flag == 1)
+			if(isset($flag) && $flag == 1)
 				echo "</a>";
 			echo 	"</td>";
 			if($row['2'] == 0)
