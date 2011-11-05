@@ -33,7 +33,8 @@ class Lbdb{
 	 * protected from harmful queries. 
 	 */
 	function db_query($query){
-		return mysql_query($query, $this->connection) or die(mysql_error());	
+		$results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
+		return $results;
 	}
 	
 	function get_books($limit_offset, $items){

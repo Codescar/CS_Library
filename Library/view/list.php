@@ -20,15 +20,15 @@
 				echo "<a href=\"index.php?show=book&id=".$row['0']."\">";
 				$flag = 1;
 			}
-			echo 		$row['1'];
+			echo 	$row['1'];
 			if($flag == 1)
 				echo "</a>";
-			echo 	"</td><td>
-					". $row['2']."</td>";
-			if($row['5'] == 0)
+			echo 	"</td>";
+			if($row['2'] == 0)
 				echo "<td>Δανεισμένο</td>";
 			else
 				echo "<td>Ελεύθερο</td>";
+			echo "<td>". $row['3']."&nbsp;</td>";
 		}
 		$db->__destruct();
 	?>
