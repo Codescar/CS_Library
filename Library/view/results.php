@@ -35,7 +35,7 @@ else {
 					."</td><td>".
 					$row['2'];
 		}
-		$db->__destruct();
+		$db->db_close();
 	?>
 	</table>
 	<?php if($page >= 1) { ?>

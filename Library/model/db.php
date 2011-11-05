@@ -1,6 +1,8 @@
 <?php
 class Lbdb{
 	private $connection, $hostname, $username, $password, $dbname;
+	//TODO try to handle the table names and the collumn names in variables/arrays 
+	public $booklist;
 	function __construct()
 	{
 		global $db_hostname, $db_username, $db_password, $db_name;

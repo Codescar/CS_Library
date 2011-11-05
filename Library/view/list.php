@@ -32,7 +32,7 @@
 				echo "<td>Ελεύθερο</td>";
 			echo "<td>". $row['3']."&nbsp;</td>";
 		}
-		$db->__destruct();
+		$db->db_close()
 	?>
 	</table>
 	<?php if($page >= 1) { ?>

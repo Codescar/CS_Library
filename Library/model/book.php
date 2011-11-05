@@ -4,8 +4,8 @@ class book{
 	
 	function __construct($id, $title, $author = "", $available = 1, $description = ""){
 		
-		
 	}
 }
+
 
 ?>
