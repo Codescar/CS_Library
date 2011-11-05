@@ -25,7 +25,7 @@ class Lbdb{
 	}
 	
 	function db_close(){
-		mysql_close($this->connection);
+		@mysql_close($this->connection);
 	}
 	
 	/*
@@ -53,9 +53,9 @@ class Lbdb{
 	function search($string, $mode, $limit_offset, $items){
 		$s = mysql_real_escape_string(trim(mysql_real_escape_string($string)));
 		$query = "SELECT * FROM `booklist` WHERE ";
-		if(mode == '1')
+		if($mode == '1')
 			$query .= " booklist.title LIKE \"%$s%\"";
-		else if(mode == '2')
+		else if($mode == '2')
 			$query .= " booklist.writer_or LIKE \"%$s%\" ";
 		else
 			$query .= " booklist.title LIKE \"%$s%\" OR booklist.writer_or LIKE \"%$s%\" ";
