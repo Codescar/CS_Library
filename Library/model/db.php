@@ -47,18 +47,18 @@ class Lbdb{
 	/*
 	 * Searches for a specific book or books througth the library
 	 * Mode 1 searches only in title
-	 * Mode 2 searches both title and writer_organization
+	 * Mode 2 searches only in writer_organization
+	 * Mode 3 searches both title and writer_organization
 	 */
 	function search($string, $mode, $limit_offset, $items){
 		$s = mysql_real_escape_string(trim(mysql_real_escape_string($string)));
 		$query = "SELECT * FROM `booklist` WHERE ";
 		if(mode == '1')
-			$query .= " booklist.title LIKE \"%$s%\" OR ";
-		
-		if(mode == '2')
+			$query .= " booklist.title LIKE \"%$s%\"";
+		else if(mode == '2')
 			$query .= " booklist.writer_or LIKE \"%$s%\" ";
 		else
-			$query .= " 1 = 2 ";
+			$query .= " booklist.title LIKE \"%$s%\" OR booklist.writer_or LIKE \"%$s%\" ";
 		$query .= "ORDER BY booklist.id ASC LIMIT ".$limit_offset.",". $items ." ;";
 		
 		$res = $this->db_query($query);

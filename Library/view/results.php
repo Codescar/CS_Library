@@ -8,6 +8,12 @@ if(!isset($_GET['search']) || $_GET['search'] == "" || (!isset($_GET['title']) &
 	echo "Λάθος αναζήτηση";
 }
 else {
+	if(isset($_GET['title']))
+		$mode = 1;
+	else if(isset($_GET['writer_or']))
+		$mode = 2;
+	else if(isset($_GET['writer_or']) && isset($_GET['title']))
+		$mode = 3;
 	$books = $db->search($_GET['search'], $mode, $page*$items, $items);
 ?>
 <div class="list">
@@ -28,7 +34,7 @@ else {
 					."</td><td>".
 					$row['2'];
 		}
-		mysql_close($link);
+		$db->__destruct();
 	?>
 	</table>
 	<?php if($page >= 1) { ?>
