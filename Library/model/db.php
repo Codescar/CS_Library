@@ -37,7 +37,7 @@ class Lbdb{
 	}
 	
 	function get_books($limit_offset, $items){
-		$res = db_query("SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT ".$limit_offset.",". $items .";");
+		$res = $this->db_query("SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT ".$limit_offset.",". $items .";");
 		for($i = 0; $books[$i] = mysql_fetch_assoc($res); $i++);
 		array_pop($books);
 		return $books;
