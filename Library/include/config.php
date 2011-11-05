@@ -9,7 +9,11 @@
 	/* Debug Mode, Default: False */
 	$debug = true;
 	
-	$title = "Δανειστική Βιβλιοθήκη 15ου Συστήματος Προσκόπων Αθηνών";
+	$title = "Δανειστική βιβλιοθήκη 15ου Συστήματος Προσκόπων Αθηνών";
 	
+	$compression = true;
 	
+	/* Session Settings */
+	/* Max IDLE TIME */
+	define('MAX_IDLE_TIME', '3600');
 	?>

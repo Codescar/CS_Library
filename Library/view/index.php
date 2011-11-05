@@ -1,7 +1,9 @@
-﻿<?php 
+<?php 
 	if(!defined('INDEX'))
 		die("Invalid request!");
 	define('VIEW_INDEX', true);
+	
+	global $db;
 	/* Header File */
 	require_once('header.php');
 
@@ -18,7 +20,7 @@
 	elseif($_GET['show'] == "results")
 		include('results.php');
 	elseif($_GET['show'] == "book" && isset($_GET['id']))
-		// εδώ θα πρέπει να φαίνονται οι πληροφορίες και τα σχόλεια για τα βιβλία
+		///TODO book view
 		include('book.php');
 	else 
 		/* The page doesn't found */

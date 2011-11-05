@@ -1,4 +1,10 @@
 ﻿@CHARSET "UTF-8";
+#user-settings{
+	float: right;
+	margin-top: 15px;
+	margin-right: 15px;
+	font-size: 9pt;
+}
 .menu ul{
 	list-style:none;
 }

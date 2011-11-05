@@ -2,7 +2,9 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
+	$db->db_connect();
 	$books = $db->get_books($page*$items, $items);
+
 ?>
 <div class="list">
 	<table>

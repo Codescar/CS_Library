@@ -17,5 +17,6 @@
 	<script src="<?php echo $url; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 </head>
 <body>
+<p id="user-settings"></p>
 <h1><?php echo $title; ?></h1>
 <br/>

@@ -14,6 +14,7 @@ else {
 		$mode = 2;
 	else if(isset($_GET['writer_or']) && isset($_GET['title']))
 		$mode = 3;
+	$db->db_connect();
 	$books = $db->search($_GET['search'], $mode, $page*$items, $items);
 ?>
 <div class="list">

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 class Lbdb{
 	private $connection, $hostname, $username, $password, $dbname;
 	function __construct()
@@ -8,7 +8,7 @@ class Lbdb{
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
-		$this->db_connect();
+		//$this->db_connect();
 	}
 	
 	function __destruct(){
@@ -67,6 +67,6 @@ class Lbdb{
 		return $books;
 	}
 }
-
+global $db;
 $db = new Lbdb();
 ?>
