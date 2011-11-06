@@ -17,9 +17,10 @@
 			echo "<tr>";
 			echo "<!-- ID -->
 				  <td>". $row['0'] ."</td>";
-			echo "<!-- Title -->";
+			echo "<!-- Title -->
+				  <td>";
 			if($row['4'] != NULL && $row['4'] != ""){
-				echo "<td><a href=\"index.php?show=book&id=".$row['0']."\">";
+				echo "<a href=\"index.php?show=book&id=".$row['0']."\">";
 				$flag = 1;
 			}
 			echo  $row['1'];
