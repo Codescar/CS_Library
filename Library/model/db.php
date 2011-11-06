@@ -71,4 +71,5 @@ class Lbdb{
 }
 global $db;
 $db = new Lbdb();
+$GLOBALS['db'] = $db;
 ?>

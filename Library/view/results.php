@@ -29,11 +29,11 @@ else {
 		$i = $page * $items + 1;
 		foreach($books as $row){
 			echo "<tr><td>".
-					$i++ 
+					$row['0']
 					."</td><td>".
 					$row['1']
 					."</td><td>".
-					$row['2'];
+					$row['3'];
 		}
 		$db->db_close();
 	?>
