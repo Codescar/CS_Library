@@ -34,3 +34,20 @@ footer{
 	font-style: italic;
 	text-align: center;
 }
+#login-form label{
+	display: inline-block;
+	width: 150px;
+	margin-bottom: 15px;
+}
+#login-form .submit{
+	margin-left: 160px;	
+}
+
+#register-form label{
+	display: inline-block;
+	width: 150px;
+	margin-bottom: 15px;
+}
+#register-form .submit{
+	margin-left: 160px;	
+}

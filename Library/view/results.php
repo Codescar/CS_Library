@@ -15,7 +15,7 @@ else {
 	else if(isset($_GET['writer_or']) && isset($_GET['title']))
 		$mode = 3;
 	$db->db_connect();
-	$books = $db->search($_GET['search'], $mode, $page*$items, $items);
+	$books = $db->search($_GET['search'], $mode, $page*$CONFIG['items_per_page'], $CONFIG['items_per_page']);
 ?>
 <div class="list">
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br/>
@@ -26,7 +26,7 @@ else {
 		<th>ID</th><th>Τίτλος</th><th>Συγγραφέας/Εκδόσεις</th>
 	</tr>
 	<?php
-		$i = $page * $items + 1;
+		$i = $page * $CONFIG['items_per_page'] + 1;
 		foreach($books as $row){
 			echo "<tr><td>".
 					$row['0']
@@ -34,13 +34,15 @@ else {
 					$row['1']
 					."</td><td>".
 					$row['3'];
+					
+					$i++;
 		}
 		$db->db_close();
 	?>
 	</table>
 	<?php if($page >= 1) { ?>
 	<span id="prev"><a href="index.php?show=results&search=<?php echo $_GET['search']; echo isset($_GET['title']) ? "&title=on" : ""; echo isset($_GET['writer_or']) ? "&writer_or=on" : ""; ?>&page=<?php echo $page - 1; ?>">< Πίσω</a></span>
-	<?php } if($i > $page * $items + $items ) { ?>
+	<?php } if($i > $page * $CONFIG['items_per_page'] + $CONFIG['items_per_page'] ) { ?>
 	<span id="next"><a href="index.php?show=results&search=<?php echo $_GET['search']; echo isset($_GET['title']) ? "&title=on" : ""; echo isset($_GET['writer_or']) ? "&writer_or=on" : "";?>&page=<?php echo $page + 1; ?>">Μπροστά ></a></span>
 	<?php } 
 } ?>
