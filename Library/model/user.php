@@ -34,10 +34,10 @@ class User{
 					WHERE 	`username` = '$user' 
 					AND 	`password` = '$pass'
 					LIMIT 1 ;";
-		$result = $db->db_query($query);
+		$result = $db->query($query);
 		$row = mysql_fetch_array($result);
 		$res = mysql_num_rows($result);
-		$db->db_close();
+		$db->close();
 		if($res)
 		{
 			session_login($user, $row['id'], $row['access_lvl']);
@@ -57,7 +57,7 @@ class User{
 		$query = "INSERT INTO `users` 
 					(`dep_id`, `username`, `password`, `email`, `access_lvl`, created_date`, `last_ip`) VALUES 
 					('$dep_id', '$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
-		$db->db_query($query);
+		$db->query($query);
 		//TODO add a confirmation link to a table
 		$db->close();
 		return;
