@@ -4,9 +4,9 @@
 	define('VIEW_SHOW', true);
 	if(!isset($_GET['id']))
 		die("Λάθος αίτημα");
-	$db->db_connect();
+	$db->connect();
 	$id = mysql_real_escape_string($_GET['id']);
-	$results = $db->db_query("SELECT * FROM `booklist` WHERE `id` = '$id' LIMIT 1;");
+	$results = $db->query("SELECT * FROM `booklist` WHERE `id` = '$id' LIMIT 1;");
 	if(mysql_num_rows($results) == 0)
 		die("Λάθος αίτημα");
 	$results = mysql_fetch_array($results);

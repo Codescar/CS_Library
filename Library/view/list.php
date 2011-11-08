@@ -2,10 +2,8 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	$db->db_connect();
+	$db->connect();
 	$books = $db->get_books($page*$CONFIG['items_per_page'], $CONFIG['items_per_page']);
-	$i = mysql_fetch_array($db->db_query("SELECT COUNT(id) FROM `booklist`"));
-	$i = $i[0];
 ?>
 <div class="list">
 	<table>
@@ -13,15 +11,13 @@
 		<th>ID</th><th>Τίτλος</th><th>Διαθεσιμότητα</th><th>Συγγραφέας/Εκδόσεις</th>
 	</tr>
 	<?php
-		
-		//foreach($books as $row){
-		//BLAME YURI! 
-		while($row = mysql_fetch_array($books)){	
+		foreach($books as $row){
+			if($row == $books['0']) continue;	
 			echo "<tr>";
 			echo "<!-- ID -->
 				  <td>". $row['0'] ."</td>";
 			echo "<!-- Title -->
-				  <td>";
+				  <td class=\"title\">";
 			if($row['4'] != NULL && $row['4'] != ""){
 				echo "<a href=\"index.php?show=book&id=".$row['0']."\">";
 				$flag = 1;
@@ -42,14 +38,13 @@
 			
 			echo "<!-- Writer -->
 				  <td>". $row['3']."&nbsp;</td>";
-			
 		}
-		$db->db_close()
+		$db->close();
 	?>
 	</table>
 	<?php if($page >= 1) { ?>
 	<span id="prev"><a href="index.php?show=list&page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
-	<?php } if($i > $page * $CONFIG['items_per_page'] + $CONFIG['items_per_page'] ) { ?>
+	<?php } if($books['0'] > $page * $CONFIG['items_per_page'] + $CONFIG['items_per_page'] ) { ?>
 	<span id="next"><a href="index.php?show=list&page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
 	<?php } ?>
 </div>

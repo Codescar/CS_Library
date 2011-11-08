@@ -10,14 +10,14 @@ class Lbdb{
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
-		//$this->db_connect();
+		$this->connect();
 	}
 	
 	function __destruct(){
-		$this->db_close();
+		$this->close();
 	}
 	
-	function db_connect(){
+	function connect(){
 		$this->connection = mysql_connect($this->hostname, $this->username, $this->password) 
 			or die("Could not connect: ".mysql_error());
 		mysql_select_db($this->dbname, $this->connection)
@@ -26,7 +26,7 @@ class Lbdb{
 			or die(mysql_error());
 	}
 	
-	function db_close(){
+	function close(){
 		@mysql_close($this->connection);
 	}
 	
@@ -34,14 +34,28 @@ class Lbdb{
 	 * Need some fixing, in order to get
 	 * protected from harmful queries. 
 	 */
-	function db_query($query){
+	function query($query){
 		$results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
 		return $results;
 	}
 	
-	function get_books($limit_offset, $items){
-		$res = $this->db_query("SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT ".$limit_offset.",". ($items+1) .";");
-		return $res;
+	/*
+	 * Returns an array both numeric and associative
+	 * with $items books in it, with $limit_offset.
+	 * Also first element book[0] represents how
+	 * many books are indexed in our db.
+	 * 
+	 * Returns 
+	 */
+	function get_books($limit_offset, $items, $query = "SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT "){
+		$res = $this->query($query.$limit_offset.",". ($items+1) .";");
+		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
+		if($books['1'] == FALSE)	
+			return $books;
+		array_pop($books);
+		$a = mysql_fetch_array($this->query("SELECT COUNT(*) FROM booklist;"));
+		$books['0'] = $a['0'];
+		return $books;
 	}
 	
 	/*
@@ -59,15 +73,12 @@ class Lbdb{
 			$query .= " booklist.writer_or LIKE \"%$s%\" ";
 		else
 			$query .= " booklist.title LIKE \"%$s%\" OR booklist.writer_or LIKE \"%$s%\" ";
-		$query .= "ORDER BY booklist.id ASC LIMIT ".$limit_offset.",". $items ." ;";
+		$query .= "ORDER BY booklist.id ASC LIMIT ";
 		
-		$res = $this->db_query($query);
-		for($i = 0; $books[$i] = mysql_fetch_array($res); $i++);
-		array_pop($books);
+		$books = $this->get_books($limit_offset, $items, $query);
 		return $books;
 	}
 }
 global $db;
 $db = new Lbdb();
-$GLOBALS['db'] = $db;
 ?>

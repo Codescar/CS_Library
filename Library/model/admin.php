@@ -9,7 +9,7 @@ class admin_db extends Lbdb{
 	}
 	
 	function lend_book($bk_id, $usr_id, $dp_id) {
-		parent::db_query(
+		parent::query(
 			"INSERT INTO lend 
 				SET lend.book_id = ".$bk_id.", lend.user_id = ".$usr_id.",
 					lend.department_id = ".$dp_id.", lend.taken = NOW();
@@ -17,12 +17,12 @@ class admin_db extends Lbdb{
 	}
 	
 	function return_book($bk_id){
-		parent::db_query(
+		parent::query(
 			"UPDATE lend
 				SET returned = NOW()
 				WHERE book_id = ".$bk_id.";
 			");
-		parent::db_query(
+		parent::query(
 			"DELETE FROM lend
 				WHERE lend.book_id = ".$bk_id.";
 			");

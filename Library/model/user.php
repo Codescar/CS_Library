@@ -1,6 +1,6 @@
 <?php
-/* User class, in order to use user-account
- * system, we can continue...
+/*
+ * User class, in order to use user-account system, we can continue...
  */
 class User{
 	private $id, $username, $password, $email, $access_level, $department_id, $created;
@@ -21,35 +21,34 @@ class User{
 	
 	function login($user, $pass){
 		global $db;
-		$db->db_connect();
+		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$pass = pass_encrypt($pass);
-		$query = "SELECT * FROM `users` 
-					WHERE 	`username` = '$user' 
-					AND 	`password` = '$pass'
-					LIMIT 1 ;";
-		$result = $db->db_query($query);
+		$query = "	SELECT * FROM `users` 
+					WHERE `username` = '$user' AND `password` = '$pass'
+					LIMIT 1 ; ";
+		$result = $db->query($query);
 		$res = mysql_num_rows($result);
-		$db->db_close();
+		$db->close();
 		return $res;
 	}
 	
 	function createUser($user, $pass, $mail, $dep_id){
 		global $db;
-		$db->db_connect();
+		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$pass = pass_encrypt($pass);
 		$mail = mysql_real_escape_string($mail);
 		$dep_id = mysql_real_escape_string($dep_id);
 		//TODO create the `users` table
-		$query = "INSERT INTO `users` 
-					(`username`, `password`, `email`, `dep_id`, `access_level`, created_date`, `last_ip`) VALUES 
-					('$user', '$pass', '$mail', '$dep_id', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
-		$db->db_query($query);
+		$query = "	INSERT INTO `users` 
+					(`username`, `password`, `email`, `dep_id`, `access_level`, created_date`, `last_ip`)
+					VALUES ('$user', '$pass', '$mail', '$dep_id', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
+		$db->query($query);
 		//TODO add a confirmation link to a table
-		$db->db_close();
+		$db->close();
 		return;
 	}
 	
@@ -61,39 +60,37 @@ class User{
 	
 	function changePassword($user, $pass, $new_pass){
 		global $db;
-		$db->db_connect();
+		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$new_pass = mysql_real_escape_string($new_pass);
 		//TODO have to test the query
-		$query = "UPDATE `users` 
-					set `password` = '$new_pass' 
-					WHERE `userename` = '$user' 
-					AND `password` = '$pass' 
-					LIMIT 1;";
-		$db->db_query($query);
+		$query = "	UPDATE `users` 
+					SET `password` = '$new_pass' 
+					WHERE `userename` = '$user' AND `password` = '$pass' 
+					LIMIT 1; ";
+		$db->query($query);
 		//TODO have to check if it's successful or not
 		//		to return error msg.
-		$db->db_close();
+		$db->close();
 		return;
 	}
 	
 	function changeEmail($user, $mail, $pass){
 		global $db;
-		$db->db_connect();
+		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$mail = mysql_real_escape_string($mail);
 		//TODO have to test the query
-		$query = "UPDATE `users` 
-					set `email` = '$mail' 
-					WHERE `userename` = '$user' 
-					AND `password` = '$pass' 
-					LIMIT 1;";
-		$db->db_query($query);
+		$query = "	UPDATE `users` 
+					SET `email` = '$mail' 
+					WHERE `userename` = '$user' AND `password` = '$pass' 
+					LIMIT 1; ";
+		$db->query($query);
 		//TODO have to check if it's successful or not
 		//		to return error msg.
-		$db->db_close();
+		$db->close();
 		return;
 	}
 	
