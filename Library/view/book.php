@@ -18,4 +18,4 @@
 	<?php echo ($results[4] == null) ? "Περιγραφή: " . $results[4] : "Χωρίς Περιγραφή.";?></p>
 </p>
 
-<?php $db->db_close(); ?>
+<?php $db->close(); ?>

@@ -33,7 +33,7 @@
 			if($row['2'] == 0)
 				echo "Δανεισμένο";
 			else
-				echo "Ελεύθερο";
+				echo "Διαθέσιμο";
 			echo "</td>";
 			
 			echo "<!-- Writer -->
