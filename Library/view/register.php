@@ -2,8 +2,6 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	session_unset(); 
-	session_destroy();
 ?>
 <p><h2>Εγγραφή χρήστη</h2><br/>
 

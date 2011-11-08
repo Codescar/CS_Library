@@ -1,6 +1,6 @@
 <?php
-/*
- * User class, in order to use user-account system, we can continue...
+/* User class, in order to use user-account
+ * system, we can continue...
  */
 class User{
 	private $id, $username, $password, $email, $access_level, $department_id, $created;
@@ -19,18 +19,29 @@ class User{
 		$this->created			= 0;
 	}
 	
+	function pass_encrypt($pass){
+		return $pass;
+		//return md5($pass);
+	}
+	
 	function login($user, $pass){
 		global $db;
 		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
-		$pass = pass_encrypt($pass);
-		$query = "	SELECT * FROM `users` 
-					WHERE `username` = '$user' AND `password` = '$pass'
-					LIMIT 1 ; ";
-		$result = $db->query($query);
+		$pass = $this->pass_encrypt($pass);
+		$query = "SELECT * FROM `users` 
+					WHERE 	`username` = '$user' 
+					AND 	`password` = '$pass'
+					LIMIT 1 ;";
+		$result = $db->db_query($query);
+		$row = mysql_fetch_array($result);
 		$res = mysql_num_rows($result);
-		$db->close();
+		$db->db_close();
+		if($res)
+		{
+			session_login($user, $row['id'], $row['access_lvl']);
+		}
 		return $res;
 	}
 	
@@ -42,11 +53,11 @@ class User{
 		$pass = pass_encrypt($pass);
 		$mail = mysql_real_escape_string($mail);
 		$dep_id = mysql_real_escape_string($dep_id);
-		//TODO create the `users` table
-		$query = "	INSERT INTO `users` 
-					(`username`, `password`, `email`, `dep_id`, `access_level`, created_date`, `last_ip`)
-					VALUES ('$user', '$pass', '$mail', '$dep_id', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
-		$db->query($query);
+		
+		$query = "INSERT INTO `users` 
+					(`dep_id`, `username`, `password`, `email`, `access_lvl`, created_date`, `last_ip`) VALUES 
+					('$dep_id', '$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
+		$db->db_query($query);
 		//TODO add a confirmation link to a table
 		$db->close();
 		return;
@@ -92,10 +103,6 @@ class User{
 		//		to return error msg.
 		$db->close();
 		return;
-	}
-	
-	function pass_encrypt($pass){
-		return md5($pass);
 	}
 }
 

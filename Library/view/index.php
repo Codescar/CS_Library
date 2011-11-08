@@ -4,6 +4,7 @@
 	define('VIEW_INDEX', true);
 	
 	global $db;
+	
 	/* Header File */
 	require_once('header.php');
 

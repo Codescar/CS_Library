@@ -1,8 +1,8 @@
 <?php
 
 	function session_check(){
-		if(!isset($_SESSION['logged_in']))
-			session_empty();
+		/*if(!isset($_SESSION['logged_in']))
+			session_empty();*/
 		if(!isset($_SESSION['last_active'])) {
 	    	$_SESSION['last_active'] = time() + MAX_IDLE_TIME;
 		}else{
@@ -18,12 +18,17 @@
 		
 	}
 	
-	function session_login(){
+	function session_login($user, $user_id, $access_lvl){
 		$_SESION['logged_in']		= 1;
 		
-		$_SESSION['user']			= "user";
+		$_SESSION['user']			= $user;
+		$_SESSION['user_id']		= $user_id;
 		$_SESSION['access_level']	= 0;
-		$_SESSION['is_admin']		= 0;
+		
+		if($access_lvl >= 100)	$a = 1;
+						else	$a = 0;
+						
+		$_SESSION['is_admin']		= $a;
 				
 		$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];
 		$_SESSION['sessionid'] 		= session_id();
@@ -51,7 +56,7 @@
 			if($CONFIG['allow_register'])
 				$msg .= " | <a href=\"?show=register\">Register</a>";
 		}
-		else{
+		elseif($_SESSION['logged_in'] == 1){
 			$msg .= "<a href=\"?show=cp\">". $_SESSION['user'] . "</a> |  ";
 			if($_SESSION['is_admin'])
 				$msg .= "<a href=\"?show=admin\">Admin</a> | ";
