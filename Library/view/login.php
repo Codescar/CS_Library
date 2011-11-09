@@ -7,8 +7,8 @@
 		;//header('Location: index.php');
 		
 	if(isset($_GET['do']) && $_GET['do'] == "login"){
-		$_SESSION['usr'] = new User;
-		if(!isset($_POST['username']) || !isset($_POST['password']) || !$_SESSION['usr']->login($_POST['username'], $_POST['password'], $_SESSION))
+		
+		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION))
 			$error = "Invalid informations, try again... ";
 		else
 		{

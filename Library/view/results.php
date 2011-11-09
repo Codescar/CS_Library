@@ -29,6 +29,8 @@ else {
 		$x = 0;
 		foreach($books as $row){
 			$x++;
+			//TODO: Notice: Undefined index: 0 in C:\xampp\htdocs\Library\view\results.php on line 32
+			//		Otan den iparxei auto pou psaxnei!
 			if($row == $books['0']) continue;	
 			echo "<tr>";
 			echo "<!-- ID -->

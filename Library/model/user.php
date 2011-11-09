@@ -38,10 +38,10 @@ class User{
 		$row = mysql_fetch_array($result);
 		$res = mysql_num_rows($result);
 		$db->close();
-		if($res)
+		/*if($res)
 		{
 			session_login($user, $row['id'], $row['access_lvl']);
-		}
+		}*/
 		return $res;
 	}
 	
