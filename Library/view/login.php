@@ -4,7 +4,7 @@
 	define('VIEW_SHOW', true);
 
 	if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
-		;//header('Location: index.php');
+		header('Location: index.php');
 		
 	if(isset($_GET['do']) && $_GET['do'] == "login"){
 		

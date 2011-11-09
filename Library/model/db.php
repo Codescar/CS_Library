@@ -6,15 +6,11 @@ class Lbdb{
 	function __construct()
 	{
 		global $db_hostname, $db_username, $db_password, $db_name;
+		$this->connection = 0;
 		$this->hostname = $db_hostname;
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
-		$this->connect();
-	}
-	
-	function __destruct(){
-		$this->close();
 	}
 	
 	function connect(){
@@ -27,7 +23,7 @@ class Lbdb{
 	}
 	
 	function close(){
-		@mysql_close($this->connection);
+		mysql_close($this->connection);
 	}
 	
 	/*
@@ -45,13 +41,13 @@ class Lbdb{
 	 * Also first element book[0] represents how
 	 * many books are indexed in our db.
 	 * 
-	 * Returns 
+	 * Returns FALSE if there are no results
 	 */
 	function get_books($limit_offset, $items, $query = "SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT "){
-		$res = $this->query($query.$limit_offset.",". ($items+1) .";");
+		$res = $this->query($query.$limit_offset.",". $items .";");
 		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
 		if($books['1'] == FALSE)	
-			return $books;
+			return FALSE;
 		array_pop($books);
 		$a = mysql_fetch_array($this->query("SELECT COUNT(*) FROM booklist;"));
 		$books['0'] = $a['0'];

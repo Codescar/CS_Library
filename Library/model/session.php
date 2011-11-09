@@ -19,7 +19,7 @@
 	}
 	
 	function session_login($user, $user_id, $access_lvl){
-		$_SESION['logged_in']		= 1;
+		$_SESSION['logged_in']		= 1;
 		
 		$_SESSION['user']			= $user;
 		$_SESSION['user_id']		= $user_id;
@@ -36,7 +36,7 @@
 	}
 	
 	function session_empty(){
-		$_SESION['logged_in']		= 0;
+		$_SESSION['logged_in']		= 0;
 		
 		$_SESSION['user']			= "user";
 		$_SESSION['access_level']	= -1;

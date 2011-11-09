@@ -38,10 +38,9 @@ class User{
 		$row = mysql_fetch_array($result);
 		$res = mysql_num_rows($result);
 		$db->close();
-		/*if($res)
-		{
+	    if($res){
 			session_login($user, $row['id'], $row['access_lvl']);
-		}*/
+		}
 		return $res;
 	}
 	
@@ -75,16 +74,13 @@ class User{
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$new_pass = mysql_real_escape_string($new_pass);
-		//TODO have to test the query
 		$query = "	UPDATE `users` 
 					SET `password` = '$new_pass' 
 					WHERE `userename` = '$user' AND `password` = '$pass' 
 					LIMIT 1; ";
-		$db->query($query);
-		//TODO have to check if it's successful or not
-		//		to return error msg.
+		$ret = $db->query($query);
 		$db->close();
-		return;
+		return $ret;
 	}
 	
 	function changeEmail($user, $mail, $pass){

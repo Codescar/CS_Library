@@ -18,8 +18,8 @@ else {
 	$books = $db->search($_GET['search'], $mode, $page*$CONFIG['items_per_page'], $CONFIG['items_per_page']);
 ?>
 <div class="list">
-	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br/>
-	
+	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br />
+	<?php if($books){ ?>
 	&nbsp;
 	<table>
 	<tr>
@@ -29,8 +29,6 @@ else {
 		$x = 0;
 		foreach($books as $row){
 			$x++;
-			//TODO: Notice: Undefined index: 0 in C:\xampp\htdocs\Library\view\results.php on line 32
-			//		Otan den iparxei auto pou psaxnei!
 			if($row == $books['0']) continue;	
 			echo "<tr>";
 			echo "<!-- ID -->
@@ -66,5 +64,9 @@ else {
 	<?php } if($x >= $CONFIG['items_per_page']) if($books['0'] > $page * $CONFIG['items_per_page'] + $CONFIG['items_per_page'] ) { ?>
 	<span id="next"><a href="index.php?show=results&search=<?php echo $_GET['search']; echo isset($_GET['title']) ? "&title=on" : ""; echo isset($_GET['writer_or']) ? "&writer_or=on" : "";?>&page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
 	<?php } 
+	}
+	else{ ?>
+	    <p>Δεν βρέθηκαν αποτελέσματα</p>
+	<?php }
 } ?>
 </div>
