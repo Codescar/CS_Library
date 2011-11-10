@@ -16,29 +16,24 @@
 			if($row == $books['0']) continue;	
 			echo "<tr>";
 			echo "<!-- ID -->
-				  <td>". $row['0'] ."</td>";
+				  <td>". $row['id'] ."</td>";
 			echo "<!-- Title -->
 				  <td class=\"title\">";
-			if($row['4'] != NULL && $row['4'] != ""){
-				echo "<a href=\"index.php?show=book&id=".$row['0']."\">";
-				$flag = 1;
-			}
-			echo  $row['1'];
-			if(isset($flag) && $flag == 1)
-				echo "</a></td>";
-			else
-				echo "</td>";
-			
+			echo "<a href=\"index.php?show=book&id=".$row['id']."\">";
+			echo  $row['title'];
+			echo "</a></td>";
 			echo "<!-- Availability -->
 				  <td>";
-			if($row['2'] == 0)
+			if($row['availability'] == 0)
 				echo "Δανεισμένο";
 			else
 				echo "Διαθέσιμο";
+			if(is_logged_in())
+				echo " <a href=\"index.php?show=book&id=".$row['id']."\">Ζήτησέ το</a>";
 			echo "</td>";
 			
 			echo "<!-- Writer -->
-				  <td>". $row['3']."&nbsp;</td>";
+				  <td>". $row['writer_or']."&nbsp;</td>";
 		}
 		$db->close();
 	?>

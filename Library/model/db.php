@@ -38,6 +38,7 @@ class Lbdb{
 	 * protected from harmful queries. 
 	 */
 	function query($query){
+		 global $CONFIG;
 	    if($CONFIG['debug'])
 		    $results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
 	    else

@@ -18,6 +18,12 @@
 		
 	}
 	
+	function is_logged_in(){
+		return isset($_SESSION['logged_in']) 
+		&& ($_SESSION['logged_in'] == 1) 
+		&& ($_SESSION['access_level'] >= 0);
+	}
+	
 	function session_login($user, $user_id, $access_lvl){
 		$_SESSION['logged_in']		= 1;
 		

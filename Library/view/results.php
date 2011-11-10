@@ -33,14 +33,14 @@ else {
 			if($row == $books['0']) continue;	
 			echo "<tr>";
 			echo "<!-- ID -->
-				  <td>". $row['0'] ."</td>";
+				  <td>". $row['id'] ."</td>";
 			echo "<!-- Title -->
 				  <td class=\"title\">";
-			if($row['4'] != NULL && $row['4'] != ""){
-				echo "<a href=\"index.php?show=book&id=".$row['0']."\">";
+			if($row['description'] != NULL && $row['description'] != ""){
+				echo "<a href=\"index.php?show=book&id=".$row['id']."\">";
 				$flag = 1;
 			}
-			echo  $row['1'];
+			echo  $row['title'];
 			if(isset($flag) && $flag == 1)
 				echo "</a></td>";
 			else
@@ -48,14 +48,14 @@ else {
 			
 			echo "<!-- Availability -->
 				  <td>";
-			if($row['2'] == 0)
+			if($row['availability'] == 0)
 				echo "Δανεισμένο";
 			else
 				echo "Διαθέσιμο";
 			echo "</td>";
 			
 			echo "<!-- Writer -->
-				  <td>". $row['3']."&nbsp;</td>";
+				  <td>". $row['writer_or']."&nbsp;</td>";
 		}
 		$db->close();
 	?>
