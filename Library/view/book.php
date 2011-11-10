@@ -33,10 +33,10 @@
 	</form>
 	<?php 
 	}
-	elseif($have_book_rq){ ?>
+	elseif(is_logged_in() && $have_book_rq){ ?>
 		<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
 	<?php }
-	elseif(have_book($id)){ ?>
+	elseif(is_logged_in() && have_book($id)){ ?>
 		<p>Έχεις ήδη δανειστέι αυτό το βιβλίο.</p>
 	<?php }
 	?>
