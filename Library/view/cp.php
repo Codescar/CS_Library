@@ -13,34 +13,14 @@
 	</div><br />
 	<?php 
 	if(!isset($_GET['more'])){
-		
+		$user->show_info();
 	}
 	elseif($_GET['more'] == "change"){
 		
 	}
 	elseif($_GET['more'] == "history"){
-		show_history();
+		$user->show_history();
 	}
 	
 	?>
 </div>
-<?php 
-	function show_history(){
-		global $db;
-		$db->connect();
-		$query = "	SELECT * FROM 
-					`requests` CROSS JOIN `booklist` 
-					ON requests.book_id = booklist.id
-					WHERE requests.user_id = ".$_SESSION['user_id'];
-		$result = $db->query($query);
-		echo "<table><tr><th>Book</th><th>Action</th><th>Date</th></tr>";
-		while($row = mysql_fetch_array($result)){
-			echo "<tr><td>".$row['title']
-			."</td><td>Request</td><td>".$row['date']."</td><tr>";
-		}
-		echo "</table>";
-		$db->close();
-	}
-
-
-?>

@@ -5,7 +5,10 @@
 	
 	require_once('include/includes.php');
 	
-	session_check();
+	global $db, $user;
+	$user = new User;
+	
+	$user->session_check();
 	
 	if($CONFIG['allow_compression'])
 		ob_start();

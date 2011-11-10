@@ -9,7 +9,7 @@ class book{
 
 function list_books($books)
 {
-	global $db, $CONFIG, $page;
+	global $db, $CONFIG, $page, $user;
 	?>
 	<div class="list">
 	<table>
@@ -33,7 +33,7 @@ function list_books($books)
 				echo "Δανεισμένο";
 			else
 				echo "Διαθέσιμο";
-			if(is_logged_in())
+			if($user->is_logged_in())
 				echo " <a href=\"index.php?show=book&id=".$row['id']."\">Ζήτησέ το</a>";
 			echo "</td>";
 			

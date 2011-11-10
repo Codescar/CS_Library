@@ -3,9 +3,6 @@
 		die("Invalid request!");
 	define('VIEW_INDEX', true);
 	
-	global $db, $user;
-	$user = new User;
-	
 	/* Header File */
 	require_once('header.php');
 
