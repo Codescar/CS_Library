@@ -22,49 +22,8 @@ else {
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br />
 	<?php if($books){ ?>
 	&nbsp;
-	<table>
-	<tr>
-		<th>ID</th><th>Τίτλος</th><th>Διαθεσιμότητα</th><th>Συγγραφέας/Εκδόσεις</th>
-	</tr>
-	<?php
-		$x = 0;
-		foreach($books as $row){
-			$x++;
-			if($row == $books['0']) continue;	
-			echo "<tr>";
-			echo "<!-- ID -->
-				  <td>". $row['id'] ."</td>";
-			echo "<!-- Title -->
-				  <td class=\"title\">";
-			if($row['description'] != NULL && $row['description'] != ""){
-				echo "<a href=\"index.php?show=book&id=".$row['id']."\">";
-				$flag = 1;
-			}
-			echo  $row['title'];
-			if(isset($flag) && $flag == 1)
-				echo "</a></td>";
-			else
-				echo "</td>";
-			
-			echo "<!-- Availability -->
-				  <td>";
-			if($row['availability'] == 0)
-				echo "Δανεισμένο";
-			else
-				echo "Διαθέσιμο";
-			echo "</td>";
-			
-			echo "<!-- Writer -->
-				  <td>". $row['writer_or']."&nbsp;</td>";
-		}
-		$db->close();
-	?>
-	</table>
-	<?php if($page >= 1) { ?>
-	<span id="prev"><a href="index.php?show=results&search=<?php echo $_GET['search']; echo isset($_GET['title']) ? "&title=on" : ""; echo isset($_GET['writer_or']) ? "&writer_or=on" : ""; ?>&page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
-	<?php } if($x >= $CONFIG['items_per_page']) if($books['0'] > $page * $CONFIG['items_per_page'] + $CONFIG['items_per_page'] ) { ?>
-	<span id="next"><a href="index.php?show=results&search=<?php echo $_GET['search']; echo isset($_GET['title']) ? "&title=on" : ""; echo isset($_GET['writer_or']) ? "&writer_or=on" : "";?>&page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
-	<?php } 
+		<?php 
+		list_books($books);
 	}
 	else{ ?>
 	    <p>Δεν βρέθηκαν αποτελέσματα</p>

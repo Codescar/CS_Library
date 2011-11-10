@@ -14,7 +14,7 @@
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 	}
-	
+	global $page;
 	$page = isset($_GET['page']) ? $_GET['page'] : 0; 
 	
 	require_once('view/index.php');
