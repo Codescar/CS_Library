@@ -21,11 +21,9 @@ class User{
 					WHERE 	`username` = '$name' AND `password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
-		//are the next two lines usefull?
 		$row = mysql_fetch_array($result);
-		$res = mysql_num_rows($result);
 		$db->close();
-	    if($res)
+	    if($row)
 	    {
 	    	$this->id 					= $row['id'];
 	    	$this->access_level 		= $row['access_lvl'];
@@ -47,8 +45,6 @@ class User{
 			$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];
 			$_SESSION['sessionid'] 		= session_id();
 	    }
-			//session_login($name, $row['id'], $row['access_lvl']);
-	        //session_login($user); where $user is an user class instance
 		return $res;
 	}
 	
