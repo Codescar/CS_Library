@@ -15,6 +15,8 @@
 	/* include the right page to show */
 	if(!isset($_GET['show'])) 
 		include('show.php');
+	elseif($_GET['show'] == "about")
+		include('about.php');
 	elseif($_GET['show'] == "list")
 		include('list.php');
 	elseif($_GET['show'] == "search")

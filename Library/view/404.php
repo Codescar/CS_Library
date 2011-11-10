@@ -3,4 +3,6 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 ?>
-<p >Λάθος αίτημα...</p>
+<div class="content">
+	<p >Λάθος αίτημα...</p>
+</div>

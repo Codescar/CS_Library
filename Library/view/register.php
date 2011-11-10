@@ -3,7 +3,8 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 ?>
-<div><h2>Εγγραφή χρήστη</h2><br/>
+<div class="content">
+	<h2>Εγγραφή χρήστη</h2><br/>
 
 	<form action="" method="post" id="register-form">
 	<label for="username">Όνομα Χρήστη: </label>

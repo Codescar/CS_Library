@@ -17,6 +17,7 @@ else {
 	$db->connect();
 	$books = $db->search($_GET['search'], $mode, $page*$CONFIG['items_per_page'], $CONFIG['items_per_page']);
 ?>
+<div class="content">
 <div class="list">
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br />
 	<?php if($books){ ?>
@@ -69,4 +70,5 @@ else {
 	    <p>Δεν βρέθηκαν αποτελέσματα</p>
 	<?php }
 } ?>
+</div>
 </div>

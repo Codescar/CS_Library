@@ -23,7 +23,8 @@
 	}
 if(isset($error) || !isset($_GET['do'])){
 ?>
-<div><h2>Σύνδεση χρήστη</h2><br/>
+<div class="content">
+	<h2>Σύνδεση χρήστη</h2><br/>
 	<?php if(isset($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 	<form action="?show=login&do=login" method="post" id="login-form">
 	<label for="username">Όνομα Χρήστη: </label>

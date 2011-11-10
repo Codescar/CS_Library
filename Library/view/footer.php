@@ -4,7 +4,9 @@
 	define('VIEW_FOOTER', true);
 ?>
 <hr/>
-<footer>Library CopyRight.</footer>
-<!-- <footer>Library something but not coyright.</footer> -->
+<footer>
+	<a href="http://codescar.eu">CodeScar</a> Library<br />
+	<a href="?show=about">About</a>
+</footer>
 </body>
 </html>
