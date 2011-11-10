@@ -3,8 +3,7 @@ class Lbdb{
 	private $connection, $hostname, $username, $password, $dbname;
 	//TODO try to handle the table names and the collumn names in variables/arrays 
 	public $booklist;
-	function __construct()
-	{
+	function __construct(){
 		global $db_hostname, $db_username, $db_password, $db_name;
 		$this->connection = 0;
 		$this->hostname = $db_hostname;
@@ -14,12 +13,20 @@ class Lbdb{
 	}
 	
 	function connect(){
-		$this->connection = mysql_connect($this->hostname, $this->username, $this->password) 
-			or die("Could not connect: ".mysql_error());
-		mysql_select_db($this->dbname, $this->connection)
-			or die("Error selecting database: ".mysql_error());
-		mysql_query("SET NAMES 'utf8'", $this->connection)
-			or die(mysql_error());
+	    global $CONFIG;
+	    if($CONFIG['debug']){
+	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
+	        mysql_select_db($this->dbname, $this->connection);
+	        mysql_query("SET NAMES 'utf8'", $this->connection);
+	    }
+	    else{
+	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
+	            or die("Could not connect: ".mysql_error());
+	        mysql_select_db($this->dbname, $this->connection)
+	            or die("Error selecting database: ".mysql_error());
+	        mysql_query("SET NAMES 'utf8'", $this->connection)
+	            or die(mysql_error());
+	    }
 	}
 	
 	function close(){
@@ -31,7 +38,10 @@ class Lbdb{
 	 * protected from harmful queries. 
 	 */
 	function query($query){
-		$results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
+	    if($CONFIG['debug'])
+		    $results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
+	    else
+	        $results = mysql_query($query, $this->connection);
 		return $results;
 	}
 	
@@ -73,6 +83,31 @@ class Lbdb{
 		
 		$books = $this->get_books($limit_offset, $items, $query);
 		return $books;
+	}
+	
+	function lend_book($bk_id, $usr_id, $dp_id){
+	    //TODO check if is allowed to do that?
+        $lend =	"	INSERT INTO lend 
+					SET lend.book_id = ".$bk_id.", lend.user_id = ".$usr_id.",
+						lend.department_id = ".$dp_id.", lend.taken = NOW()
+					LIMIT 1;
+				";
+	    $this->query($lend);
+	}
+	
+	function return_book($bk_id){
+	    //TODO check if is allowed to do that?
+		$return ="	UPDATE lend
+					SET returned = NOW()
+					WHERE book_id = ".$bk_id."
+					LIMIT 1;
+				";
+		$this->query($return);
+	    $log_it ="	DELETE FROM lend
+					WHERE lend.book_id = ".$bk_id."
+					LIMIT 1;
+				";
+	    $this->query($log_it);
 	}
 }
 global $db;

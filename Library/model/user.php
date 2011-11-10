@@ -24,23 +24,24 @@ class User{
 		//return md5($pass);
 	}
 	
-	function login($user, $pass){
+	function login($name, $pass){
 		global $db;
+        //TODO shouldn't we create a user class instance which would be global or better place this instance in $_SESSION?
 		$db->connect();
-		$user = mysql_real_escape_string($user);
+		$name = mysql_real_escape_string($name);
 		$pass = mysql_real_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
-		$query = "SELECT * FROM `users` 
-					WHERE 	`username` = '$user' 
-					AND 	`password` = '$pass'
+		$query = "	SELECT * FROM `users`
+					WHERE 	`username` = '$name' AND `password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
+		//are the next two lines usefull?
 		$row = mysql_fetch_array($result);
 		$res = mysql_num_rows($result);
 		$db->close();
-	    if($res){
-			session_login($user, $row['id'], $row['access_lvl']);
-		}
+	    if($res)
+			session_login($name, $row['id'], $row['access_lvl']);
+	        //session_login($user); where $user is an user class instance
 		return $res;
 	}
 	
@@ -89,17 +90,15 @@ class User{
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$mail = mysql_real_escape_string($mail);
-		//TODO have to test the query
 		$query = "	UPDATE `users` 
 					SET `email` = '$mail' 
 					WHERE `userename` = '$user' AND `password` = '$pass' 
 					LIMIT 1; ";
-		$db->query($query);
-		//TODO have to check if it's successful or not
-		//		to return error msg.
+		$ret = $db->query($query);
 		$db->close();
-		return;
+		return $ret;
 	}
+
 }
 
 ?>

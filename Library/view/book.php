@@ -11,11 +11,11 @@
 		die("Λάθος αίτημα");
 	$results = mysql_fetch_array($results);
 ?>
-<p >
+<div>
 	<h2><?php echo $results[1]; ?></h2>
 	<h3><?php echo $results[3]; ?></h3>
 	<p>Διαθεσιμότητα: <?php echo ($results[2] == 1) ? "<span class=\available\">Διαθέσιμο</span>" : "<span class=\"no-available\">Μη Διαθέσιμο</span>"; ?><br/>
 	<?php echo ($results[4] == null) ? "Περιγραφή: " . $results[4] : "Χωρίς Περιγραφή.";?></p>
-</p>
+</div>
 
 <?php $db->close(); ?>

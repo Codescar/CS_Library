@@ -3,7 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 ?>
-<p><h2>Εγγραφή χρήστη</h2><br/>
+<div><h2>Εγγραφή χρήστη</h2><br/>
 
 	<form action="" method="post" id="register-form">
 	<label for="username">Όνομα Χρήστη: </label>
@@ -19,4 +19,4 @@
 	
 	<input type="submit" value="Υποβολή" class="submit"/>	
 	</form>
-</p>
+</div>
