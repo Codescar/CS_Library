@@ -15,11 +15,6 @@ class Lbdb{
 	function connect(){
 	    global $CONFIG;
 	    if($CONFIG['debug']){
-	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
-	        mysql_select_db($this->dbname, $this->connection);
-	        mysql_query("SET NAMES 'utf8'", $this->connection);
-	    }
-	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
 	            or die("Could not connect: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
@@ -27,6 +22,12 @@ class Lbdb{
 	        mysql_query("SET NAMES 'utf8'", $this->connection)
 	            or die(mysql_error());
 	    }
+	    else{
+	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
+	        mysql_select_db($this->dbname, $this->connection);
+	        mysql_query("SET NAMES 'utf8'", $this->connection);
+	    }
+	    return;
 	}
 	
 	function close(){
@@ -38,7 +39,7 @@ class Lbdb{
 	 * protected from harmful queries. 
 	 */
 	function query($query){
-		 global $CONFIG;
+		global $CONFIG;
 	    if($CONFIG['debug'])
 		    $results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
 	    else
@@ -87,17 +88,16 @@ class Lbdb{
 	}
 	
 	function lend_book($bk_id, $usr_id, $dp_id){
-	    //TODO check if is allowed to do that?
         $lend =	"	INSERT INTO lend 
 					SET lend.book_id = ".$bk_id.", lend.user_id = ".$usr_id.",
 						lend.department_id = ".$dp_id.", lend.taken = NOW()
 					LIMIT 1;
 				";
 	    $this->query($lend);
+	    return;
 	}
 	
 	function return_book($bk_id){
-	    //TODO check if is allowed to do that?
 		$return ="	UPDATE lend
 					SET returned = NOW()
 					WHERE book_id = ".$bk_id."
@@ -109,6 +109,7 @@ class Lbdb{
 					LIMIT 1;
 				";
 	    $this->query($log_it);
+	    return;
 	}
 }
 global $db;

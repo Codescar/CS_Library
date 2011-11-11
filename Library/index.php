@@ -6,7 +6,10 @@
 	require_once('include/includes.php');
 	
 	global $db, $user;
-	$user = new User;
+	if(isset($_SESSION['user']) && $_SESSION['user'] != "user")
+	    $user = unserialize($_SESSION['user']);
+	else
+	    $user = new User;
 	
 	$user->session_check();
 	

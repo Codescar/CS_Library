@@ -12,7 +12,7 @@
 		</ul>
 	</div><br />
 	<?php 
-	if(!isset($_GET['more'])){
+	if(!isset($_GET['more']) || $_GET['more'] == "info"){
 		$user->show_info();
 	}
 	elseif($_GET['more'] == "change"){

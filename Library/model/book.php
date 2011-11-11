@@ -51,24 +51,24 @@ function list_books($books)
 	<?php
 }
 
-function have_book_rq($book_id)
+function have_book_rq($book_id, $user_id)
 {
 	global $db;
 	$db->connect();
 	$query = "	SELECT * FROM `requests` 
-				WHERE `user_id` = '".$_SESSION['user_id']."'
+				WHERE `user_id` = '".$user_id."'
 				AND `book_id` = '$book_id'";
 	$result = mysql_num_rows($db->query($query));
 	$db->close();
 	return $result;
 }
 
-function have_book($book_id)
+function have_book($book_id, $user_id)
 {
 	global $db;
 	$db->connect();
 	$query = "	SELECT * FROM `lend` 
-				WHERE `user_id` = '".$_SESSION['user_id']."' 
+				WHERE `user_id` = '".$user_id."' 
 				AND `book_id` = '$book_id'";
 	$result = mysql_num_rows($db->query($query));
 	$db->close();

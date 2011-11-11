@@ -11,23 +11,21 @@
 		die("Λάθος αίτημα");
 	$results = mysql_fetch_array($results);
 	if(isset($_GET['lend']) && isset($_POST['hidden']) 
-			&& $user->is_logged_in() && !have_book_rq($id) && !have_book($id))
+			&& $user->is_logged_in() && !have_book_rq($id, $user->id) && !have_book($id, $user->id))
 	{
 		$query = "	INSERT INTO `requests` (`book_id`, `user_id`, `date`)
-			 		VALUES ('$id', '".$_SESSION['user_id']."', NOW());";
+			 		VALUES ('$id', '".$user->id."', NOW());";
 		echo $query;
 		$db->query($query);
-		?>
-		<p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p>
-		<?php 
+		?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
 	}
 	$db->close();
 ?>
 <div class="content">
 	<h2><?php echo $results['title']; ?></h2>
 	<h3><?php echo $results['writer_or']; ?></h3>
-	<p>Διαθεσιμότητα: <?php echo ($results['availability'] == 1) ? "<span class=\available\">Διαθέσιμο</span>" : "<span class=\"no-available\">Μη Διαθέσιμο</span>"; ?>
-	<?php if($user->is_logged_in() && !($have_book_rq = have_book_rq($id))){ ?>
+	<div>Διαθεσιμότητα: <?php echo ($results['availability'] == 1) ? "<span class=\available\">Διαθέσιμο</span>" : "<span class=\"no-available\">Μη Διαθέσιμο</span>"; ?>
+	<?php if($user->is_logged_in() && !($have_book_rq = have_book_rq($id, $user->id))){ ?>
 	<form action="?show=book&id=<?php echo $_GET['id']; ?>&lend" id="lend" method="post">
 		<input type="hidden" value="1" name="hidden" />
 		<input type="submit" value="Ζήτησέ το" /> 
@@ -37,11 +35,11 @@
 	elseif($user->is_logged_in() && $have_book_rq){ ?>
 		<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
 	<?php }
-	elseif($user->is_logged_in() && have_book($id)){ ?>
+	elseif($user->is_logged_in() && have_book($id, $user->id)){ ?>
 		<p>Έχεις ήδη δανειστέι αυτό το βιβλίο.</p>
 	<?php }
 	?>
-	<?php echo ($results['description'] == null) ? "Περιγραφή: " . $results['description'] : "Χωρίς Περιγραφή.";?></p>
+	<?php echo ($results['description'] == null) ? "Περιγραφή: " . $results['description'] : "Χωρίς Περιγραφή.";?></div>
 	<script type="text/javascript">
 		$('#lend').submit(function (){
 			return confirm("Είσαι σίγουρος ότι θέλεις το βιβλίο \"<?php echo $results['title']; ?>\";", "Επιβεβαίωση");

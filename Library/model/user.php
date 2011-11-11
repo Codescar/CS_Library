@@ -9,7 +9,7 @@ class User{
 		return $pass;
 		//return md5($pass);
 	}
-	
+
 	function login($name, $pass){
 		global $db;
         //TODO shouldn't we create a user class instance which would be global or better place this instance in $_SESSION?
@@ -21,31 +21,21 @@ class User{
 					WHERE 	`username` = '$name' AND `password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
-		$row = mysql_fetch_array($result);
+		$user = mysql_fetch_array($result);
 		$db->close();
-	    if($row)
-	    {
-	    	$this->id 					= $row['id'];
-	    	$this->access_level 		= $row['access_lvl'];
-	    	$this->username				= $name;
-	    	$this->email				= $row['email'];
-	    	$this->department_id		= $row['dep_id'];
-	    	
+	    if($user){
+	    	$this->id 					= $user['id'];
+	    	$this->access_level 		= $user['access_lvl'];
+	    	$this->username				= $user['username'];
+	    	$this->email				= $user['email'];
+	    	$this->department_id		= $user['dep_id'];
+            
+	    	$_SESSION['user']           = serialize($this);
 	    	$_SESSION['logged_in']		= 1;
-		
-			$_SESSION['user']			= $name;
-			$_SESSION['user_id']		= $row['id'];
-			$_SESSION['access_level']	= 0;
-			
-			if($row['access_lvl'] >= 100)	$a = 1;
-									else	$a = 0;
-							
-			$_SESSION['is_admin']		= $a;
-					
 			$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];
 			$_SESSION['sessionid'] 		= session_id();
 	    }
-		return $res;
+		return $user;
 	}
 	
 	function createUser($user, $pass, $mail, $dep_id){
@@ -72,30 +62,28 @@ class User{
 		return;
 	}
 	
-	function changePassword($user, $pass, $new_pass){
+	function changePassword($pass, $new_pass){
 		global $db;
 		$db->connect();
-		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$new_pass = mysql_real_escape_string($new_pass);
 		$query = "	UPDATE `users` 
 					SET `password` = '$new_pass' 
-					WHERE `userename` = '$user' AND `password` = '$pass' 
+					WHERE `id` = '".$this->id."' AND `password` = '$pass' 
 					LIMIT 1; ";
 		$ret = $db->query($query);
 		$db->close();
 		return $ret;
 	}
 	
-	function changeEmail($user, $mail, $pass){
+	function changeEmail($mail, $pass){
 		global $db;
 		$db->connect();
-		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$mail = mysql_real_escape_string($mail);
 		$query = "	UPDATE `users` 
 					SET `email` = '$mail' 
-					WHERE `userename` = '$user' AND `password` = '$pass' 
+					WHERE `id` = '".$this->id."' AND `password` = '".$pass."' 
 					LIMIT 1; ";
 		$ret = $db->query($query);
 		$db->close();
@@ -109,7 +97,6 @@ class User{
 					`requests` CROSS JOIN `booklist` 
 					ON requests.book_id = booklist.id
 					WHERE requests.user_id = '". $this->id ."'";
-		echo $query;
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th><th>Action</th><th>Date</th></tr>";
 		while($row = mysql_fetch_array($result)){
@@ -122,20 +109,23 @@ class User{
 	}
 
 	function show_info(){
-		global $db;
-		$db->connect();
-		$query = "SELECT * FROM `users` WHERE `id` = ''";
-		$result = $db->query($query);
-		$row = mysql_fetch_array($result);
-		
-		$db->close();
+// 		global $db;
+// 		$db->connect();
+// 		$query = "SELECT * FROM `users` WHERE `id` = '".$this->id."'";
+// 		$result = $db->query($query);
+// 		$row = mysql_fetch_array($result);
+// 		$db->close();
+		//TODO list user information but why not from data members of $this?
+		echo "Name: ".    $this->username;
+		echo "<br />";
+		echo "Email: ".   $this->email;
 		return;
 	}
 
 	function is_logged_in(){
 		return isset($_SESSION['logged_in']) 
 		&& ($_SESSION['logged_in'] == 1) 
-		&& ($_SESSION['access_level'] >= 0);
+		&& ($this->access_level >= 0);
 	}
 	
 	function show_login_status(){
@@ -148,8 +138,8 @@ class User{
 				$msg .= " | <a href=\"?show=register\">Register</a>";
 		}
 		elseif($_SESSION['logged_in'] == 1){
-			$msg .= "<a href=\"?show=cp\">". $_SESSION['user'] . "</a> |  ";
-			if($_SESSION['is_admin'])
+			$msg .= "<a href=\"?show=cp\">". $this->username . "</a> |  ";
+			if($this->is_admin())
 				$msg .= "<a href=\"?show=admin\">Admin</a> | ";
 			$msg .= "<a href=\"?show=msg\">Messages</a> | <a href=\"?show=logout\">Logout</a>";
 		}
@@ -157,12 +147,12 @@ class User{
 	}
 	
 	function session_check(){
-		/*if(!isset($_SESSION['logged_in']))
-			session_empty();*/
-		if(!isset($_SESSION['last_active'])) {
+		if(!isset($_SESSION['logged_in']))
+			session_empty();
+		if(!isset($_SESSION['last_active'])){
 	    	$_SESSION['last_active'] = time() + MAX_IDLE_TIME;
 		}else{
-	    	if($_SESSION['last_active'] < time()) {   
+	    	if($_SESSION['last_active'] < time()){   
 		    	session_unset(); 
 		        session_destroy();
 		    }else{
@@ -171,6 +161,10 @@ class User{
 		}
 		$_SESSION['cur_page'] 	= $_SERVER['SCRIPT_NAME'];
 		$_SESSION['sessionid'] 	= session_id();
+	}
+
+	function is_admin(){
+	    return ($this->access_level >= 100) ? true : false;
 	}
 }
 
