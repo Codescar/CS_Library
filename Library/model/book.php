@@ -28,7 +28,7 @@ function list_books($books)
 			echo  $row['title'];
 			echo "</a></td>";
 			echo "<!-- Availability -->
-				  <td>";
+				  <td class=\"avail\">";
 			if($row['availability'] == 0)
 				echo "Δανεισμένο";
 			else
@@ -38,7 +38,7 @@ function list_books($books)
 			echo "</td>";
 			
 			echo "<!-- Writer -->
-				  <td>". $row['writer_or']."&nbsp;</td>";
+				  <td class=\"writer\">". $row['writer_or']."&nbsp;</td>";
 		}
 	?>
 	</table>
