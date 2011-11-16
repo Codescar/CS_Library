@@ -2,6 +2,11 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
+	if(!is_logged_in() || !is_admin()){
+	?>
+		<p>Δεν είστε διαχειριστής.</p>	
+	<?php 
+	}else{
 ?>
 <div class="content">
 	<div class="menu">
@@ -16,3 +21,4 @@
 	
 	<p>Υπό κατασκευή...</p>
 </div>
+<?php } ?>
