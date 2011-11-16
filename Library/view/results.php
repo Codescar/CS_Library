@@ -30,5 +30,3 @@ else {
 } ?>
 </div>
 </div>
-<?php $db->close();
-?>

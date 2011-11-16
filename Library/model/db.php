@@ -32,6 +32,7 @@ class Lbdb{
 	}
 	
 	function close(){
+		global $CONFIG;
 	    if($CONFIG['debug'])
 	        echo "<br />"."Closing ".$this->connection."<br />";
 		mysql_close($this->connection);
