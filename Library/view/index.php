@@ -21,8 +21,7 @@
 	elseif($_GET['show'] == "results")
 		include('results.php');
 	elseif($_GET['show'] == "book" && isset($_GET['id']))
-		///TODO book view
-		include('book.php');
+		include('book.php');///TODO book view
 	elseif($_GET['show'] == "login" && $CONFIG['allow_login'])
 		include('login.php');
 	elseif($_GET['show'] == "register" && $CONFIG['allow_register'])

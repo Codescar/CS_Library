@@ -21,6 +21,7 @@ class Lbdb{
 	            or die("Error selecting database: ".mysql_error());
 	        mysql_query("SET NAMES 'utf8'", $this->connection)
 	            or die(mysql_error());
+	        echo "Opening ".$this->connection."<br />";
 	    }
 	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
@@ -31,6 +32,8 @@ class Lbdb{
 	}
 	
 	function close(){
+	    if($CONFIG['debug'])
+	        echo "<br />"."Closing ".$this->connection."<br />";
 		mysql_close($this->connection);
 	}
 	
@@ -112,6 +115,4 @@ class Lbdb{
 	    return;
 	}
 }
-global $db;
-$db = new Lbdb();
 ?>

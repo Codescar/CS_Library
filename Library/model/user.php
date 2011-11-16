@@ -12,7 +12,6 @@ class User{
 
 	function login($name, $pass){
 		global $db;
-        //TODO shouldn't we create a user class instance which would be global or better place this instance in $_SESSION?
 		$db->connect();
 		$name = mysql_real_escape_string($name);
 		$pass = mysql_real_escape_string($pass);
@@ -57,8 +56,7 @@ class User{
 	}
 	
 	function activateAccount(){
-		//TODO have to consider how and where 
-		//		will store the activation keys
+		//TODO have to consider how and where will store the activation keys
 		return;
 	}
 	
@@ -91,37 +89,78 @@ class User{
 	}
 	
 	function show_history(){
-		global $db;
-		$db->connect();
-		$query = "	SELECT * FROM 
-					`requests` CROSS JOIN `booklist` 
-					ON requests.book_id = booklist.id
-					WHERE requests.user_id = '". $this->id ."'";
+	    global $db;
+		$query = "	SELECT * FROM `history`
+					WHERE user_id = '". $this->id ."'
+					ORDER BY date";
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th><th>Action</th><th>Date</th></tr>";
 		while($row = mysql_fetch_array($result)){
-			echo "<tr><td>".$row['title']
-			."</td><td>Request</td><td>".$row['date']."</td><tr>";
+			echo "<tr><td>".$row['title']."</td>";
+			echo "<td>";
+            switch($row['action']){
+		    case 1:
+				echo "Request";
+		        break;
+		    case 2:
+				echo "Lended";
+		        break;
+		    case 3:
+				echo "Have it now";
+				break;
+            }
+            echo "</td>";
+			echo  "<td>".$row['date']."</td></tr><tr></tr>";
 		}
 		echo "</table>";
-		$db->close();
 		return;
 	}
 
 	function show_info(){
-// 		global $db;
-// 		$db->connect();
-// 		$query = "SELECT * FROM `users` WHERE `id` = '".$this->id."'";
-// 		$result = $db->query($query);
-// 		$row = mysql_fetch_array($result);
-// 		$db->close();
-		//TODO list user information but why not from data members of $this?
-		echo "Name: ".    $this->username;
-		echo "<br />";
-		echo "Email: ".   $this->email;
+	    global $db;
+ 		$query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.tmima, tmp2.name as incharge FROM
+					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
+						CROSS JOIN departments
+							ON users.dep_id = departments.id
+					WHERE users.id = '".$this->id."' ) AS tmp1
+						CROSS JOIN users AS tmp2
+							ON tmp1.incharge = tmp2.id";
+ 		$result = $db->query($query);
+ 		$row = mysql_fetch_array($result);
+        echo "<table><tr><td>Name: </td><td>".$row['name']."</td><td>Surname: </td><td>".$row['surname']."</td></tr>";
+        echo "<tr><td>Username: </td><td>".$row['username']."</td><td>Born: </td><td>".$row['born']."</td>";
+        echo "<tr><td>Phone: </td><td>".$row['phone']."</td><td>Email: </td><td>".$row['email']."</td>";
+        echo "<tr><td>Department: </td><td>".$row['tmima']."</td><td>Incharge: </td><td>".$row['incharge']."</td>";
+        echo "</table>";
 		return;
 	}
 
+	function change_info(){
+        global $db;
+        $query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.tmima, tmp2.name as incharge FROM
+					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
+						CROSS JOIN departments
+							ON users.dep_id = departments.id
+					WHERE users.id = '".$this->id."' ) AS tmp1
+						CROSS JOIN users AS tmp2
+							ON tmp1.incharge = tmp2.id";
+        $result = $db->query($query);
+        $row = mysql_fetch_assoc($result);
+        //TODO appearance must be upgraded for sure! 
+        echo "<form action=\"change_info.php\" method=\"post\">";
+        //TODO some php file must be created to check password and make UPDATE
+        echo "Name: 	<input type=\"text\" name=\"name\" value=\"".$row['name']."\">";
+        echo "Surname: 	<input type=\"text\" name=\"surname\" value=\"".$row['surname']."\"> <br />";
+        echo "Username:	<input type=\"text\" name=\"username\" value=\"".$row['username']."\">";
+        echo "Born: 	<input type=\"date\" name=\"born\" value=\"".$row['born']."\"> <br />";
+        echo "Phone:	<input type=\"tel\" name=\"phone\" value=\"".$row['phone']."\">";
+        echo "Email:	<input type=\"email\" name=\"email\" value=\"".$row['email']."\"> <br />";
+        echo "New Password: <input type=\"password\" name=\"new_pass\">";
+        echo "Current Password <input type=\"password\" name=\"cur_pass\"> <br />";
+        echo "Provide your password in order changes to be saved! <input type=\"submit\" value=\"Save\" />";
+        echo "</form>";
+	}
+	
 	function is_logged_in(){
 		return isset($_SESSION['logged_in']) 
 		&& ($_SESSION['logged_in'] == 1) 

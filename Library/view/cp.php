@@ -12,15 +12,17 @@
 		</ul>
 	</div><br />
 	<?php 
+	global $db;
+	$db->connect();
 	if(!isset($_GET['more']) || $_GET['more'] == "info"){
 		$user->show_info();
 	}
 	elseif($_GET['more'] == "change"){
-		
+	    $user->change_info();
 	}
 	elseif($_GET['more'] == "history"){
 		$user->show_history();
 	}
-	
+	$db->close();
 	?>
 </div>

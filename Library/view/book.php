@@ -19,7 +19,6 @@
 		$db->query($query);
 		?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
 	}
-	$db->close();
 ?>
 <div class="content">
 	<h2><?php echo $results['title']; ?></h2>
@@ -36,7 +35,7 @@
 		<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
 	<?php }
 	elseif($user->is_logged_in() && have_book($id, $user->id)){ ?>
-		<p>Έχεις ήδη δανειστέι αυτό το βιβλίο.</p>
+		<p>Έχεις ήδη δανειστεί αυτό το βιβλίο.</p>
 	<?php }
 	?>
 	<?php echo ($results['description'] == null) ? "Περιγραφή: " . $results['description'] : "Χωρίς Περιγραφή.";?></div>
@@ -46,3 +45,5 @@
 			});
 	</script>
 </div>
+<?php $db->close();
+?>

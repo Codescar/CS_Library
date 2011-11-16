@@ -3,8 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 
-if(!isset($_GET['search']) || $_GET['search'] == "" || (!isset($_GET['title']) && !isset($_GET['writer_or'])))
-{
+if(!isset($_GET['search']) || $_GET['search'] == "" || (!isset($_GET['title']) && !isset($_GET['writer_or']))){
 	echo "Λάθος αναζήτηση";
 }
 else {
@@ -31,3 +30,5 @@ else {
 } ?>
 </div>
 </div>
+<?php $db->close();
+?>

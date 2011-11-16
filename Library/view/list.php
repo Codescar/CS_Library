@@ -6,6 +6,7 @@
 	$books = $db->get_books($page*$CONFIG['items_per_page'], $CONFIG['items_per_page']);
 ?>
 <div class="content">
-<?php list_books($books); ?>
-
+<?php list_books($books);
+    $db->close(); 
+?>
 </div>
