@@ -2,7 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	if(!is_logged_in()){
+	if(!$user->is_logged_in()){
 	?>
 		<p>Πρέπει να συνδεθείτε πρώτα.</p>	
 	<?php 

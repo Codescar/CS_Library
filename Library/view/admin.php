@@ -2,7 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	if(!is_logged_in() || !is_admin()){
+	if(!$user->is_logged_in() || !$user->is_admin()){
 	?>
 		<p>Δεν είστε διαχειριστής.</p>	
 	<?php 
