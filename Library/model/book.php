@@ -68,4 +68,12 @@ function have_book($book_id, $user_id){
 	return $result;
 }
 
+function lend_request($id){
+	global $db, $user;
+	$query = "	INSERT INTO `requests` (`book_id`, `user_id`, `date`)
+			 		VALUES ('$id', '".$user->id."', NOW());";
+	$db->query($query);
+	?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
+}
+
 ?>

@@ -13,11 +13,7 @@
 	if(isset($_GET['lend']) && isset($_POST['hidden']) 
 			&& $user->is_logged_in() && !have_book_rq($id, $user->id) && !have_book($id, $user->id))
 	{
-		$query = "	INSERT INTO `requests` (`book_id`, `user_id`, `date`)
-			 		VALUES ('$id', '".$user->id."', NOW());";
-		echo $query;
-		$db->query($query);
-		?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
+		lend_request($id);
 	}
 ?>
 <div class="content">

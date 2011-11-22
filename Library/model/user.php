@@ -151,7 +151,7 @@ class User{
         //TODO some php file must be created to check password and make UPDATE
         echo "Name: 	<input type=\"text\" name=\"name\" value=\"".$row['name']."\">";
         echo "Surname: 	<input type=\"text\" name=\"surname\" value=\"".$row['surname']."\"> <br />";
-        echo "Username:	<input type=\"text\" name=\"username\" value=\"".$row['username']."\">";
+        echo "Username:	<input type=\"text\" name=\"username\" value=\"".$row['username']."\" disabled=\"disabled\" >";
         echo "Born: 	<input type=\"date\" name=\"born\" value=\"".$row['born']."\"> <br />";
         echo "Phone:	<input type=\"tel\" name=\"phone\" value=\"".$row['phone']."\">";
         echo "Email:	<input type=\"email\" name=\"email\" value=\"".$row['email']."\"> <br />";

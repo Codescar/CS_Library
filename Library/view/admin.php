@@ -18,7 +18,21 @@
 			<li><a href="?show=admin&more=options">Options</a></li>
 		</ul>
 	</div><br />
-	
-	<p>Υπό κατασκευή...</p>
+	<?php 
+	global $db;
+	$db->connect();
+	if(!isset($_GET['more']) || $_GET['more'] == "info"){
+		
+	}elseif($_GET['more'] == "statistics"){
+	    
+	}elseif($_GET['more'] == "history"){
+		
+	}elseif($_GET['more'] == "new_user"){
+		
+	}elseif($_GET['more'] == "options"){
+		
+	}
+	$db->close();
+	?>
 </div>
 <?php } ?>

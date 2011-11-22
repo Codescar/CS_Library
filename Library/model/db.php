@@ -11,7 +11,7 @@ class Lbdb{
 		$this->password = $db_password;
 		$this->dbname = $db_name;
 	}
-	
+
 	function connect(){
 	    global $CONFIG;
 	    if($CONFIG['debug']){
@@ -19,15 +19,17 @@ class Lbdb{
 	            or die("Could not connect: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
 	            or die("Error selecting database: ".mysql_error());
-	        mysql_query("SET NAMES 'utf8'", $this->connection)
-	            or die(mysql_error());
 	        echo "Opening ".$this->connection."<br />";
 	    }
 	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
-	        mysql_select_db($this->dbname, $this->connection);
-	        mysql_query("SET NAMES 'utf8'", $this->connection);
+	        mysql_select_db($this->dbname, $this->connection);   
 	    }
+	    query("SET NAMES 'utf8'");
+	    /* query("SET time_zone = 'Europe/Athens'") 
+	     * Have to install timezones in mysql server 
+	     */
+	   	query("SET time_zone = '+2:00'");
 	    return;
 	}
 	
