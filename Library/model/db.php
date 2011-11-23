@@ -25,11 +25,11 @@ class Lbdb{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
 	        mysql_select_db($this->dbname, $this->connection);   
 	    }
-	    query("SET NAMES 'utf8'");
+	    $this->query("SET NAMES 'utf8'");
 	    /* query("SET time_zone = 'Europe/Athens'") 
 	     * Have to install timezones in mysql server 
 	     */
-	   	query("SET time_zone = '+2:00'");
+	   	$this->query("SET time_zone = '+2:00'");
 	    return;
 	}
 	

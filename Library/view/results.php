@@ -15,6 +15,7 @@ else {
 		$mode = 3;
 	$db->connect();
 	$books = $db->search($_GET['search'], $mode, $page*$CONFIG['items_per_page'], $CONFIG['items_per_page']);
+	$db->close();
 ?>
 <div class="content">
 <div class="list">
