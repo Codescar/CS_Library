@@ -16,8 +16,9 @@ class User{
 		$name = mysql_real_escape_string($name);
 		$pass = mysql_real_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
-		$query = "	SELECT * FROM `users`
-					WHERE 	`username` = '$name' AND `password` = '$pass'
+		$query = "	SELECT * FROM `{$db->table["users"]}`
+					WHERE 	`{$db->columns["users"]["username"]}` = '$name' 
+					AND 	`{$db->columns["users"]["password"]}` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
 		$user = mysql_fetch_array($result);
@@ -46,8 +47,14 @@ class User{
 		$mail = mysql_real_escape_string($mail);
 		$dep_id = mysql_real_escape_string($dep_id);
 		
-		$query = "INSERT INTO `users` 
-					(`dep_id`, `username`, `password`, `email`, `access_lvl`, created_date`, `last_ip`) VALUES 
+		$query = "INSERT INTO `{$db->table["users"]}` 
+					(`{$db->columns["users"]["dep_id"]}`, 
+					 `{$db->columns["users"]["username"]}`, 
+					 `{$db->columns["users"]["password"]}`, 
+					 `{$db->columns["users"]["email"]}`, 
+					 `{$db->columns["users"]["access_lvl"]}`, 
+					 `{$db->columns["users"]["created_date"]}`, 
+					 `{$db->columns["users"]["last_ip"]}`) VALUES 
 					('$dep_id', '$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
 		$db->query($query);
 		//TODO add a confirmation link to a table
@@ -65,9 +72,10 @@ class User{
 		$db->connect();
 		$pass = mysql_real_escape_string($pass);
 		$new_pass = mysql_real_escape_string($new_pass);
-		$query = "	UPDATE `users` 
-					SET `password` = '$new_pass' 
-					WHERE `id` = '".$this->id."' AND `password` = '$pass' 
+		$query = "	UPDATE 	`{$db->table["users"]}` 
+					SET 	`{$db->columns["users"]["password"]}` = '$new_pass' 
+					WHERE 	`{$db->columns["users"]["id"]}` = '".$this->id."' 
+					AND 	`{$db->columns["users"]["password"]}` = '$pass' 
 					LIMIT 1; ";
 		$ret = $db->query($query);
 		$db->close();
@@ -79,20 +87,21 @@ class User{
 		$db->connect();
 		$pass = mysql_real_escape_string($pass);
 		$mail = mysql_real_escape_string($mail);
-		$query = "	UPDATE `users` 
-					SET `email` = '$mail' 
-					WHERE `id` = '".$this->id."' AND `password` = '".$pass."' 
+		$query = "	UPDATE 	`{$db->table["users"]}` 
+					SET 	`{$db->columns["users"]["email"]}` = '$mail' 
+					WHERE 	`{$db->columns["users"]["id"]}` = '".$this->id."' 
+					AND 	`{$db->columns["users"]["password"]}` = '".$pass."' 
 					LIMIT 1; ";
 		$ret = $db->query($query);
 		$db->close();
 		return $ret;
 	}
-	
+	//TODO replace tale/column names below here
 	function show_history(){
 	    global $db;
-		$query = "	SELECT * FROM `history`
-					WHERE user_id = '". $this->id ."'
-					ORDER BY date";
+		$query = "	SELECT * FROM `{$db->table["history"]}`
+					WHERE `{$db->columns["history"]["user_id"]}` = '". $this->id ."'
+					ORDER BY `{$db->columns["history"]["date"]}`";
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th><th>Action</th><th>Date</th></tr>";
 		while($row = mysql_fetch_array($result)){

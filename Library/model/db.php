@@ -1,8 +1,70 @@
 <?php
 class Lbdb{
 	private $connection, $hostname, $username, $password, $dbname;
-	//TODO try to handle the table names and the collumn names in variables/arrays 
 	public $booklist;
+	//TODO have to use the arrays for the names of the column/tables everywhere I think... much work!
+	public $table = array(
+							"booklist" 		=> "booklist",
+							"comments" 		=> "comments",
+							"departments" 	=> "departments",
+							"lend" 			=> "lend",
+							"log_lend"		=> "log_lend",
+							"requests"		=> "requests",
+							"users"			=> "users",
+							"history"		=> "history");
+	
+	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
+														"title" 		=> "title", 
+														"availability" 	=> "availability", 
+														"writer_or" 	=> "writer_or", 
+														"description"	=> "description", 
+														"added_on" 		=> "added_on"),
+	
+							"comments"		=>	array(	"id"			=> "id",
+														"book_id"		=> "book_id",
+														"comment"		=> "comment"),
+	
+							"departments"	=>	array(	"id"			=> "id",
+														"incharge"		=> "incharge",
+														"name"			=> "name", 
+														"comments"		=> "comments"),
+	
+							"lend"			=>	array(	"book_id"		=> "book_id",
+														"department_id"	=> "department_id",
+														"user_id"		=> "user_id",
+														"taken"			=> "taken",
+														"returned" 		=> "returned"),
+							
+							"log_lend"		=>	array(	"id"			=> "id",
+														"book_id"		=> "book_id",
+														"department_id" => "department_id",
+														"user_id"		=> "user_id",
+														"taken"			=> "taken",
+														"returned"		=> "returned"),
+	
+							"requests" 		=>	array(	"id"			=> "id",
+														"book_id"		=> "book_id",
+														"user_id"		=> "user_id",
+														"date"			=> "date"),
+	
+							"users"			=>	array(	"id"			=> "id",
+														"dep_id"		=> "dep_id",
+														"name"			=> "name",
+														"surname"		=> "surname",
+														"username"		=> "username",
+														"password"		=> "password",
+														"born"			=> "born",
+														"phone"			=> "phone",
+														"email"			=> "email",
+														"access_lvl"	=> "access_lvl",
+														"last_ip"		=> "last_ip"),
+	
+							"history"		=>	array(	"book_id"		=> "book_id",
+														"title"			=> "title",
+														"action"		=> "action",
+														"user_id"		=> "user_id",
+														"date"			=> "date")
+	);
 	function __construct(){
 		global $db_hostname, $db_username, $db_password, $db_name;
 		$this->connection = 0;
