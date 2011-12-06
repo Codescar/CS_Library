@@ -6,6 +6,7 @@
 	require_once('model/book.php');
 	require_once('model/session.php');
 	require_once('model/user.php');
+	require_once('model/admin.php');
 	
 
 ?>

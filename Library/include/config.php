@@ -14,5 +14,5 @@
 	$CONFIG['allow_compression'] = true;
 	$CONFIG['debug'] = true;
 	$CONFIG['items_per_page'] = 20;
-	
-	?>
+
+?>

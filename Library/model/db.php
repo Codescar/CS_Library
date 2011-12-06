@@ -57,7 +57,8 @@ class Lbdb{
 														"phone"			=> "phone",
 														"email"			=> "email",
 														"access_lvl"	=> "access_lvl",
-														"last_ip"		=> "last_ip"),
+														"last_ip"		=> "last_ip",
+														"created_date"	=> "created_date"),
 	
 							"history"		=>	array(	"book_id"		=> "book_id",
 														"title"			=> "title",

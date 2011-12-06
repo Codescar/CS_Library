@@ -11,6 +11,9 @@
 		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION))
 			$error = "Invalid informations, try again... ";
 		else{
+			if($user->is_admin())
+				$user->admin 	= new Admin($user);
+			$_SESSION['user']   = serialize($user);
 			?>
 			<p>Επιτυχής σύνδεση...<br/>
 			Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href="<?php echo $url; ?>">εδώ</a>.</p>

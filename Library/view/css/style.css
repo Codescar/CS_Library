@@ -63,3 +63,16 @@ table{
 .writer{
 	width: 200px;
 }
+#new-user-form label{
+	display: inline-block;
+	width: 100px;
+	margin-bottom: 6px;
+}
+.success{
+	color: green;
+	font-style: italic;
+}
+.error{
+	color: red;
+	font-style: italic;
+}

@@ -23,7 +23,6 @@
 		ini_set('display_errors', '1');
 		define('DISPLAY_XPM4_ERRORS', true);
 	}
-	 
 	
 	require_once('view/index.php');
 ?>

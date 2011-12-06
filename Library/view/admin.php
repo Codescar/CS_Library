@@ -22,15 +22,17 @@
 	global $db;
 	$db->connect();
 	if(!isset($_GET['more']) || $_GET['more'] == "info"){
-		
+		$user->admin->show_info();
 	}elseif($_GET['more'] == "statistics"){
-	    
+	    $user->admin->show_statistics();
 	}elseif($_GET['more'] == "history"){
-		
+		$user->admin->show_history();
 	}elseif($_GET['more'] == "new_user"){
-		
+		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
-		
+		$user->admin->show_options();
+	}elseif($_GET['more'] == "new_department"){
+		$user->admin->create_department();
 	}
 	$db->close();
 	?>

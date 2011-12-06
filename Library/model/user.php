@@ -3,7 +3,11 @@
  * system, we can continue...
  */
 class User{
-	public $id, $username, $email, $access_level, $department_id;
+	public $id, $username, $email, $access_level, $department_id, $admin;
+	
+	function __constructor(){
+		$admin = null;
+	}
 	
 	function pass_encrypt($pass){
 		return $pass;
@@ -30,7 +34,7 @@ class User{
 	    	$this->email				= $user['email'];
 	    	$this->department_id		= $user['dep_id'];
             
-	    	$_SESSION['user']           = serialize($this);
+	    	//$_SESSION['user']           = serialize($this);
 	    	$_SESSION['logged_in']		= 1;
 			$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];
 			$_SESSION['sessionid'] 		= session_id();
@@ -43,7 +47,7 @@ class User{
 		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
-		$pass = pass_encrypt($pass);
+		$pass = $this->pass_encrypt($pass);
 		$mail = mysql_real_escape_string($mail);
 		$dep_id = mysql_real_escape_string($dep_id);
 		
@@ -186,8 +190,8 @@ class User{
 				$msg .= " | <a href=\"?show=register\">Register</a>";
 		}
 		elseif($_SESSION['logged_in'] == 1){
-			$msg .= "<a href=\"?show=cp\">". $this->username . "</a> |  ";
-			if($this->is_admin())
+			$msg .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
+			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
 				$msg .= "<a href=\"?show=admin\">Admin</a> | ";
 			$msg .= "<a href=\"?show=msg\">Messages</a> | <a href=\"?show=logout\">Logout</a>";
 		}
