@@ -16,6 +16,7 @@
 			<li><a href="?show=admin&more=history">History</a></li>
 			<li><a href="?show=admin&more=new_user">Create User</a></li>
 			<li><a href="?show=admin&more=options">Options</a></li>
+			<li><a href="?show=admin&more=new_department">New Department</a></li>
 		</ul>
 	</div><br />
 	<?php 
@@ -33,6 +34,15 @@
 		$user->admin->show_options();
 	}elseif($_GET['more'] == "new_department"){
 		$user->admin->create_department();
+	}elseif($_GET['more'] == "lend"){
+		if(!isset($_GET['lend']) || !isset($_GET['user']))
+			echo "<p class=\"error\">Error</p>";
+		else{
+			echo "<p class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</p>";
+			$db->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']), '0');	
+		}
+	}elseif($_GET['more'] == "return"){
+		
 	}
 	$db->close();
 	?>

@@ -101,31 +101,51 @@ class User{
 		return $ret;
 	}
 	//TODO replace tale/column names below here
-	function show_history(){
+	function show_history($mode = 0){
 	    global $db;
-		$query = "	SELECT * FROM `{$db->table["history"]}`
+	    if($mode)
+	    	$query = "	SELECT * FROM `{$db->table["history"]}`
+					ORDER BY `{$db->columns["history"]["date"]}`";
+	    else
+			$query = "	SELECT * FROM `{$db->table["history"]}`
 					WHERE `{$db->columns["history"]["user_id"]}` = '". $this->id ."'
 					ORDER BY `{$db->columns["history"]["date"]}`";
 		$result = $db->query($query);
-		echo "<table><tr><th>Book</th><th>Action</th><th>Date</th></tr>";
+		echo "<table><tr><th>Book</th>";
+		echo $mode ? "<th>User</th>" : "";
+		echo "<th>Action</th><th>Date</th></tr>";
 		while($row = mysql_fetch_array($result)){
 			echo "<tr><td>".$row['title']."</td>";
+			echo $mode ? "<td>{$row['user_id']}</td>" : "";
 			echo "<td>";
             switch($row['action']){
 		    case 1:
-				echo "Request";
+		    	echo $mode ? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
+				: "Request";
 		        break;
 		    case 2:
 				echo "Lended";
 		        break;
 		    case 3:
-				echo "Have it now";
+		    	echo $mode ? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Have it now</a>"
+				: "Have it now";
 				break;
             }
             echo "</td>";
 			echo  "<td>".$row['date']."</td></tr><tr></tr>";
 		}
 		echo "</table>";
+		//TODO add to javascript informations about the user and the book
+		?>
+		<script type="text/javascript">
+			$('.request-book').click(function (){
+				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει παραλάβει το βιβλίο;", "Επιβεβαίωση");
+			});
+			$('.return-book').click(function (){
+				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
+			});
+		</script>
+		<?php 
 		return;
 	}
 

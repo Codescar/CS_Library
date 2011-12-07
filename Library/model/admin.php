@@ -20,7 +20,8 @@ class Admin{
 	}
 	
 	function show_history(){
-		
+		global $user;
+		$user->show_history(1);
 	}
 	
 	function show_options(){
@@ -77,11 +78,32 @@ class Admin{
 	}
 	
 	function create_department(){
-		
+		global $db;
+		//TODO end the process and the edit
 	?>
+		<h2>Edit a department</h2>
+		<form action="" method="post" id="edit-department-form" >
+			<label for="dep">Old name: </label>
+			<select name="names">
+				<?php 
+					$query = "SELECT * FROM `{$db->table["departments"]}` ;";
+					$results = $db->query($query);
+					while($row = mysql_fetch_object($results)){
+						echo "<option value=\"{$row->{$db->columns["departments"]["id"]}}\">{$row->{$db->columns["departments"]["name"]}}</option>";
+					}
+				?>
+			</select>
+			<label for="dep_name">New Department Name: </label><input type="text" name="dep_name" id="dep_name" /><br />
+			<label for="">In Charge: </label><input type="text" name="" id="" />
+			<input type="hidden" name="hidden" value="1" />
+			<input type="submit" value="Edit" />
+		
+		</form>
+		<h2>Create a new department</h2>
 		<form action="" method="post" id="new-department-form" >
-		
-		
+			<label for="dep_name">Department Name:</label><input type="text" name="dep_name" id="dep_name" /><br />
+			<input type="hidden" name="hidden" value="1" />
+			<input type="submit" value="Create" />
 		</form>
 	<?php 	
 	}

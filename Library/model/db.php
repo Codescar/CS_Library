@@ -157,10 +157,9 @@ class Lbdb{
 	}
 	
 	function lend_book($bk_id, $usr_id, $dp_id){
-        $lend =	"	INSERT INTO lend 
-					SET lend.book_id = ".$bk_id.", lend.user_id = ".$usr_id.",
-						lend.department_id = ".$dp_id.", lend.taken = NOW()
-					LIMIT 1;
+        $lend =	"	INSERT INTO `lend` 
+					(`book_id`, `user_id`, `department_id`, `taken`) VALUES 
+					('$bk_id', '$usr_id', '$dp_id', NOW()) ;
 				";
 	    $this->query($lend);
 	    return;
