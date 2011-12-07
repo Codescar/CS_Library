@@ -22,6 +22,7 @@ class Admin{
 	function show_history(){
 		global $user;
 		$user->show_history(1);
+		//TODO Have to group them by book and disable lending for already dended books
 	}
 	
 	function show_options(){
