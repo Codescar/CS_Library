@@ -17,6 +17,6 @@
 	<script src="<?php echo $url; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 </head>
 <body>
-<p id="user-settings"><?php $user->show_login_status(); ?></p>
+<p id="user-settings"><?php echo $user->show_login_status(); ?></p>
 <h1><?php echo $title; ?></h1>
 <br/>

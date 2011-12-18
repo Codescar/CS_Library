@@ -211,20 +211,23 @@ class User{
 	
 	function show_login_status(){
 		global $CONFIG;
-		$msg = "";
+		$code = "";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
-				$msg .= "<a href=\"?show=login\">Login</a>";
+				$code .= "<a href=\"?show=login\">Login</a>";
 			if($CONFIG['allow_register'])
-				$msg .= " | <a href=\"?show=register\">Register</a>";
+				$code .= " | <a href=\"?show=register\">Register</a> ";
 		}
 		elseif($_SESSION['logged_in'] == 1){
-			$msg .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
+			$code .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
-				$msg .= "<a href=\"?show=admin\">Admin</a> | ";
-			$msg .= "<a href=\"?show=msg\">Messages</a> | <a href=\"?show=logout\">Logout</a>";
+				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Messages</a> ";
+			
 		}
-		echo $msg;
+		$code .= "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"?show=help\">Help</a> | ";
+		if($_SESSION['logged_in'] == 1)
+			$code .= "<a href=\"?show=logout\">Logout</a>";
+		return $code;
 	}
 	
 	function session_check(){

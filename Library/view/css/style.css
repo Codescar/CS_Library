@@ -76,3 +76,25 @@ table{
 	color: red;
 	font-style: italic;
 }
+.developers{
+	background-color: #aaaaaa;
+	min-width: 250px;
+	max-width: 300px; 	
+	padding: 6px;
+	border: 1px dashed yellow;
+	margin-top: 30px;
+}
+.dev{
+	background-color: #888888;
+	padding-left: 10px;	
+	padding-top: 2px;
+	width: 80%;
+}
+.title{
+	text-size: 18pt;
+	font-weight: bold;
+}	
+	
+	
+	
+	

@@ -32,6 +32,10 @@
 		include('msg.php');//TODO message window
 	elseif($_GET['show'] == "cp" && $CONFIG['allow_login'])
 		include('cp.php');//TODO User Control Panel
+	elseif($_GET['show'] == "feedback")
+		include('feedback.php');
+	elseif($_GET['show'] == "help")
+		include('help.php');
 	elseif($_GET['show'] == "admin" && $CONFIG['allow_admin'] && $user->is_admin())
 		include('admin.php');//TODO Admin User Panel
 	else 
