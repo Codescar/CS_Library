@@ -16,7 +16,7 @@
 			<li><a href="?show=admin&more=history">History</a></li>
 			<li><a href="?show=admin&more=new_user">Create User</a></li>
 			<li><a href="?show=admin&more=options">Options</a></li>
-			<li><a href="?show=admin&more=new_department">New Department</a></li>
+			<li><a href="?show=admin&more=departments">Departments</a></li>
 		</ul>
 	</div><br />
 	<?php 
@@ -32,14 +32,18 @@
 		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
 		$user->admin->show_options();
-	}elseif($_GET['more'] == "new_department"){
+	}elseif($_GET['more'] == "departments"){
 		$user->admin->create_department();
-	}elseif($_GET['more'] == "lend"){
-		if(!isset($_GET['lend']) || !isset($_GET['user']))
+	}elseif($_GET['more'] == "lend" || $_GET['more'] == "back"){
+		if(!((isset($_GET['lend']) || isset($_GET['back'])) && isset($_GET['user'])))
 			echo "<p class=\"error\">Error</p>";
-		else{
+		elseif(!isset($_GET['back'])){
 			echo "<p class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</p>";
 			$db->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']), '0');	
+		}
+		elseif(!isset($_GET['lend'])){
+			echo "<p class=\"success\">Done, book {$_GET['back']} returned from user with id {$_GET['user']}.</p>";
+			$db->return_book(mysql_real_escape_string($_GET['back']));
 		}
 	}elseif($_GET['more'] == "return"){
 		

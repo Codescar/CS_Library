@@ -120,14 +120,19 @@ class User{
 			echo "<td>";
             switch($row['action']){
 		    case 1:
-		    	echo $mode ? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
+		    	echo $mode 
+		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
 				: "Request";
 		        break;
 		    case 2:
-				echo "Lended";
+				echo $mode 
+				? "<a href=\"?show=admin&more=back&back={$row['book_id']}&user={$row['user_id']}\" class=\"back-book\" >Lended</a>" 
+				:"Lended";
 		        break;
 		    case 3:
-		    	echo $mode ? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Have it now</a>"
+		    	//TODO return or back is the correct action for an admin?
+		    	echo $mode 
+		    	? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Have it now</a>"
 				: "Have it now";
 				break;
             }
@@ -142,6 +147,9 @@ class User{
 				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει παραλάβει το βιβλίο;", "Επιβεβαίωση");
 			});
 			$('.return-book').click(function (){
+				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
+			});
+			$('.back-book').click(function (){
 				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
 			});
 		</script>

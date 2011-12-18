@@ -1,6 +1,9 @@
 <?php
 /*  Admin class 
  */
+
+//TODO use access lever and privilages for any action to a admin-user or even a user
+
 class Admin{
 	
 	function __constructor($user){
@@ -12,7 +15,7 @@ class Admin{
 	}
 	
 	function restore(){
-		
+		//TODO add a confirmation link to a table
 	}
 	
 	function show_statistics(){
