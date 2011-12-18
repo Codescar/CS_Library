@@ -34,19 +34,17 @@
 		$user->admin->show_options();
 	}elseif($_GET['more'] == "departments"){
 		$user->admin->create_department();
-	}elseif($_GET['more'] == "lend" || $_GET['more'] == "back"){
-		if(!((isset($_GET['lend']) || isset($_GET['back'])) && isset($_GET['user'])))
+	}elseif($_GET['more'] == "lend" || $_GET['more'] == "return"){
+		if(!((isset($_GET['lend']) || isset($_GET['return'])) && isset($_GET['user'])))
 			echo "<p class=\"error\">Error</p>";
-		elseif(!isset($_GET['back'])){
+		elseif(!isset($_GET['return'])){
 			echo "<p class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</p>";
 			$db->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']), '0');	
 		}
 		elseif(!isset($_GET['lend'])){
-			echo "<p class=\"success\">Done, book {$_GET['back']} returned from user with id {$_GET['user']}.</p>";
-			$db->return_book(mysql_real_escape_string($_GET['back']));
+			echo "<p class=\"success\">Done, book {$_GET['return']} returned from user with id {$_GET['user']}.</p>";
+			$db->return_book(mysql_real_escape_string($_GET['return']));
 		}
-	}elseif($_GET['more'] == "return"){
-		
 	}
 	$db->close();
 	?>

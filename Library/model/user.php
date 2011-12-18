@@ -120,13 +120,14 @@ class User{
 			echo "<td>";
             switch($row['action']){
 		    case 1:
-		    	echo $mode 
+		    	echo $mode && book_avail($row['book_id'])
 		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
 				: "Request";
 		        break;
 		    case 2:
-				echo $mode 
-				? "<a href=\"?show=admin&more=back&back={$row['book_id']}&user={$row['user_id']}\" class=\"back-book\" >Lended</a>" 
+		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
+				echo $mode && !book_avail($row['book_id'])
+				? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"back-book\" >Lended</a>" 
 				:"Lended";
 		        break;
 		    case 3:

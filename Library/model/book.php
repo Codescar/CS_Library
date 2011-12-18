@@ -79,4 +79,12 @@ function lend_request($id){
 	?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
 }
 
+function book_avail($book_id){
+	global $db;
+	$query = "	SELECT `{$db->columns["booklist"]["availability"]}` from `{$db->table["booklist"]}` 
+				WHERE `{$db->columns["booklist"]["id"]}` = '$book_id'";
+	$res = $db->query($query);
+	return mysql_fetch_object($res)->{$db->columns["booklist"]["availability"]};
+	
+}
 ?>
