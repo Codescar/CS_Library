@@ -12,7 +12,6 @@
 	<div class="menu">
 		<ul>
 			<li><a href="?show=cp&more=info">Info</a></li>
-			<li><a href="?show=cp&more=change">Change Info</a></li>
 			<li><a href="?show=cp&more=history">History</a></li>
 		</ul>
 	</div><br />
@@ -21,9 +20,6 @@
 	$db->connect();
 	if(!isset($_GET['more']) || $_GET['more'] == "info"){
 		$user->show_info();
-	}
-	elseif($_GET['more'] == "change"){
-	    $user->change_info();
 	}
 	elseif($_GET['more'] == "history"){
 		$user->show_history();

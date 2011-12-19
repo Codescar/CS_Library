@@ -71,52 +71,25 @@ class User{
 		return;
 	}
 	
-	function changePassword($pass, $new_pass){
-		global $db;
-		$db->connect();
-		$pass = mysql_real_escape_string($pass);
-		$new_pass = mysql_real_escape_string($new_pass);
-		$query = "	UPDATE 	`{$db->table["users"]}` 
-					SET 	`{$db->columns["users"]["password"]}` = '$new_pass' 
-					WHERE 	`{$db->columns["users"]["id"]}` = '".$this->id."' 
-					AND 	`{$db->columns["users"]["password"]}` = '$pass' 
-					LIMIT 1; ";
-		$ret = $db->query($query);
-		$db->close();
-		return $ret;
-	}
-	
-	function changeEmail($mail, $pass){
-		global $db;
-		$db->connect();
-		$pass = mysql_real_escape_string($pass);
-		$mail = mysql_real_escape_string($mail);
-		$query = "	UPDATE 	`{$db->table["users"]}` 
-					SET 	`{$db->columns["users"]["email"]}` = '$mail' 
-					WHERE 	`{$db->columns["users"]["id"]}` = '".$this->id."' 
-					AND 	`{$db->columns["users"]["password"]}` = '".$pass."' 
-					LIMIT 1; ";
-		$ret = $db->query($query);
-		$db->close();
-		return $ret;
-	}
 	//TODO replace tale/column names below here
 	function show_history($mode = 0){
 	    global $db;
 	    if($mode)
 	    	$query = "	SELECT * FROM `{$db->table["history"]}`
-					ORDER BY `{$db->columns["history"]["date"]}`";
+	    				CROSS JOIN `{$db->table["users"]}` 
+	    				ON {$db->table["users"]}.{$db->columns["users"]["id"]} = {$db->table["history"]}.{$db->columns["history"]["user_id"]} 
+						ORDER BY `{$db->columns["history"]["date"]}`";
 	    else
 			$query = "	SELECT * FROM `{$db->table["history"]}`
-					WHERE `{$db->columns["history"]["user_id"]}` = '". $this->id ."'
-					ORDER BY `{$db->columns["history"]["date"]}`";
+						WHERE `{$db->columns["history"]["user_id"]}` = '". $this->id ."'
+						ORDER BY `{$db->columns["history"]["date"]}`";	    
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th>";
 		echo $mode ? "<th>User</th>" : "";
 		echo "<th>Action</th><th>Date</th></tr>";
 		while($row = mysql_fetch_array($result)){
 			echo "<tr><td>".$row['title']."</td>";
-			echo $mode ? "<td>{$row['user_id']}</td>" : "";
+			echo $mode ? "<td>{$row['name']} ({$row['user_id']})</td>" : "";
 			echo "<td>";
             switch($row['action']){
 		    case 1:
@@ -126,9 +99,7 @@ class User{
 		        break;
 		    case 2:
 		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
-				echo $mode && !book_avail($row['book_id'])
-				? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"back-book\" >Lended</a>" 
-				:"Lended";
+				echo "Lended";
 		        break;
 		    case 3:
 		    	//TODO return or back is the correct action for an admin?
@@ -150,57 +121,62 @@ class User{
 			$('.return-book').click(function (){
 				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
 			});
-			$('.back-book').click(function (){
-				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
-			});
 		</script>
 		<?php 
 		return;
 	}
 
 	function show_info(){
-	    global $db;
- 		$query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.tmima, tmp2.name as incharge FROM
-					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
-						CROSS JOIN departments
-							ON users.dep_id = departments.id
-					WHERE users.id = '".$this->id."' ) AS tmp1
-						CROSS JOIN users AS tmp2
-							ON tmp1.incharge = tmp2.id";
- 		$result = $db->query($query);
- 		$row = mysql_fetch_array($result);
-        echo "<table><tr><td>Name: </td><td>".$row['name']."</td><td>Surname: </td><td>".$row['surname']."</td></tr>";
-        echo "<tr><td>Username: </td><td>".$row['username']."</td><td>Born: </td><td>".$row['born']."</td>";
-        echo "<tr><td>Phone: </td><td>".$row['phone']."</td><td>Email: </td><td>".$row['email']."</td>";
-        echo "<tr><td>Department: </td><td>".$row['tmima']."</td><td>Incharge: </td><td>".$row['incharge']."</td>";
-        echo "</table>";
-		return;
-	}
-
-	function change_info(){
-        global $db;
-        $query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.tmima, tmp2.name as incharge FROM
-					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
-						CROSS JOIN departments
-							ON users.dep_id = departments.id
-					WHERE users.id = '".$this->id."' ) AS tmp1
-						CROSS JOIN users AS tmp2
-							ON tmp1.incharge = tmp2.id";
-        $result = $db->query($query);
-        $row = mysql_fetch_assoc($result);
-        //TODO appearance must be upgraded for sure! 
-        echo "<form action=\"change_info.php\" method=\"post\">";
-        //TODO some php file must be created to check password and make UPDATE
-        echo "Name: 	<input type=\"text\" name=\"name\" value=\"".$row['name']."\">";
-        echo "Surname: 	<input type=\"text\" name=\"surname\" value=\"".$row['surname']."\"> <br />";
-        echo "Username:	<input type=\"text\" name=\"username\" value=\"".$row['username']."\" disabled=\"disabled\" >";
-        echo "Born: 	<input type=\"date\" name=\"born\" value=\"".$row['born']."\"> <br />";
-        echo "Phone:	<input type=\"tel\" name=\"phone\" value=\"".$row['phone']."\">";
-        echo "Email:	<input type=\"email\" name=\"email\" value=\"".$row['email']."\"> <br />";
-        echo "New Password: <input type=\"password\" name=\"new_pass\">";
-        echo "Current Password <input type=\"password\" name=\"cur_pass\"> <br />";
-        echo "Provide your password in order changes to be saved! <input type=\"submit\" value=\"Save\" />";
-        echo "</form>";
+        global $db, $user;
+        if(isset($_POST['hidden'])){
+            $query = "	SELECT * FROM `{$db->table["users"]}`
+            					WHERE 	`username` = '".mysql_real_escape_string($_POST['name'])."' 
+            					AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
+            					LIMIT 1 ;";
+            $result = $db->query($query);
+            if(mysql_num_rows($result)){
+                $q = "UPDATE `{$db->table["users"]}` SET 
+                    	  `name` = '".mysql_real_escape_string($_POST['name'])."',
+                    	  `surname` = '".mysql_real_escape_string($_POST['surname'])."',
+                    	  `born` = '".mysql_real_escape_string($_POST['born'])."',
+                    	  `phone` = '".mysql_real_escape_string($_POST['phone'])."',
+                    	  `email` = '".mysql_real_escape_string($_POST['email'])."'";
+                if(isset($_POST['n_pass']) && $_POST['n_pass'] != ""){
+                    if($_POST['n_pass'] == $_POST['r_n_pass'] /*&& check_password($_POST['n_pass'])*/)
+                        $q .= ", `password` = '".mysql_real_escape_string($_POST['n_pass'])."'";
+                }
+                $q .= " WHERE users.id = '{$user->id}' AND users.password = '".mysql_real_escape_string($this->pass_encrypt($_POST['password']))."';";
+                $db->query($q);
+                echo "<span class=\"success\">Οι αλλαγές σας αποθηκεύτηκαν.</span>";
+            }
+            else
+                echo "<span class=\"error\">Δώσατε λάθος κωδικό.</span>";
+        }
+        else{
+            $query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.tmima, tmp2.name as incharge_n, tmp2.surname as incharge_s FROM
+    					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
+    						CROSS JOIN departments
+    							ON users.dep_id = departments.id
+    					WHERE users.id = '".$this->id."' ) AS tmp1
+    						CROSS JOIN users AS tmp2
+    							ON tmp1.incharge = tmp2.id";
+            $result = $db->query($query);
+            $row = mysql_fetch_assoc($result); ?>
+            <form action="" method="post" id="change-info">
+            <label for="username">Username: </label><input type="text" id="username" name="username" disabled="disabled" value="<?php echo $row['username']; ?>" /><br />
+            <label for="incharge">Incharge: </label><input type="text" id="incharge" name="incharge" disabled="disabled" value="<?php echo $row['incharge_n']." ".$row['incharge_s']; ?>" /><br />
+            <label for="name">Name: </label><input type="text" id="name" name="name" value="<?php echo $row['name']; ?>" /><br />
+            <label for="surname">Surname: </label><input type="text" id="surname" name="surname" value="<?php echo $row['surname']; ?>" /><br />
+            <label for="email">E-mail: </label><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" /><br />
+            <label for="born">Born: </label><input type="date" id="born" name="born" value="<?php echo $row['born']; ?>" /><br />
+            <label for="phone">Phone: </label><input type="tel" id="phone" name="phone" value="<?php echo $row['phone']; ?>" /><br />
+            <label for="n_pass">New Password: </label><input type="password" id="n_pass" name="n_pass" /><br />
+            <label for="r_n_pass">Repeat New Password: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
+            <label for="password">Your Password: </label><input type="password" id="password" name="password" /><br />
+    			<input type="hidden" name="hidden" value="1" />        
+            	<input type="submit" value="Update" />
+            </form><?php
+        }
 	}
 	
 	function is_logged_in(){
@@ -212,21 +188,21 @@ class User{
 	function show_login_status(){
 		global $CONFIG;
 		$code = "";
+		$more = "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"?show=help\">Help</a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
 				$code .= "<a href=\"?show=login\">Login</a>";
 			if($CONFIG['allow_register'])
 				$code .= " | <a href=\"?show=register\">Register</a> ";
+			$code.= $more;
 		}
 		elseif($_SESSION['logged_in'] == 1){
 			$code .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
 				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Messages</a> ";
-			
+		    $code.= $more;
+		    $code .= " | <a href=\"?show=logout\">Logout</a>";
 		}
-		$code .= "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"?show=help\">Help</a> | ";
-		if($_SESSION['logged_in'] == 1)
-			$code .= "<a href=\"?show=logout\">Logout</a>";
 		return $code;
 	}
 	

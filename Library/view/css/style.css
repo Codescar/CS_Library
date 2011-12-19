@@ -63,10 +63,10 @@ table{
 .writer{
 	width: 200px;
 }
-#new-user-form label{
+#new-user-form label, #change-info label, #feedback-form label{
 	display: inline-block;
 	width: 100px;
-	margin-bottom: 6px;
+	margin: 7px;
 }
 .success{
 	color: green;
@@ -94,7 +94,15 @@ table{
 	text-size: 18pt;
 	font-weight: bold;
 }	
+
+.avail{
+	color: green;
+	font-style: italic;
+	font-weight: bold;
+}	
 	
-	
-	
-	
+.avail_no{
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}

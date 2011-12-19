@@ -29,11 +29,9 @@ function list_books($books){
 			echo "<!-- Availability -->
 				  <td class=\"avail\">";
 			if($row['availability'] == 0)
-				echo "Δανεισμένο";
+				echo "<span class=\"avail_no\">Δανεισμένο</span>";
 			else
-				echo "Διαθέσιμο";
-			if($user->is_logged_in())
-				echo " <a href=\"index.php?show=book&id=".$row['id']."\">Ζήτησέ το</a>";
+				echo "<span class=\"avail\">Διαθέσιμο</span>";
 			echo "</td>";
 			
 			echo "<!-- Writer -->
