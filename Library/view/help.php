@@ -5,6 +5,6 @@
 	
 ?>
 <div class="content">
-<h2>Help content</h2>
-<p>Under Destruction...</p>
+<h2>Περιεχόμενο Βοήθειας</h2>
+<p>Υπό κατασκευή...</p>
 </div>

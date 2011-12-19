@@ -188,20 +188,20 @@ class User{
 	function show_login_status(){
 		global $CONFIG;
 		$code = "";
-		$more = "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"?show=help\">Help</a>";
+		$more = "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"?show=help\">Βοήθεια</a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
-				$code .= "<a href=\"?show=login\">Login</a>";
+				$code .= "<a href=\"?show=login\">Είσοδος</a>";
 			if($CONFIG['allow_register'])
-				$code .= " | <a href=\"?show=register\">Register</a> ";
+				$code .= " | <a href=\"?show=register\">Εγγραφή</a> ";
 			$code.= $more;
 		}
 		elseif($_SESSION['logged_in'] == 1){
 			$code .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
-				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Messages</a> ";
+				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Μηνύματα</a> ";
 		    $code.= $more;
-		    $code .= " | <a href=\"?show=logout\">Logout</a>";
+		    $code .= " | <a href=\"?show=logout\">Έξοδος</a>";
 		}
 		return $code;
 	}
