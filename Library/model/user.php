@@ -130,7 +130,7 @@ class User{
         global $db, $user;
         if(isset($_POST['hidden'])){
             $query = "	SELECT * FROM `{$db->table["users"]}`
-            					WHERE 	`username` = '".mysql_real_escape_string($_POST['name'])."' 
+            					WHERE 	`id` = '{$user->id}' 
             					AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
             					LIMIT 1 ;";
             $result = $db->query($query);
@@ -186,9 +186,9 @@ class User{
 	}
 	
 	function show_login_status(){
-		global $CONFIG;
+		global $CONFIG, $url;
 		$code = "";
-		$more = "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"?show=help\">Βοήθεια</a>";
+		$more = "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"javascript: pop_up('$url?show=help')\">Βοήθεια</a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
 				$code .= "<a href=\"?show=login\">Είσοδος</a>";

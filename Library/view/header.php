@@ -18,6 +18,8 @@
 	<script src="<?php echo $url; ?>view/js/js.js" type="text/javascript"></script>
 </head>
 <body>
+<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
 <p id="user-settings"><?php echo $user->show_login_status(); ?></p>
 <h1><?php echo $title; ?></h1>
 <br/>
+<?php } ?>

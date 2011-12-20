@@ -106,3 +106,14 @@ table{
 	font-style: italic;
 	font-weight: bold;
 }
+
+.help p{
+	margin: 20px;
+	min-width: 300px;
+	max-width: 650px;
+	margin-bottom: 40px;
+}
+
+.sub-help{
+	margin: 50px;
+}

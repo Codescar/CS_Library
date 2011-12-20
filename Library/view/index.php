@@ -7,7 +7,8 @@
 	require_once('header.php');
 
 	/* navigation menu */
-	include('nav.php');
+	if(isset($_GET['show']) && $_GET['show'] == "help");else
+		include('nav.php');
 	
 	/* include the right page to show */
 	if(!isset($_GET['show'])) 
