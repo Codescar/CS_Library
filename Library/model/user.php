@@ -188,7 +188,7 @@ class User{
 	function show_login_status(){
 		global $CONFIG, $url;
 		$code = "";
-		$more = "| <a href=\"?show=feedback\">Feedback</a> | <a href=\"javascript: pop_up('$url?show=help')\">Βοήθεια</a>";
+		$more = " | <a href=\"?show=feedback\">Feedback</a> | <a href=\"javascript: pop_up('$url?show=help')\">Βοήθεια</a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
 				$code .= "<a href=\"?show=login\">Είσοδος</a>";
@@ -199,7 +199,7 @@ class User{
 		elseif($_SESSION['logged_in'] == 1){
 			$code .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
-				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Μηνύματα</a> ";
+				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Μηνύματα</a>";
 		    $code.= $more;
 		    $code .= " | <a href=\"?show=logout\">Έξοδος</a>";
 		}
