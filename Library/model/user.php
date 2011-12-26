@@ -72,8 +72,10 @@ class User{
 	}
 	
 	//TODO replace tale/column names below here
-	function show_history($mode = 0){
+	function show_history($mode = 0, $user_id = -1){
 	    global $db;
+	    if($user_id == -1)
+	    	$user_id = $this->id;
 	    if($mode)
 	    	$query = "	SELECT * FROM `{$db->table["history"]}`
 	    				CROSS JOIN `{$db->table["users"]}` 
@@ -81,7 +83,7 @@ class User{
 						ORDER BY `{$db->columns["history"]["date"]}`";
 	    else
 			$query = "	SELECT * FROM `{$db->table["history"]}`
-						WHERE `{$db->columns["history"]["user_id"]}` = '". $this->id ."'
+						WHERE `{$db->columns["history"]["user_id"]}` = '$user_id'
 						ORDER BY `{$db->columns["history"]["date"]}`";	    
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th>";
@@ -126,11 +128,13 @@ class User{
 		return;
 	}
 
-	function show_info(){
+	function show_info($user_id = -1){
         global $db, $user;
+        if($user_id == -1)
+        	$user_id = $this->id;
         if(isset($_POST['hidden'])){
             $query = "	SELECT * FROM `{$db->table["users"]}`
-            					WHERE 	`id` = '{$user->id}' 
+            					WHERE 	`id` = '$user_id' 
             					AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
             					LIMIT 1 ;";
             $result = $db->query($query);
@@ -145,7 +149,7 @@ class User{
                     if($_POST['n_pass'] == $_POST['r_n_pass'] /*&& check_password($_POST['n_pass'])*/)
                         $q .= ", `password` = '".mysql_real_escape_string($_POST['n_pass'])."'";
                 }
-                $q .= " WHERE users.id = '{$user->id}' AND users.password = '".mysql_real_escape_string($this->pass_encrypt($_POST['password']))."';";
+                $q .= " WHERE users.id = '$user_id' AND users.password = '".mysql_real_escape_string($this->pass_encrypt($_POST['password']))."';";
                 $db->query($q);
                 echo "<span class=\"success\">Οι αλλαγές σας αποθηκεύτηκαν.</span>";
             }
@@ -157,7 +161,7 @@ class User{
     					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
     						CROSS JOIN departments
     							ON users.dep_id = departments.id
-    					WHERE users.id = '".$this->id."' ) AS tmp1
+    					WHERE users.id = '$user_id' ) AS tmp1
     						CROSS JOIN users AS tmp2
     							ON tmp1.incharge = tmp2.id";
             $result = $db->query($query);

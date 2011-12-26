@@ -111,5 +111,45 @@ class Admin{
 		</form>
 	<?php 	
 	}
+	
+	function show_users(){
+		global $db;
+		//TODO may use pages for the results
+		$query = "SELECT * FROM `users` ;";
+		$res = $db->query($query);
+		?>
+		<table >
+		<tr>
+			<th>ID</th>
+			<th>Username</th>
+			<th>Department</th>
+			<th>Phone</th>
+			<th>email</th>
+		</tr>
+		<?php 
+		while($row = mysql_fetch_object($res)){
+			?>
+			<tr>
+				<td><?php echo $row->id; ?></td>
+				<td><a href="?show=admin&more=user&id=<?php echo $row->id; ?>"><?php echo $row->username; ?></a></td>
+				<td><?php echo $row->dep_id; ?></td>
+				<td><?php echo $row->phone; ?></td>
+				<td><?php echo $row->email; ?></td>
+			</tr>
+			<?php 
+		}
+		?>
+		</table>
+		<?php 
+		
+	}
+	
+	function show_user($id){
+	global $user;
+	?>
+	<p >WARNING! CHANGES WILL NOT TAKE AFFECT!</p>
+	<?php 
+	$user->show_info($id);	
+	}
 }
 ?>

@@ -12,6 +12,7 @@
 	<div class="menu">
 		<ul>
 			<li><a href="?show=admin&more=info">Info</a></li>
+			<li><a href="?show=admin&more=users">Show Users</a></li>
 			<li><a href="?show=admin&more=statistics">Statistics</a></li>
 			<li><a href="?show=admin&more=history">History</a></li>
 			<li><a href="?show=admin&more=new_user">Create User</a></li>
@@ -32,6 +33,10 @@
 		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
 		$user->admin->show_options();
+	}elseif($_GET['more'] == "users"){
+		$user->admin->show_users();
+	}elseif($_GET['more'] == "user" && isset($_GET['id'])){
+		$user->admin->show_user($_GET['id']);
 	}elseif($_GET['more'] == "departments"){
 		$user->admin->create_department();
 	}elseif($_GET['more'] == "lend"){
