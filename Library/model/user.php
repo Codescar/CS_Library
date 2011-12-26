@@ -109,7 +109,7 @@ class User{
 		    case 1:
 		    	echo ($mode) && book_avail($row['book_id'])
 		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
-				: "Request";
+				: "Request (<a href=\"?show=cp&more=remove_request&id={$row['id']}\" class=\"cansel-request\">Delete</a>)";
 		        break;
 		    case 2:
 		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
@@ -130,7 +130,7 @@ class User{
 	}
 
 	function show_info($user_id = -1){
-        global $db, $user;
+        global $db;
         if($user_id == -1)
         	$user_id = $this->id;
         if(isset($_POST['hidden'])){
@@ -233,6 +233,16 @@ class User{
 	function is_admin(){
 	    return ($this->access_level >= 100) ? true : false;
 	}
+	
+	function cansel_request($id){
+		global $db;	
+		
+		$query = "DELETE FROM `requests` WHERE `id` = '$id' AND `user_id` = '{$this->id}'; ";
+		$db->query($query);
+		?>
+		<p class="success">Your request have been deleted!</p>
+		<?php 		
+	}	
 }
 
 ?>

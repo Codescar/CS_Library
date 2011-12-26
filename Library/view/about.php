@@ -11,6 +11,14 @@
 	Version 0.1(alpha), (r34, 10/11/2011) <br />
 	Version 0.2(alpha), (r56, 18/12/2011) <br />
 	Version 0.3(beta) , (r58, 19/12/2011) <br />
+	Version 0.4(beta) , (r65, 26/12/2011) Working on... <br />
+	<p >Fixes/Adds:
+	<ul>
+		<li>Improvements in admin panel</li>
+		<li>Help content written (maybe will add more)</li>
+		<li>Option to delete a request for users</li>
+	</ul>
+	</p>
 	
 	<div class="developers"><h3>Developer Team:</h3>
 		<div class="dev"><p class="title">lion2486</p>

@@ -23,6 +23,8 @@
 	}
 	elseif($_GET['more'] == "history"){
 		$user->show_history();
+	}elseif($_GET['more'] == "remove_request" && isset($_GET['id'])){
+		$user->cansel_request(mysql_real_escape_string($_GET['id']));
 	}
 	$db->close();
 	?>

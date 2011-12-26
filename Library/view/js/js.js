@@ -11,4 +11,7 @@ function loaded(){
 	$('.return-book').click(function (){
 		return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
 	});
+	$('.cansel-request').click(function (){
+		return confirm("Είσαι σίγουρος ότι Θέλεις να ακυρώσεις αυτό το αίτημά σου;", "Επιβεβαίωση");
+	});
 }
