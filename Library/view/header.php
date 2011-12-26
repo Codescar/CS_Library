@@ -2,9 +2,8 @@
 	if(!defined('VIEW_INDEX'))
 		die("Invalid request!");
 	define('VIEW_HEADER', true);
-?>
-<!DOCTYPE html> 
-<html lang="el"> 
+?><!DOCTYPE html> 
+<html> 
 <head> 
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 	<meta name="keywords" content="CS_Library" />

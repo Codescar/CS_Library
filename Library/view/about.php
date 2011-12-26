@@ -9,8 +9,8 @@
 	<a href="http://codescar.eu">http://codescar.eu</a><br />
 	<a href="http://projects.codescar.eu/Library/">http://projects.codescar.eu/Library/</a><br />
 	Version 0.1(alpha), (r34, 10/11/2011) <br />
-	Version 0.2(alpha), (r56, 18/12/2011) 
-	Version 0.3(beta) , (r58, 19/12/2011)
+	Version 0.2(alpha), (r56, 18/12/2011) <br />
+	Version 0.3(beta) , (r58, 19/12/2011) <br />
 	
 	<div class="developers"><h3>Developer Team:</h3>
 		<div class="dev"><p class="title">lion2486</p>

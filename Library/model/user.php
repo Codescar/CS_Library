@@ -73,29 +73,41 @@ class User{
 	
 	//TODO replace tale/column names below here
 	function show_history($mode = 0, $user_id = -1){
+		/**
+		 * $mode values:
+		 * default: 0, normal user mode, see the history of 1 user
+		 * 1, admin, show all the histories
+		 * 2, admin, show pendings only....
+		 */
 	    global $db;
 	    if($user_id == -1)
 	    	$user_id = $this->id;
-	    if($mode)
+	    if($mode == 1) 
 	    	$query = "	SELECT * FROM `{$db->table["history"]}`
 	    				CROSS JOIN `{$db->table["users"]}` 
 	    				ON {$db->table["users"]}.{$db->columns["users"]["id"]} = {$db->table["history"]}.{$db->columns["history"]["user_id"]} 
 						ORDER BY `{$db->columns["history"]["date"]}`";
+	    elseif($mode == 2)
+	    	$query = "	SELECT * FROM `{$db->table["history"]}`
+	    				CROSS JOIN `{$db->table["users"]}` 
+	    				ON {$db->table["users"]}.{$db->columns["users"]["id"]} = {$db->table["history"]}.{$db->columns["history"]["user_id"]} 
+						GROUP BY `book_id`, `action` 
+	    				ORDER BY `{$db->columns["history"]["date"]}`";
 	    else
 			$query = "	SELECT * FROM `{$db->table["history"]}`
 						WHERE `{$db->columns["history"]["user_id"]}` = '$user_id'
 						ORDER BY `{$db->columns["history"]["date"]}`";	    
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th>";
-		echo $mode ? "<th>User</th>" : "";
+		echo ($mode ) ? "<th>User</th>" : "";
 		echo "<th>Action</th><th>Date</th></tr>";
 		while($row = mysql_fetch_array($result)){
 			echo "<tr><td>".$row['title']."</td>";
-			echo $mode ? "<td>{$row['name']} ({$row['user_id']})</td>" : "";
+			echo ($mode) ? "<td>{$row['name']} ({$row['user_id']})</td>" : "";
 			echo "<td>";
             switch($row['action']){
 		    case 1:
-		    	echo $mode && book_avail($row['book_id'])
+		    	echo ($mode) && book_avail($row['book_id'])
 		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
 				: "Request";
 		        break;
@@ -105,7 +117,7 @@ class User{
 		        break;
 		    case 3:
 		    	//TODO return or back is the correct action for an admin?
-		    	echo $mode 
+		    	echo ($mode ) 
 		    	? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Have it now</a>"
 				: "Have it now";
 				break;
@@ -114,17 +126,6 @@ class User{
 			echo  "<td>".$row['date']."</td></tr><tr></tr>";
 		}
 		echo "</table>";
-		//TODO add to javascript informations about the user and the book
-		?>
-		<script type="text/javascript">
-			$('.request-book').click(function (){
-				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει παραλάβει το βιβλίο;", "Επιβεβαίωση");
-			});
-			$('.return-book').click(function (){
-				return confirm("Είσαι σίγουρος ότι ο χρήστης έχει επιστρέψει το βιβλίο;", "Επιβεβαίωση");
-			});
-		</script>
-		<?php 
 		return;
 	}
 
@@ -177,8 +178,10 @@ class User{
             <label for="n_pass">New Password: </label><input type="password" id="n_pass" name="n_pass" /><br />
             <label for="r_n_pass">Repeat New Password: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
             <label for="password">Your Password: </label><input type="password" id="password" name="password" /><br />
-    			<input type="hidden" name="hidden" value="1" />        
-            	<input type="submit" value="Update" />
+    			<input type="hidden" name="hidden" value="1" />   
+    			<?php if($user_id != $this->id) {?>     
+            		<input type="submit" value="Update" />
+            	<?php } ?>
             </form><?php
         }
 	}
