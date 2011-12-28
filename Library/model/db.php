@@ -11,7 +11,8 @@ class Lbdb{
 							"log_lend"		=> "log_lend",
 							"requests"		=> "requests",
 							"users"			=> "users",
-							"history"		=> "history");
+							"history"		=> "history",
+							"messages"		=> "messages");
 	
 	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 

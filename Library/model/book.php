@@ -46,7 +46,7 @@ function list_books($books){
 	?>
 	<?php if($page >= 1) { ?>
 	<span id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
-	<?php } if(count($books) >= $page * $CONFIG['items_per_page'] + $CONFIG['items_per_page'] ) { ?>
+	<?php } if(count($books) >= $CONFIG['items_per_page'] ) { ?>
 	<span id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
 	<?php } ?>
 	</div>

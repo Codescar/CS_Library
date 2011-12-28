@@ -17,6 +17,9 @@
 		<li>Improvements in admin panel</li>
 		<li>Help content written (maybe will add more)</li>
 		<li>Option to delete a request for users</li>
+		<li>Some fixes in control panel</li>
+		<li>Message Fuction work part1</li>
+		<li>Book listing fix</li>
 	</ul>
 	</p>
 	

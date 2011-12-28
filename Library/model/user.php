@@ -3,7 +3,7 @@
  * system, we can continue...
  */
 class User{
-	public $id, $username, $email, $access_level, $department_id, $admin;
+	public $id, $username, $email, $access_level, $department_id, $admin, $message;
 	
 	function __constructor(){
 		$admin = null;
@@ -179,7 +179,7 @@ class User{
             <label for="r_n_pass">Repeat New Password: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
             <label for="password">Your Password: </label><input type="password" id="password" name="password" /><br />
     			<input type="hidden" name="hidden" value="1" />   
-    			<?php if($user_id != $this->id) {?>     
+    			<?php if($user_id == $this->id) {?>     
             		<input type="submit" value="Update" />
             	<?php } ?>
             </form><?php

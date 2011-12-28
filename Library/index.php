@@ -24,5 +24,8 @@
 		define('DISPLAY_XPM4_ERRORS', true);
 	}
 	
+	/* Load the user's messagebox*/
+	$user->message = new message();
+	
 	require_once('view/index.php');
 ?>

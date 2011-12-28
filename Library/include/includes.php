@@ -8,5 +8,5 @@
 	require_once('model/user.php');
 	require_once('model/admin.php');
 	
-
+	require_once('model/message.php');
 ?>
