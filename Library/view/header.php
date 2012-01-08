@@ -15,6 +15,7 @@
 	<script src="<?php echo $url; ?>view/js/jquery-1.6.2.min.js" type="text/javascript"></script>
 	<script src="<?php echo $url; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="<?php echo $url; ?>view/js/js.js" type="text/javascript"></script>
+	<script src="<?php echo $url; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
 </head>
 <body>
 <?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>

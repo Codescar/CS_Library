@@ -21,7 +21,10 @@
 	if($CONFIG['debug']){
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
-		define('DISPLAY_XPM4_ERRORS', true);
+		//define('DISPLAY_XPM4_ERRORS', true);
+	}else{
+		ini_set('display_errors', '0');
+		define('DISPLAY_XPM4_ERRORS', false);
 	}
 	
 	/* Load the user's messagebox*/

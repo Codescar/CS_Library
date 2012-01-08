@@ -22,7 +22,7 @@
 		<option value="Other">Other</option>
 	</select><br />
 	<label for="email">Your E-mail: </label><input type="email" name="email" id="email" /><br />
-	<label for="text">Text: </label><textarea id="text" name="text" rows="10" /></textarea><br />
+	<label for="text">Text: </label><textarea class="ckeditor" id="text" name="text" rows="10" /></textarea><br />
 	<input type="hidden" name="hidden" value="1" />
 	<input type="submit" value="Submit" />
 	</form>
