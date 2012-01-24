@@ -12,6 +12,7 @@
 	<div class="menu">
 		<ul>
 			<li><a href="?show=admin&more=pendings">Pendings</a></li>
+			<li><a href="?show=admin&more=announcements">Announcements</a></li>
 			<li><a href="?show=admin&more=users">Show Users</a></li>
 			<li><a href="?show=admin&more=statistics">Statistics</a></li>
 			<li><a href="?show=admin&more=history">History</a></li>
@@ -25,6 +26,8 @@
 	$db->connect();
 	if(!isset($_GET['more']) || $_GET['more'] == "pendings"){
 		$user->admin->show_pendings();
+	}elseif($_GET['more'] == "announcements"){
+		$user->admin->manage_announce();
 	}elseif($_GET['more'] == "statistics"){
 	    $user->admin->show_statistics();
 	}elseif($_GET['more'] == "history"){

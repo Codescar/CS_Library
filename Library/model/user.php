@@ -243,6 +243,14 @@ class User{
 		<p class="success">Your request have been deleted!</p>
 		<?php 		
 	}	
-}
+	
+	public static function get_name($id){
+		global $db;
+		$query = "SELECT name FROM {$db->table['users']} WHERE `id` = '".mysql_real_escape_string($id)."';";
+		$result = $db->query($query);
+		$ret = mysql_fetch_row($result);
+		return $ret[0];
+	}
+};
 
 ?>

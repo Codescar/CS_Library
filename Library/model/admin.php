@@ -267,5 +267,62 @@ class Admin{
 		global $user;
 		$user->show_history(0, mysql_real_escape_string($id));
 	}
-}
+	
+	function manage_announce(){
+		if(!isset($_GET['id']) && !isset($_GET['add'])){
+			$ret = announcements::list_all();
+			?>
+			<a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">Add New</a><br />
+			<table>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Body</th>
+				<th>Date</th>
+				<th>Author</th>
+				<th>Action</th>
+			</tr>
+			<?php 
+			while($row = mysql_fetch_array($ret)){
+				?>
+				<tr>
+					<td><?php echo $row['id']; 		?></td>
+					<td><?php echo substr($row['title'], 0, 25); echo (strlen($row['title'])>25) ? "..." : ""; ?></td>
+					<td><?php echo substr($row['body'], 0, 25);  echo (strlen($row['body'])>25)  ? "..." : ""; ?></td>
+					<td><?php echo $row['date'];	?></td>
+					<td><?php echo $row['author'];	?></td>
+					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a href="">Delete</a></td>
+				</tr>
+				<?php 
+			}
+			?>
+			</table>
+			<?php 
+		}
+		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
+			
+			$ret = announcements::get($_GET['id']);
+			$row = mysql_fetch_array($ret);
+			?>
+			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
+				<label for="title">Title:</label> <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" /><br />
+				<label for="body">Body:</label> <textarea name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+				<input type="submit" value="Save" />
+			</form>
+			<?php 	
+		}
+		elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
+			if($_GET['id'] != 0)
+				announcements::update($_GET['id'], $_POST['title'], $_POST['body'])	;
+			else
+				announcements::add($_POST['title'], $_POST['body']);
+			?>
+			<p class="success">Announcement Added/Updated</p>
+			<?php 
+		}
+		elseif(isset($_GET['add']) && $_GET['add'] == "new"){
+				
+		}
+	}
+};
 ?>
