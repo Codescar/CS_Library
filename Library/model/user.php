@@ -3,18 +3,18 @@
  * system, we can continue...
  */
 class User{
-	public $id, $username, $email, $access_level, $department_id, $admin, $message;
+	public $id, $username, $email, $access_level, $admin, $message;
 	
 	function __constructor(){
 		$admin = null;
 	}
 	
-	function pass_encrypt($pass){
+	private static function pass_encrypt($pass){
 		return $pass;
 		//return md5($pass);
 	}
 
-	function login($name, $pass){
+	public function login($name, $pass){
 		global $db;
 		$db->connect();
 		$name = mysql_real_escape_string($name);
@@ -32,7 +32,6 @@ class User{
 	    	$this->access_level 		= $user['access_lvl'];
 	    	$this->username				= $user['username'];
 	    	$this->email				= $user['email'];
-	    	$this->department_id		= $user['dep_id'];
             
 	    	//$_SESSION['user']           = serialize($this);
 	    	$_SESSION['logged_in']		= 1;
@@ -42,37 +41,30 @@ class User{
 		return $user;
 	}
 	
-	function createUser($user, $pass, $mail, $dep_id){
+	public static function createUser($user, $pass, $mail){
 		global $db;
 		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
 		$mail = mysql_real_escape_string($mail);
-		$dep_id = mysql_real_escape_string($dep_id);
 		
 		$query = "INSERT INTO `{$db->table["users"]}` 
-					(`dep_id`, 
-					 `username`, 
+					(`username`, 
 					 `password`, 
 					 `email`, 
 					 `access_lvl`, 
 					 `created_date`, 
 					 `last_ip`) VALUES 
-					('$dep_id', '$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
+					('$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
 		$db->query($query);
-		//TODO add a confirmation link to a table
+		//TODO send an e-mail to user 
 		$db->close();
 		return;
 	}
 	
-	function activateAccount(){
-		//TODO have to consider how and where will store the activation keys
-		return;
-	}
-	
 	//TODO replace tale/column names below here
-	function show_history($mode = 0, $user_id = -1){
+	public function show_history($mode = 0, $user_id = -1){
 		/**
 		 * $mode values:
 		 * default: 0, normal user mode, see the history of 1 user
@@ -129,7 +121,7 @@ class User{
 		return;
 	}
 
-	function show_info($user_id = -1){
+	public function show_info($user_id = -1){
         global $db;
         if($user_id == -1)
         	$user_id = $this->id;
@@ -158,18 +150,15 @@ class User{
                 echo "<span class=\"error\">Δώσατε λάθος κωδικό.</span>";
         }
         else{
-            $query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.tmima, tmp2.name as incharge_n, tmp2.surname as incharge_s FROM
-    					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, departments.name as tmima, departments.incharge FROM users
-    						CROSS JOIN departments
-    							ON users.dep_id = departments.id
+            $query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email FROM
+    					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email FROM users
+    						
     					WHERE users.id = '$user_id' ) AS tmp1
-    						CROSS JOIN users AS tmp2
-    							ON tmp1.incharge = tmp2.id";
+    						";
             $result = $db->query($query);
             $row = mysql_fetch_assoc($result); ?>
             <form action="" method="post" id="change-info">
             <label for="username">Username: </label><input type="text" id="username" name="username" disabled="disabled" value="<?php echo $row['username']; ?>" /><br />
-            <label for="incharge">Incharge: </label><input type="text" id="incharge" name="incharge" disabled="disabled" value="<?php echo $row['incharge_n']." ".$row['incharge_s']; ?>" /><br />
             <label for="name">Name: </label><input type="text" id="name" name="name" value="<?php echo $row['name']; ?>" /><br />
             <label for="surname">Surname: </label><input type="text" id="surname" name="surname" value="<?php echo $row['surname']; ?>" /><br />
             <label for="email">E-mail: </label><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" /><br />
@@ -186,13 +175,13 @@ class User{
         }
 	}
 	
-	function is_logged_in(){
+	public function is_logged_in(){
 		return isset($_SESSION['logged_in']) 
 		&& ($_SESSION['logged_in'] == 1) 
 		&& ($this->access_level >= 0);
 	}
 	
-	function show_login_status(){
+	public function show_login_status(){
 		global $CONFIG, $url;
 		$code = "";
 		$more = " | <a href=\"?show=feedback\">Feedback</a> | <a href=\"javascript: pop_up('$url?show=help')\">Βοήθεια</a>";
@@ -213,7 +202,7 @@ class User{
 		return $code;
 	}
 	
-	function session_check(){
+	public function session_check(){
 		if(!isset($_SESSION['logged_in']))
 			session_empty();
 		if(!isset($_SESSION['last_active'])){
@@ -230,11 +219,11 @@ class User{
 		$_SESSION['sessionid'] 	= session_id();
 	}
 
-	function is_admin(){
+	public function is_admin(){
 	    return ($this->access_level >= 100) ? true : false;
 	}
 	
-	function cansel_request($id){
+	public function cansel_request($id){
 		global $db;	
 		
 		$query = "DELETE FROM `requests` WHERE `id` = '$id' AND `user_id` = '{$this->id}'; ";

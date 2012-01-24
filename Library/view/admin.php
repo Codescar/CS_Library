@@ -18,7 +18,6 @@
 			<li><a href="?show=admin&more=history">History</a></li>
 			<li><a href="?show=admin&more=new_user">Create User</a></li>
 			<li><a href="?show=admin&more=options">Options</a></li>
-			<li><a href="?show=admin&more=departments">Departments</a></li>
 		</ul>
 	</div><br />
 	<?php 
@@ -42,8 +41,6 @@
 		$user->admin->show_user($_GET['id']);
 	}elseif($_GET['more'] == "user_history" && isset($_GET['id'])){
 		$user->admin->user_history($_GET['id']);
-	}elseif($_GET['more'] == "departments"){
-		$user->admin->create_department();
 	}elseif($_GET['more'] == "lend"){
 		if(!isset($_GET['lend']) && !isset($_GET['user']))
 			echo "<p class=\"error\">Error</p>";

@@ -22,13 +22,20 @@
 			</script>
 			<?php 
 		}
+	}elseif(isset($_GET['do']) && $_GET['do'] == "register"){
+		if(!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['password2']) || !isset($_POST['email']) || $_POST['password'] != $_POST['password2'])
+			$error = "Invalid informations, try again... ";
+		else{
+			user::createUser($_POST['username'], $_POST['password'], $_POST['email']);
+		}
+		
 	}
 if(isset($error) || !isset($_GET['do'])){
 ?>
+<?php if(isset($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 <fieldset class="content">
 	<!--  <h2>Σύνδεση χρήστη</h2><br/> -->
 	<legend><h2>Σύνδεση χρήστη</h2></legend>
-	<?php if(isset($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 	<form action="?show=login&do=login" method="post" id="login-form">
 	<label for="username">Όνομα Χρήστη: </label>
 	<input type="text" name="username" id="username" /><br/>
@@ -42,7 +49,7 @@ if(isset($error) || !isset($_GET['do'])){
 <fieldset class="content">
 	<!--  <h2>Εγγραφή χρήστη</h2><br/> -->
 	<legend><h2>Εγγραφή χρήστη</h2></legend>
-	<form action="" method="post" id="register-form">
+	<form action="?show=login&do=register" method="post" id="register-form">
 	<label for="username">Όνομα Χρήστη: </label>
 	<input type="text" name="username" id="username" /><br/>
 	<label for="password">Κωδικός Πρόσβασης: </label>
