@@ -200,7 +200,7 @@ class User{
 			if($CONFIG['allow_login'])
 				$code .= "<a href=\"?show=login\">Είσοδος</a>";
 			if($CONFIG['allow_register'])
-				$code .= " | <a href=\"?show=register\">Εγγραφή</a> ";
+				$code .= "<a href=\"?show=login\">/Εγγραφή</a> ";
 			$code.= $more;
 		}
 		elseif($_SESSION['logged_in'] == 1){

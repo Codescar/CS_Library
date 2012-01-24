@@ -25,8 +25,6 @@
 		include('book.php');///TODO book view
 	elseif($_GET['show'] == "login" && $CONFIG['allow_login'])
 		include('login.php');
-	elseif($_GET['show'] == "register" && $CONFIG['allow_register'])
-		include('register.php');
 	elseif($_GET['show'] == "logout")
 		include('logout.php');
 	elseif($_GET['show'] == "msg" && $CONFIG['allow_login'])
@@ -39,6 +37,8 @@
 		include('help.php');
 	elseif($_GET['show'] == "admin" && $CONFIG['allow_admin'] && $user->is_admin())
 		include('admin.php');//TODO Admin User Panel
+	elseif($_GET['show'] == "info")
+		include('info.php');
 	else 
 		/* The page doesn't found */
 		include('404.php');

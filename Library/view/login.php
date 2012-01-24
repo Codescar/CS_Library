@@ -25,8 +25,9 @@
 	}
 if(isset($error) || !isset($_GET['do'])){
 ?>
-<div class="content">
-	<h2>Σύνδεση χρήστη</h2><br/>
+<fieldset class="content">
+	<!--  <h2>Σύνδεση χρήστη</h2><br/> -->
+	<legend><h2>Σύνδεση χρήστη</h2></legend>
 	<?php if(isset($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 	<form action="?show=login&do=login" method="post" id="login-form">
 	<label for="username">Όνομα Χρήστη: </label>
@@ -35,5 +36,25 @@ if(isset($error) || !isset($_GET['do'])){
 	<input type="password" name="password" id="password" /><br/>
 	<input type="submit" value="Υποβολή" class="submit"/>	
 	</form>
-</div>
-<?php }?>
+</fieldset>
+<?php if($CONFIG['allow_register']) { ?>
+ή <br />
+<fieldset class="content">
+	<!--  <h2>Εγγραφή χρήστη</h2><br/> -->
+	<legend><h2>Εγγραφή χρήστη</h2></legend>
+	<form action="" method="post" id="register-form">
+	<label for="username">Όνομα Χρήστη: </label>
+	<input type="text" name="username" id="username" /><br/>
+	<label for="password">Κωδικός Πρόσβασης: </label>
+	<input type="password" name="password" id="password" /><br/>
+	
+	<label for="password2">Επιβεβαίωση Κωδικού: </label>
+	<input type="password" name="password2" id="password2" /><br/>
+	
+	<label for="mail">E-mail επικοινωνίας: </label>
+	<input type="email" name="mail" id="mail" /><br/>
+	
+	<input type="submit" value="Υποβολή" class="submit"/>	
+	</form>
+</fieldset>
+<?php } }?>
