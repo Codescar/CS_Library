@@ -6,7 +6,9 @@
 	if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
 		header('Location: index.php');
 		
-	if(isset($_GET['do']) && $_GET['do'] == "login"){
+	$db->connect();
+	
+	if(isset($_GET['do']) && $_GET['do'] == "login"){		
 		
 		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION))
 			$error = "Invalid informations, try again... ";
@@ -23,16 +25,22 @@
 			<?php 
 		}
 	}elseif(isset($_GET['do']) && $_GET['do'] == "register"){
-		if(!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['password2']) || !isset($_POST['email']) || $_POST['password'] != $_POST['password2'])
+		if(!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['password2']) || !isset($_POST['mail']) || $_POST['password'] != $_POST['password2'])
 			$error = "Invalid informations, try again... ";
 		else{
-			user::createUser($_POST['username'], $_POST['password'], $_POST['email']);
+			if(user::username_check($_POST['username']))
+				$error = "Username already exists.";
+			else{
+				user::createUser($_POST['username'], $_POST['password'], $_POST['mail']);
+				$success = "Your account have been crated, please login.";
+			}
 		}
 		
 	}
 if(isset($error) || !isset($_GET['do'])){
 ?>
-<?php if(isset($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
+<?php if(isset($error) && !empty($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
+<?php if(isset($success) && !empty($success)) echo "<p class=\"sucess\">".$success."</p><br/>";?>
 <fieldset class="content">
 	<!--  <h2>Σύνδεση χρήστη</h2><br/> -->
 	<legend><h2>Σύνδεση χρήστη</h2></legend>
@@ -64,4 +72,8 @@ if(isset($error) || !isset($_GET['do'])){
 	<input type="submit" value="Υποβολή" class="submit"/>	
 	</form>
 </fieldset>
-<?php } }?>
+<?php 
+	} 
+}
+$db->close();	
+?>

@@ -16,7 +16,7 @@ class User{
 
 	public function login($name, $pass){
 		global $db;
-		$db->connect();
+		
 		$name = mysql_real_escape_string($name);
 		$pass = mysql_real_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
@@ -26,7 +26,6 @@ class User{
 					LIMIT 1 ;";
 		$result = $db->query($query);
 		$user = mysql_fetch_array($result);
-		$db->close();
 	    if($user){
 	    	$this->id 					= $user['id'];
 	    	$this->access_level 		= $user['access_lvl'];
@@ -43,10 +42,9 @@ class User{
 	
 	public static function createUser($user, $pass, $mail){
 		global $db;
-		$db->connect();
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
-		$pass = $this->pass_encrypt($pass);
+		$pass = user::pass_encrypt($pass);
 		$mail = mysql_real_escape_string($mail);
 		
 		$query = "INSERT INTO `{$db->table["users"]}` 
@@ -56,10 +54,9 @@ class User{
 					 `access_lvl`, 
 					 `created_date`, 
 					 `last_ip`) VALUES 
-					('$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
+					('$user', '$pass', '$mail', '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
 		$db->query($query);
 		//TODO send an e-mail to user 
-		$db->close();
 		return;
 	}
 	
@@ -239,6 +236,14 @@ class User{
 		$result = $db->query($query);
 		$ret = mysql_fetch_row($result);
 		return $ret[0];
+	}
+	
+	public static function username_check($username){
+		global $db;
+		$query = "SELECT * FROM `{$db->table['users']}` WHERE `username` = '".mysql_real_escape_string($username)."' LIMIT 1;";
+		$result = $db->query($query);
+		$num = mysql_num_rows($result);
+		return ($num == 1);	
 	}
 };
 

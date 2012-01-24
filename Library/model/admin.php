@@ -243,7 +243,7 @@ class Admin{
 					<td><?php echo substr($row['body'], 0, 25);  echo (strlen($row['body'])>25)  ? "..." : ""; ?></td>
 					<td><?php echo $row['date'];	?></td>
 					<td><?php echo $row['author'];	?></td>
-					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a href="">Delete</a></td>
+					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row['id'], "delete" => "true"))); ?>">Delete</a></td>
 				</tr>
 				<?php 
 			}
@@ -272,9 +272,14 @@ class Admin{
 			<p class="success">Announcement Added/Updated</p>
 			<?php 
 		}
-		elseif(isset($_GET['add']) && $_GET['add'] == "new"){
-				
+		if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
+				announcements::delete($_GET['id']);
+				?>
+				<p class="success">The announcement has been removed.</p>
+				<?php 
 		}
+		
+				
 	}
 };
 ?>

@@ -14,4 +14,7 @@ function loaded(){
 	$('.cansel-request').click(function (){
 		return confirm("Είσαι σίγουρος ότι Θέλεις να ακυρώσεις αυτό το αίτημά σου;", "Επιβεβαίωση");
 	});
+	$('.delete-announce').click(function (){
+		return confirm("Είσαι σίγουρος ότι Θέλεις να διαγράψεις αυτή την ανακοίνωση;", "Επιβεβαίωση");
+	});
 }

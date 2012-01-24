@@ -33,6 +33,7 @@ class announcements{
 	public static function delete($id){
 		global $db;
 		$query = "DELETE FROM `{$db->table["announcements"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+		$db->query($query);
 		return ;
 	}	
 	
