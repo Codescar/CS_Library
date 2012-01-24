@@ -56,8 +56,8 @@ function list_books($books){
 function have_book_rq($book_id, $user_id){
 	global $db;
 	$query = "	SELECT * FROM `{$db->table["requests"]}`
-				WHERE `{$db->columns["requests"]["user_id"]}` = '".$user_id."'
-				AND `{$db->columns["requests"]["book_id"]}` = '$book_id'";
+				WHERE `user_id` = '".$user_id."'
+				AND `book_id` = '$book_id'";
 	$result = mysql_num_rows($db->query($query));
 	return $result;
 }
@@ -65,8 +65,8 @@ function have_book_rq($book_id, $user_id){
 function have_book($book_id, $user_id){
 	global $db;
 	$query = "	SELECT * FROM `{$db->table["lend"]}` 
-				WHERE `{$db->columns["lend"]["user_id"]}` = '".$user_id."' 
-				AND `{$db->columns["lend"]["book_id"]}` = '$book_id'";
+				WHERE `user_id` = '".$user_id."' 
+				AND `book_id` = '$book_id'";
 	$result = mysql_num_rows($db->query($query));
 	return $result;
 }
@@ -74,9 +74,9 @@ function have_book($book_id, $user_id){
 function lend_request($id){
 	global $db, $user;
 	$query = "	INSERT INTO `{$db->table["requests"]}` (
-					`{$db->columns["requests"]["book_id"]}`, 
-					`{$db->columns["requests"]["user_id"]}`, 
-					`{$db->columns["requests"]["date"]}`)
+					`book_id`, 
+					`user_id`, 
+					`date`)
 			 		VALUES ('$id', '".$user->id."', NOW());";
 	$db->query($query);
 	?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
@@ -84,10 +84,10 @@ function lend_request($id){
 
 function book_avail($book_id){
 	global $db;
-	$query = "	SELECT `{$db->columns["booklist"]["availability"]}` from `{$db->table["booklist"]}` 
-				WHERE `{$db->columns["booklist"]["id"]}` = '$book_id'";
+	$query = "	SELECT `availability` from `{$db->table["booklist"]}` 
+				WHERE `id` = '$book_id'";
 	$res = $db->query($query);
-	return mysql_fetch_object($res)->{$db->columns["booklist"]["availability"]};
+	return mysql_fetch_object($res)->availability;
 	
 }
 ?>

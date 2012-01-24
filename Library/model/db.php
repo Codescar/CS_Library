@@ -14,7 +14,7 @@ class Lbdb{
 							"history"		=> "history",
 							"messages"		=> "messages");
 	
-	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
+/*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
 														"availability" 	=> "availability", 
 														"writer_or" 	=> "writer_or", 
@@ -66,7 +66,7 @@ class Lbdb{
 														"action"		=> "action",
 														"user_id"		=> "user_id",
 														"date"			=> "date")
-	);
+	);*/
 	function __construct(){
 		global $db_hostname, $db_username, $db_password, $db_name;
 		$this->connection = 0;

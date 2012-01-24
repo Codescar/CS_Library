@@ -21,8 +21,8 @@ class User{
 		$pass = mysql_real_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
 		$query = "	SELECT * FROM `{$db->table["users"]}`
-					WHERE 	`{$db->columns["users"]["username"]}` = '$name' 
-					AND 	`{$db->columns["users"]["password"]}` = '$pass'
+					WHERE 	`username` = '$name' 
+					AND 	`password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
 		$user = mysql_fetch_array($result);
@@ -52,13 +52,13 @@ class User{
 		$dep_id = mysql_real_escape_string($dep_id);
 		
 		$query = "INSERT INTO `{$db->table["users"]}` 
-					(`{$db->columns["users"]["dep_id"]}`, 
-					 `{$db->columns["users"]["username"]}`, 
-					 `{$db->columns["users"]["password"]}`, 
-					 `{$db->columns["users"]["email"]}`, 
-					 `{$db->columns["users"]["access_lvl"]}`, 
-					 `{$db->columns["users"]["created_date"]}`, 
-					 `{$db->columns["users"]["last_ip"]}`) VALUES 
+					(`dep_id`, 
+					 `username`, 
+					 `password`, 
+					 `email`, 
+					 `access_lvl`, 
+					 `created_date`, 
+					 `last_ip`) VALUES 
 					('$dep_id', '$user', '$pass', '$mail', '-1', 'NOW()', '".$_SERVER['REMOTE_ADDR']."') ";
 		$db->query($query);
 		//TODO add a confirmation link to a table
@@ -85,18 +85,18 @@ class User{
 	    if($mode == 1) 
 	    	$query = "	SELECT * FROM `{$db->table["history"]}`
 	    				CROSS JOIN `{$db->table["users"]}` 
-	    				ON {$db->table["users"]}.{$db->columns["users"]["id"]} = {$db->table["history"]}.{$db->columns["history"]["user_id"]} 
-						ORDER BY `{$db->columns["history"]["date"]}`";
+	    				ON {$db->table["users"]}.id = {$db->table["history"]}.user_id 
+						ORDER BY `date`";
 	    elseif($mode == 2)
 	    	$query = "	SELECT * FROM `{$db->table["history"]}`
 	    				CROSS JOIN `{$db->table["users"]}` 
-	    				ON {$db->table["users"]}.{$db->columns["users"]["id"]} = {$db->table["history"]}.{$db->columns["history"]["user_id"]} 
+	    				ON {$db->table["users"]}.id = {$db->table["history"]}.user_id 
 						GROUP BY `book_id`, `action` 
-	    				ORDER BY `{$db->columns["history"]["date"]}`";
+	    				ORDER BY `date`";
 	    else
 			$query = "	SELECT * FROM `{$db->table["history"]}`
-						WHERE `{$db->columns["history"]["user_id"]}` = '$user_id'
-						ORDER BY `{$db->columns["history"]["date"]}`";	    
+						WHERE `user_id` = '$user_id'
+						ORDER BY `date`";	    
 		$result = $db->query($query);
 		echo "<table><tr><th>Book</th>";
 		echo ($mode ) ? "<th>User</th>" : "";
