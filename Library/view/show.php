@@ -11,6 +11,6 @@
 	</p>
 </div>
 <?php 
-	announcements::show(); 
+	announcements::show();
 	$db->close();
 ?>
