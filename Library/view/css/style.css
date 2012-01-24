@@ -140,3 +140,20 @@ table{
 	width: 150px;
 	display: inline-block;	
 }
+
+#announcements{
+	
+}
+
+.announce{
+	width: 400px;
+	background-color: #858585;
+	padding: 6px;
+	padding-top: 2px;
+	border: 2px solid black;
+}
+
+.announce-footer{
+	font-size: 75%;
+	font-style: italic;
+}

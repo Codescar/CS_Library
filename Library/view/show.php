@@ -9,8 +9,10 @@
 	<p >Καλώς ορίσατε στην ηλεκτρονική πύλη της δανειστική 
 	βιβλιοθήκης του 15ου Συστήματος Προσκόπων Αθηνών.
 	</p>
+	<div id="announcements">
+	<?php 
+		announcements::show();
+		$db->close();
+	?>
+	</div>
 </div>
-<?php 
-	announcements::show();
-	$db->close();
-?>
