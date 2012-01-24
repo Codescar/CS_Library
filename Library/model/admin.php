@@ -80,7 +80,6 @@ class Admin{
 				<th>User</th>
 				<th>Action</th>
 				<th>Date</th>
-				<th>Department</th>
 				<th>Phone</th>
 				<th>Email</th>
 			</tr>
@@ -117,7 +116,6 @@ class Admin{
 				<th>User</th>
 				<th>Action</th>
 				<th>Date</th>
-				<th>Department</th>
 				<th>Phone</th>
 				<th>Email</th>
 			</tr>
