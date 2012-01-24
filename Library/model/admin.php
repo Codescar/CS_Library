@@ -258,7 +258,7 @@ class Admin{
 			?>
 			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
 				<label for="title">Title:</label> <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" /><br />
-				<label for="body">Body:</label> <textarea name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
 				<input type="submit" value="Save" />
 			</form>
 			<?php 	
