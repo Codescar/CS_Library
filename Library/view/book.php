@@ -18,7 +18,7 @@
 ?>
 <div class="content">
 	<h2><?php echo $results['title']; ?></h2>
-	<h3><?php echo $results['writer_or']; ?></h3>
+	<h3><?php echo $results['writer']; ?></h3>
 	<div>Διαθεσιμότητα: <?php echo ($results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
 	<?php if($user->is_logged_in() && !($have_book_rq = have_book_rq($id, $user->id))){ ?>
 	<form action="?show=book&id=<?php echo $_GET['id']; ?>&lend" id="lend" method="post">
