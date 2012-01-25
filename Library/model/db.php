@@ -18,7 +18,7 @@ class Lbdb{
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
 														"availability" 	=> "availability", 
-														"writer_or" 	=> "writer_or", 
+														"writer" 	=> "writer", 
 														"description"	=> "description", 
 														"added_on" 		=> "added_on"),
 	
@@ -126,56 +126,35 @@ class Lbdb{
 	 * 
 	 * Returns FALSE if there are no results
 	 */
-	function get_books($limit_offset, $items, $query = "SELECT * FROM booklist ORDER BY booklist.id ASC LIMIT "){
+	public function get_books($limit_offset, $items, $query ){
 		$res = $this->query($query.$limit_offset.",". $items .";");
 		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
 		if($books['1'] == FALSE)	
 			return FALSE;
 		array_pop($books);
-		$a = mysql_fetch_array($this->query("SELECT COUNT(*) FROM booklist;"));
+		$a = mysql_fetch_array($this->query("SELECT COUNT(*) FROM `{$this->table['booklist']}`;"));
 		$books['0'] = $a['0'];
 		return $books;
 	}
 	
-	/*
-	 * Searches for a specific book or books througth the library
-	 * Mode 1 searches only in title
-	 * Mode 2 searches only in writer_organization
-	 * Mode 3 searches both title and writer_organization
-	 */
-	function search($string, $mode, $limit_offset, $items){
-		$s = mysql_real_escape_string(trim(mysql_real_escape_string($string)));
-		$query = "SELECT * FROM `booklist` WHERE ";
-		if($mode == '1')
-			$query .= " booklist.title LIKE \"%$s%\"";
-		else if($mode == '2')
-			$query .= " booklist.writer_or LIKE \"%$s%\" ";
-		else
-			$query .= " booklist.title LIKE \"%$s%\" OR booklist.writer_or LIKE \"%$s%\" ";
-		$query .= "ORDER BY booklist.id ASC LIMIT ";
-		
-		$books = $this->get_books($limit_offset, $items, $query);
-		return $books;
-	}
-	
-	function lend_book($bk_id, $usr_id, $dp_id){
-        $lend =	"	INSERT INTO `lend` 
-					(`book_id`, `user_id`, `department_id`, `taken`) VALUES 
-					('$bk_id', '$usr_id', '$dp_id', NOW()) ;
+	function lend_book($bk_id, $usr_id){
+        $lend =	"	INSERT INTO `{$this->table['lend']}` 
+					(`book_id`, `user_id`, `taken`) VALUES 
+					('$bk_id', '$usr_id', NOW()) ;
 				";
 	    $this->query($lend);
 	    return;
 	}
 	
 	function return_book($bk_id){
-		$return ="	UPDATE lend
+		$return ="	UPDATE `{$this->table['lend']}`
 					SET returned = NOW()
 					WHERE book_id = ".$bk_id."
 					LIMIT 1;
 				";
 		$this->query($return);
-	    $log_it ="	DELETE FROM lend
-					WHERE lend.book_id = ".$bk_id."
+	    $log_it ="	DELETE FROM `{$this->table['lend']}`
+					WHERE book_id = ".$bk_id."
 					LIMIT 1;
 				";
 	    $this->query($log_it);

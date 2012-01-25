@@ -19,8 +19,6 @@
 		include('list.php');
 	elseif($_GET['show'] == "search")
 		include('search.php');
-	elseif($_GET['show'] == "results")
-		include('results.php');
 	elseif($_GET['show'] == "book" && isset($_GET['id']))
 		include('book.php');///TODO book view
 	elseif($_GET['show'] == "login" && $CONFIG['allow_login'])

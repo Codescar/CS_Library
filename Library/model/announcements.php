@@ -1,12 +1,4 @@
 <?php
-class announcement{
-	var $title;
-	var $body;
-	var $date;
-	var $author;
-	
-};
-
 
 class announcements{
 	
@@ -49,7 +41,7 @@ class announcements{
 	public static function show($page = 0){
 		global $db;
 		$query = "SELECT * FROM `{$db->table["announcements"]}` ORDER BY `date` desc;";
-		print_r($result = $db->query($query));
+		$result = $db->query($query);
 		while($row = mysql_fetch_array($result)){
 			?>
 			<div class="announce">

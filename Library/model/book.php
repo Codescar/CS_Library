@@ -35,14 +35,19 @@ function list_books($books){
 			echo "</td>";
 			
 			echo "<!-- Writer -->
-				  <td class=\"writer\">". $row['writer_or']."&nbsp;</td>";
+				  <td class=\"writer\">". $row['writer']."&nbsp;</td>";
 		}
 	?>
 	</table>
 	<?php 
 	$ext = "";
-	if(isset($_GET['search']))
-		$ext .= "&search={$_GET['search']}&title={$_GET['title']}&writer_or={$_GET['writer_or']}" ;
+	if(isset($_GET['search'])){
+		$ext .= "&search={$_GET['search']}";
+		if(isset($_GET['title']))
+			$ext .= "&title={$_GET['title']}";
+		if(isset($_GET['writer']))
+			$ext .= "&writer={$_GET['writer']}";
+	}
 	?>
 	<?php if($page >= 1) { ?>
 	<span id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
