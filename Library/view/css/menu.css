@@ -197,10 +197,13 @@ ul#menu li.toplast>a{
 
 #top-gradient{ height: 30px; }
 #menu-block{
-	display: inline;
+	padding: 4px;
+	padding-left: 15px;
+	width: 100%;
+	display: inline-block;
 }
 #second-gradient{
 	height: 50px;
-	top: 100px;
-	display: absolute;
+	top: 0px;
+	display: fixed;
 }

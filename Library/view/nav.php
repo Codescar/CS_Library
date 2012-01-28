@@ -2,8 +2,7 @@
 	if(!defined('VIEW_HEADER'))
 		die("Invalid request!");
 	define('VIEW_NAV', true);
-?><div class="black-gradient" id="second-gradient"></div>
-<div id="menu-block" >
+?><div id="menu-block" class="black-gradient">
 	<ul id="menu">
 		<li><a href="index.php">Αρχική</a></li>
 		<li><a href="index.php?show=list">Λίστα Βιβλίων</a></li>
