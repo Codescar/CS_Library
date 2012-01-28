@@ -5,10 +5,16 @@
 	
 	/* Header File */
 	require_once('header.php');
-
+	
 	/* navigation menu */
 	if(isset($_GET['show']) && $_GET['show'] == "help");else
 		include('nav.php');
+		
+	/* Load the rest model files*/
+	load_model();
+	
+	/* Load the user's messagebox*/
+	$user->message = new message();
 	
 	/* include the right page to show */
 	if(!isset($_GET['show'])) 
@@ -34,7 +40,7 @@
 	elseif($_GET['show'] == "help")
 		include('help.php');
 	elseif($_GET['show'] == "admin" && $CONFIG['allow_admin'] && $user->is_admin())
-		include('admin.php');//TODO Admin User Panel
+		include('admin.php');
 	elseif($_GET['show'] == "info")
 		include('info.php');
 	else 
