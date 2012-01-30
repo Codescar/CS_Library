@@ -1,18 +1,108 @@
-﻿@CHARSET "UTF-8";
-body{
-	padding: 0;
-	margin: 0;	
+body { 
+	background-color: rgb(244, 241, 236);
+	background-image: url("http://www.greekbooks.gr/images/bg.jpg");
+	background-position: 50% 0%;
+	background-repeat: repeat-x;
+	font-size: 11px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
 }
+
+#container { 
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0px;
+	position: relative;
+	width: 996px;
+}
+
+#header { 
+	height: 47px;
+	position: relative;
+}
+
+.right-nav { 
+	height: 47px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 280px;
+	color: rgb(207, 200, 188);
+	display: block;
+	text-align: center;
+	font-family: "Trebuchet MS";
+	font-size: 11px;
+	margin-top: 14px;
+	margin-right: 10px;
+}
+ 
+.logo { 
+	height: 39px;
+	left: 10px;
+	position: absolute;
+	top: 8px;
+	width: 460px;
+}
+
+.customermenu { 
+	color: rgb(255, 255, 255);
+	display: inline-block;
+	float: right;
+	padding-top: 15px;
+}
+ 
+.customermenu a { 
+	display: inline-block;
+	padding-bottom: 0px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 0px;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+}
+
+.customermenu a .icon { 
+	background-image: url("http://www.greekbooks.gr/images/toolbox.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+}
+
+#lnkAccount .icon { 
+	background-position: 0px 0px;
+}
+
+#lnkLogout .icon, #lnkLogin .icon { 
+	background-position: -128px 0px;
+}
+
+#lnkHelp .icon { 
+	background-position: -160px 0px;
+}
+
+.customermenu a .tooltip { 
+	color: rgb(255, 255, 255);
+	display: block;
+	line-height: 11px;
+	text-align: center;
+	text-decoration: none;
+}
+ 
 .content{
 	margin: 15px;
 	padding: 8px;
 }
-#user-settings{
-	float: right;
-	margin-top: 15px;
-	margin-right: 15px;
-	font-size: 9pt;
-}
+
+
 .menu ul{
 	list-style:none;
 }

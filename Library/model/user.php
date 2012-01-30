@@ -181,20 +181,20 @@ class User{
 	public function show_login_status(){
 		global $CONFIG, $url;
 		$code = "";
-		$more = " | <a href=\"?show=feedback\">Feedback</a> | <a href=\"javascript: pop_up('$url?show=help')\">Βοήθεια</a>";
+		$more = " | <a id=\"\" href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Feedback</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
-				$code .= "<a href=\"?show=login\">Είσοδος</a>";
+				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος</span>";
 			if($CONFIG['allow_register'])
-				$code .= "<a href=\"?show=login\">/Εγγραφή</a> ";
-			$code.= $more;
+				$code .= "/Εγγραφή ";
+			$code.= "</a>".$more;
 		}
 		elseif($_SESSION['logged_in'] == 1){
-			$code .= "<a href=\"?show=cp\">". /*$this->*/$this->username . "</a> |  ";
+			$code .= "<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">". /*$this->*/$this->username . "</span></a> |  ";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
-				$code .= "<a href=\"?show=admin\">Admin</a> | <a href=\"?show=msg\">Μηνύματα</a>";
+				$code .= "<a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a> | <a id=\"\" href=\"?show=msg\"><span class=\"icon\"></span><span class=\"tooltip\">Μηνύματα</span></a>";
 		    $code.= $more;
-		    $code .= " | <a href=\"?show=logout\">Έξοδος</a>";
+		    $code .= " | <a id=\"lnkLogout\" href=\"?show=logout\"><span class=\"icon\"></span><span class=\"tooltip\">Έξοδος</span></a>";
 		}
 		return $code;
 	}

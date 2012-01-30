@@ -3,6 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_FOOTER', true);
 ?>
+</div>
 <hr/>
 <footer>
 	<a href="http://codescar.eu">CodeScar</a> Library<br />

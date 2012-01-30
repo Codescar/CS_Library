@@ -24,9 +24,12 @@
 	<![endif]-->
 </head>
 <body>
-<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
-	<div class="black-gradient" id="top-gradient"></div>
-	<div id="head">
-	<p id="user-settings"><?php echo $user->show_login_status(); ?></p>
-		<p><h2><?php echo $title; ?></h2></p>
-	</div><?php } ?>
+	<div id="container">
+	<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
+		<div id="header">
+		<div class="right-nav"></div>
+			<div class="logo">
+				<h2><a href="<?php echo $url; ?>"><?php echo $title; ?></a></h2>
+			</div>
+			<div class="customermenu"><?php echo $user->show_login_status(); ?></div>
+		</div><?php } ?>
