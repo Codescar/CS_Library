@@ -35,8 +35,7 @@ body {
 }
  
 .logo { 
-	position: relative;
-	width: 700px;
+	width: 690px;
 	padding: 35px 0 0 0;
 	display: inline-block;
 }
@@ -50,22 +49,18 @@ body {
 }
 
 .customermenu {
-	color: rgb(255, 255, 255);
-	position: absolute;
+	color: white;
+	height: 70px;
 	width: 300px;
 	text-align: right;
-	height: 60px;
-	right: 1px;
-	bottom: 1px;
+	float: right;
+	margin: 35px 5px 2px 0px;
+	display: inline-block;
 }
 
 .customermenu a { 
 	display: inline-block;
-	padding-bottom: 0px;
-	padding-left: 3px;
-	padding-right: 3px;
-	padding-top: 0px;
-	position: relative;
+	padding: 0 3px 0 3px;
 	text-align: center;
 	text-decoration: none;
 	width: 60px;
