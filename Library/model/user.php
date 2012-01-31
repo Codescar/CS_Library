@@ -186,7 +186,7 @@ class User{
 			if($CONFIG['allow_login'])
 				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος</span>";
 			if($CONFIG['allow_register'])
-				$code .= "/Εγγραφή ";
+				//TODO $code .= "/Εγγραφή ";
 			$code.= "</a>".$more;
 		}
 		elseif($_SESSION['logged_in'] == 1){

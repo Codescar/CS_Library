@@ -27,9 +27,9 @@
 	<div id="container">
 	<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
 		<div id="header">
-		<div class="right-nav"></div>
+			<!-- <div class="right-nav"></div> -->
 			<div class="logo">
-				<h2><a href="<?php echo $url; ?>"><?php echo $title; ?></a></h2>
+				<a href="<?php echo $url; ?>"><?php echo $title; ?></a>
 			</div>
 			<div class="customermenu"><?php echo $user->show_login_status(); ?></div>
 		</div><?php } ?>

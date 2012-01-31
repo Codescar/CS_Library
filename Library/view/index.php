@@ -5,7 +5,6 @@
 	
 	/* Header File */
 	require_once('header.php');
-	
 	/* navigation menu */
 	if(isset($_GET['show']) && $_GET['show'] == "help");else
 		include('nav.php');
