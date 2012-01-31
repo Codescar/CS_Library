@@ -78,7 +78,7 @@ body {
 }
 
 .customermenu a .icon { 
-	background-image: url("http://www.greekbooks.gr/images/toolbox.png");
+	background-image: url("../images/toolbox.png");
 	background-repeat: no-repeat;
 	display: inline-block;
 	height: 32px;

@@ -184,15 +184,15 @@ class User{
 		$more = " | <a id=\"\" href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Feedback</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
-				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος</span>";
+				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος";
 			if($CONFIG['allow_register'])
 				//TODO $code .= "/Εγγραφή ";
-			$code.= "</a>".$more;
+			$code.= "</span></a>".$more;
 		}
 		elseif($_SESSION['logged_in'] == 1){
 			$code .= "<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">". /*$this->*/$this->username . "</span></a> |  ";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
-				$code .= "<a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a> | <a id=\"\" href=\"?show=msg\"><span class=\"icon\"></span><span class=\"tooltip\">Μηνύματα</span></a>";
+				$code .= "<a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a>"; /* |  <a id=\"\" href=\"?show=msg\"><span class=\"icon\"></span><span class=\"tooltip\">Μηνύματα</span></a>"; */
 		    $code.= $more;
 		    $code .= " | <a id=\"lnkLogout\" href=\"?show=logout\"><span class=\"icon\"></span><span class=\"tooltip\">Έξοδος</span></a>";
 		}
