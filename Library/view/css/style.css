@@ -1,27 +1,22 @@
 body { 
 	background-color: rgb(244, 241, 236);
-	background-image: url("http://www.greekbooks.gr/images/bg.jpg");
+	background-image: url("http://projects.codescar.eu/Library/demo/bg.png");
 	background-position: 50% 0%;
 	background-repeat: repeat-x;
-	font-size: 11px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 0px;
-	padding-bottom: 0px;
-	padding-left: 0px;
-	padding-right: 0px;
-	padding-top: 0px;
+	font-size: 14px;
+	margin: 0px;
+	padding: 0px;
 }
 
 #container { 
+	padding: 0;
 	margin: 0 auto 0 auto;
-	position: relative;
-	width: 996px;
+	height: 100%;
+	width: 1000px;
 }
 
 #header { 
-	height: 120px;
+	height: 100px;
 	position: relative;
 }
 
@@ -36,15 +31,13 @@ body {
 	text-align: center;
 	font-family: "Trebuchet MS";
 	font-size: 11px;
-	margin-top: 14px;
-	margin-right: 10px;
+	margin: 14px 0 0 10px;
 }
  
 .logo { 
 	position: relative;
-	height: 70px;
 	width: 700px;
-	padding: 50px 0 0 20px;
+	padding: 35px 0 0 0;
 	display: inline-block;
 }
 
@@ -59,12 +52,13 @@ body {
 .customermenu {
 	color: rgb(255, 255, 255);
 	position: absolute;
-	width: 200px;
-	height: 70px;
+	width: 300px;
+	text-align: right;
+	height: 60px;
 	right: 1px;
 	bottom: 1px;
 }
- 
+
 .customermenu a { 
 	display: inline-block;
 	padding-bottom: 0px;
@@ -74,7 +68,7 @@ body {
 	position: relative;
 	text-align: center;
 	text-decoration: none;
-	width: 50px;
+	width: 60px;
 }
 
 .customermenu a .icon { 
@@ -209,7 +203,7 @@ table{
 	width: 80%;
 }
 .title{
-	text-size: 18pt;
+	font-size: 16px;
 	font-weight: bold;
 }	
 
