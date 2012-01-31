@@ -1,6 +1,6 @@
 ﻿<?php
 	/* Config File */
-	$url = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo";
+	$url = "http://" . $_SERVER['HTTP_HOST'] . "/Library/";
 	
 	$title = "Βιβλιοθήκη 15ου Συστήματος Προσκόπων Αθηνών";
 
@@ -12,7 +12,7 @@
 	$CONFIG['allow_login'] = true;
 	$CONFIG['allow_admin'] = true;
 	$CONFIG['allow_compression'] = true;
-	$CONFIG['debug'] = false;
+	$CONFIG['debug'] = true;
 	$CONFIG['items_per_page'] = 20;
 	 
 ?>

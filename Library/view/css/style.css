@@ -16,7 +16,7 @@ body {
 }
 
 #header { 
-	height: 100px;
+	height: 95px;
 	position: relative;
 }
 
@@ -50,11 +50,10 @@ body {
 
 .customermenu {
 	color: white;
-	height: 70px;
 	width: 300px;
 	text-align: right;
 	float: right;
-	margin: 35px 5px 2px 0px;
+	margin: 40px 5px 2px 0px;
 	display: inline-block;
 }
 
@@ -67,7 +66,7 @@ body {
 }
 
 .customermenu a .icon { 
-	background-image: url("../images/toolbox.png");
+	background-image: url("http://www.greekbooks.gr/images/toolbox.png");
 	background-repeat: no-repeat;
 	display: inline-block;
 	height: 32px;
@@ -104,18 +103,37 @@ body {
 	width: 100%;
 	height: 40px;
 	position: relative;
-	bottom: 20px;
+	bottom: 17px;
+	border: 0px solid #cfb696;
+	border-radius: 5px;
+
+background: #feffe8; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmZlOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiZmI2YTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  #feffe8 0%, #bfb6a5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffe8), color-stop(100%,#bfb6a5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* IE10+ */
+background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#bfb6a5',GradientType=0 ); /* IE6-8 */
+
+
 }
 #nav-menu ul{
 	list-style: none;
-	font-size: 15px;
+	font-size: 20px;
 	margin: 0px;
 	padding: 0px;
 }
-#nav-menu li{ 
-	position: relative;
-	margin-right: 20px; 
+#nav-menu li{
+	padding: 10px 22px;
+	position: relative; 
 	display: inline-block;
+	border-right: 1px solid brown;
+}
+#nav-menu li:last-child{
+	border: 0px;
 }
 #nav-menu li:hover{
 	background: yellow;
