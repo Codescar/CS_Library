@@ -46,7 +46,7 @@ class announcements{
 			?>
 			<div class="announce">
 				<h2><?php echo $row['title']; ?></h2>
-				<p class="announce-content"><?php echo $row['body']; ?></p>
+				<div class="announce-content"><?php echo $row['body']; ?></div>
 				<p class="announce-footer">Created by <?php echo (strlen($row['author']) >= 1) ? user::get_name($row['author']) : "unknown"; ?> at <?php echo (strlen($row['date']) >= 1) ? $row['date'] : "unknown";?></p>
 				
 			</div><br />

@@ -180,8 +180,8 @@ class User{
 	
 	public function show_login_status(){
 		global $CONFIG, $url;
-		$code = "";
-		$more = " | <a id=\"\" href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Feedback</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
+		$code = "<span>";
+		$more = " | <a href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Feedback</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
 				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος";
@@ -196,7 +196,7 @@ class User{
 		    $code.= $more;
 		    $code .= " | <a id=\"lnkLogout\" href=\"?show=logout\"><span class=\"icon\"></span><span class=\"tooltip\">Έξοδος</span></a>";
 		}
-		return $code;
+		return $code . "</span>";
 	}
 	
 	public function session_check(){
