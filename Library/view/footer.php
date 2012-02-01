@@ -6,7 +6,7 @@
 </div>
 <hr/>
 <footer>
-	<a href="http://codescar.eu">CodeScar</a> Library<br />
+	<a href="http://codescar.eu">CodeScar</a> Library Project<br />
 	<a href="?show=about">About</a>
 </footer>
 </body>

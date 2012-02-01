@@ -147,28 +147,17 @@ class User{
                 echo "<span class=\"error\">Δώσατε λάθος κωδικό.</span>";
         }
         else{
-            $query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email FROM
-    					(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email FROM users
+            //$query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.usertype FROM
+    		//			(SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, users.usertype FROM users
     						
-    					WHERE users.id = '$user_id' ) AS tmp1
-    						";
+    		//			WHERE users.id = '$user_id' ) AS tmp1
+    		//				";
+            $query = "SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, users.usertype, users.books_lended 
+            			FROM users
+            			WHERE users.id = '$user_id'";
             $result = $db->query($query);
-            $row = mysql_fetch_assoc($result); ?>
-            <form action="" method="post" id="change-info">
-            <label for="username">Username: </label><input type="text" id="username" name="username" disabled="disabled" value="<?php echo $row['username']; ?>" /><br />
-            <label for="name">Name: </label><input type="text" id="name" name="name" value="<?php echo $row['name']; ?>" /><br />
-            <label for="surname">Surname: </label><input type="text" id="surname" name="surname" value="<?php echo $row['surname']; ?>" /><br />
-            <label for="email">E-mail: </label><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" /><br />
-            <label for="born">Born: </label><input type="date" id="born" name="born" value="<?php echo $row['born']; ?>" /><br />
-            <label for="phone">Phone: </label><input type="tel" id="phone" name="phone" value="<?php echo $row['phone']; ?>" /><br />
-            <label for="n_pass">New Password: </label><input type="password" id="n_pass" name="n_pass" /><br />
-            <label for="r_n_pass">Repeat New Password: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
-            <label for="password">Your Password: </label><input type="password" id="password" name="password" /><br />
-    			<input type="hidden" name="hidden" value="1" />   
-    			<?php if($user_id == $this->id) {?>     
-            		<input type="submit" value="Update" />
-            	<?php } ?>
-            </form><?php
+            $row = mysql_fetch_assoc($result);
+            return $row;
         }
 	}
 	
@@ -181,7 +170,7 @@ class User{
 	public function show_login_status(){
 		global $CONFIG, $url;
 		$code = "<span>";
-		$more = " | <a href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Feedback</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
+		$more = " | <a id=\"lnkFeedback\" href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Feedback</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
 				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος";

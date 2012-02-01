@@ -5,6 +5,6 @@
 
 ?>
 <div class="content">
+	<div id="direction"><a href="/index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Πληροφορίες</div>
 	<h2>Πληροφορίες για τη βιβλιοθήκη</h2>
-
 </div>

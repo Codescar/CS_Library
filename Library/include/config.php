@@ -12,7 +12,7 @@
 	$CONFIG['allow_login'] = true;
 	$CONFIG['allow_admin'] = true;
 	$CONFIG['allow_compression'] = true;
-	$CONFIG['debug'] = true;
+	$CONFIG['debug'] = false;
 	$CONFIG['items_per_page'] = 20;
 
 ?>

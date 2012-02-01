@@ -79,7 +79,7 @@ class Lbdb{
 
 	function connect(){
 	    global $CONFIG;
-	    if($CONFIG['debug']){
+	    if(!$CONFIG['debug']){
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
 	            or die("Could not connect: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
@@ -100,7 +100,7 @@ class Lbdb{
 	
 	function close(){
 		global $CONFIG;
-	    if($CONFIG['debug'])
+	    if(!$CONFIG['debug'])
 	        echo "<br />"."Closing ".$this->connection."<br />";
 		mysql_close($this->connection);
 	}

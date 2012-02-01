@@ -2,13 +2,13 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	
 	$db->connect();
 ?>
 <div class="content">
-	<p >Καλώς ορίσατε στην ηλεκτρονική πύλη της δανειστική 
+	<div id="direction"><a href="/index.php">Αρχική</a></div>
+	<div>Καλώς ορίσατε στην ηλεκτρονική πύλη της δανειστική 
 	βιβλιοθήκης του 15ου Συστήματος Προσκόπων Αθηνών.
-	</p>
+	</div>
 	<div id="announcements">
 	<?php 
 		announcements::show();
