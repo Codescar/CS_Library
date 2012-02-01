@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 class book{
 	private $id, $title, $author, $available, $description, $added;
 	

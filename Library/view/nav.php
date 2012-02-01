@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 	if(!defined('VIEW_HEADER'))
 		die("Invalid request!");
 	define('VIEW_NAV', true);?>

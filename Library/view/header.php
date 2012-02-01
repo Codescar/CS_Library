@@ -1,7 +1,8 @@
-﻿<?php 
+<?php 
 	if(!defined('INDEX'))
 		die("Invalid request!");
 	define('VIEW_HEADER', true);
+	header('');
 ?><!DOCTYPE html> 
 <html> 
 <head> 
