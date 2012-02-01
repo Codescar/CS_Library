@@ -135,9 +135,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', end
 #nav-menu li:last-child{
 	border: 0px;
 }
-#nav-menu li:hover{
-	background: yellow;
-}
+/* #nav-menu li:hover{
+	background: #bbb2a1;
+	border: 0px solid #bbb2a1;
+	border-radius: 2px;
+	margin: 5px;
+	padding: 0px;
+} */
 #nav-menu a{
 	text-decoration: none;
 }
