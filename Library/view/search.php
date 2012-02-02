@@ -3,8 +3,8 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 ?>
+<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Αναζήτηση</div>
 <div class="content">
-	<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Αναζήτηση</div>
 	<form action="index.php" method="get">
 		<input type="hidden" name="show" value="search" />
 		<input type="hidden" name="do" value="search" />

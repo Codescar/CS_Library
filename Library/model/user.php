@@ -141,10 +141,10 @@ class User{
                 }
                 $q .= " WHERE users.id = '$user_id' AND users.password = '".mysql_real_escape_string($this->pass_encrypt($_POST['password']))."';";
                 $db->query($q);
-                echo "<span class=\"success\">Οι αλλαγές σας αποθηκεύτηκαν.</span>";
+                echo "<div class=\"success\">Οι αλλαγές σας αποθηκεύτηκαν.</div>";
             }
             else
-                echo "<span class=\"error\">Δώσατε λάθος κωδικό.</span>";
+                echo "<div class=\"error\">Δώσατε λάθος κωδικό.</div>";
         }
         else{
             //$query = "SELECT tmp1.username, tmp1.name, tmp1.surname, tmp1.born, tmp1.phone, tmp1.email, tmp1.usertype FROM
@@ -152,13 +152,13 @@ class User{
     						
     		//			WHERE users.id = '$user_id' ) AS tmp1
     		//				";
+        }
             $query = "SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, users.usertype, users.books_lended 
             			FROM users
             			WHERE users.id = '$user_id'";
             $result = $db->query($query);
             $row = mysql_fetch_assoc($result);
             return $row;
-        }
 	}
 	
 	public function is_logged_in(){
