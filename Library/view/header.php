@@ -27,6 +27,7 @@
 	<div id="container">
 	<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
 		<div id="header">
+			<div style="color: white; position: absolute; top: 5px; right: 15px;">Πανεπιστημίου 32, Αθήνα</div>
 			<!-- <div class="right-nav"></div> -->
 			<div class="logo">
 				<a href="<?php echo $url; ?>"><?php echo $title; ?></a>

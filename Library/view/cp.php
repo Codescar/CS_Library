@@ -9,7 +9,7 @@
 	}else{
 ?>
 <div class="content">
-	<div id="direction"><a href="/index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Προφίλ χρήστη</div>
+	<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Προφίλ χρήστη</div>
 	<!-- <div class="menu">
 		<ul>
 			<li><a href="?show=cp&more=info">Στοιχεία</a></li>
@@ -57,4 +57,6 @@
 	$db->close();
 	?>
 </div>
-<?php } ?>
+<?php } 
+include 'right_sidebar.php';
+?>

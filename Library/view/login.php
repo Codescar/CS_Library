@@ -41,9 +41,9 @@ if(isset($error) || !isset($_GET['do'])){
 ?>
 <?php if(isset($error) && !empty($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 <?php if(isset($success) && !empty($success)) echo "<p class=\"sucess\">".$success."</p><br/>";?>
-<fieldset class="content">
-	<!--  <h2>Σύνδεση χρήστη</h2><br/> -->
-	<legend><h2>Σύνδεση χρήστη</h2></legend>
+<div class="content">
+<fieldset class="content" style="width: 700px;">
+	<legend style="font-size: 20px; font-weight: bold;">Σύνδεση χρήστη</legend>
 	<form action="?show=login&do=login" method="post" id="login-form">
 	<label for="username">Όνομα Χρήστη: </label>
 	<input type="text" name="username" id="username" /><br/>
@@ -53,10 +53,9 @@ if(isset($error) || !isset($_GET['do'])){
 	</form>
 </fieldset>
 <?php if($CONFIG['allow_register']) { ?>
-ή <br />
-<fieldset class="content">
-	<!--  <h2>Εγγραφή χρήστη</h2><br/> -->
-	<legend><h2>Εγγραφή χρήστη</h2></legend>
+<br /> ή <br />
+<fieldset class="content" style="width: 700px;">
+	<legend style="font-size: 20px; font-weight: bold;">Εγγραφή χρήστη</legend>
 	<form action="?show=login&do=register" method="post" id="register-form">
 	<label for="username">*Όνομα Χρήστη: </label>
 	<input type="text" name="username" id="username" />
@@ -91,6 +90,9 @@ if(isset($error) || !isset($_GET['do'])){
 </fieldset>
 <?php 
 	} 
-}
+}?>
+</div>
+<?php
+include 'right_sidebar.php';
 $db->close();	
 ?>

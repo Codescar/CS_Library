@@ -5,7 +5,7 @@
 	$db->connect();
 ?>
 <div class="content">
-	<div id="direction"><a href="/index.php">Αρχική</a></div>
+	<div id="direction"><a href="index.php">Αρχική</a></div>
 	<div>Καλώς ορίσατε στην ηλεκτρονική πύλη της δανειστική 
 	βιβλιοθήκης του 15ου Συστήματος Προσκόπων Αθηνών.
 	</div>
@@ -16,3 +16,6 @@
 	?>
 	</div>
 </div>
+<?php 
+include 'right_sidebar.php';
+?>

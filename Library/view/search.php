@@ -4,11 +4,11 @@
 	define('VIEW_SHOW', true);
 ?>
 <div class="content">
-	<div id="direction"><a href="/index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Αναζήτηση</div>
+	<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Αναζήτηση</div>
 	<form action="index.php" method="get">
 		<input type="hidden" name="show" value="search" />
 		<input type="hidden" name="do" value="search" />
-		<input style="width: 220px; margin: 0 78px 0 0;" type="text" name="search" onclick="this.select()"<?php /*this.value='';" */?> onfocus="this.select()" onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>':this.value;" value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>"/>
+		<input style="width: 180px; margin: 0 18px 0 0;" type="text" name="search" onclick="this.select()"<?php /*this.value='';" */?> onfocus="this.select()" onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>':this.value;" value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>"/>
 		
 		<div class="search_chk">
 		<input type="checkbox" name="title" id="title" <?php echo (isset($_GET['title'])) ? "checked=\"checked\"" : ( (isset($_GET['do'])) ? "" : "checked=\"checked\"" ); ?>/>
@@ -39,7 +39,8 @@
 		</div>
 	</form>
 </div>
-<?php
+<?php 
+include 'right_sidebar.php';
 if(!isset($_GET['do']))
 ;
 elseif(!isset($_GET['search']) || $_GET['search'] == "" || 

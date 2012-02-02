@@ -18,6 +18,7 @@ body {
 #header { 
 	height: 95px;
 	margin: 0 0 5px 0;
+	position: relative;
 }
 
 .right-nav { 
@@ -100,6 +101,7 @@ body {
 .content{
 	margin: 5px 0 0 0;
 	padding: 0 10px 0 10px;
+	display: inline-block;
 }
 
 #direction{
@@ -138,7 +140,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', end
 	padding: 0px;
 }
 #nav-menu li{
-	padding: 10px 18px;
+	padding: 10px 29px;
 	position: relative; 
 	display: inline-block;
 	border-right: 1px solid brown;
@@ -274,12 +276,12 @@ table{
 }
 
 .content{
-	min-width: 750px;
+	min-width: 700px;
 	max-width: 1000px;		
 }
 
 .search_chk{
-	width: 150px;
+	width: 100px;
 	display: inline-block;	
 }
 
