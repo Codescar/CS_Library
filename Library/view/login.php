@@ -42,7 +42,7 @@ if(isset($error) || !isset($_GET['do'])){
 <?php if(isset($error) && !empty($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 <?php if(isset($success) && !empty($success)) echo "<p class=\"sucess\">".$success."</p><br/>";?>
 <div class="content">
-<fieldset class="content" style="width: 700px;">
+<fieldset>
 	<legend style="font-size: 20px; font-weight: bold;">Σύνδεση χρήστη</legend>
 	<form action="?show=login&do=login" method="post" id="login-form">
 	<label for="username">Όνομα Χρήστη: </label>
@@ -54,7 +54,7 @@ if(isset($error) || !isset($_GET['do'])){
 </fieldset>
 <?php if($CONFIG['allow_register']) { ?>
 <br /> ή <br />
-<fieldset class="content" style="width: 700px;">
+<fieldset>
 	<legend style="font-size: 20px; font-weight: bold;">Εγγραφή χρήστη</legend>
 	<form action="?show=login&do=register" method="post" id="register-form">
 	<label for="username">*Όνομα Χρήστη: </label>
