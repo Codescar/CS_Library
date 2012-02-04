@@ -236,4 +236,50 @@ class User{
 	}
 };
 
+function date_gr($timestamp, $mode) {
+
+    $result = "";
+    $dval = date("N",$timestamp);
+    $nval = (int) date("d",$timestamp);
+    $mval = date("n",$timestamp);
+    $myer = date("Y",$timestamp);
+    
+    // Feel free to personalize arrays for your mothertongue :-)
+    // ---------------------------------------------------------
+    $day = array("","Δευτέρα","Τρίτη","Τετάρτη","Πέμπτη","Παρασκευή","Σαββάτο","Κυριακή");
+
+    $sday = array("","Δευ","Τρι","Τετ","Πεμ","Παρ","Σαβ","Κυρ");
+
+    $month = array("","Ιανουαρίου","Φεβρουαρίου","Μαρτίου",
+				"Απριλίου","Μαΐου","Ιουνίου","Ιουλίου",
+				"Αυγούστου","Σεπτεμβρίου","Οκτωβρίου",
+				"Νοεμβρίου","Δεκεμβρίου");
+
+    $smonth = array("","Ιαν","Φεβ","Μαρ","Απρ","Μαι","Ιουν",
+				"Ιουλ","Αύγ","Σεπτ","Οκτ","Νοέμ","Δεκ");
+
+    // outputs the date with caps or not, long or short
+    // ------------------------------------------------
+    switch ($mode) {
+        case "Long":
+            $result = ucfirst($day[$dval])." $nval ".ucfirst($month[$mval]);
+            break;		// Mardi 30 Juin
+        case "long":
+            $result = "$day[$dval] $nval $month[$mval]";
+            break;		// mardi 30 juin
+        case "mine":
+            $result = $day[$dval]." $nval ".$month[$mval-1]." $myer";
+            break;
+        case "mine2":
+            $result = $day[$dval];
+            break;
+        case "Short":
+            $result = ucfirst($sday[$dval])." $nval ".ucfirst($smonth[$mval]);
+            break;		// Mar 30 Juin
+        default:
+            $result = $day[$dval]." $nval-$mval";
+    }
+    return $result;
+}
+
 ?>

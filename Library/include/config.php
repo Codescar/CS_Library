@@ -13,6 +13,6 @@
 	$CONFIG['allow_admin'] = true;
 	$CONFIG['allow_compression'] = true;
 	$CONFIG['debug'] = false;
-	$CONFIG['items_per_page'] = 20;
+	$CONFIG['items_per_page'] = 5;
 
 ?>

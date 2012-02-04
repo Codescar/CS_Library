@@ -29,7 +29,7 @@
 		<div id="header">
 			<div style="color: white; position: absolute; top: 5px; right: 15px;">
 				<div id="social">&nbsp;</div>
-				Πανεπιστημίου 32, Αθήνα
+				<span style="font-weight: bold;"><?php echo date_gr(time(), "Long") ?></span>
 			</div>
 			<!-- <div class="right-nav"></div> -->
 			<div class="logo">

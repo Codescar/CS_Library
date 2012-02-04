@@ -111,7 +111,9 @@ body {
 #direction{
 	margin: 6px 15px;
 	font-size: 15px;
+	font-weight: bold;
 	font-family: Arial;
+	text-shadow: 1px 1px 1px black;
 }
 
 #direction a{
@@ -323,6 +325,7 @@ table{
 #right_sidebar ul{
 	margin: 10px 0 0 0;
 	padding: 0 0 0 20px;
+	list-style-type: none;
 }
 
 .bla{
