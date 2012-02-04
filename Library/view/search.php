@@ -38,7 +38,7 @@
 		<input type="checkbox" name="books" id="books" <?php echo (isset($_GET['books'])) ? "checked=\"checked\"" : ""; ?>/><label for="books">Βιβλία</label>
 		</div>
 	</form>
-
+</div>
 <?php 
 if(!isset($_GET['do']))
 ;
@@ -77,5 +77,3 @@ else {
 	</div>
 </div>
 <?php } ?>
-
-</div>

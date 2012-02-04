@@ -17,11 +17,12 @@
 				$user->admin 	= new Admin($user);
 			$_SESSION['user']   = serialize($user);
 			?>
-			<p>Επιτυχής σύνδεση...<br/>
-			Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href="<?php echo $url; ?>">εδώ</a>.</p>
-			<script type="text/javascript">
-				var t=setTimeout("window.location = '<?php echo $url; ?>'",2000);
-			</script>
+			<div class="content">
+				<p>Επιτυχής σύνδεση...<br/>
+				Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href="<?php echo $url; ?>">εδώ</a>.</p>
+				<script type="text/javascript">
+					var t=setTimeout("window.location = '<?php echo $url; ?>'",2000);
+				</script>
 			<?php 
 		}
 	}elseif(isset($_GET['do']) && $_GET['do'] == "register"){
