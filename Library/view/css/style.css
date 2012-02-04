@@ -103,7 +103,9 @@ body {
 	padding: 5px 10px 0 10px;
 	display: inline-block;
 	background-color: white;
-	box-shadow: 0px 0px 2px black;
+	box-shadow: 0px 0px 6px black;
+	min-width: 700px;
+	max-width: 1000px;	
 }
 
 #direction{
@@ -143,7 +145,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', end
 	padding: 0px;
 }
 #nav-menu li{
-	padding: 8px 28px 0 28px;
+	padding: 8px 22px 0 28px;
 	display: inline-block;
 	border-right: 1px solid brown;
 	height: 32px;
@@ -280,11 +282,6 @@ table{
 	width: 100px;
 }
 
-.content{
-	min-width: 700px;
-	max-width: 1000px;		
-}
-
 .search_chk{
 	width: 100px;
 	display: inline-block;	
@@ -306,6 +303,7 @@ table{
 	font-size: 75%;
 	font-style: italic;
 }
+
 #social{
 	display: inline-block;
 	background-image: url("http://projects.codescar.eu/Library/demo/view/images/social.png");
@@ -313,3 +311,56 @@ table{
 	height: 18px;
 	margin: 0 20px 0 0;
 }
+
+/* Right Sidebar */
+#right_sidebar{
+	display: inline-block;	
+	vertical-align: top;
+	padding: 5px 0 0 10px;
+	width: 250px;
+}
+
+#right_sidebar ul{
+	margin: 10px 0 0 0;
+	padding: 0 0 0 20px;
+}
+
+.bla{
+	background-color: white;
+	margin: 0 0 10px 0;
+	box-shadow: 0 0 4px black;
+}
+
+.header{
+	font-size: 18px;
+	font-weight: bold;
+	padding: 0px 0 0 20px;
+	border-bottom: 1px solid black;
+	color: black;
+}
+
+.header img{
+	float: right;
+}
+
+.h_text{
+	 padding: 10px 0 0 0;
+	 display: inline-block;
+}
+
+#researchers{
+	background-color: #33cc33;
+}
+
+#libraries{
+	background-color: #ffcc00;
+}
+
+#citizens{
+	background-color: #20a0f5;
+}
+
+#publishers{
+	background-color: #d55cd4;
+}
+/* --Right Sidebar-- */
