@@ -16,6 +16,3 @@
 	?>
 	</div>
 </div>
-<?php 
-include 'right_sidebar.php';
-?>

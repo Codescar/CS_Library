@@ -38,9 +38,8 @@
 		<input type="checkbox" name="books" id="books" <?php echo (isset($_GET['books'])) ? "checked=\"checked\"" : ""; ?>/><label for="books">Βιβλία</label>
 		</div>
 	</form>
-</div>
+
 <?php 
-include 'right_sidebar.php';
 if(!isset($_GET['do']))
 ;
 elseif(!isset($_GET['search']) || $_GET['search'] == "" || 
@@ -66,7 +65,7 @@ else {
 	$books = $db->get_books($page * $CONFIG['items_per_page'], $CONFIG['items_per_page'], $query);
 	$db->close();
 ?>
-<div class="content">
+
 <div class="list">
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br />
 	<?php if($books){

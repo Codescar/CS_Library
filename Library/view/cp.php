@@ -57,6 +57,4 @@
 	$db->close();
 	?>
 </div>
-<?php } 
-include 'right_sidebar.php';
-?>
+<?php } ?>

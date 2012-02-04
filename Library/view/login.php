@@ -92,7 +92,4 @@ if(isset($error) || !isset($_GET['do'])){
 	} 
 }?>
 </div>
-<?php
-include 'right_sidebar.php';
-$db->close();	
-?>
+<?php $db->close();	?>
