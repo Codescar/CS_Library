@@ -65,15 +65,17 @@ else {
 	$books = $db->get_books($page * $CONFIG['items_per_page'], $CONFIG['items_per_page'], $query);
 	$db->close();
 ?>
-
-<div class="list">
+<div class="content">
+	<div class="list">
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br />
 	<?php if($books){
 		list_books($books);
 	}
 	else{ ?>
 	    <div>Δεν βρέθηκαν αποτελέσματα</div>
-	<?php }
-} ?>
+	<?php } ?>
+	</div>
 </div>
+<?php } ?>
+
 </div>
