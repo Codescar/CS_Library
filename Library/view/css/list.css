@@ -93,6 +93,7 @@
 	width: 700px;
 	min-height: 350px;
 	padding: 10px;
+	position: relative;
 }
 .book-title{
 	text-align: center;
@@ -150,5 +151,7 @@
 	margin: 10px 100px 0 0; 	
 }
 #buttons{
-	
+	position: absolute;
+	bottom: 0px;
+	right: 60px;
 }

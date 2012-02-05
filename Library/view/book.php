@@ -47,26 +47,25 @@
 				Χωρίς Περιγραφή.
 			<?php } ?>
 			</div>
-			<div id="buttons" style="padding: 50px 0 0 20px;">
+			<div id="buttons">
     			<div class="book-button book-add-to-wish">
     				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
     			</div>
-    			<?php if($user->is_logged_in() && !($have_book_rq = have_book_rq($id, $user->id))){ ?>
-    			<div class="book-button book-lend-book">
-    				<form action="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend" id="lend" method="post">
-    					<input type="hidden" value="1" name="hidden" />
-    					<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a>
-    				</form>
-    			</div>
-			</div>
-			<?php 
-			}
-			elseif($user->is_logged_in() && $have_book_rq){ ?>
+    		<?php if($user->is_logged_in() && $have_book_rq){ ?>
 				<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
 			<?php }
 			elseif($user->is_logged_in() && have_book($id, $user->id)){ ?>
 				<p>Έχεις ήδη δανειστεί αυτό το βιβλίο.</p>
-			<?php } ?>
+			<?php }else{ ?>
+	    		<div class="book-button book-lend-book">
+	    			<form action="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend" id="lend" method="post">
+	    				<input type="hidden" value="1" name="hidden" />
+	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a>
+	    			</form>
+	    		</div>
+			<?php 
+			}?>
+			</div><!--  #buttons end -->
 		</div><!-- .book-right-info end -->
 	</div><!--  -->
 	<script type="text/javascript">
