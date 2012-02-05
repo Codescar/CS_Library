@@ -13,21 +13,28 @@ function list_books($books){
 	<div class="list">
 	<?php
 		foreach($books as $row){
-			$book_url = "index.php?show=book&id=".$row['id'];
+			$book_url = "index.php&amp;show=book&amp;id=".$row['id'];
 			if($row == $books['0']) continue;	
 			?>
 			<div class="list-item">
 				<!-- Image -->
 				<div class="list-image">
-					<a href="<?php echo $book_url; ?>"><img src="<?php echo ($row['image_url'] == NULL) ? "view/images/noimage.jpg": $row['image_url']; ?>" alt="<?php echo $row['title']; ?>" title="<?php echo $row['title']; ?>"/></a>
+					<a href="<?php echo $book_url; ?>"><img src="<?php echo ($row['image_url'] == NULL) ? "view/images/noimage.jpg": $row['image_url']; ?>" alt="<?php echo str_replace('"', "'", $row['title']); ?>" title="<?php echo str_replace('"', "'", $row['title']); ?>"/></a>
 				</div>
 				<!-- Availability -->
-				<div class="list-avail">
-					<?php if($row['availability'] == 0) { ?>
-						<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
-					<?php } else { ?>
-						<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
+				<div class="list-right">
+					<div class="list-avail">
+						<?php if($row['availability'] == 0) { ?>
+							<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+						<?php } else { ?>
+							<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
+						<?php } ?>
+					</div>
+					<div class="list-button list-add-to-wish"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a></div>
+					<?php if($row['availability'] != 0) { ?>
+					<div class="list-button list-lend-book"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a></div>
 					<?php } ?>
+					
 				</div>
 				<div class="list-item-content">
 					<!-- Title -->
@@ -47,17 +54,17 @@ function list_books($books){
 	<?php 
 	$ext = "";
 	if(isset($_GET['search'])){
-		$ext .= "&search={$_GET['search']}";
+		$ext .= "&amp;search={$_GET['search']}";
 		if(isset($_GET['title']))
-			$ext .= "&title={$_GET['title']}";
+			$ext .= "&amp;title={$_GET['title']}";
 		if(isset($_GET['writer']))
-			$ext .= "&writer={$_GET['writer']}";
+			$ext .= "&amp;writer={$_GET['writer']}";
 	}
 	?>
 	<?php if($page >= 1) { ?>
-	<span id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
+	<span id="prev"><a href="index.php&amp;show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
 	<?php } if(count($books) >= $CONFIG['items_per_page'] ) { ?>
-	<span id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
+	<span id="next"><a href="index.php&amp;show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
 	<?php } ?>
 	</div>
 	<?php

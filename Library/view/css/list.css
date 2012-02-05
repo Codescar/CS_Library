@@ -10,7 +10,6 @@
 	width: 114px;
 	height: 157px;
 	padding-right: 8px;
-	display: block-inline;
 	float: left;
 }
 .list-image img{
@@ -23,10 +22,9 @@
 }
 .list-title a{
 	font-size: 22px;
-	font-weight: bold;
+	font-weight: bolder;
 	font-variant: small-caps;
 	text-decoration: none;
-	
 }
 .list-writer {
 	padding-top: 6px;
@@ -34,16 +32,22 @@
 .list-publisher {
 	padding-top: 4px;
 }
-.list-avail {
+.list-right {
 	margin: 15px 15px 0 0;
 	float: right;
 }
+.list-avail{
+	text-align: center;
+	margin-bottom: 10px;
+}
 .list-avail-img{
+	
 	width: 32px;
 	height: 32px;
 }
 .list-description {
 	padding-top: 4px;
+	width: 560px;
 }
 
 .list-colored{
@@ -51,4 +55,27 @@
 }
 .list-non-colored{
 	color: #000;	
+}
+.list-button {
+	width: 90px;
+	height: 30px;
+	background-image: url('../images/book-buttons.jpg');
+	background-repeat: no-repeat;
+	margin-bottom: 8px;
+	padding-top: 4px;
+	
+	text-align: center;
+}
+.list-button a {
+	text-decoration: none;	
+	
+	color: #fff;
+	font-size: 15px;
+	font-weight: bold;
+}
+.list-lend-book{
+	
+}
+.list-add-to-wish{
+	
 }
