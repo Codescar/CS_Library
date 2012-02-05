@@ -46,7 +46,7 @@
 		/* The page doesn't found */
 		include('404.php');
 		
-	if(isset($_GET['show']) && $_GET['show'] == "help");else	 
+	if(isset($_GET['show']) && ($_GET['show'] == "help" || $_GET['show'] == "feedback"));else	 
 		include ('right_sidebar.php');
 	
 	/* Footer */

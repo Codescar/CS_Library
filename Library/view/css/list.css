@@ -55,7 +55,7 @@
 .list-non-colored{
 	color: #000;	
 }
-.list-button, .book-button {
+.list-button{
 	width: 90px;
 	height: 30px;
 	background-image: url('../images/book-buttons.jpg');
@@ -140,6 +140,15 @@
 .book-left-info div{
 	padding-top: 6px;
 }
+.book-button{
+	display: inline-block;
+	height: 30px;
+	width: 90px;
+	background-image: url('../images/book-buttons.jpg');
+	background-repeat: no-repeat;
+	text-align: center;
+	margin: 10px 100px 0 0; 	
+}
+#buttons{
 	
-
-
+}

@@ -25,14 +25,20 @@
 		<div class="book-left-info">
 			<div class="book-image" id="book-image"><a href="<?php echo ($results['image_url'] == NULL) ? "view/images/noimage.jpg": $results['image_url']; ?>"><img src="<?php echo ($results['image_url'] == NULL) ? "view/images/noimage.jpg": $results['image_url']; ?>" alt="<?php echo str_replace('"', "'", $results['title']); ?>" title="<?php echo str_replace('"', "'", $results['title']); ?>" /></a></div>
 			<div class="book-isbn">ISBN: <?php echo $results['isbn']; ?></div>
-			<div class="book-writer"><span class="book-colored">Συγγραφέας:</span><br /><span class="book-prop"><?php echo strlen($results['writer'])>=2 ? $results['writer'] : "Άγνωστος"; ?></span></div>
-			<div class="book-publisher"><span class="book-colored">Εκδότης:</span><br /><span class="book-prop"><?php echo strlen($results['publisher'])>=2 ? $results['publisher'] : "Άγνωστος"; ?></span></div>
-			
+			<div class="book-writer">
+				<span class="book-colored">Συγγραφέας:</span><br />
+				<span class="book-prop"><?php echo strlen($results['writer'])>=2 ? $results['writer'] : "Άγνωστος"; ?></span>
+			</div>
+			<div class="book-publisher">
+				<span class="book-colored">Εκδότης:</span><br />
+				<span class="book-prop"><?php echo strlen($results['publisher'])>=2 ? $results['publisher'] : "Άγνωστος"; ?></span>
+			</div>
 		</div>
 		<div class="book-right-info">
 			
 			<div class="book-avail">
-				<span class="book-colored">Διαθεσιμότητα:</span> <?php echo ($results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
+				<span class="book-colored">Διαθεσιμότητα:</span>
+				<?php echo ($results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
 			</div>
 			<div class="book-description">
 			<?php if($results['description'] != NULL) { ?>
@@ -41,13 +47,18 @@
 				Χωρίς Περιγραφή.
 			<?php } ?>
 			</div>
-			<div class="book-button book-add-to-wish"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a></div>
-			<?php if($user->is_logged_in() && !($have_book_rq = have_book_rq($id, $user->id))){ ?>
-				<form action="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend" id="lend" method="post">
-					<input type="hidden" value="1" name="hidden" />
-					<div class="book-button book-lend-book"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a></div>
-					
-				</form>
+			<div id="buttons" style="padding: 50px 0 0 20px;">
+    			<div class="book-button book-add-to-wish">
+    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
+    			</div>
+    			<?php if($user->is_logged_in() && !($have_book_rq = have_book_rq($id, $user->id))){ ?>
+    			<div class="book-button book-lend-book">
+    				<form action="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend" id="lend" method="post">
+    					<input type="hidden" value="1" name="hidden" />
+    					<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a>
+    				</form>
+    			</div>
+			</div>
 			<?php 
 			}
 			elseif($user->is_logged_in() && $have_book_rq){ ?>

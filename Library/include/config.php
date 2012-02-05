@@ -2,7 +2,7 @@
 	/* Config File */ 
 	$url = "http://" . $_SERVER['HTTP_HOST'] . "/Library/";
 	
-	$title = "Βιβλιοθήκη 15ου Συστήματος Προσκόπων Αθηνών";
+	$title = "Εθνική Βιβλιοθήκη Αθηνών";
 
 	/* Session Settings, Max IDLE TIME */
 	define('MAX_IDLE_TIME', '3600');

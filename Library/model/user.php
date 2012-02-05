@@ -179,8 +179,9 @@ class User{
 			$code.= "</span></a>".$more;
 		}
 		elseif($_SESSION['logged_in'] == 1){
-			$code .= "<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">". /*$this->*/$this->username . "</span></a>";
+			$code .= "<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">Προφίλ</span></a>";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
+			    $code .= " | <a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a>";
 				//$code .= " | <a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a> | <a id=\"\" href=\"?show=msg\"><span class=\"icon\"></span><span class=\"tooltip\">Μηνύματα</span></a>";
 		    $code.= $more;
 		    $code .= " | <a id=\"lnkLogout\" href=\"?show=logout\"><span class=\"icon\"></span><span class=\"tooltip\">Έξοδος</span></a>";

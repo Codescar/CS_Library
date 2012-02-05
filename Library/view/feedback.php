@@ -7,23 +7,32 @@
 <div class="content">
 	<?php 
 	if(isset($_POST['hidden']) && $_POST['hidden'] == "1"){
-	    echo "<span class=\"success\">Ευχαριστούμε για την ανατροφοδότηση!</span>";
+	    echo "<span class=\"success\">Ευχαριστούμε για το μύνημά σας!</span>";
 	    $message = "Sent from Feedback\nSub: ".$_POST['type']."\n".$_POST['text']."\nEmail: ".$_POST['email']."\n";
     	$message = wordwrap($message, 170);
     	mail('kostislion@gmail.com', 'Feedback', $message);
 	}
 	?>
-	<h2>Feedback Form</h2><br />
-	
-	<form action="" method="post" id="feedback-form" >
-	<label for="type">Type: </label><select name="type" id="type">
-		<option value="Bug">Bug</option>
-		<option value="New Idea">New Idea</option>
-		<option value="Other">Other</option>
-	</select><br />
-	<label for="email">Your E-mail: </label><input type="email" name="email" id="email" /><br />
-	<label for="text">Text: </label><textarea class="ckeditor" id="text" name="text" rows="10" /></textarea><br />
-	<input type="hidden" name="hidden" value="1" />
-	<input type="submit" value="Submit" />
+	<form action="" method="post" id="feedback-form" style="padding: 0 0 10px 0;">
+	    <div class="block"  style="padding: 5px 0 5px 20px; font-weight: bold; font-size: 25px;">
+    		Φόρμα Ανατροφοδότησης
+    	</div>
+    	<div class="block" style="margin: 0 0 0 275px; font-size: 16px; font-weight: bold;">
+        	<label for="type" style="width: 150px;">Τύπος μυνήματος:</label>
+        	<select name="type" id="type">
+        		<option value="Bug">Πρόβλημα</option>
+        		<option value="New Idea">Νέα ιδέα</option>
+        		<option value="Other">Άλλο</option>
+        	</select>
+    	</div>
+        <textarea class="ckeditor" id="text" name="text"/></textarea>
+    	<div style="margin: 10px 0 0 0; font-weight: bold;">
+        	<input type="hidden" name="hidden" value="1" />
+        	<label for="name">Το όνομα σας: </label>
+        	<input type="text" name="name" id="name" />
+        	<label for="email" style="margin: 0 0 0 50px;">Το E-mail σας: </label>
+        	<input type="email" name="email" id="email" />
+        	<input type="submit" value="Αποστολή" style="margin: 0 0 0 150px;"/>
+    	</div>
 	</form>
 </div>

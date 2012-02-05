@@ -36,7 +36,7 @@ body {
 }
  
 .logo { 
-	width: 690px;
+	width: 590px;
 	padding: 65px 0 0 0;
 	display: inline-block;
 }
@@ -51,7 +51,7 @@ body {
 
 .customermenu {
 	color: white;
-	width: 300px;
+	width: 400px;
 	text-align: right;
 	float: right;
 	margin: 60px 5px 2px 0px;
@@ -145,7 +145,7 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
 	padding: 0px;
 }
 #nav-menu li{
-	padding: 8px 22px 0 28px;
+	padding: 8px 20px 0 28px;
 	display: inline-block;
 	border-right: 1px solid brown;
 	height: 32px;
@@ -220,8 +220,6 @@ table{
 .success{
 	color: green;
 	font-style: italic;
-	position: absolute;
-	display: inline-block;
 }
 .error{
 	color: red;
@@ -365,3 +363,15 @@ table{
 	background-color: #d55cd4;
 }
 /* --Right Sidebar-- */
+
+.box{
+	background-color: #e4e4e1;
+	box-shadow: 0 0 2px black;
+	margin: 10px 0;
+	padding: 10px 2px;
+	text-align: center;
+	font-weight: bold;
+}
+.block{
+	display: inline-block;
+}
