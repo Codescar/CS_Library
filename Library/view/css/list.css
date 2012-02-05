@@ -49,7 +49,6 @@
 	padding-top: 4px;
 	width: 560px;
 }
-
 .list-colored{
 	color: #798800;
 }
@@ -63,19 +62,31 @@
 	background-repeat: no-repeat;
 	margin-bottom: 8px;
 	padding-top: 4px;
-	
 	text-align: center;
 }
 .list-button a {
 	text-decoration: none;	
-	
 	color: #fff;
 	font-size: 15px;
 	font-weight: bold;
 }
-.list-lend-book{
-	
+.flip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph; 
 }
-.list-add-to-wish{
-	
+.list-nav-icons {
+	width: 32px;	
+}
+.list-cur-page{
+
+	line-height: 30px;
+}
+.list-nav-bar{
+	text-align: center;
+}
+.list-nav-bar div{
+	display: inline;
 }

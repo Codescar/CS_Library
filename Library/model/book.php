@@ -61,11 +61,15 @@ function list_books($books){
 			$ext .= "&amp;writer={$_GET['writer']}";
 	}
 	?>
-	<?php if($page >= 1) { ?>
-	<span id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
-	<?php } if(count($books) >= $CONFIG['items_per_page'] ) { ?>
-	<span id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
-	<?php } ?>
+	<div class="list-nav-bar">
+		<?php if($page >= 1) { ?>
+		<div id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
+		<?php } ?>
+		<div class="list-cur-page" >Σελίδα <?php echo $page + 1; ?></div> 
+		<?php if(count($books) >= $CONFIG['items_per_page'] ) { ?>
+		<div id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
+		<?php } ?>
+	</div>
 	</div>
 	<?php
 }
