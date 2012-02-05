@@ -12,11 +12,13 @@
 	<title><?php echo $title; ?></title>
 	<link rel="stylesheet" href="<?php echo $url; ?>view/css/style.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $url; ?>view/css/list.css" type="text/css" />
-	<!-- <link rel="stylesheet" href="<?php echo $url; ?>view/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo $url; ?>model/jquery.lightbox/css/jquery.lightbox-0.5.css" type="text/css" />
+	 <link rel="stylesheet" href="<?php echo $url; ?>view/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" />
 	<script src="<?php echo $url; ?>view/js/jquery-1.6.2.min.js" type="text/javascript"></script>
-	<script src="<?php echo $url; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script> -->
+	<script src="<?php echo $url; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="<?php echo $url; ?>view/js/js.js" type="text/javascript"></script>
 	<script src="<?php echo $url; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
+	<script src="<?php echo $url; ?>model/jquery.lightbox/js/jquery.lightbox-0.5.js" type="text/javascript"></script>
 	<!--[if gte IE 9]>
 		<style type="text/css">
 			.gradient {	filter: none; }

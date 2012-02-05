@@ -1,2 +1,13 @@
 30.10.2011
 This software has created to organize, list and help and improve managment and reduce time spend for a lending library. 
+
+Software that we used
+	- ckeditor
+		A software module that creates an extended toolbar in order to edit text content and 
+		Website: http://ckeditor.com/
+		License: http://ckeditor.com/license
+	- XPM
+	
+		Website: http://www.xpertmailer.com/
+	- jQuery lightbox
+		Website: http://leandrovieira.com/projects/jquery/lightbox/

@@ -23,7 +23,7 @@
 .list-title a{
 	font-size: 22px;
 	font-weight: bolder;
-	font-variant: small-caps;
+	/*font-variant: small-caps;*/
 	text-decoration: none;
 }
 .list-writer {
@@ -55,7 +55,7 @@
 .list-non-colored{
 	color: #000;	
 }
-.list-button {
+.list-button, .book-button {
 	width: 90px;
 	height: 30px;
 	background-image: url('../images/book-buttons.jpg');
@@ -64,7 +64,7 @@
 	padding-top: 4px;
 	text-align: center;
 }
-.list-button a {
+.list-button a, .book-button a {
 	text-decoration: none;	
 	color: #fff;
 	font-size: 15px;
@@ -81,7 +81,6 @@
 	width: 32px;	
 }
 .list-cur-page{
-
 	line-height: 30px;
 }
 .list-nav-bar{
@@ -90,3 +89,57 @@
 .list-nav-bar div{
 	display: inline;
 }
+.book-prev{
+	width: 700px;
+	min-height: 350px;
+	padding: 10px;
+}
+.book-title{
+	text-align: center;
+	font-size: 28px;
+	font-weight: bolder;
+	text-decoration: none;
+	color: #798800;;
+	background-color: maroon;
+}
+.book-info{
+	margin-top: 15px;
+}
+.book-image img{
+	border: 1px solid black;
+	height: 212px;
+	width: 160px;
+	box-shadow: 0px 0px 2px black;
+	
+}
+.book-left-info{
+	display: inline-block;
+	float: left;
+	width: 160px;
+}
+.book-isbn{
+	padding-top: 10px;
+}
+.book-right-info{
+	width: 510px;
+	float: right;
+	padding: 0 10px 10px 10px;
+	height: 300px;
+}
+.book-right-info div{
+	padding-top: 10px;
+}	
+.book-colored{
+	color: #798800;
+}
+.book-button{
+}
+.book-prop{
+	margin-left: 20px;	
+}
+.book-left-info div{
+	padding-top: 6px;
+}
+	
+
+
