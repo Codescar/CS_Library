@@ -13,7 +13,7 @@ function list_books($books){
 	<div class="list">
 	<?php
 		foreach($books as $row){
-			$book_url = "index.php&amp;show=book&amp;id=".$row['id'];
+			$book_url = "index.php?show=book&amp;id=".$row['id'];
 			if($row == $books['0']) continue;	
 			?>
 			<div class="list-item">
@@ -62,9 +62,9 @@ function list_books($books){
 	}
 	?>
 	<?php if($page >= 1) { ?>
-	<span id="prev"><a href="index.php&amp;show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
+	<span id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>">&lt; Πίσω</a></span>
 	<?php } if(count($books) >= $CONFIG['items_per_page'] ) { ?>
-	<span id="next"><a href="index.php&amp;show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
+	<span id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>">Μπροστά &gt;</a></span>
 	<?php } ?>
 	</div>
 	<?php

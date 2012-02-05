@@ -2,8 +2,6 @@
 	require_once('include/config.php');
 	require_once('include/db.php');
 	require_once('model/session.php');
-		
-	$CONFIG['debug'] = true;
 	require_once('model/db.php');
 	require_once('model/user.php');
 	require_once('model/admin.php');

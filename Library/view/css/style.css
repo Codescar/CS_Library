@@ -137,8 +137,6 @@ background: -webkit-linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* Chrome10+
 background: -o-linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* Opera 11.10+ */
 background: -ms-linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* IE10+ */
 background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#bfb6a5',GradientType=0 ); /* IE6-8 */
-
 }
 #nav-menu ul{
 	list-style: none;
@@ -328,7 +326,7 @@ table{
 	list-style-type: none;
 }
 
-.bla{
+.r_info{
 	background-color: white;
 	margin: 0 0 10px 0;
 	box-shadow: 0 0 4px black;
