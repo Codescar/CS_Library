@@ -8,7 +8,7 @@
 	else
 	    $user = new User;
 	$db = new Lbdb();
-	$page = isset($_GET['page']) ? $_GET['page'] : 0;
+	$page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 	$user->session_check();
 	if($CONFIG['allow_compression'])
 		ob_start();

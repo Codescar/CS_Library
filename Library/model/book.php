@@ -54,7 +54,7 @@ function list_books($books){
 	<?php 
 	$ext = "";
 	if(isset($_GET['search'])){
-		$ext .= "&amp;search={$_GET['search']}";
+		$ext .= "&amp;do=search&amp;search={$_GET['search']}";
 		if(isset($_GET['title']))
 			$ext .= "&amp;title={$_GET['title']}";
 		if(isset($_GET['writer']))
