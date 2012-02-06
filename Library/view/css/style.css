@@ -86,6 +86,10 @@ body {
 	background-position: -160px 0px;
 }
 
+#lnkAdmin .icon{
+	background-position: -32px 0px;
+}
+
 #lnkFeedback .icon{
 	background-position: -96px 0px;
 }
@@ -110,10 +114,11 @@ body {
 
 #direction{
 	margin: 6px 15px;
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: bold;
 	font-family: Arial;
 	text-shadow: 1px 1px 1px black;
+	color: brown;
 }
 
 #direction a{
@@ -214,7 +219,7 @@ table{
 }
 #new-user-form label, #change-info label, #feedback-form label{
 	display: inline-block;
-	width: 100px;
+	width: 115px;
 	margin: 7px;
 }
 .success{
@@ -286,7 +291,7 @@ table{
 }
 
 #announcements{
-	
+	margin: 10px 0 0 0;
 }
 
 .announce{
@@ -324,6 +329,10 @@ table{
 	list-style-type: none;
 }
 
+#right_sidebar li{
+	cursor: pointer;
+	margin: 0 0 5px 0;
+}
 .r_info{
 	background-color: white;
 	margin: 0 0 10px 0;
@@ -367,11 +376,18 @@ table{
 .box{
 	background-color: #e4e4e1;
 	box-shadow: 0 0 2px black;
-	margin: 10px 0;
+	margin: 15px 0;
 	padding: 10px 2px;
 	text-align: center;
 	font-weight: bold;
 }
 .block{
 	display: inline-block;
+}
+.link{
+	cursor: pointer;
+}
+#search{
+	font-size: 16px;
+	margin: 10px;
 }

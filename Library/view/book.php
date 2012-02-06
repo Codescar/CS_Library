@@ -20,8 +20,11 @@
 	elseif(isset($_GET['lend']) && !$user->is_logged_in())
 		$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
 ?>
+<div id="direction">
+	<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=list">Κατάλογος βιβλίων</a>&nbsp;&gt;&gt;&nbsp;<?php echo $results['title']; ?>
+</div>
 <div class="content book-prev">
-	<div class="book-title"><?php echo $results['title']; ?></div>
+	<div class="book-title" style="color: orange;"><?php echo $results['title']; ?></div>
 	<div class="book-info">
 		<div class="book-left-info">
 			<div class="book-image" id="book-image"><a href="<?php echo ($results['image_url'] == NULL) ? "view/images/noimage.jpg": $results['image_url']; ?>"><img src="<?php echo ($results['image_url'] == NULL) ? "view/images/noimage.jpg": $results['image_url']; ?>" alt="<?php echo str_replace('"', "'", $results['title']); ?>" title="<?php echo str_replace('"', "'", $results['title']); ?>" /></a></div>
@@ -36,7 +39,6 @@
 			</div>
 		</div>
 		<div class="book-right-info">
-			
 			<div class="book-avail">
 				<span class="book-colored">Διαθεσιμότητα:</span>
 				<?php echo ($results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
@@ -48,13 +50,15 @@
 				Χωρίς Περιγραφή.
 			<?php } ?>
 			</div>
-			<div id="buttons">
     		<?php if($user->is_logged_in() && have_book_rq($id, $user->id)){ ?>
 				<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
+				<div id="buttons">
 			<?php }
 			elseif($user->is_logged_in() && have_book($id, $user->id)){ ?>
 				<p>Έχεις ήδη δανειστεί αυτό το βιβλίο.</p>
-			<?php }else{ ?>
+				<div id="buttons">
+			<?php }	else{ ?>
+				<div id="buttons">
 	    		<div class="book-button book-lend-book" id="lend">
 	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
 	    		</div>

@@ -2,10 +2,14 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-?>
-<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Αναζήτηση</div>
+if(!isset($_GET['title'])){?>
+    <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=search">Αναζήτηση</a></div>
+<?php
+}else{ ?>
+    <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=search">Αναζήτηση</a>&nbsp;&gt;&gt;&nbsp;<?php if(isset($_GET['title'])) echo $_GET['search']; ?></div>
+<?php } ?>
 <div class="content">
-	<form action="index.php" method="get">
+	<form action="index.php" method="get" id="search">
 		<input type="hidden" name="show" value="search" />
 		<input type="hidden" name="do" value="search" />
 		<input style="width: 180px; margin: 0 18px 0 0;" type="text" name="search" onclick="this.select()"<?php /*this.value='';" */?> onfocus="this.select()" onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>':this.value;" value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>"/>
@@ -48,7 +52,7 @@ elseif(!isset($_GET['search']) || $_GET['search'] == "" ||
 	(!isset($_GET['title']) && !isset($_GET['writer'])
 	&& !isset($_GET['publisher']) && !isset($_GET['isbn']) 
 	)){
-	echo "Λάθος αναζήτηση";
+	?> <p class="error">Λάθος αναζήτηση</p></div> <?php
 }
 else {
 	$db->connect();
@@ -73,7 +77,7 @@ else {
 		list_books($books);
 	}
 	else{ ?>
-	    <div>Δεν βρέθηκαν αποτελέσματα</div>
+	    <p class="error">Δεν βρέθηκαν αποτελέσματα</p>
 	<?php } ?>
 	</div>
 </div>

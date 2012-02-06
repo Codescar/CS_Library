@@ -4,11 +4,8 @@
 	define('VIEW_SHOW', true);
 	$db->connect();
 ?>
-<div id="direction"><a href="index.php">Αρχική</a></div>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;---&nbsp;Καλώς ορίσατε στην ηλεκτρονική πύλη της Εθνικής Βιβλιοθήκης Αθηνών.</div>
 <div class="content">
-	<div>Καλώς ορίσατε στην ηλεκτρονική πύλη της δανειστική 
-	βιβλιοθήκης του 15ου Συστήματος Προσκόπων Αθηνών.
-	</div>
 	<div id="announcements">
 	<?php 
 		announcements::show();
