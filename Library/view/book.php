@@ -9,15 +9,17 @@
 	$db->connect();
 	$id = mysql_real_escape_string($_GET['id']);
 	$results = $db->query("SELECT * FROM `booklist` WHERE `id` = '$id' LIMIT 1;");
-	
+	$logged = $user->is_logged_in();
+	$have = have_book($id, $user->id);
+	$requested = have_book_rq($id, $user->id);
 	if(mysql_num_rows($results) == 0)
 		die("Λάθος αίτημα");
 		
 	$results = mysql_fetch_array($results);
 	
-	if(isset($_GET['lend']) && $user->is_logged_in() && !have_book_rq($id, $user->id) && !have_book($id, $user->id))
+	if(isset($_GET['lend']) && $logged && !$requested && !$have)
 		lend_request($id);
-	elseif(isset($_GET['lend']) && !$user->is_logged_in())
+	elseif(isset($_GET['lend']) && !$logged)
 		$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
 ?>
 <div id="direction">
@@ -39,35 +41,34 @@
 			</div>
 		</div>
 		<div class="book-right-info">
+			<div id="buttons">
+				<div class="box book-button book-add-to-wish">
+	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
+	    		</div>
+	    		<?php if(!$have && !$requested && $results['avilability']){ ?>
+	    		<div class="box book-button book-lend-book" id="lend">
+	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
+	    		</div>
+	    		<?php }?>
+			</div><!--  #buttons end -->
 			<div class="book-avail">
 				<span class="book-colored">Διαθεσιμότητα:</span>
 				<?php echo ($results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
 			</div>
 			<div class="book-description">
 			<?php if($results['description'] != NULL) { ?>
-				<span class="book-colored">Περιγραφή:</span> <?php echo $results['description']; 
+				<span class="book-colored">Περιγραφή:</span> <div style="font-size: 17px;"><?php echo $results['description']."</div>"; 
 			} else { ?> 
 				Χωρίς Περιγραφή.
 			<?php } ?>
 			</div>
-    		<?php if($user->is_logged_in() && have_book_rq($id, $user->id)){ ?>
-				<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
-				<div id="buttons">
+    		<?php if($logged && $requested){ ?>
+				<p class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</p>
 			<?php }
-			elseif($user->is_logged_in() && have_book($id, $user->id)){ ?>
-				<p>Έχεις ήδη δανειστεί αυτό το βιβλίο.</p>
-				<div id="buttons">
+			elseif($logged && $have){ ?>
+				<p class="error">Εσείς έχετε ήδη δανειστεί αυτό το βιβλίο.</p>
 			<?php }	else{ ?>
-				<div id="buttons">
-	    		<div class="book-button book-lend-book" id="lend">
-	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
-	    		</div>
-			<?php 
-			}?>
-				<div class="book-button book-add-to-wish">
-	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
-	    		</div>
-			</div><!--  #buttons end -->
+			<?php } ?>
 		</div><!-- .book-right-info end -->
 	</div><!--  -->
 	<script type="text/javascript">

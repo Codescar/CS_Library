@@ -55,18 +55,17 @@
 .list-non-colored{
 	color: #000;	
 }
-.list-button{
-	width: 90px;
-	height: 30px;
-	background-image: url('../images/book-buttons.jpg');
-	background-repeat: no-repeat;
-	margin-bottom: 8px;
-	padding-top: 4px;
+.list-button, .book-button{
+	padding: 5px 5px;
 	text-align: center;
+}
+.book-button{
+	display: inline-block;
+	margin: 10px 50px 10px 10px;
 }
 .list-button a, .book-button a {
 	text-decoration: none;	
-	color: #fff;
+	color: black;
 	font-size: 15px;
 	font-weight: bold;
 }
@@ -141,18 +140,6 @@
 .book-left-info div{
 	padding-top: 6px;
 }
-.book-button{
-	display: inline-block;
-	height: 30px;
-	width: 90px;
-	background-image: url('../images/book-buttons.jpg');
-	background-repeat: no-repeat;
-	text-align: center;
-	margin: 10px 100px 0 0; 	
-}
 #buttons{
-	position: absolute;
-	bottom: 0px;
-	right: 60px;
 }
 
