@@ -15,9 +15,10 @@
 		
 	$results = mysql_fetch_array($results);
 	
-	if(isset($_GET['lend']) && isset($_POST['hidden']) 
-			&& $user->is_logged_in() && !have_book_rq($id, $user->id) && !have_book($id, $user->id))
+	if(isset($_GET['lend']) && $user->is_logged_in() && !have_book_rq($id, $user->id) && !have_book($id, $user->id))
 		lend_request($id);
+	elseif(isset($_GET['lend']) && !$user->is_logged_in())
+		$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
 ?>
 <div class="content book-prev">
 	<div class="book-title"><?php echo $results['title']; ?></div>
@@ -48,23 +49,20 @@
 			<?php } ?>
 			</div>
 			<div id="buttons">
-    			<div class="book-button book-add-to-wish">
-    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
-    			</div>
-    		<?php if($user->is_logged_in() && $have_book_rq){ ?>
+    		<?php if($user->is_logged_in() && have_book_rq($id, $user->id)){ ?>
 				<p>Υπάρχει ήδη μια αίτησή σου για αυτό το βιβλίο.</p>
 			<?php }
 			elseif($user->is_logged_in() && have_book($id, $user->id)){ ?>
 				<p>Έχεις ήδη δανειστεί αυτό το βιβλίο.</p>
 			<?php }else{ ?>
-	    		<div class="book-button book-lend-book">
-	    			<form action="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend" id="lend" method="post">
-	    				<input type="hidden" value="1" name="hidden" />
-	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a>
-	    			</form>
+	    		<div class="book-button book-lend-book" id="lend">
+	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
 	    		</div>
 			<?php 
 			}?>
+				<div class="book-button book-add-to-wish">
+	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
+	    		</div>
 			</div><!--  #buttons end -->
 		</div><!-- .book-right-info end -->
 	</div><!--  -->
