@@ -45,7 +45,7 @@
 				<div class="box book-button book-add-to-wish">
 	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
 	    		</div>
-	    		<?php if(!$have && !$requested && $results['avilability']){ ?>
+	    		<?php if(!$have && !$requested && $results['availability']){ ?>
 	    		<div class="box book-button book-lend-book" id="lend">
 	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
 	    		</div>

@@ -1,11 +1,4 @@
 <?php
-class book{
-	private $id, $title, $author, $available, $description, $added;
-	
-	function __construct($id, $title, $author = "", $available = 1, $description = ""){
-		
-	}
-}
 
 function list_books($books){
 	global $CONFIG, $page, $user;
@@ -41,9 +34,9 @@ function list_books($books){
 						<a class="list-colored" href="<?php echo $book_url; ?>" ><?php echo $row['title']; ?></a>
 					</div>
 					<!-- Writer -->
-					<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <span class="list-non-colored"><?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></span></div>
-					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <span class="list-non-colored"><?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></span></div>
-					<div class="list-description"><span class="list-colored">Περιγραφή:</span> <span class="list-non-colored"><?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?></span></div>
+					<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
+					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
+					<div class="list-description" ><span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?></div>
 				</div>
 				
 			</div>
@@ -108,6 +101,6 @@ function book_avail($book_id){
 				WHERE `id` = '$book_id'";
 	$res = $db->query($query);
 	return mysql_fetch_object($res)->availability;
-	
 }
+
 ?>
