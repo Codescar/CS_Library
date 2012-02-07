@@ -45,15 +45,20 @@ class announcements{
 		while($row = mysql_fetch_array($result)){
 			?>
 			<div class="announce">
-				<h2><?php echo $row['title']; ?></h2>
+				<div class="announce-head"><?php echo $row['title']; ?></div>
 				<div class="announce-content"><?php echo $row['body']; ?></div>
-				<p class="announce-footer">Created by <?php echo (strlen($row['author']) >= 1) ? user::get_name($row['author']) : "unknown"; ?> at <?php echo (strlen($row['date']) >= 1) ? $row['date'] : "unknown";?></p>
-				
+				<p class="announce-footer">Δημιουργήηκε από το χρήστη <?php echo (strlen($row['author']) >= 1) ? user::get_name($row['author']) : "Ανώνυμο"; ?> την <?php echo (strlen($row['date']) >= 1) ? date('d-m-Y στις H:i', strtotime($row['date'])) : "";?>.</p>
 			</div><br />
 			<?php 
 		}
-		
+	}
 	
+	public static function num(){
+		global $db;
+		$query = "SELECT id FROM `{$db->table["announcements"]}`;";
+		$result = $db->query($query);
+		$num = mysql_num_rows($result);
+		return $num;
 	}
 };
 ?>

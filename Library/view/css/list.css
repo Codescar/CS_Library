@@ -103,7 +103,7 @@
 	padding: 10px;
 	position: relative;
 }
-.book-title{
+.book-title, .index-title{
 	text-align: center;
 	font-size: 28px;
 	font-weight: bolder;
@@ -191,4 +191,10 @@
 #aitisi .sub{
 	margin-left: 25px;
 	margin-top: 8px;
+}
+#index-content{
+	margin-top: 15px;
+}
+#index-content ol{
+	list-style-type: upper-roman;
 }
