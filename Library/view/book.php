@@ -9,9 +9,11 @@
 	$db->connect();
 	$id = mysql_real_escape_string($_GET['id']);
 	$results = $db->query("SELECT * FROM `booklist` WHERE `id` = '$id' LIMIT 1;");
-	$logged = $user->is_logged_in();
-	$have = have_book($id, $user->id);
-	$requested = have_book_rq($id, $user->id);
+	if($logged = $user->is_logged_in()){
+		$have = have_book($id, $user->id);
+		$requested = have_book_rq($id, $user->id);
+	}
+	
 	if(mysql_num_rows($results) == 0)
 		die("Λάθος αίτημα");
 		
@@ -69,8 +71,8 @@
 				<p class="error">Εσείς έχετε ήδη δανειστεί αυτό το βιβλίο.</p>
 			<?php }	else{ ?>
 			<?php } ?>
-		</div><!-- .book-right-info end -->
-	</div><!--  -->
+		</div>
+	</div><!-- .book-right-info end -->
 	<script type="text/javascript">
 		$('#lend').submit(function (){
 			return confirm('Είσαι σίγουρος ότι θέλεις το βιβλίο "<?php echo $results['title']; ?>";', 'Επιβεβαίωση');

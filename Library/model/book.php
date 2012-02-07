@@ -50,7 +50,7 @@ function list_books($books){
 					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 					<div class="list-description" >
 						<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
-							Έχεις πάρει αυτό το βιβλίο την <?php date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+							Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
 							<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
 						<?php }else{ ?>
 							<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
@@ -123,6 +123,11 @@ function book_avail($book_id){
 }
 
 function in_there_pos($where, $what){
+	
+	for($i = 0;$i < count($where);$i++)
+		if($where[$i][0] == $what)
+			return $where[$i][1];
+	return -1;
 	
 	foreach($where as $check){
 		
