@@ -123,17 +123,16 @@
 }
 .book-left-info{
 	display: inline-block;
-	float: left;
 	width: 160px;
 }
 .book-isbn{
 	padding-top: 10px;
 }
 .book-right-info{
+	display: inline-block;
 	width: 510px;
-	float: right;
 	padding: 0 10px 10px 10px;
-	height: 300px;
+	min-height: 300px;
 }
 .book-right-info div{
 	padding-top: 10px;
@@ -197,4 +196,12 @@
 }
 #index-content ol{
 	list-style-type: upper-roman;
+}
+.info-button{
+	padding: 2px;
+	border: 1px dashed yellow; 
+	border-radius: 4px;
+}
+.info-button img{
+	padding-right: 6px;
 }

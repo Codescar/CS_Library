@@ -15,4 +15,5 @@
 	$CONFIG['debug'] = false;
 	$CONFIG['items_per_page'] = 5;
 
+	$CONFIG['lend_default_days'] = 15;
 ?>

@@ -1,7 +1,16 @@
 <?php
 
 function list_books($books){
-	global $CONFIG, $page, $user;
+	global $CONFIG, $page, $user, $db;
+	$logged = $user->is_logged_in();
+	if($logged){
+		$query = "SELECT * FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
+		$res = $db->query($query);
+		for($i = 0; $tmp = mysql_fetch_array($res); $i++){
+			$lend[$i][0] = $tmp['book_id'];
+			$lend[$i][1] = $tmp['taken'];
+		}
+	}
 	?>
 	<div class="list">
 	<?php
@@ -17,11 +26,14 @@ function list_books($books){
 				<!-- Availability -->
 				<div class="list-right">
 					<div class="list-avail">
-						<?php if($row['availability'] == 0) { ?>
-							<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
-						<?php } else { ?>
-							<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
-						<?php } ?>
+						<?php if($row['availability'] == 0) { 
+								if($logged && in_there_pos($lend, $row['id']) != -1) { ?>
+									<div class="info-button box"><img src="view/images/info.png" />Το Έχεις!</div>
+								<?php } else {?>
+								<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+							<?php } } else { ?>
+								<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
+							<?php } ?>
 					</div>
 					<div class="box list-button list-add-to-wish"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a></div>
 					<?php if($row['availability'] != 0) { ?>
@@ -36,7 +48,14 @@ function list_books($books){
 					<!-- Writer -->
 					<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
 					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
-					<div class="list-description" ><span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?></div>
+					<div class="list-description" >
+						<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
+							Έχεις πάρει αυτό το βιβλίο την <?php date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+							<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
+						<?php }else{ ?>
+							<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
+						<?php } ?>
+					</div>
 				</div>
 				
 			</div>
@@ -103,4 +122,13 @@ function book_avail($book_id){
 	return mysql_fetch_object($res)->availability;
 }
 
+function in_there_pos($where, $what){
+	
+	foreach($where as $check){
+		
+		if($check[0] == $what);
+			return $check[1];
+	}
+	return -1;
+}
 ?>
