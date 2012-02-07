@@ -64,7 +64,7 @@
 .list-non-colored{
 	color: #000;	
 }
-.list-button, .book-button{
+.list-button, .book-button, .form-button{
 	padding: 5px 5px;
 	text-align: center;
 }
@@ -151,4 +151,44 @@
 }
 #buttons{
 }
+.info-accordion .head{	
+	cursor: pointer;
+	margin: 10px;
+	width: 350px;
+	font-size: 18px;
+	line-height: 24px;
+	border-radius: 4px;
+	text-align: center;
+	font-weight: bolder;
+	text-decoration: none;
+	color: white;
+	background-color: maroon;
+		
+}
+.info-accordion .info{
+	padding: 6px;
+	margin-bottom: 20px;
+	border-radius: 4px;
+	background-color: aqua;
+}
 
+#aitisi{
+	padding: 10px;
+	margin-bottom: 20px;
+	width: 460px;
+	border-radius: 4px;
+	background-color: teal;
+}
+#aitisi .header{
+	font-weight: bold;
+	font-size: 26px;	
+	margin-bottom: 10px;
+}
+#aitisi label{
+	width: 65px;
+	display: inline-block;
+}
+#aitisi .sub{
+	margin-left: 25px;
+	margin-top: 8px;
+}

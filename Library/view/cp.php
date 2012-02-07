@@ -42,6 +42,7 @@ if($_GET['more'] == "history"){?>
             <label for="r_n_pass">Ξανά νέος κωδικός: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
             <label for="password">Τωρινός κωδικός: </label><input type="password" id="password" name="password" />
             <input type="submit" value="Ανανέωση" style="position: absolute; right: 108px; bottom: 10px;"/>
+            <p >* Για να αλλάξετε κάποια από τα στοιχεία σας<br /> θα πρέπει να συμπληρώσετε απαραιτήτως<br/> και τον Τωρινό Κωδικό σας!</p>
     			<input type="hidden" name="hidden" value="1" />   
     			<?php //if($user_id == $this->id) { ; }?>
             </form>
