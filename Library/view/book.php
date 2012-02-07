@@ -47,11 +47,13 @@
 				<div class="box book-button book-add-to-wish">
 	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
 	    		</div>
-	    		<?php if(!$have && !$requested && $results['availability']){ ?>
-	    		<div class="box book-button book-lend-book" id="lend">
+	    		<?php if($logged && !$have && !$requested && $results['availability']){ ?>
+	    		<div class="box book-button book-lend-book button" id="lend">
 	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
 	    		</div>
-	    		<?php }?>
+	    		<?php } elseif($logged && $have) { ?>
+	    			<div class="info-button box button"><img src="view/images/info.png" />Το Έχεις!</div>
+	    		<?php } ?>
 			</div><!--  #buttons end -->
 			<div class="book-avail">
 				<span class="book-colored">Διαθεσιμότητα:</span>
@@ -64,11 +66,13 @@
 				Χωρίς Περιγραφή.
 			<?php } ?>
 			</div>
-    		<?php if($logged && $requested){ ?>
+    		<?php if($logged && $requested && !$have){ ?>
 				<p class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</p>
 			<?php }
 			elseif($logged && $have){ ?>
-				<p class="error">Εσείς έχετε ήδη δανειστεί αυτό το βιβλίο.</p>
+				
+				<p class="error">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+						<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> </p>
 			<?php }	else{ ?>
 			<?php } ?>
 		</div>
