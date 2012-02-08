@@ -209,3 +209,27 @@
 	width: 90px;
 	display: inline-block;
 }
+.message, .success, .error { 
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgb(241, 246, 236);
+	background-image: url("../images/information.png");
+	background-origin: padding-box;
+	background-position: 8px 10px;
+	background-repeat: no-repeat;
+	background-size: auto;
+	border: 1px solid rgb(176, 206, 148);
+	color: rgb(62, 73, 52);
+	line-height: 150%;
+	padding: 10px 10px 10px 30px;
+}
+.message .error, .error { 
+	background-color: rgb(243, 221, 221);
+	background-image: url("../images/exclamation.png");
+	border-bottom-color: rgb(222, 183, 183);
+	border-left-color: rgb(222, 183, 183);
+	border-right-color: rgb(222, 183, 183);
+	border-top-color: rgb(222, 183, 183);
+	color: rgb(40, 27, 27);
+	font-size: 1.1em;
+ }

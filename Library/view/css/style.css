@@ -1,6 +1,6 @@
 body { 
 	background-color: #f4f1ec;
-	background-image: url("http://www.greekbooks.gr/images/bg.jpg");
+	background-image: url("../images/bg.jpg");
 	background-position: 50% 0%;
 	background-repeat: repeat-x;
 	font-size: 14px;
@@ -67,7 +67,7 @@ body {
 }
 
 .customermenu a .icon { 
-	background-image: url("http://projects.codescar.eu/Library/demo/view/images/toolbox.png");
+	background-image: url("../images/toolbox.png");
 	background-repeat: no-repeat;
 	display: inline-block;
 	height: 32px;
@@ -226,8 +226,8 @@ table{
 	font-style: italic;
 }
 .error{
-	color: red;
-	font-style: italic;
+	/*color: red;
+	font-style: italic;*/
 }
 .developers{
 	background-color: #aaaaaa;
@@ -334,7 +334,7 @@ table{
 
 #social{
 	display: inline-block;
-	background-image: url("http://projects.codescar.eu/Library/demo/view/images/social.png");
+	background-image: url("../images/social.png");
 	width: 68px;
 	height: 18px;
 	margin: 0 20px 0 0;
