@@ -198,12 +198,13 @@
 	list-style-type: upper-roman;
 }
 .info-button{
-	padding: 2px;
 	border: 1px dashed yellow; 
 	border-radius: 4px;
+	vertical-align: top;
+	padding: 5px 2px;
 }
 .info-button img{
-	padding-right: 6px;
+	padding: 0px 6px 0 0 ;
 }
 .button{
 	width: 90px;

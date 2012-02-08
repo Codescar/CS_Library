@@ -52,7 +52,7 @@
 	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
 	    		</div>
 	    		<?php } elseif($logged && $have) { ?>
-	    			<div class="info-button box button"><img src="view/images/info.png" />Το Έχεις!</div>
+	    			<div class="info-button box button"><img src="view/images/information.png" />Το Έχεις!</div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
 			<div class="book-avail">

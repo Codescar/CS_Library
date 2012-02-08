@@ -28,7 +28,7 @@ function list_books($books){
 					<div class="list-avail">
 						<?php if($row['availability'] == 0) { 
 								if($logged && in_there_pos($lend, $row['id']) != -1) { ?>
-									<div class="info-button box"><img src="view/images/info.png" />Το Έχεις!</div>
+									<div class="info-button box"><img src="view/images/information.png" />Το Έχεις!</div>
 								<?php } else {?>
 								<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
 							<?php } } else { ?>
