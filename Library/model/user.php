@@ -235,6 +235,14 @@ class User{
 		$num = mysql_num_rows($result);
 		return ($num == 1);	
 	}
+
+	function show_lended(){
+		global $CONFIG, $db;
+		$books = $db->get_books("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
+		WHERE {$db->table['lend']}.user_id = '{$this->id}' ");
+		list_books($books); 
+		return;
+	}
 };
 
 function date_gr($timestamp, $mode) {

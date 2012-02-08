@@ -51,13 +51,15 @@ if($_GET['more'] == "history"){?>
         	<div class="box link">Έκδοση κάρτας αναγνώστη</div>
         	<div class="box link">Λίστα αγαπημένων</div>
         	<div class="box link">Ιστορικό δανεισμού</div>
-        	<div class="box link"><a href="index.php?show=cp&more=history" style="text-decoration: none;">Δανεισμένα βιβλία</a></div>
+        	<div class="box link"><a href="index.php?show=cp&more=lended" style="text-decoration: none;">Δανεισμένα βιβλία</a></div>
         </div>
     <?php }
 	elseif($_GET['more'] == "history"){
 		$user->show_history();
 	}elseif($_GET['more'] == "remove_request" && isset($_GET['id'])){
 		$user->cansel_request(mysql_real_escape_string($_GET['id']));
+	}elseif($_GET['more'] == "lended"){
+		$user->show_lended();	
 	}
 	$db->close();
 	?>

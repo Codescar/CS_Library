@@ -25,7 +25,7 @@
 	elseif($_GET['show'] == "search")
 		include('search.php');
 	elseif($_GET['show'] == "book" && isset($_GET['id']))
-		include('book.php');///TODO book view
+		include('book.php');
 	elseif($_GET['show'] == "login" && $CONFIG['allow_login'])
 		include('login.php');
 	elseif($_GET['show'] == "logout")
@@ -33,7 +33,7 @@
 	elseif($_GET['show'] == "msg" && $CONFIG['allow_login'])
 		include('msg.php');//TODO message window
 	elseif($_GET['show'] == "cp" && $CONFIG['allow_login'])
-		include('cp.php');//TODO User Control Panel
+		include('cp.php');
 	elseif($_GET['show'] == "feedback")
 		include('feedback.php');
 	elseif($_GET['show'] == "help")

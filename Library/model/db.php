@@ -126,8 +126,8 @@ class Lbdb{
 	 * 
 	 * Returns FALSE if there are no results
 	 */
-	public function get_books($limit_offset, $items, $query ){
-		$res = $this->query($query.$limit_offset.",". $items .";");
+	public function get_books($query ){
+		$res = $this->query($query);
 		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
 		if($books['1'] == FALSE)	
 			return FALSE;
