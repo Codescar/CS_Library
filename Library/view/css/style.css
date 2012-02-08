@@ -415,4 +415,63 @@ table{
 #search{
 	font-size: 16px;
 	margin: 10px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	background-color: #c0c0c0;
+}
+#search-head{
+	height: 26px;
+	text-align: center;
+	text-shadow: #6374AB 2px -1px 2px;
+	padding-top: 10px;
+	font-size: 20px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	background-color: #e0e0e0;
+}
+.search_rad input[type="radio"]:checked+div{
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgb(43, 79, 116);
+	background-origin: padding-box;
+	background-repeat: repeat;
+	border: 3px solid rgb(29, 54, 82);
+	color: rgb(255, 255, 255);
+	height: 23px;
+	width: 110px;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 4px;
+	padding-bottom: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 8px;
+	border-radius: 6px;
+	font-weight: bold;
+	font-size: 16px;
+}
+.search_rad {
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: transparent;
+	background-origin: padding-box;
+	background-repeat: repeat;
+	border: 3px solid white;
+	border-color: transparent;
+	color: rgb(0, 0, 0);
+	height: 23px;
+	width: 110px;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 4px;
+	padding: 6px 8px 6px 8px;
+	border-radius: 6px;
+	font-weight: bold;
+	font-size: 16px;
+}
+.search-active-radio{
+	background-color: rgb(43, 79, 116);
+	border: 3px solid rgb(29, 54, 82);
+	color: rgb(255, 255, 255);
+	color: rgb(255, 255, 255);
 }

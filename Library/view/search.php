@@ -10,38 +10,113 @@ if(!isset($_GET['title'])){?>
 <?php } ?>
 <div class="content">
 	<form action="index.php" method="get" id="search">
+		<div id="search-head">Αναζήτηση</div>
+		<div id="search_main">
+			<div class="subtitle">Εισάγετε λέξη-κλειδί για αναζήτηση</div>
+			<input 	style="width: 220px; margin: 0 18px 0 0;" type="text" name="search" onclick="this.value='';"<?php /*this.select()" */ ?> onfocus="this.select()" 
+					onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγεται κείμενο εδώ..."; ?>':this.value;" 
+					value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγεται κείμενο εδώ..."; ?>" />
+			
+		</div>
 		<input type="hidden" name="show" value="search" />
 		<input type="hidden" name="do" value="search" />
-		<input style="width: 180px; margin: 0 18px 0 0;" type="text" name="search" onclick="this.select()"<?php /*this.value='';" */?> onfocus="this.select()" onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>':this.value;" value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Search..."; ?>"/>
+		<div id="search-in">Αναζήτηση σε 
+			<div class="search_rad" id="book-div">
+				<input type="radio" name="search-type" id="books" value="books" <?php echo (isset($_GET['search-type']) && $_GET['search-type'] == "books") ? "checked=\"checked\"" : ((isset($_GET['do'])) ? "" : "checked=\"checked\""); ?>/><label for="books">Βιβλία</label>
+			</div>
+			<div class="search_rad">
+				<input type="radio" name="search-type" id="newspapers" value="newspapers" <?php echo (isset($_GET['search-type']) && $_GET['search-type'] == "newspapers") ? "checked=\"checked\"" : ""; ?>/><label for="newspapers">Εφημερίδες</label>
+			</div>
+			<div class="search_rad">
+				<input type="radio" name="search-type" id="manuscripts" value="manuscripts" <?php echo (isset($_GET['search-type']) && $_GET['search-type'] == "manuscripts") ? "checked=\"checked\"" : ""; ?>/><label for="manuscripts">Χειρόγραφα</label>
+			</div>
+			<div class="search_rad">
+				<input type="radio" name="search-type" id="articles" value="articles" <?php echo (isset($_GET['search-type']) && $_GET['search-type'] == "articles") ? "checked=\"checked\"" : ""; ?>/><label for="articles">Άρθρα</label>
+			</div>
+		</div>
 		
-		<div class="search_chk">
-		<input type="checkbox" name="title" id="title" <?php echo (isset($_GET['title'])) ? "checked=\"checked\"" : ( (isset($_GET['do'])) ? "" : "checked=\"checked\"" ); ?>/>
-		<label for="title">Τίτλος</label>
+		<div id="search-book" style="display: none;">
+		
+			<div class="search_chk">
+				<label for="writer">Συγγραφέας</label><input type="text" name="writer" id="writer" <?php echo (isset($_GET['writer'])) ? "checked=\"checked\"" : ""; ?>/>
+			</div>
+			<div class="search_chk">
+				<label for="publisher">Εκδότης</label><input type="text" name="publisher" id="publisher" <?php echo (isset($_GET['publisher'])) ? "checked=\"checked\"" : ""; ?>/>
+			</div>
+			<div class="search_chk">
+				<label for="isbn">ISBN</label><input type="text" name="isbn" id="isbn" <?php echo (isset($_GET['isbn'])) ? "checked=\"checked\"" : ""; ?>/>
+			</div>
+			<div class="search_chk">
+				<label for="">Διαθέσιμο για δανεισμό</label><input type="checkbox" name="" id="" />
+			</div>
 		</div>
-		<div class="search_chk">
-		<input type="checkbox" name="newspapers" id="newspapers" <?php echo (isset($_GET['newspapers'])) ? "checked=\"checked\"" : ""; ?>/><label for="newspapers">Εφημερίδες</label>
+		<div id="search-newspapers" style="display: none;">
+			<div class="search_chk">
+				<label for="">Εκδόσεις</label><input type="text" name="" id="" />
+			</div>
+			<div class="search_chk">
+				<label for="">Έτος</label><input type="text" name="" id="" />
+			</div>
 		</div>
-		<div class="search_chk">
-		<input type="checkbox" name="manuscripts" id="manuscripts" <?php echo (isset($_GET['manuscripts'])) ? "checked=\"checked\"" : ""; ?>/><label for="manuscripts">Χειρόγραφα</label>
+		<div id="search-manuscripts" style="display: none;">
+			<div class="search_chk">
+				<label for="">Συγγραφέας</label><input type="text" name="" id="" />
+			</div>
+			<div class="search_chk">
+				<label for="">Έτος</label><input type="text" name="" id="" />
+			</div>
+		</div>
+		<div id="search-articles" style="display: none;">
+			<div class="search_chk">
+				<label for="">Συγγραφέας</label><input type="text" name="" id="" />
+			</div>
+			<div class="search_chk">
+				<label for="">Έτος</label><input type="text" name="" id="" />
+			</div>
+			<div class="search_chk">
+				<label for="">Εμφανίσεις</label><input type="text" name="" id="" />
+			</div>
 		</div>
 		<input type="submit" value="Αναζήτηση" />
-		<br />
-		<div class="search_chk">
-		<input type="checkbox" name="writer" id="writer" <?php echo (isset($_GET['writer'])) ? "checked=\"checked\"" : ""; ?>/><label for="writer">Συγγραφέας</label>
-		</div>
-		<div class="search_chk">
-		<input type="checkbox" name="publisher" id="publisher" <?php echo (isset($_GET['publisher'])) ? "checked=\"checked\"" : ""; ?>/><label for="publisher">Εκδότης</label>
-		</div>
-		<div class="search_chk">
-		<input type="checkbox" name="isbn" id="isbn" <?php echo (isset($_GET['isbn'])) ? "checked=\"checked\"" : ""; ?>/><label for="isbn">ISBN</label>
-		</div>
-		<div class="search_chk">
-		<input type="checkbox" name="articles" id="articles" <?php echo (isset($_GET['articles'])) ? "checked=\"checked\"" : ""; ?>/><label for="articles">Άρθρα</label>
-		</div>
-		<div class="search_chk">
-		<input type="checkbox" name="books" id="books" <?php echo (isset($_GET['books'])) ? "checked=\"checked\"" : ""; ?>/><label for="books">Βιβλία</label>
-		</div>
+			<br />
 	</form>
+	<script type="text/javascript">
+		
+		function a(){
+			$('.search_rad input').each(function (elem){
+					if($(this).is(':checked')){
+						$(this).parent().addClass('search-active-radio');
+						
+						if($(this).attr('id') == 'books')
+							$('#search-book').show();
+						else
+							$('#search-book').hide();
+						
+						if($(this).attr('id') == 'newspapers')
+							$('#search-newspapers').show();
+						else
+							$('#search-newspapers').hide();
+
+						if($(this).attr('id') == 'manuscripts')
+							$('#search-manuscripts').show();
+						else
+							$('#search-manuscripts').hide();
+
+						if($(this).attr('id') == 'articles')
+							$('#search-articles').show();
+						else
+							$('#search-articles').hide();
+					}
+					else{
+						$(this).parent().removeClass('search-active-radio');
+					}
+			})};
+
+		$('.search_rad input').click(function (){a();});
+
+		a();
+		
+		</script>
 	<hr style="margin-bottom: 0px;"/>
 	<hr style="margin-top: 5px;"/>
 <?php 
