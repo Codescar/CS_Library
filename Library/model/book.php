@@ -35,9 +35,21 @@ function list_books($books){
 								<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
 							<?php } ?>
 					</div>
-					<div class="box list-button list-add-to-wish"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a></div>
+					<div class="box list-button list-add-to-wish">
+    					<?php if(!$logged){ ?>
+    	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
+    	    			<?php }else{ ?>
+    	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
+    	    			<?php }?>
+					</div>
 					<?php if($row['availability'] != 0) { ?>
-					<div class="box list-button list-lend-book"><a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="#">Δανείσου το</a></div>
+					<div class="box list-button list-lend-book">
+						<?php if(!$logged){ ?>
+    	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
+    	    			<?php }else{ ?>
+    	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
+    	    			<?php }?>
+					</div>
 					<?php } ?>
 				</div>
 				<div class="list-item-content">

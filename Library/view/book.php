@@ -45,11 +45,19 @@
 		<div class="book-right-info">
 			<div id="buttons">
 				<div class="box book-button book-add-to-wish">
-	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
+				    <?php if(!$logged){ ?>
+	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
+	    			<?php }else{ ?>
+	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
+	    			<?php }?>
 	    		</div>
-	    		<?php if($logged && !$have && !$requested && $results['availability']){ ?>
+	    		<?php if(!$have && !$requested && $results['availability']){ ?>
 	    		<div class="box book-button book-lend-book button" id="lend">
-	    			<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
+	    			<?php if(!$logged){ ?>
+	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
+	    			<?php }else{ ?>
+	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
+	    			<?php }?>
 	    		</div>
 	    		<?php } elseif($logged && $have) { ?>
 	    			<div class="info-button box button"><img src="view/images/information.png" />Το Έχεις!</div>
@@ -70,17 +78,14 @@
 				<p class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</p>
 			<?php }
 			elseif($logged && $have){ ?>
-				
 				<p class="error">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
-						<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> </p>
+					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?>
+				</p>
 			<?php }	else{ ?>
 			<?php } ?>
 		</div>
 	</div><!-- .book-right-info end -->
 	<script type="text/javascript">
-		$('#lend').submit(function (){
-			return confirm('Είσαι σίγουρος ότι θέλεις το βιβλίο "<?php echo $results['title']; ?>";', 'Επιβεβαίωση');
-			});
 		$(function() {
 			$('#book-image a').lightBox();
 		});
