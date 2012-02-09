@@ -29,7 +29,7 @@ function list_books($books){
 						<?php if($row['availability'] == 0) { 
 								if($logged && in_there_pos($lend, $row['id']) != -1) { ?>
 									<div class="info-button box" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
-									<div class="box list-button" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Παράταση</a></div>
+									<div class="box list-button" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
 								<?php } else {?>
 									<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
 							<?php } } else { ?>
@@ -70,7 +70,6 @@ function list_books($books){
 						<?php } ?>
 					</div>
 				</div>
-				
 			</div>
 			<?php 
 		}

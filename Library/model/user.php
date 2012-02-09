@@ -240,9 +240,9 @@ class User{
 		global $CONFIG, $db;
 		$books = $db->get_books("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
 		WHERE {$db->table['lend']}.user_id = '{$this->id}' ");
-		if($books == FALSE){?>
+		if($books == FALSE){ ?>
 		    <div class="error" style="width: 250px; margin: 10px 0 0 0;">Δεν έχετε δανειστεί κανένα βιβλίο</div>
-		<?php;}
+		<?php }
 		list_books($books); 
 		return;
 	}

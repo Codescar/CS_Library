@@ -9,6 +9,8 @@
 	}else{
 if($_GET['more'] == "lended"){?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Δανεισμένα Βιβλία</div>
+<?}elseif($_GET['more'] == "history"){?>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό δανεισμού</div>
 <?php }else{?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προφίλ χρήστη</div>
 <?php }?>
@@ -48,10 +50,10 @@ if($_GET['more'] == "lended"){?>
             </form>
         </div>
         <div class="block" style="vertical-align: top;">
-        	<div class="box link">Έκδοση κάρτας αναγνώστη</div>
+        	<div class="box link"><a href="index.php?show=cp&more=lended" style="color: black; text-decoration: none;">Δανεισμένα βιβλία</a></div>
+        	<div class="box link"><a href="index.php?show=cp&more=history" style="color: black; text-decoration: none;">Ιστορικό δανεισμού</a></div>
         	<div class="box link">Λίστα αγαπημένων</div>
-        	<div class="box link">Ιστορικό δανεισμού</div>
-        	<div class="box link"><a href="index.php?show=cp&more=lended" style="text-decoration: none;">Δανεισμένα βιβλία</a></div>
+        	<div class="box link">Έκδοση κάρτας αναγνώστη</div>
         </div>
     <?php }
 	elseif($_GET['more'] == "history"){

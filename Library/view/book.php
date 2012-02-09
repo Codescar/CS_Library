@@ -68,7 +68,7 @@
 	    			<?php }?>
 	    		</div>
 	    		<?php } elseif($logged && $have) { ?>
-	    			<div class="book-button box"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Παράταση</a></div>
+	    			<div class="book-button box"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
 	    			<div class="info-button box button"><img src="view/images/information.png" />Το Έχεις!</div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
