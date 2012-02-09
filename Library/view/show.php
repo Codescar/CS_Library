@@ -9,6 +9,23 @@
 	<div class="index-title" style="color: white; font-size: 20px; line-height: 1.5em; border-radius: 4px;">
 		Καλώς ορίσατε στην ηλεκτρονική πύλη της Εθνικής Βιβλιοθήκης Αθηνών.
 	</div>
+	<?php if(announcements::num() > 0) {?>
+		<div id="announcements">
+			<div id="announcements-header">Ανακοινώσεις</div><br />
+			<?php 
+				announcements::show();
+				$db->close();
+			?>
+		</div>
+		<div style="display: inline-block; vertical-align: top; margin: 0 0 0 20px;">
+			<div class="box index-box link" style="margin-top: 10px;">Διασημότερα</div>
+			<div class="box index-box link">Νέες κυκλοφορίες</div>
+			<div class="box index-box link">Προτάσεις</div>
+			<div class="box index-box link">Ανακοινώσεις</div>
+			<div class="box index-box link">Δελτία τύπου</div>
+			<div class="box index-box link">Θέσεις εργασίας</div>
+		</div>
+	<?php } ?>
 	<div id="index-content">
 		Σας καλωσορίζουμε στην ιστοσελίδα της Εθνικής Βιβλιοθήκης της Ελλάδας, με την οποία επιδιώκουμε τόσο την ενημέρωσή σας όσο και τη χρήση των υπηρεσιών μας.
 		Η αποστολής της ΕΒΕ είναι, σύμφωνα με την ισχύουσα νομοθεσία (Ν. 3149/03), η συγκέντρωση, οργάνωση και απόδοση στο κοινό της, σε κάθε δυνατή μορφή, 
@@ -34,19 +51,4 @@
 			<li>Εκπροσωπεί τη χώρα στο εξωτερικό για ζητήματα που έχουν σχέση με την αποστολή της.</li>
 		</ol>
 	</div>
-	<?php if(announcements::num() > 0) {?>
-		<div id="announcements">
-			<div id="announcements-header">Ανακοινώσεις</div><br />
-			<?php 
-				announcements::show();
-				$db->close();
-			?>
-		</div>
-		<div style="display: inline-block; vertical-align: top; margin: 0 0 0 20px;">
-			<div class="box index-box link" style="margin-top: 10px;">Διασημότερα</div>
-			<div class="box index-box link">Νέες κυκλοφορίες</div>
-			<div class="box index-box link">Προτάσεις</div>
-			<div class="box index-box link">Ανακοινώσεις</div>
-		</div>
-	<?php } ?>
 </div>

@@ -17,9 +17,11 @@
 				$user->admin 	= new Admin($user);
 			$_SESSION['user']   = serialize($user);
 			?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>
 			<div class="content">
-    			<p>Επιτυχής σύνδεση...<br/>
-    			Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href="<?php echo $url; ?>">εδώ</a>.</p>
+				<br />
+    			<div class="success">Επιτυχής σύνδεση...<br/>
+    			Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href="<?php echo $url; ?>">εδώ</a>.</div>
     			<script type="text/javascript">
     				var t=setTimeout("window.location = '<?php echo $url; ?>'",2000);
     			</script>
@@ -42,6 +44,7 @@ if(isset($error) || !isset($_GET['do'])){
 ?>
 <?php if(isset($error) && !empty($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
 <?php if(isset($success) && !empty($success)) echo "<p class=\"sucess\">".$success."</p><br/>";?>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>
 <div class="content">
 <fieldset>
 	<legend style="font-size: 20px; font-weight: bold;">Σύνδεση χρήστη</legend>
@@ -92,5 +95,6 @@ if(isset($error) || !isset($_GET['do'])){
 <?php 
 	} 
 }?>
+<br />
 </div>
 <?php $db->close();	?>

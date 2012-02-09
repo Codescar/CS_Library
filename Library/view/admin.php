@@ -17,6 +17,10 @@
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Χρήστες</div>
 		<?php }elseif($_GET['more'] == "statistics"){?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Στατιστικά</div>
+        <?php }elseif($_GET['more'] == "new_user"){?>
+        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Δημιουργία Χρήστη</div>
+    	<?php }elseif($_GET['more'] == "options"){?>
+    	        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Επιλογές</div>
         <?php }else{?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
     <?php }?>

@@ -147,11 +147,11 @@
 .book-left-info div{
 	padding-top: 6px;
 }
+
 .info-accordion .head{	
 	cursor: pointer;
-	margin: 10px;
-	width: 350px;
-	font-size: 18px;
+	margin: 20px auto 10px auto;
+	font-size: 20px;
 	line-height: 24px;
 	border-radius: 4px;
 	text-align: center;
@@ -159,15 +159,18 @@
 	text-decoration: none;
 	color: white;
 	background-color: maroon;
-		
 }
 .info-accordion .info{
-	padding: 6px;
-	margin-bottom: 20px;
+	padding: 10px;
+	margin: 0 0 20px 0;
 	border-radius: 4px;
-	background-color: aqua;
+	font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
-
+.shead{
+	width: 300px;
+	margin: 0 auto 0 auto;
+	font-size: 18px;
+}
 #aitisi{
 	padding: 10px;
 	margin-bottom: 20px;
