@@ -38,16 +38,16 @@ if(!isset($_GET['title'])){?>
 		<div id="search-book" style="display: none;">
 		
 			<div class="search_chk">
-				<label for="writer">Συγγραφέας</label><input type="text" name="writer" id="writer" <?php echo (isset($_GET['writer'])) ? "checked=\"checked\"" : ""; ?>/>
+				<label for="writer">Συγγραφέας</label><input type="text" name="writer" id="writer" <?php echo (isset($_GET['writer'])) ? "value=\"".$_GET['writer']."\"" : ""; ?>/>
 			</div>
 			<div class="search_chk">
-				<label for="publisher">Εκδότης</label><input type="text" name="publisher" id="publisher" <?php echo (isset($_GET['publisher'])) ? "checked=\"checked\"" : ""; ?>/>
+				<label for="publisher">Εκδότης</label><input type="text" name="publisher" id="publisher" <?php echo (isset($_GET['publisher'])) ? "value=\"".$_GET['publisher']."\"" : ""; ?>/>
 			</div>
 			<div class="search_chk">
-				<label for="isbn">ISBN</label><input type="text" name="isbn" id="isbn" <?php echo (isset($_GET['isbn'])) ? "checked=\"checked\"" : ""; ?>/>
+				<label for="isbn">ISBN</label><input type="text" name="isbn" id="isbn" <?php echo (isset($_GET['isbn'])) ? "checked=\"".$_GET['isbn']."\"" : ""; ?>/>
 			</div>
 			<div class="search_chk">
-				<label for="">Διαθέσιμο για δανεισμό</label><input type="checkbox" name="" id="" />
+				<label for="">Διαθέσιμο για δανεισμό</label><input type="checkbox" value="1" name="available" id="available" <?php echo (isset($_GET['available'])) ? "checked=\"checked\"" : ""; ?> />
 			</div>
 		</div>
 		<div id="search-newspapers" style="display: none;">
@@ -132,22 +132,37 @@ elseif(!isset($_GET['search']) || $_GET['search'] == "" ||
 else {
 	$db->connect();
 	$s = mysql_real_escape_string(trim($_GET['search']));
-	$query = "SELECT * FROM `{$db->table['booklist']}` WHERE ";
-	if(isset($_GET['title']))
-		$query .= "title LIKE \"%$s%\" OR ";
-	if(isset($_GET['writer']))
-		$query .= "writer LIKE \"%$s%\" OR ";
-	if(isset($_GET['publisher']))
-		$query .= "publisher LIKE \"%$s%\" OR ";
-	if(isset($_GET['isbn']))
-		$query .= "isbn LIKE \"%$s%\" OR ";
+	$q = "SELECT * FROM ";
+	$query = "`{$db->table['booklist']}` WHERE title LIKE \"%$s%\" AND ";
+	/*if(isset($_GET['title']))
+		$query .= "title LIKE \"%$s%\" OR ";*/
+	if(isset($_GET['writer']) && !empty($_GET['writer'])){
+		$writer = mysql_real_escape_string(trim($_GET['writer']));
+		$query .= "writer LIKE \"%$writer%\" AND ";
+	}
+	if(isset($_GET['publisher']) && !empty($_GET['publisher'])){
+		$publisher = mysql_real_escape_string(trim($_GET['publisher']));
+		$query .= "publisher LIKE \"%$publisher%\" AND ";
+	}
+	
+	if(isset($_GET['isbn']) && !empty($_GET['isbn'])){
+		$isbn = mysql_real_escape_string(trim($_GET['isbn']));
+		$query .= "isbn LIKE \"%$isbn%\" AND ";
+	}
+	
+	if(isset($_GET['available']) && !empty($_GET['available']))
+		$query .= "availability = '1' AND ";
 		
-	$query .= "1=0 ORDER BY id ASC LIMIT ";
-	$books = $db->get_books($page * $CONFIG['items_per_page'], $CONFIG['items_per_page'], $query);
+	$query .= "1=1 ORDER BY id ASC ";
+	
+	$books = $db->get_books($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page']);
+	
+	$num = mysql_num_rows($db->query("SELECT id FROM ".$query));
+
 	$db->close();
 ?>
 	<div class="list">
-	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>"<br />
+	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>" βρέθηκαν <?php echo $num; ?><br />
 	<?php if($books){
 		list_books($books);
 	}

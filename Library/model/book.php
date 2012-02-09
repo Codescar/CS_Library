@@ -78,10 +78,17 @@ function list_books($books){
 	$ext = "";
 	if(isset($_GET['search'])){
 		$ext .= "&amp;do=search&amp;search={$_GET['search']}";
+		if(isset($_GET['search-type']))
+			$ext .= "&amp;search-type={$_GET['search-type']}";
 		if(isset($_GET['title']))
 			$ext .= "&amp;title={$_GET['title']}";
 		if(isset($_GET['writer']))
 			$ext .= "&amp;writer={$_GET['writer']}";
+		if(isset($_GET['isbn']))
+			$ext .= "&amp;isbn={$_GET['isbn']}";
+		if(isset($_GET['available']))
+			$ext .= "&amp;available=1";
+		
 	}
 	?>
 	<div class="list-nav-bar">
