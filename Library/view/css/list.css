@@ -234,3 +234,25 @@
 	font-size: 12px;
 	font-style: italic;
 }
+#history{
+	border-collapse: collapse;
+}
+#history td, #history th{
+	border: 1px solid #21170d;
+	text-align: center;
+}
+#history .alt td{
+	border: 1px solid rgb(152, 191, 33);
+	padding: 3px 7px 2px 7px;
+	background-color: #eaf2d3;
+}
+#history a{
+	text-decoration: none;
+	colir: black;
+}
+#history .action{
+	width: 90px;
+}
+#history .date{
+	width: 100px;
+}

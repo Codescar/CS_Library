@@ -6,14 +6,14 @@
 	?>
 		<div class="content"><p class="error">Πρέπει να συνδεθείτε πρώτα.</p></div>	
 	<?php 
-	}else{
-if($_GET['more'] == "lended"){?>
-<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Δανεισμένα Βιβλία</div>
-<?}elseif($_GET['more'] == "history"){?>
-<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό δανεισμού</div>
-<?php }else{?>
-<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προφίλ χρήστη</div>
-<?php }?>
+	} else {
+	if($_GET['more'] == "lended"){ ?>
+	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Δανεισμένα Βιβλία</div>
+	<?php }elseif($_GET['more'] == "history"){ ?>
+	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό δανεισμού</div>
+	<?php }else{ ?>
+	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προφίλ χρήστη</div>
+	<?php } ?>
 <div class="content" style="position: relative; ">
 	<!-- <div class="menu">
 		<ul>

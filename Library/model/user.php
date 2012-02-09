@@ -87,13 +87,16 @@ class User{
 						WHERE `user_id` = '$user_id'
 						ORDER BY `date`";	    
 		$result = $db->query($query);
-		echo "<table><tr><th>Book</th>";
-		echo ($mode ) ? "<th>User</th>" : "";
-		echo "<th>Action</th><th>Date</th></tr>";
+		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Κατάσταση</th><th>Ημερομηνία Τελευταίας Αλλαγής</th></tr>";
+		$flag = 0;
 		while($row = mysql_fetch_array($result)){
-			echo "<tr><td>".$row['title']."</td>";
+			if($flag++ % 2 == 0)
+				echo "\t\t\t\t<tr class=\"alt\">";
+			else
+				echo "\t\t\t\t<tr>";
+			echo "<td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
 			echo ($mode) ? "<td>{$row['name']} ({$row['user_id']})</td>" : "";
-			echo "<td>";
+			echo "<td class=\"action\">";
             switch($row['action']){
 		    case 1:
 		    	echo ($mode) && book_avail($row['book_id'])
@@ -102,19 +105,19 @@ class User{
 		        break;
 		    case 2:
 		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
-				echo "Lended";
+				echo "Το έχεις πάρει";
 		        break;
 		    case 3:
 		    	//TODO return or back is the correct action for an admin?
 		    	echo ($mode ) 
 		    	? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Have it now</a>"
-				: "Have it now";
+				: "Το έχεις τώρα";
 				break;
             }
             echo "</td>";
-			echo  "<td>".$row['date']."</td></tr><tr></tr>";
+			echo  "<td class=\"date\">".date('d-m-Y', strtotime($row['date']))."</td></tr><tr></tr>\n";
 		}
-		echo "</table>";
+		echo "</table><br />"; 
 		return;
 	}
 
