@@ -230,20 +230,6 @@
 	color: rgb(40, 27, 27);
 	font-size: 1.1em;
 }
-#search_main{
-	background-attachment: scroll;
-	background-clip: border-box;
-	background-color: maroon;
-	background-origin: padding-box;
-	color: rgb(255, 255, 255);
-	margin-bottom: 10px;
-	text-align: center;
-	padding: 7px;
-	line-height: 20px;
-}
-#search-in{
-	margin-left: 20px;
-}
 .subtitle{
 	font-size: 12px;
 	font-style: italic;

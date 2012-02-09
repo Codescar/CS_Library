@@ -433,6 +433,20 @@ table{
 .link{
 	cursor: pointer;
 }
+#search_main{
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: maroon;
+	background-origin: padding-box;
+	color: rgb(255, 255, 255);
+	margin-bottom: 10px;
+	text-align: center;
+	padding: 7px;
+	line-height: 20px;
+}
+#search-in{
+	margin-left: 20px;
+}
 #search{
 	font-size: 16px;
 	margin: 10px;
