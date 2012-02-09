@@ -13,7 +13,7 @@ if(!isset($_GET['title'])){?>
 		<div id="search-head">Αναζήτηση</div>
 		<div id="search_main">
 			<div class="subtitle">Εισάγετε λέξη-κλειδί για αναζήτηση</div>
-			<input 	style="width: 220px; margin: 0 18px 0 0;" type="text" name="search" onclick="this.value='';"<?php /*this.select()" */ ?> onfocus="this.select()" 
+			<input type="text" name="search" onclick="this.value='';"<?php /*this.select()" */ ?> onfocus="this.select()" 
 					onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγεται κείμενο εδώ..."; ?>':this.value;" 
 					value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγεται κείμενο εδώ..."; ?>" />
 			

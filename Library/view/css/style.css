@@ -48,6 +48,64 @@ body {
 	color: white;
 	text-shadow: 5px 5px 10px black;
 }
+/* Header */
+#header-top{
+	color: white;
+	position: absolute;
+	top: 0px;
+	left: 5px;
+	width: 100%;
+	padding: 5px 0 0 0;	
+}
+#header-left{
+	float: left;
+	width: 450px;
+	margin: 0 300px 0 0;
+}
+#header-date{
+	position: relative;
+	bottom: 2px;
+	font-weight: bold;
+	margin: 0 10px;
+}
+#header-timeline{
+	position: absolute;
+	top: 0px;
+	font-size: 16px;
+	background-color: #21170d;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	text-align: center;
+	padding: 0 10px;
+}
+#header-phone{
+	 font-size: 23px;
+	 color: #cfc8bc;
+}
+#social{
+	display: inline-block;
+	background-image: url("../images/social.png");
+	width: 45px;
+	height: 18px;
+	margin: 0 20px 0 0;
+}
+/* --- Header --- */
+
+/* User */
+#user-left{
+	vertical-align: top;
+	margin: 20px 50px 0 20px;
+}
+#user-left a{
+	text-decoration: none;
+}
+#user-info{
+	margin: 10px 20px 10px 0;
+}
+#user-right{
+	vertical-align: top;
+}
+/* --- User --- */
 
 .customermenu {
 	color: white;
@@ -247,6 +305,7 @@ table{
 	font-style: italic;*/
 }
 .developers{
+	width: 300px;
 	background-color: #aaaaaa; 	
 	padding: 6px;
 	border: 1px dashed yellow;
@@ -299,11 +358,6 @@ table{
 	width: 100px;
 }
 
-.search_chk{
-	width: 100px;
-	display: inline-block;	
-}
-
 #announcements{
 	margin: 10px 0 0 0;
 	width: 550px;
@@ -347,14 +401,6 @@ table{
 	padding: 0;
 	margin: 0;
 	text-align: right;
-}
-
-#social{
-	display: inline-block;
-	background-image: url("../images/social.png");
-	width: 45px;
-	height: 18px;
-	margin: 0 20px 0 0;
 }
 
 /* Right Sidebar */
@@ -433,6 +479,9 @@ table{
 .link{
 	cursor: pointer;
 }
+.bold{
+	font-weight: bold;
+}
 #search_main{
 	background-attachment: scroll;
 	background-clip: border-box;
@@ -444,6 +493,10 @@ table{
 	padding: 7px;
 	line-height: 20px;
 }
+#search_main input{
+	width: 220px;
+	margin: 0 18px 0 0;
+}
 #search-in{
 	margin-left: 20px;
 }
@@ -453,6 +506,10 @@ table{
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	background-color: #c0c0c0;
+}
+.search_chk{
+	width: 100px;
+	display: inline-block;	
 }
 #search-head{
 	height: 26px;
@@ -510,7 +567,16 @@ table{
 	color: rgb(255, 255, 255);
 	color: rgb(255, 255, 255);
 }
-
+#quick-links{
+	vertical-align: top;
+	margin: 0 0 0 20px;
+}
+#quick-links:first-child{
+	margin-top: 10px;
+}
+#quick-links a{
+	text-decoration: none;
+}
 #admin-menu li{
 	display: inline-block;
 	margin: 0 0 0 20px;

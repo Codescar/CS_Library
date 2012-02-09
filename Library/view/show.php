@@ -7,7 +7,7 @@
 ?>
 <div id="direction"><a href="index.php">Αρχική</a></div>
 <div class="content">
-	<div class="index-title" style="color: white; font-size: 20px; line-height: 1.5em; border-radius: 4px;">
+	<div class="index-title">
 		Καλώς ορίσατε στην ηλεκτρονική πύλη της Εθνικής Βιβλιοθήκης Αθηνών.
 	</div>
 	<?php if(announcements::num() > 0) {?>
@@ -18,10 +18,10 @@
 				$db->close();
 			?>
 		</div>
-		<div style="display: inline-block; vertical-align: top; margin: 0 0 0 20px;">
-			<div class="box index-box link" style="margin-top: 10px;">
+		<div class="block" id="quick-links">
+			<div class="box index-box link">
 		        <?php if($logged){?>
-					<a href="index.php?show=cp&more=lended" style="text-decoration: none;">Δανεισμένα</a>
+					<a href="index.php?show=cp&more=lended">Δανεισμένα</a>
 			    <?php } else{?>
 					Διασημότερα
 			    <?php }?>

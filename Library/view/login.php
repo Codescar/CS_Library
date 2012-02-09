@@ -47,7 +47,7 @@ if(isset($error) || !isset($_GET['do'])){
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>
 <div class="content">
 <fieldset>
-	<legend style="font-size: 20px; font-weight: bold;">Σύνδεση χρήστη</legend>
+	<legend class="bold" style="font-size: 20px;">Σύνδεση χρήστη</legend>
 	<form action="?show=login&do=login" method="post" id="login-form">
 	<label for="username">Όνομα Χρήστη: </label>
 	<input type="text" name="username" id="username" /><br/>
@@ -57,9 +57,9 @@ if(isset($error) || !isset($_GET['do'])){
 	</form>
 </fieldset>
 <?php if($CONFIG['allow_register']) { ?>
-<br /> ή <br />
+<div class="bold" style="text-align: center; width: 100%; font-size: 20px;">ή</div>
 <fieldset>
-	<legend style="font-size: 20px; font-weight: bold;">Εγγραφή χρήστη</legend>
+	<legend class="bold" style="font-size: 20px;">Εγγραφή χρήστη</legend>
 	<form action="?show=login&do=register" method="post" id="register-form">
 	<label for="username">*Όνομα Χρήστη: </label>
 	<input type="text" name="username" id="username" />

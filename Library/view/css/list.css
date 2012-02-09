@@ -109,8 +109,14 @@
 	font-size: 28px;
 	font-weight: bolder;
 	text-decoration: none;
-	color: #798800;;
+	color: orange;
 	background-color: maroon;
+}
+.index-title{
+	 color: white;
+	 font-size: 20px;
+	 line-height: 1.5em;
+	 border-radius: 4px;
 }
 .book-info{
 	margin-top: 15px;

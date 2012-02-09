@@ -36,7 +36,7 @@
 	<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=list">Κατάλογος βιβλίων</a>&nbsp;&gt;&gt;&nbsp;<?php echo $results['title']; ?>
 </div>
 <div class="content book-prev">
-	<div class="book-title" style="color: orange;"><?php echo $results['title']; ?></div>
+	<div class="book-title"><?php echo $results['title']; ?></div>
 	<div class="book-info">
 		<div class="book-left-info">
 			<div class="book-image" id="book-image"><a href="<?php echo ($results['image_url'] == NULL) ? "view/images/noimage.jpg": $results['image_url']; ?>"><img src="<?php echo ($results['image_url'] == NULL) ? "view/images/noimage.jpg": $results['image_url']; ?>" alt="<?php echo str_replace('"', "'", $results['title']); ?>" title="<?php echo str_replace('"', "'", $results['title']); ?>" /></a></div>
