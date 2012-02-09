@@ -28,7 +28,8 @@ function list_books($books){
 					<div class="list-avail">
 						<?php if($row['availability'] == 0) { 
 								if($logged && in_there_pos($lend, $row['id']) != -1) { ?>
-									<div class="info-button box"><img src="view/images/information.png" />Το Έχεις!</div>
+									<div class="info-button box" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
+									<div class="box list-button" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Παράταση</a></div>
 								<?php } else {?>
 									<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
 							<?php } } else { ?>
@@ -62,7 +63,7 @@ function list_books($books){
 					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 					<div class="list-description">
 						<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
-							Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+							Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
 							<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
 						<?php }else{ ?>
 							<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>

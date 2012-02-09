@@ -68,6 +68,7 @@
 	    			<?php }?>
 	    		</div>
 	    		<?php } elseif($logged && $have) { ?>
+	    			<div class="book-button box"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Παράταση</a></div>
 	    			<div class="info-button box button"><img src="view/images/information.png" />Το Έχεις!</div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
@@ -90,7 +91,7 @@
 			<?php }
 			elseif($logged && $have){
 				if($logged && (($taken = in_there_pos($lend, $id)) != -1)) { ?>
-					<div class="error" style="margin: 10px 0 0 0;">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+					<div class="error" style="margin: 10px 0 0 0;">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
 					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?></div><?php
 				}
 			} else { }

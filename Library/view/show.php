@@ -3,6 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	$db->connect();
+	$logged = $user->is_logged_in();
 ?>
 <div id="direction"><a href="index.php">Αρχική</a></div>
 <div class="content">
@@ -18,7 +19,13 @@
 			?>
 		</div>
 		<div style="display: inline-block; vertical-align: top; margin: 0 0 0 20px;">
-			<div class="box index-box link" style="margin-top: 10px;">Διασημότερα</div>
+			<div class="box index-box link" style="margin-top: 10px;">
+		        <?php if($logged){?>
+					<a href="index.php?show=cp&more=lended" style="text-decoration: none;">Δανεισμένα</a>
+			    <?php } else{?>
+					Διασημότερα
+			    <?php }?>
+			</div>
 			<div class="box index-box link">Νέες κυκλοφορίες</div>
 			<div class="box index-box link">Προτάσεις</div>
 			<div class="box index-box link">Ανακοινώσεις</div>
