@@ -90,6 +90,8 @@ function list_books($books){
 			$ext .= "&amp;available=1";
 		
 	}
+	if(!(isset($_GET['show']) && isset($_GET['more']) && $_GET['show'] == "cp" && $_GET['more'] == lended))
+	{		
 	?>
 	<div class="list-nav-bar">
 		<?php if($page >= 1) { ?>
@@ -100,6 +102,7 @@ function list_books($books){
 		<div id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
 		<?php } ?>
 	</div>
+	<?php } ?>
 	</div>
 	<?php
 }
