@@ -12,15 +12,23 @@
 	if($logged = $user->is_logged_in()){
 		$have = have_book($id, $user->id);
 		$requested = have_book_rq($id, $user->id);
+		$query = "SELECT * FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
+		$res = $db->query($query);
+		for($i = 0; $tmp = mysql_fetch_array($res); $i++){
+		    $lend[$i][0] = $tmp['book_id'];
+		    $lend[$i][1] = $tmp['taken'];
+		}
 	}
-	
 	if(mysql_num_rows($results) == 0)
 		die("Λάθος αίτημα");
 		
 	$results = mysql_fetch_array($results);
 	
-	if(isset($_GET['lend']) && $logged && !$requested && !$have)
+	if(isset($_GET['lend']) && $logged && !$requested && !$have){
 		lend_request($id);
+		$lended = TRUE;
+		$have = TRUE;
+	}
 	elseif(isset($_GET['lend']) && !$logged)
 		$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
 ?>
@@ -52,7 +60,7 @@
 	    			<?php }?>
 	    		</div>
 	    		<?php if(!$have && !$requested && $results['availability']){ ?>
-	    		<div class="box book-button book-lend-book button" id="lend">
+	    		<div class="box book-button book-lend-book" id="lend">
 	    			<?php if(!$logged){ ?>
 	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
 	    			<?php }else{ ?>
@@ -65,24 +73,33 @@
 			</div><!--  #buttons end -->
 			<div class="book-avail">
 				<span class="book-colored">Διαθεσιμότητα:</span>
-				<?php echo ($results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
+				<?php echo (!$have && $results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
 			</div>
 			<div class="book-description">
 			<?php if($results['description'] != NULL) { ?>
-				<span class="book-colored">Περιγραφή:</span> <div style="font-size: 17px;"><?php echo $results['description']."</div>"; 
+				<br /><span class="book-colored">Περιγραφή: </span><span style="font-size: 17px;"><?php echo $results['description']."</span>"; 
 			} else { ?> 
 				Χωρίς Περιγραφή.
 			<?php } ?>
 			</div>
-    		<?php if($logged && $requested && !$have){ ?>
+    		<?php if($lended){ ?>
+    			<p class="error">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php ;
+    		}
+    		if($logged && $requested && !$have){ ?>
 				<p class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</p>
 			<?php }
-			elseif($logged && $have){ ?>
-				<p class="error">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
-					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?>
-				</p>
-			<?php }	else{ ?>
-			<?php } ?>
+			elseif($logged && $have){
+				if($logged && (($taken = in_there_pos($lend, $id)) != -1)) { ?>
+					<div class="error" style="margin: 10px 0 0 0;">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?></div><?php
+				}
+			} else { }
+			/*
+			 * <p class="error">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
+			 *	<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?>
+			 * </p>
+			 */
+			?>
 		</div>
 	</div><!-- .book-right-info end -->
 	<script type="text/javascript">

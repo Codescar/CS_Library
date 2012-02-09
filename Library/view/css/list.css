@@ -56,7 +56,8 @@
 	width: 450px;
 	overflow: hidden; 
 	line-height: 16px;
-	height: 64px;
+	font-size: 15px;
+	height: 65px;
 }
 .list-colored{
 	color: #798800;
@@ -135,9 +136,6 @@
 	margin: 0 0 0 10px;
 	min-height: 300px;
 }
-.book-right-info div{
-	padding-top: 10px;
-}	
 .book-colored{
 	color: #798800;
 }
@@ -148,8 +146,6 @@
 }
 .book-left-info div{
 	padding-top: 6px;
-}
-#buttons{
 }
 .info-accordion .head{	
 	cursor: pointer;
@@ -189,11 +185,11 @@
 	display: inline-block;
 }
 #aitisi .sub{
-	margin-left: 25px;
-	margin-top: 8px;
+	margin: 8px 0 0 25px;
 }
 #index-content{
-	margin-top: 15px;
+	margin: 10px 0 0 0;
+	font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
 #index-content ol{
 	list-style-type: upper-roman;
@@ -201,15 +197,11 @@
 .info-button{
 	border: 1px dashed yellow; 
 	border-radius: 4px;
-	vertical-align: top;
 	padding: 5px 2px;
+	display: inline-block;
 }
 .info-button img{
 	padding: 0px 6px 0 0 ;
-}
-.button{
-	width: 90px;
-	display: inline-block;
 }
 .message, .success, .error { 
 	background-attachment: scroll;

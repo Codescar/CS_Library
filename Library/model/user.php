@@ -181,7 +181,7 @@ class User{
 		elseif($_SESSION['logged_in'] == 1){
 			$code .= "<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">Προφίλ</span></a>";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
-			    $code .= " | <a id=\"lnkAdmin\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a>";
+			    $code .= " | <a id=\"lnkAdmin\" href=\"?show=admin&more=history\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a>";
 				//$code .= " | <a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a> | <a id=\"\" href=\"?show=msg\"><span class=\"icon\"></span><span class=\"tooltip\">Μηνύματα</span></a>";
 		    $code.= $more;
 		    $code .= " | <a id=\"lnkLogout\" href=\"?show=logout\"><span class=\"icon\"></span><span class=\"tooltip\">Έξοδος</span></a>";
@@ -240,6 +240,9 @@ class User{
 		global $CONFIG, $db;
 		$books = $db->get_books("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
 		WHERE {$db->table['lend']}.user_id = '{$this->id}' ");
+		if($books == FALSE){?>
+		    <div class="error" style="width: 250px; margin: 10px 0 0 0;">Δεν έχετε δανειστεί κανένα βιβλίο</div>
+		<?php;}
 		list_books($books); 
 		return;
 	}

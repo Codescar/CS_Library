@@ -30,9 +30,9 @@ function list_books($books){
 								if($logged && in_there_pos($lend, $row['id']) != -1) { ?>
 									<div class="info-button box"><img src="view/images/information.png" />Το Έχεις!</div>
 								<?php } else {?>
-								<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+									<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
 							<?php } } else { ?>
-								<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
+									<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
 							<?php } ?>
 					</div>
 					<div class="box list-button list-add-to-wish">
@@ -60,7 +60,7 @@ function list_books($books){
 					<!-- Writer -->
 					<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
 					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
-					<div class="list-description" >
+					<div class="list-description">
 						<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
 							Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
 							<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
@@ -117,13 +117,21 @@ function have_book($book_id, $user_id){
 
 function lend_request($id){
 	global $db, $user;
-	$query = "	INSERT INTO `{$db->table["requests"]}` (
-					`book_id`, 
-					`user_id`, 
-					`date`)
-			 		VALUES ('$id', '".$user->id."', NOW());";
-	$db->query($query);
-	?><p>Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php 
+// 	$query = "	INSERT INTO `{$db->table["requests"]}` (
+// 					`book_id`, 
+// 					`user_id`, 
+// 					`date`)
+// 			 		VALUES ('$id', '".$user->id."', NOW());";
+// 	$db->query($query);
+	$lend =	"	INSERT INTO `{$db->table['lend']}`
+    				(`book_id`, `user_id`, `taken`) VALUES 
+    				('$id', '".$user->id."', NOW());";
+	$db->query($lend);
+	$query = "	UPDATE `{$db->table['booklist']}`
+				SET `availability` = 0
+				WHERE `id` = '$id';";
+	$db->query($query); 
+	return;
 }
 
 function book_avail($book_id){

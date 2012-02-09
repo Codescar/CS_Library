@@ -221,6 +221,23 @@ table{
 	width: 115px;
 	margin: 7px;
 }
+#feedback-form{
+	 padding: 0 0 10px 0;
+}
+#feedback-form-header{
+	padding: 5px 0 5px 20px;
+	font-weight: bold;
+	font-size: 25px;
+}
+#feedback-form-header2{
+	margin: 0 0 0 275px;
+	font-size: 16px;
+	font-weight: bold;
+}
+#feedback-form-footer{
+	margin: 10px 0 0 0;
+	font-weight: bold;
+}
 .success{
 	color: green;
 	font-style: italic;
@@ -292,24 +309,25 @@ table{
 #announcements{
 	margin: 10px 0 0 0;
 	width: 550px;
+	display: inline-block;
+	font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
 
 #announcements-header{
 	font-size: 28px;
-	font-weight: bolder;
+	font-weight: bold;
 	text-align: center;
 	text-decoration: none;
-	color: #798800;;
+	color: black;
 	background-color: silver;
-	border-radius: 2px;	
+	border-radius: 5px;	
 	margin-top: 2px 0 0 10px;
 }	
 	
 .announce{
-	
 	background-color: silver;
-	padding: 2px 6px 4px 6px; 
-	border-radius: 4px;
+	padding: 5px 6px 4px 6px; 
+	border-radius: 5px;
 }
 
 .announce-head{
@@ -317,16 +335,17 @@ table{
 	font-weight: bolder;
 	text-align: center;
 	text-decoration: none;
-	color: silver;
+	color: white;
 	background-color: maroon;
-	border-radius: 2px;	
+	border-radius: 8px;
 	margin-top: 2px;
 }
-	
+
 .announce-footer{
 	font-size: 75%;
+	font-weight: bold;
 	font-style: italic;
-	color: olive;
+	color: white;
 	padding: 0;
 	margin: 0;
 	text-align: right;
@@ -406,6 +425,10 @@ table{
 	text-align: center;
 	font-weight: bold;
 }
+.index-box{
+	margin: 40px 0px;
+	padding: 10px;
+}
 .block{
 	display: inline-block;
 }
@@ -474,4 +497,9 @@ table{
 	border: 3px solid rgb(29, 54, 82);
 	color: rgb(255, 255, 255);
 	color: rgb(255, 255, 255);
+}
+
+#admin-menu li{
+	display: inline-block;
+	margin: 0 0 0 20px;
 }

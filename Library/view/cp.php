@@ -7,10 +7,10 @@
 		<div class="content"><p class="error">Πρέπει να συνδεθείτε πρώτα.</p></div>	
 	<?php 
 	}else{
-if($_GET['more'] == "history"){?>
-<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Δανεισμένα Βιβλία</div>
+if($_GET['more'] == "lended"){?>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Δανεισμένα Βιβλία</div>
 <?php }else{?>
-<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Προφίλ χρήστη</div>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προφίλ χρήστη</div>
 <?php }?>
 <div class="content" style="position: relative; ">
 	<!-- <div class="menu">

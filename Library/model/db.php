@@ -148,16 +148,28 @@ class Lbdb{
 	
 	function return_book($bk_id){
 		$return ="	UPDATE `{$this->table['lend']}`
-					SET returned = NOW()
-					WHERE book_id = ".$bk_id."
+					SET `returned` = NOW()
+					WHERE book_id = '$bk_id'
 					LIMIT 1;
 				";
 		$this->query($return);
-	    $log_it ="	DELETE FROM `{$this->table['lend']}`
-					WHERE book_id = ".$bk_id."
+		$log_it ="	INSERT INTO `{$this->table['log_lend']}`
+						(book_id, department_id, user_id, taken, returned)
+						SELECT * FROM `{$this->table['lend']}`
+						WHERE book_id = '$bk_id';
+				";
+		$this->query($log_it);
+	    $delete ="	DELETE FROM `{$this->table['lend']}`
+					WHERE book_id = '$bk_id'
 					LIMIT 1;
 				";
-	    $this->query($log_it);
+	    $this->query($delete);
+	    $query ="	UPDATE `{$this->table['booklist']}`
+					SET `availability` = 1
+					WHERE `id` = '$bk_id'
+	    			LIMIT 1;
+	    		";
+	    $this->query($query); 
 	    return;
 	}
 }

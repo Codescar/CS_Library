@@ -4,12 +4,24 @@
 	define('VIEW_SHOW', true);
 	if(!$user->is_logged_in() || !$user->is_admin()){
 	?>
-		<p>Δεν είστε διαχειριστής.</p>	
+		<p class="error">Δεν είστε διαχειριστής.</p>	
 	<?php 
 	}else{
-?>
+        if($_GET['more'] == "history"){?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό</div>
+		<?php }elseif($_GET['more'] == "pendings"){?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σε αναμονή</div>
+		<?php }elseif($_GET['more'] == "announcements"){?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ανακοινώσεις</div>
+		<?php }elseif($_GET['more'] == "users"){?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Χρήστες</div>
+		<?php }elseif($_GET['more'] == "statistics"){?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Στατιστικά</div>
+        <?php }else{?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
+    <?php }?>
 <div class="content">
-	<div class="menu">
+	<div id="admin-menu">
 		<ul>
 			<li><a href="?show=admin&more=pendings">Pendings</a></li>
 			<li><a href="?show=admin&more=announcements">Announcements</a></li>
@@ -19,7 +31,7 @@
 			<li><a href="?show=admin&more=new_user">Create User</a></li>
 			<li><a href="?show=admin&more=options">Options</a></li>
 		</ul>
-	</div><br />
+	</div>
 	<?php 
 	global $db;
 	$db->connect();
@@ -59,5 +71,6 @@
 	}
 	$db->close();
 	?>
+	<br />
 </div>
 <?php } ?>

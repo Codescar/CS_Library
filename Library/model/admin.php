@@ -71,7 +71,7 @@ class Admin{
 		$requests_res 	= $db->query($request_query);
 		
 		?>
-		<div id="lends" class="right">
+		<div id="lends">
 		<span class="center"><h3>Lends</h3></span>
 			<table>
 			<tr>
@@ -106,7 +106,6 @@ class Admin{
 			?>
 			</table>
 		</div>
-		
 		<div id="returns">
 		<span class="center"><h3>Returns</h3></span>
 			<table>

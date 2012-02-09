@@ -4,6 +4,7 @@
 	define('VIEW_FOOTER', true);
 ?>
 </div>
+<br />
 <hr/>
 <footer>
 	<a href="http://codescar.eu">CodeScar</a> Library Project<br />

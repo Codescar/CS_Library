@@ -4,7 +4,7 @@
 	define('VIEW_SHOW', true);
 	
 ?>
-<div class="content">
+<div class="content" style="width: 860px;">
 	<?php 
 	if(isset($_POST['hidden']) && $_POST['hidden'] == "1"){
 	    echo "<span class=\"success\">Ευχαριστούμε για το μύνημά σας!</span>";
@@ -13,11 +13,11 @@
     	mail('kostislion@gmail.com', 'Feedback', $message);
 	}
 	?>
-	<form action="" method="post" id="feedback-form" style="padding: 0 0 10px 0;">
-	    <div class="block"  style="padding: 5px 0 5px 20px; font-weight: bold; font-size: 25px;">
+	<form action="" method="post" id="feedback-form">
+	    <div class="block" id="feedback-form-header">
     		Φόρμα Ανατροφοδότησης
     	</div>
-    	<div class="block" style="margin: 0 0 0 275px; font-size: 16px; font-weight: bold;">
+    	<div class="block" id="feedback-form-header2">
         	<label for="type" style="width: 150px;">Τύπος μυνήματος:</label>
         	<select name="type" id="type">
         		<option value="Bug">Πρόβλημα</option>
@@ -26,7 +26,7 @@
         	</select>
     	</div>
         <textarea class="ckeditor" id="text" name="text"/></textarea>
-    	<div style="margin: 10px 0 0 0; font-weight: bold;">
+    	<div id="feedback-form-footer">
         	<input type="hidden" name="hidden" value="1" />
         	<label for="name">Το όνομα σας: </label>
         	<input type="text" name="name" id="name" />

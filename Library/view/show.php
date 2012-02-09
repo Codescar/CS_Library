@@ -42,5 +42,11 @@
 				$db->close();
 			?>
 		</div>
+		<div style="display: inline-block; vertical-align: top; margin: 0 0 0 20px;">
+			<div class="box index-box link" style="margin-top: 10px;">Διασημότερα</div>
+			<div class="box index-box link">Νέες κυκλοφορίες</div>
+			<div class="box index-box link">Προτάσεις</div>
+			<div class="box index-box link">Ανακοινώσεις</div>
+		</div>
 	<?php } ?>
 </div>

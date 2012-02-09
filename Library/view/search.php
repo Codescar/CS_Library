@@ -3,7 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 if(!isset($_GET['title'])){?>
-    <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=search">Αναζήτηση</a></div>
+    <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Αναζήτηση</div>
 <?php
 }else{ ?>
     <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=search">Αναζήτηση</a>&nbsp;&gt;&gt;&nbsp;<?php if(isset($_GET['title'])) echo $_GET['search']; ?></div>
