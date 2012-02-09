@@ -30,9 +30,16 @@
 	<div id="container">
 	<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
 		<div id="header">
-			<div style="color: white; position: absolute; top: 5px; right: 15px;">
-				<div id="social">&nbsp;</div>
-				<span style="font-weight: bold;"><?php echo date_gr(time(), "Long") ?></span>
+			<div style="color: white; position: absolute; top: 5px; left: 5px; width: 100%;">
+				<div style="float: left; width: 250px; margin: 0 500px 0 0;">
+					<div class="block" style="position: relative; bottom: 2px; font-weight: bold; margin: 0 10px;">
+					    <?php echo date_gr(time(), "Long") ?>
+					</div>
+					<div class="block" id="social"></div>
+				</div>
+				<div class="block" style="font-size: 16px; background-color: black; border-radius: 10px; text-align: center; padding: 0 10px;">
+					Δευτέρα ως Παρασκευή 9:00-20:00<div style="color: #cfc8bc; font-size: 23px;">210 33.82.601</div>
+				</div>
 			</div>
 			<!-- <div class="right-nav"></div> -->
 			<div class="logo">
