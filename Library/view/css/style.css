@@ -482,91 +482,77 @@ table{
 .bold{
 	font-weight: bold;
 }
+/* Search */
 #search_main{
-	background-attachment: scroll;
-	background-clip: border-box;
+	color: white;
 	background-color: maroon;
-	background-origin: padding-box;
-	color: rgb(255, 255, 255);
-	margin-bottom: 10px;
-	text-align: center;
-	padding: 7px;
-	line-height: 20px;
+	border-radius: 5px;
+	padding: 10px 10px 10px 0;
 }
-#search_main input{
-	width: 220px;
-	margin: 0 18px 0 0;
+.search_head{
+	width: 200px;
+	font-size: 18px;
+	text-align: center;
+	vertical-align: top;
+	padding: 0;
+	margin: 0 10px 0 20px;
+	text-shadow: 1px 1px 1px black;
+}
+.search_cat{
+	text-align: left;
+	color: white;
+	margin: 0 0 0 10px;
+	padding: 8px 0 0 0;
+}
+#search_extra{
+	margin: 5px 0 0 0;
+	padding: 10px;
+	background-color: silver;
+	border-radius: 2px;
+}
+#search_word{
+	width: 300px;
+	margin: 0 50px 0 0;
+}
+#search_do{
+	padding: 5px;
+}
+#search_subtitle{
+	font-size: 13px;
+	font-style: italic;
+	margin: 0 0 0 50px;
 }
 #search-in{
-	margin-left: 20px;
-}
-#search{
-	font-size: 16px;
-	margin: 10px;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-	background-color: #c0c0c0;
+	margin: 0 0 10px 0;
+	text-align: left;
 }
 .search_chk{
-	width: 100px;
-	display: inline-block;	
+	width: 150px;
+	margin: 0 10px;
 }
-#search-head{
-	height: 26px;
-	text-align: center;
-	text-shadow: #6374AB 2px -1px 2px;
-	padding-top: 10px;
-	font-size: 20px;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-	background-color: #e0e0e0;
+.search_category{
+	 display: none;
+	 margin: 5px 0 0 0;
 }
 .search_rad input[type="radio"]:checked+div{
-	background-attachment: scroll;
-	background-clip: border-box;
-	background-color: rgb(43, 79, 116);
-	background-origin: padding-box;
-	background-repeat: repeat;
-	border: 3px solid rgb(29, 54, 82);
-	color: rgb(255, 255, 255);
-	height: 23px;
-	width: 110px;
-	cursor: pointer;
-	display: inline-block;
-	margin-right: 4px;
-	padding-bottom: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 8px;
-	border-radius: 6px;
-	font-weight: bold;
-	font-size: 16px;
+	background-color: #2b4f74;
+	border: 3px solid #1d3652;
+	color: white;
 }
 .search_rad {
-	background-attachment: scroll;
-	background-clip: border-box;
-	background-color: transparent;
-	background-origin: padding-box;
-	background-repeat: repeat;
-	border: 3px solid white;
-	border-color: transparent;
-	color: rgb(0, 0, 0);
-	height: 23px;
+	line-height: 2em;
+	color: black;
 	width: 110px;
 	cursor: pointer;
-	display: inline-block;
-	margin-right: 4px;
-	padding: 6px 8px 6px 8px;
 	border-radius: 6px;
-	font-weight: bold;
 	font-size: 16px;
 }
 .search-active-radio{
-	background-color: rgb(43, 79, 116);
-	border: 3px solid rgb(29, 54, 82);
-	color: rgb(255, 255, 255);
-	color: rgb(255, 255, 255);
+	color: white;
+	background-color: #2b4f74;
+	border: 3px solid #1d3652;
 }
+/* --- Search --- */
 #quick-links{
 	vertical-align: top;
 	margin: 0 0 0 20px;
