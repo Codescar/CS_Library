@@ -11,7 +11,7 @@
 	if(isset($_GET['do']) && $_GET['do'] == "login"){		
 		
 		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION))
-			$error = "Invalid informations, try again... ";
+			$error = "Λάθος πληροφορίες, δοκιμάστε ξανά...";
 		else{
 			if($user->is_admin())
 				$user->admin 	= new Admin($user);
@@ -28,24 +28,23 @@
 			<?php 
 		}
 	}elseif(isset($_GET['do']) && $_GET['do'] == "register"){
-		if(!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['password2']) || !isset($_POST['mail']) || $_POST['password'] != $_POST['password2'])
-			$error = "Invalid informations, try again... ";
+		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['mail']) || $_POST['password'] != $_POST['password2'])
+			$error = "Λάθος πληροφορίες, δοκιμάστε ξανά...";
 		else{
 			if(user::username_check($_POST['username']))
-				$error = "Username already exists.";
+				$error = "Το όνομα χρήστη χρησιμοποιείται ήδη...";
 			else{
 				user::createUser($_POST['username'], $_POST['password'], $_POST['mail']);
-				$success = "Your account have been created, please login.";
+				$success = "Ο λογαριασμός σας δημιουργήθηκε, παρακαλούμε συνδεθείτε.";
 			}
 		}
-		
 	}
 if(isset($error) || !isset($_GET['do'])){
 ?>
-<?php if(isset($error) && !empty($error)) echo "<p class=\"error\">".$error."</p><br/>";?>
-<?php if(isset($success) && !empty($success)) echo "<p class=\"sucess\">".$success."</p><br/>";?>
-<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος/Εγγραφή Χρήστη</div>
 <div class="content">
+<?php if(isset($error) && !empty($error)) echo "<div class=\"error\">".$error."</div><br/>";?>
+<?php if(isset($success) && !empty($success)) echo "<div class=\"sucess\">".$success."</div><br/>";?>
 <fieldset>
 	<legend class="bold" style="font-size: 20px;">Σύνδεση χρήστη</legend>
 	<form action="?show=login&do=login" method="post" id="login-form">
@@ -83,10 +82,10 @@ if(isset($error) || !isset($_GET['do'])){
 	<br />
 	<label for="user_type">Τύπος Χρήστη: </label>
 	<select id="user_type">
-		<option value="reader">Αναγνώστης</option>
-		<option value="writer">Συγγραφέας</option>
-		<option value="publisher">Εκδότης</option>
-		<option value="researcher">Ερευνητής</option>
+		<option value="Αναγνώστης">Αναγνώστης</option>
+		<option value="Συγγραφέας">Συγγραφέας</option>
+		<option value="Εκδότης">Εκδότης</option>
+		<option value="Ερευνητής">Ερευνητής</option>
 	</select><br />
 	<span>Τα στοιχεία με * είναι απαραίτητα </span>
 	<input type="submit" value="Υποβολή" class="submit"/>	

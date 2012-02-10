@@ -46,16 +46,46 @@ class User{
 		$pass = mysql_real_escape_string($pass);
 		$pass = user::pass_encrypt($pass);
 		$mail = mysql_real_escape_string($mail);
-		
+		$query2 = "(";
+		if(!empty($_POST['name'])){
+		    $x = mysql_real_escape_string($_POST['name']);
+		    $query2 .= " $x,";
+		}
+		else
+		    $query2 .= " ,";
+		if(!empty($_POST['surname'])){
+		    $x = mysql_real_escape_string($_POST['surname']);
+		    $query2 .= " $x,";
+		}
+		else
+		    $query2 .= " ,";
+		$query2 .= $user;
+		if(!empty($_POST['user_type'])){
+		    $x = mysql_real_escape_string($_POST['user_type']);
+		    $query2 .= " $x,";
+		}
+		else
+		    $query2 .= " ,";
+		$query2 .= " ".$pass.",";
+		if(!empty($_POST['born'])){
+		    $x = mysql_real_escape_string($_POST['born']);
+		    $query2 .= " $x,";
+		}
+		else
+		    $query2 .= " ,";
+		if(!empty($_POST['phone'])){
+		    $x = mysql_real_escape_string($_POST['phone']);
+		    $query2 .= " $x,";
+		}
+		else
+		    $query2 .= " ,";
+		$query2 .= $mail.", '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
 		$query = "INSERT INTO `{$db->table["users"]}` 
-					(`username`, 
-					 `password`, 
-					 `email`, 
-					 `access_lvl`, 
-					 `created_date`, 
-					 `last_ip`) VALUES 
-					('$user', '$pass', '$mail', '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
-		$db->query($query);
+					(`name`, `surname`, `username`, `usertype`, 
+					 `password`, `phone`, `email`, `access_lvl`, 
+					 `created_date`, `last_ip`) VALUES";
+		$query .= $query2;
+        $db->query($query);
 		//TODO send an e-mail to user 
 		return;
 	}
