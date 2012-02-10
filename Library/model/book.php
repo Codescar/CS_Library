@@ -90,6 +90,9 @@ function list_books($books){
 			$ext .= "&amp;available=1";
 		
 	}
+	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
+		$ext .= "&amp;more=category&amp;id={$_GET['id']}";	
+	
 	if(!(isset($_GET['show']) && isset($_GET['more']) && $_GET['show'] == "cp" && $_GET['more'] == lended))
 	{		
 	?>
@@ -98,7 +101,7 @@ function list_books($books){
 		<div id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
 		<?php } ?>
 		<div class="list-cur-page" >Σελίδα <?php echo $page + 1; ?></div> 
-		<?php if(count($books) >= $CONFIG['items_per_page'] ) { ?>
+		<?php if(count($books) > $CONFIG['items_per_page'] ) { ?>
 		<div id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
 		<?php } ?>
 	</div>
@@ -165,5 +168,14 @@ function in_there_pos($where, $what){
 			return $check[1];
 	}
 	return -1;
+}
+
+function get_category_name($id){
+	global $db;
+	$query = "SELECT category_name FROM {$db->table['categories']} WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+	$res = $db->query($query);
+	$row = mysql_fetch_array($res);
+	return $row['category_name'];
+	
 }
 ?>

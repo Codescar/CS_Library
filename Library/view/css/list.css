@@ -258,3 +258,29 @@
 #history .date{
 	width: 100px;
 }
+#categories{
+	background-color: #e4e4e1;
+	padding: 4px;
+	border-radius: 5px;
+}
+#categories #head{
+	text-decoration: underline;
+	font-weight: bold;	
+}
+#categories div{
+	display: inline-block;
+}
+#categories a{
+	text-decoration: none;
+	color: #21170d;
+}
+#categories .selected{
+	background-color: #bec5ff;
+	padding: 3px;
+	border-radius: 4px;
+}
+#remove-ico{
+	width: 16px;
+	float: right;
+	margin-left: 12px;
+}

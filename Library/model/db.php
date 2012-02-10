@@ -13,7 +13,8 @@ class Lbdb{
 							"users"			=> "users",
 							"history"		=> "history",
 							"messages"		=> "messages",
-							"announcements"	=> "announcements");
+							"announcements"	=> "announcements",
+							"categories"	=> "categories");
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 

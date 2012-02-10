@@ -49,6 +49,10 @@
 				<span class="book-colored">Εκδότης:</span><br />
 				<span class="book-prop"><?php echo strlen($results['publisher'])>=2 ? $results['publisher'] : "Άγνωστος"; ?></span>
 			</div>
+			<div class="book-category">
+				<span class="book-colored">Κατηγορία:</span><br />
+				<span class="book-prop"><?php echo ($results['category'] == NULL) ? "Χωρίς Κατηγορία": get_category_name($results['category']);?></span>
+			</div>
 		</div>
 		<div class="book-right-info">
 			<div id="buttons">
