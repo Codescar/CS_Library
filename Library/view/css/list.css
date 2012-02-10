@@ -272,9 +272,10 @@
 }
 #categories a{
 	text-decoration: none;
-	color: #21170d;
+	color: blue;
 }
-#categories .selected{
+#categories .selected, #categories .selected a{
+	color: black;
 	background-color: #bec5ff;
 	padding: 3px;
 	border-radius: 4px;
