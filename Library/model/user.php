@@ -87,7 +87,9 @@ class User{
 						WHERE `user_id` = '$user_id'
 						ORDER BY `date`";	    
 		$result = $db->query($query);
-		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Κατάσταση</th><th>Ημερομηνία Τελευταίας Αλλαγής</th></tr>";
+		echo "<table id=\"history\"><tr><th>Βιβλίο</th>";
+		echo ($mode ) ? "<th>Χρήστης</th>" : "";
+		echo "<th>Κατάσταση</th><th>Ημερομηνία Τελευταίας Αλλαγής</th></tr>";
 		$flag = 0;
 		while($row = mysql_fetch_array($result)){
 			if($flag++ % 2 == 0)
