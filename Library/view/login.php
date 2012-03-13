@@ -39,12 +39,12 @@
 			}
 		}
 	}
-if(isset($error) || !isset($_GET['do'])){
+if(isset($error) || isset($success) ||!isset($_GET['do'])){
 ?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος/Εγγραφή Χρήστη</div>
 <div class="content">
 <?php if(isset($error) && !empty($error)) echo "<div class=\"error\">".$error."</div><br/>";?>
-<?php if(isset($success) && !empty($success)) echo "<div class=\"sucess\">".$success."</div><br/>";?>
+<?php if(isset($success) && !empty($success)) echo "<div class=\"success\">".$success."</div><br/>";?>
 <fieldset>
 	<legend class="bold" style="font-size: 20px;">Σύνδεση χρήστη</legend>
 	<form action="?show=login&do=login" method="post" id="login-form">
@@ -81,8 +81,8 @@ if(isset($error) || !isset($_GET['do'])){
 	<input type="date" name="born" id="born" />
 	<br />
 	<label for="user_type">Τύπος Χρήστη: </label>
-	<select id="user_type">
-		<option value="Αναγνώστης">Αναγνώστης</option>
+	<select name="user_type">
+		<option selected="selected" value="Αναγνώστης">Αναγνώστης</option>
 		<option value="Συγγραφέας">Συγγραφέας</option>
 		<option value="Εκδότης">Εκδότης</option>
 		<option value="Ερευνητής">Ερευνητής</option>

@@ -49,40 +49,40 @@ class User{
 		$query2 = "(";
 		if(!empty($_POST['name'])){
 		    $x = mysql_real_escape_string($_POST['name']);
-		    $query2 .= " $x,";
+		    $query2 .= "'".$x."', ";
 		}
 		else
-		    $query2 .= " ,";
+		    $query2 .= "NULL, ";
 		if(!empty($_POST['surname'])){
 		    $x = mysql_real_escape_string($_POST['surname']);
-		    $query2 .= " $x,";
+		    $query2 .= "'".$x."', ";
 		}
 		else
-		    $query2 .= " ,";
-		$query2 .= $user;
+		    $query2 .= "NULL, ";
+		$query2 .= "'".$user."', ";
 		if(!empty($_POST['user_type'])){
 		    $x = mysql_real_escape_string($_POST['user_type']);
-		    $query2 .= " $x,";
+		    $query2 .= "'".$x."', ";
 		}
 		else
-		    $query2 .= " ,";
-		$query2 .= " ".$pass.",";
+		    $query2 .= "'', ";
+		$query2 .= " '".$pass."', ";
 		if(!empty($_POST['born'])){
 		    $x = mysql_real_escape_string($_POST['born']);
-		    $query2 .= " $x,";
+		    $query2 .= "'".$x."', ";
 		}
 		else
-		    $query2 .= " ,";
+		    $query2 .= "NULL, ";
 		if(!empty($_POST['phone'])){
 		    $x = mysql_real_escape_string($_POST['phone']);
-		    $query2 .= " $x,";
+		    $query2 .= "'".$x."', ";
 		}
 		else
-		    $query2 .= " ,";
-		$query2 .= $mail.", '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
+		    $query2 .= "NULL, ";
+		$query2 .= " '".$mail."', '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
 		$query = "INSERT INTO `{$db->table["users"]}` 
 					(`name`, `surname`, `username`, `usertype`, 
-					 `password`, `phone`, `email`, `access_lvl`, 
+					 `password`, `born`, `phone`, `email`, `access_lvl`, 
 					 `created_date`, `last_ip`) VALUES";
 		$query .= $query2;
         $db->query($query);
