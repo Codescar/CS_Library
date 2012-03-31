@@ -21,16 +21,21 @@
         		<li>Some fixes in control panel</li>
         		<li>Message Fuction work part1</li>
         		<li>Book listing fix</li>
-        		<!-- 
-            		<li>Improvements in admin panel</li>
-            		<li>Help content written (maybe will add more)</li>
-            		<li>Option to delete a request for users</li>
-            		<li>Control Panel is usable</li>
-            		<li>Message Fuction work part1</li>
-            		<li>Book listing ready</li>
-            		<li>Book searching fix</li>
-            		<li>Announcements added</li>
-        		 -->
+        	</ul>
+    	</div>
+    	Version 1.0(beta) , (r144, 13/03/2012) Visual addons, EAM ready. <br />
+    	<div>Fixes/Adds:
+        	<ul>
+        		<li>Colors & templating reworked</li>
+        		<li>Register of users done</li>
+        		<li>Book viewing inprovement</li>
+        		<li>JavaScript functionality improved</li>
+        		<li>Search & advanced search</li>
+        		<li>book categories</li>
+        		<li>Sidebar added</li>
+        		<li>Favorite button (not done)</li>
+        		<li>Availability icons of books</li>
+        		<li>Many smaller fixes</li>
         	</ul>
     	</div>
 	</div>
