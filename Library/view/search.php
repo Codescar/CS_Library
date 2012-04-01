@@ -132,7 +132,6 @@ elseif(!isset($_GET['search']) || $_GET['search'] == "" ||
 	?> <p class="error">Λάθος αναζήτηση</p></div> <?php
 }
 else {
-	$db->connect();
 	$s = mysql_real_escape_string(trim($_GET['search']));
 	$q = "SELECT * FROM ";
 	$query = "`{$db->table['booklist']}` WHERE title LIKE \"%$s%\" AND ";

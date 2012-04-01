@@ -23,7 +23,6 @@
 	</div> -->
 	<?php 
 	global $db;
-	$db->connect();
 	if(!isset($_GET['more']) || $_GET['more'] == "info"){
 		$row = $user->show_info();?>
 		<div class="block" id="user-left">

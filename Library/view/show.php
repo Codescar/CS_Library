@@ -2,7 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	$db->connect();
+	
 	$logged = $user->is_logged_in();
 ?>
 <div id="direction"><a href="index.php">Αρχική</a></div>

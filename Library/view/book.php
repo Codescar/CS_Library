@@ -6,7 +6,6 @@
 	if(!isset($_GET['id']))
 		die("Λάθος αίτημα");
 		
-	$db->connect();
 	$id = mysql_real_escape_string($_GET['id']);
 	$results = $db->query("SELECT * FROM `booklist` WHERE `id` = '$id' LIMIT 1;");
 	if($logged = $user->is_logged_in()){

@@ -38,7 +38,6 @@
 	</div>
 	<?php 
 	global $db;
-	$db->connect();
 	if(!isset($_GET['more']) || $_GET['more'] == "pendings"){
 		$user->admin->show_pendings();
 	}elseif($_GET['more'] == "announcements"){

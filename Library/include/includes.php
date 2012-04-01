@@ -1,8 +1,12 @@
 <?php
-	require_once('include/config.php');
+	global $db;
 	require_once('include/db.php');
-	require_once('model/session.php');
 	require_once('model/db.php');
+	$db = new Lbdb();
+	$db->connect();
+	require_once('include/config.php');
+	
+	require_once('model/session.php');
 	require_once('model/user.php');
 	require_once('model/admin.php');
 		

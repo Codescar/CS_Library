@@ -14,7 +14,8 @@ class Lbdb{
 							"history"		=> "history",
 							"messages"		=> "messages",
 							"announcements"	=> "announcements",
-							"categories"	=> "categories");
+							"categories"	=> "categories",
+							"options"		=> "options");
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
@@ -174,4 +175,6 @@ class Lbdb{
 	    return;
 	}
 }
+
+
 ?>

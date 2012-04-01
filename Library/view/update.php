@@ -2,16 +2,21 @@
 <?php
 function get_siteInfo($type)
 { 
+	global $CONFIG;
 	if($type == "Version")
 	//TODO return the real version
-		return 1.00; 
+		return $CONFIG['Version']; 
 }
 
 function set_setting($type, $val)
 {
+	global $db;
 	if($type == "Version")
 	//TODO write the version
-		;
+	{
+		$query = "UPDATE `{$db -> table['options']}` SET `Value` = '".mysql_real_escape_string($val)."' WHERE `Name` = 'Version';";
+		$db -> query($query);
+	}
 }
 
 ini_set('max_execution_time',60);
@@ -101,7 +106,7 @@ if ($getVersions != '')
 		set_setting('Version',$aV);
 		echo '<p class="success">&raquo; CMS Updated to v'.$aV.'</p>';
 	}
-	else if ($found != true) echo '<p>&raquo; No update is available.</p>';
+	else if (isset($found) && $found != true) echo '<p>&raquo; No update is available.</p>';
 
 	
 }

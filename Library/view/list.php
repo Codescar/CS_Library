@@ -2,7 +2,6 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	$db->connect();
 	
 	$q = "SELECT * FROM `{$db->table['booklist']}` ";
 	

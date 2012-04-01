@@ -17,4 +17,16 @@
 
 	$CONFIG['document-root'] = "P:\\xampp\\htdocs\\Library\\"; //Have to put the path here
 	$CONFIG['lend_default_days'] = 15;
+	load_options();
+	function load_options()
+	{
+		global $db, $CONFIG;
+		$results = $db -> query("SELECT * FROM `{$db -> table['options']}`");
+		while($row = mysql_fetch_array($results))
+		{
+			
+			$CONFIG[$row['Name']] = $row['Value'];
+		}
+		return;
+	}
 ?>

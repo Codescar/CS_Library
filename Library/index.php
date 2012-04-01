@@ -1,13 +1,14 @@
 <?php
 	define('INDEX', true);
 	session_start();
-	require_once('include/includes.php');
 	global $db, $user, $page;
+	require_once('include/includes.php');
+	
 	if(isset($_SESSION['user']) && $_SESSION['user'] != "user")
 	    $user = unserialize($_SESSION['user']);
 	else
 	    $user = new User;
-	$db = new Lbdb();
+	
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 	$user->session_check();
 	if($CONFIG['allow_compression'])
