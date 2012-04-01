@@ -42,6 +42,8 @@
 		include('admin.php');
 	elseif($_GET['show'] == "info")
 		include('info.php');
+	elseif($_GET['show'] == "update")
+		include('update.php');
 	else 
 		/* The page doesn't found */
 		include('404.php');

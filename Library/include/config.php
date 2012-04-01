@@ -12,8 +12,9 @@
 	$CONFIG['allow_login'] = true;
 	$CONFIG['allow_admin'] = true;
 	$CONFIG['allow_compression'] = true;
-	$CONFIG['debug'] = false;
+	$CONFIG['debug'] = true;
 	$CONFIG['items_per_page'] = 5;
 
+	$CONFIG['document-root'] = "P:\\xampp\\htdocs\\Library\\"; //Have to put the path here
 	$CONFIG['lend_default_days'] = 15;
 ?>
