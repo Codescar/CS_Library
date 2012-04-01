@@ -4,7 +4,6 @@ function get_siteInfo($type)
 { 
 	global $CONFIG;
 	if($type == "Version")
-	//TODO return the real version
 		return $CONFIG['Version']; 
 }
 
@@ -12,7 +11,6 @@ function set_setting($type, $val)
 {
 	global $db;
 	if($type == "Version")
-	//TODO write the version
 	{
 		$query = "UPDATE `{$db -> table['options']}` SET `Value` = '".mysql_real_escape_string($val)."' WHERE `Name` = 'Version';";
 		$db -> query($query);
@@ -36,11 +34,11 @@ if ($getVersions != '')
 			$found = true;
 			
 			//Download The File If We Do Not Have It
-			if ( !is_file(  $CONFIG['document-root'].'/UPDATE-PACKAGES/MMD-CMS-'.$aV.'.zip' )) {
+			if ( !is_file(  $CONFIG['document-root'].'/UPDATE-PACKAGES/'.$CONFIG['update-prefix'].$aV.'.zip' )) {
 				echo '<p>Downloading New Update</p>';
-				$newUpdate = file_get_contents($updateURL.'MMD-CMS-'.$aV.'.zip');
+				$newUpdate = file_get_contents($updateURL.$CONFIG['update-prefix'].$aV.'.zip');
 				if ( !is_dir( $CONFIG['document-root'].'/UPDATE-PACKAGES/' ) ) mkdir ($CONFIG['document-root'].'/UPDATE-PACKAGES/' );
-				$dlHandler = fopen($CONFIG['document-root'].'/UPDATE-PACKAGES/MMD-CMS-'.$aV.'.zip', 'w');
+				$dlHandler = fopen($CONFIG['document-root'].'/UPDATE-PACKAGES/'.$CONFIG['update-prefix'].$aV.'.zip', 'w');
 				if ( !fwrite($dlHandler, $newUpdate) ) { echo '<p>Could not save new update. Operation aborted.</p>'; exit(); }
 				fclose($dlHandler);
 				echo '<p>Update Downloaded And Saved</p>';
@@ -48,7 +46,7 @@ if ($getVersions != '')
 			
 			if (isset($_GET['doUpdate']) && $_GET['doUpdate'] == true) {
 				//Open The File And Do Stuff
-				$zipHandle = zip_open($CONFIG['document-root'].'/UPDATE-PACKAGES/MMD-CMS-'.$aV.'.zip');
+				$zipHandle = zip_open($CONFIG['document-root'].'/UPDATE-PACKAGES/' .$CONFIG['update-prefix'].$aV.'.zip');
 				echo '<ul>';
 				while ($aF = zip_read($zipHandle) ) 
 				{
