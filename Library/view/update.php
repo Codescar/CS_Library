@@ -1,22 +1,13 @@
-<h1>DYNAMIC UPDATE SYSTEM</h1>
+<?php 
+	if(!defined('VIEW_NAV'))
+		die("Invalid request!");
+	define('VIEW_SHOW', true);
+
+?>
+<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Update</div>
+    <div class="content">
+		<h1>DYNAMIC UPDATE SYSTEM</h1>
 <?php
-function get_siteInfo($type)
-{ 
-	global $CONFIG;
-	if($type == "Version")
-		return $CONFIG['Version']; 
-}
-
-function set_setting($type, $val)
-{
-	global $db;
-	if($type == "Version")
-	{
-		$query = "UPDATE `{$db -> table['options']}` SET `Value` = '".mysql_real_escape_string($val)."' WHERE `Name` = 'Version';";
-		$db -> query($query);
-	}
-}
-
 ini_set('max_execution_time',60);
 $updateURL = "http://projects.codescar.eu/Library/UPDATES/";
 //Check For An Update
@@ -109,3 +100,22 @@ if ($getVersions != '')
 	
 }
 else echo '<p>Could not find latest realeases.</p>';
+
+function get_siteInfo($type)
+{
+    global $CONFIG;
+    if($type == "Version")
+    return $CONFIG['Version'];
+}
+
+function set_setting($type, $val)
+{
+    global $db;
+    if($type == "Version")
+    {
+        $query = "UPDATE `{$db -> table['options']}` SET `Value` = '".mysql_real_escape_string($val)."' WHERE `Name` = 'Version';";
+        $db -> query($query);
+    }
+}
+?>
+</div>
