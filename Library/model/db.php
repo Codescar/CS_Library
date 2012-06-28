@@ -4,19 +4,20 @@ class Lbdb{
 	public $booklist;
 	//TODO have to use the arrays for the names of the column/tables everywhere I think... much work!
 	public $table = array(
-							"booklist" 		=> "booklist",
-							"comments" 		=> "comments",
-							"departments" 	=> "departments",
-							"lend" 			=> "lend",
-							"log_lend"		=> "log_lend",
-							"requests"		=> "requests",
-							"users"			=> "users",
-							"history"		=> "history",
-							"messages"		=> "messages",
-							"announcements"	=> "announcements",
-							"categories"	=> "categories",
-							"options"		=> "options",
-	                        "pages"         => "pages");
+							"booklist" 		    => "booklist",
+							"comments" 		    => "comments",
+							"departments" 	    => "departments",
+							"lend" 			    => "lend",
+							"log_lend"		    => "log_lend",
+							"requests"		    => "requests",
+							"users"			    => "users",
+							"history"		    => "history",
+							"messages"		    => "messages",
+							"announcements"	    => "announcements",
+							"categories"	    => "categories",
+							"options"		    => "options",
+	                        "pages"       	    => "pages", 
+	                        "book_has_category" => "book_has_catagory");
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 

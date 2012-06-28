@@ -11,18 +11,50 @@
 	$q .= " ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
 	$books = $db->get_books($q);
 	
-	$query = "	SELECT category_name, {$db->table['categories']}.id 
+	$query = "	SELECT `category_name`,  {$db->table['categories']}.id
+					FROM {$db->table['book_has_category']}
+					CROSS JOIN `{$db->table['categories']}` 
+					ON {$db->table['book_has_category']}.category_id = {$db->table['categories']}.id
+					WHERE {$db->table['book_has_category']}.book_id is not NULL
+					GROUP BY {$db->table['book_has_category']}.category_id
+					ORDER BY {$db->table['categories']}.category_name ASC;";
+	/* 
+	SELECT category_name, {$db->table['categories']}.id 
 				FROM `{$db->table['booklist']}` 
 				CROSS JOIN `{$db->table['categories']}` 
 				ON  {$db->table['booklist']}.category = {$db->table['categories']}.id;";
-	
+	 */
 	$res = $db->query($query);
 	
 ?>
 <div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Κατάλογος βιβλίων</div>
 <div class="content">
 <?php 
-	$flag = 0;
+    $flag = 0;
+    while($row = mysql_fetch_array($res)){
+
+        if($flag)
+        echo ", ";
+        else{
+            $flag = 1;
+            echo "\t\t\t\t<div id=\"categories\">\n<div id=\"head\">Διαλέξτε κάποια κατηγορία για φιλτράρισμα:</div><br /> \n";
+        }
+        if(isset($_GET['id']) && $_GET['id'] == $row['id'])
+            echo "<div class=\"selected\">";
+        else
+            echo "<div class=\"non-selected\">";
+
+        if($flag)
+        {
+            echo "<a href=\"index.php?show=list&more=category&id={$row['id']}\">{$row['category_name']}</a>";
+            echo "</div>";
+        }
+    }
+    if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
+        echo "<a href=\"index.php?show=list\"><img id=\"remove-ico\" src=\"view/images/cross.png\" alt=\"Αφαίρεση φίλτρου\" title=\"Αφαίρεση φίλτρου\" /></a>";
+    if($flag)
+        echo "\t\t\t\t</div>\n";
+	/* $flag = 0;
 	$cats = array();
 	while($row = mysql_fetch_array($res)){
 		if($row['category_name'] == NULL || in_array($row['id'], $cats))
@@ -52,7 +84,7 @@
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
 		echo "<a href=\"index.php?show=list\"><img id=\"remove-ico\" src=\"view/images/cross.png\" alt=\"Αφαίρεση φίλτρου\" title=\"Αφαίρεση φίλτρου\" /></a>";
 	if(!empty($cats))
-		echo "\t\t\t\t</div>\n";
+		echo "\t\t\t\t</div>\n"; */
 	list_books($books);
     $db->close();
 ?>
