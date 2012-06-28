@@ -159,8 +159,6 @@ else {
 	$books = $db->get_books($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page']);
 	
 	$num = mysql_num_rows($db->query("SELECT id FROM ".$query));
-
-	$db->close();
 ?>
 	<div class="list">
 	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>" βρέθηκαν <?php echo $num; ?><br />
