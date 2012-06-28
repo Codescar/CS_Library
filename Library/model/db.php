@@ -88,7 +88,6 @@ class Lbdb{
 	            or die("Could not connect: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
 	            or die("Error selecting database: ".mysql_error());
-	        echo "Opening ".$this->connection."<br />";
 	    }
 	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);

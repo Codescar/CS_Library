@@ -90,7 +90,10 @@ class User{
 		$query .= $query2;
         $db->query($query);
 		//TODO send an e-mail to user
-		$body = option::load("mail_body");
+		$sub = "Καλώς ήρθατε στο CS_Library";
+		$body = "Ο λογαριασμός σας για το CS_Library μόλις δημιουργήθηκε.\n Τα στοιχεία σας είναι τα εξής:\n"
+			  . "Username: ".$user."\nPassword: ".$pass;
+		mail($email, $sub, $body);
 		return;
 	}
 	
