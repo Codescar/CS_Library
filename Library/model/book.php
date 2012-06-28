@@ -94,7 +94,7 @@ function list_books($books){
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
 		$ext .= "&amp;more=category&amp;id={$_GET['id']}";	
 	
-	if(!(isset($_GET['show']) && isset($_GET['more']) && $_GET['show'] == "cp" && $_GET['more'] == lended))
+	if(!(isset($_GET['show']) && isset($_GET['more']) && $_GET['show'] == "cp" && $_GET['more'] == "lended"))
 	{		
 	?>
 	<div class="list-nav-bar">
