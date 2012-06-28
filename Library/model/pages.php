@@ -9,7 +9,8 @@ class pages{
 		$query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
 		$result = $db->query($query);
 		$row = mysql_fetch_array($result);
-		return $row[0];
+		echo $row[0];
+		return 1;
 	}
 	
 	public static function list_all(){
