@@ -3,7 +3,8 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	
-	$q = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['book_has_category']}` ";
+	$q = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['book_has_category']}` 
+			ON {$db->table['booklist']}.id = {$db->table['book_has_category']}.book_id ";
 	
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
 		$q .= " WHERE {$db->table['book_has_category']}.category_id = '".mysql_real_escape_string($_GET['id'])."' ";

@@ -32,6 +32,7 @@ function list_books($books){
 									<div class="box list-button" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
 								<?php } else {?>
 									<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+									<div style="font-size: 9px;">Μη διαθέσιμο</div>
 							<?php } } else { ?>
 									<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
 							<?php } ?>
