@@ -283,45 +283,29 @@ class Admin{
 	function manage_pages(){
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
 	        $ret = pages::list_all();
-	        ?>
-	    			<table>
-	    			<tr>
-	    				<th>ID</th>
-	    				<th>Descr</th>
-	    				<th>Body</th>
-	    			</tr>
-	    			<?php 
-	    			while($row = mysql_fetch_array($ret)){
-	    				?>
-	    				<tr>
-	    					<td><?php echo $row['id']; 		?></td>
-	    					<td><?php echo $row['desc']; 		?></td>
-	    					<td><?php echo substr($row['body'], 0, 25);  echo (strlen($row['body'])>25)  ? "..." : ""; ?></td>
-	    					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a></td>
-	    				</tr>
-	    				<?php 
-	    			}
-	    			?>
-	    			</table>
-	    			<?php 
-	    		}
-	    		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
-	    			
-	    			$ret = pages::get($_GET['id']);
-	    			$row = mysql_fetch_array($ret);
-	    			?>
-	    			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-	    				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
-	    				<input type="submit" value="Save" />
-	    			</form>
-	    			<?php 	
-	    		}
-	    		elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
-	    				pages::update($_GET['id'], $_POST['body']);
-	    			?>
-	    			<p class="success">Page Updated</p>
-	    			<?php 
-	    		}
+			while($row = mysql_fetch_array($ret)){
+				 echo $row['desc']; ?>
+				 -- <a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a>
+				<?php 
+			}
+	    }
+		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
+			
+			$ret = pages::get($_GET['id']);
+			$row = mysql_fetch_array($ret);
+			?>
+			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
+				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+				<input type="submit" value="Save" />
+			</form>
+			<?php 	
+		}
+		elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
+				pages::update($_GET['id'], $_POST['body']);
+			?>
+			<p class="success">Page Updated</p>
+			<?php 
+		}
 	    		
 	    		
 	}
