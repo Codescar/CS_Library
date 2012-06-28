@@ -176,7 +176,7 @@ function get_category_name($id){
 	$query = "SELECT category_name FROM {$db->table['categories']} 
 				CROSS JOIN {$db->table['book_has_category']} 
 				ON {$db->table['categories']}.id = {$db->table['book_has_category']}.category_id
-				WHERE {$db->table['book_has_category']}.category_id = '".mysql_real_escape_string($id)."' 
+				WHERE {$db->table['book_has_category']}.book_id = '".mysql_real_escape_string($id)."' 
 				ORDER BY category_name ASC;";
 	$res = $db->query($query);
 	$flag = 0;
