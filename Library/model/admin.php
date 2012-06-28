@@ -47,19 +47,31 @@ class Admin{
 	}
 	
 	function show_options(){
-		$opt = option::list_all();
+        if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
+            option::save($_POST['name'], $_POST['value']);
+		$res = option::list_all();
 		?><h3>Options Page</h3>
 		<div class="inl-blck">Name</div>
 		<div class="inl-blck">Value</div>
 		<br />
 		<?php
-		foreach($opt as $option){
+		while($option = mysql_fetch_array($res)){
 			?>
 			<div class="inl-blck"><?php echo $option['Name']; ?></div>
 			<div class="inl-blck"><?php echo $option['Value'];?></div>
 			<br />
 			<?php
-		}
+		} ?>
+        <form action="" method="post">
+            <h4>Πρόσθεσε νέο option</h4>
+            <div class="inl-blck"><label for="name">Name: </label><input type="text" id="name" name="name" /></div>
+            <div class="inl-blck"></div>
+            <div class="inl-blck"><label for="value">Value: </label><input type="text" id="value" name="value" /></div>
+            <div class="inl-blck"></div>
+            <div class="inl-blck"><input type="submit" value="Save" /></div>
+            <input type="hidden" name="hidden" value="codescar" />
+        </form>
+        <?php
 	}
 	
 	function show_pendings(){

@@ -90,8 +90,7 @@ class User{
 		$query .= $query2;
         $db->query($query);
 		//TODO send an e-mail to user
-		body = option::load("mail_body");
-		mail();
+		$body = option::load("mail_body");
 		return;
 	}
 	

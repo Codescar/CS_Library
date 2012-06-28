@@ -9,7 +9,7 @@
 class option{
 	public static function list_all(){
 		global $db;
-		$query = "SELECT * FROM `{$db->table['options']}` ;";
+		$query = "SELECT * FROM `{$db->table['options']}`";
 		return $db->query($query);
 	}
 	
@@ -24,7 +24,7 @@ class option{
 	public static function save($name, $val){
 		global $db;
 		$query = "INSERT INTO `{$db->table['options']}` 
-					(`Name`, `Value`) VALUES '$name', '$val' ";
+					SET `Name` = '$name' , `Value` = '$val' ";
 		$db->query($query);
 	}
 };
