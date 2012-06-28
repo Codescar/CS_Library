@@ -7,7 +7,11 @@
 		die("Λάθος αίτημα");
 		
 	$id = mysql_real_escape_string($_GET['id']);
-	$results = $db->query("SELECT * FROM `booklist` WHERE `id` = '$id' LIMIT 1;");
+	$results = $db->query("SELECT *, COUNT(category_id) AS numCategories 
+							FROM {$db->table['booklist']} 
+							CROSS JOIN  {$db->table['book_has_category']} 
+							ON id = book_id 
+							WHERE `id` = '$id';");
 	if($logged = $user->is_logged_in()){
 		$have = have_book($id, $user->id);
 		$requested = have_book_rq($id, $user->id);
@@ -50,7 +54,7 @@
 			</div>
 			<div class="book-category">
 				<span class="book-colored">Κατηγορία:</span><br />
-				<span class="book-prop"><?php echo ($results['category'] == NULL) ? "Χωρίς Κατηγορία": get_category_name($results['category']);?></span>
+				<span class="book-prop"><?php echo ($results['numCategories'] == 0) ? "Χωρίς Κατηγορία": get_category_name($results['id']);?></span>
 			</div>
 		</div>
 		<div class="book-right-info">

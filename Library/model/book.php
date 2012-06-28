@@ -176,10 +176,19 @@ function get_category_name($id){
 	$query = "SELECT category_name FROM {$db->table['categories']} 
 				CROSS JOIN {$db->table['book_has_category']} 
 				ON {$db->table['categories']}.id = {$db->table['book_has_category']}.category_id
-				WHERE {$db->table['book_has_category']}.category_id = '".mysql_real_escape_string($id)."' LIMIT 1;";
+				WHERE {$db->table['book_has_category']}.category_id = '".mysql_real_escape_string($id)."' 
+				ORDER BY category_name ASC;";
 	$res = $db->query($query);
-	$row = mysql_fetch_array($res);
-	return $row['category_name'];
+	$flag = 0;
+	while($row = mysql_fetch_array($res))
+	{
+	    if($flag)
+	        $ret .= ", ". $row['category_name'];
+	    else   
+	       $ret =  $row['category_name'];
+	    $flag = 1;
+	}
+	return $ret;
 	
 }
 ?>
