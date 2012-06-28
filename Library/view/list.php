@@ -34,18 +34,18 @@
 			echo "\t\t\t\t<div id=\"categories\">\n<div id=\"head\">Διαλέξτε κάποια κατηγορία για φιλτράρισμα:</div><br /> \n";
 		}
 		
-		array_push($cats, $row['id']);
+		array_push($cats, array($row['id'] => $row['category_name']));
 	}
 	sort($cats, SORT_STRING);
 	foreach($cats as $cat)
 	{
-	    if(isset($_GET['id']) && $_GET['id'] == $row['id'])
+	    if(isset($_GET['id']) && $_GET['id'] == $cat[0])
 	        echo "<div class=\"selected\">";
 	    else
 	        echo "<div class=\"non-selected\">";
 	    if($flag)
 	    {
-	        echo "<a href=\"index.php?show=list&more=category&id={$row['id']}\">{$row['category_name']}</a>";
+	        echo "<a href=\"index.php?show=list&more=category&id={$cat[0]}\">{$cat[1]}</a>";
 	        echo "</div>";
 	    }
 	}
