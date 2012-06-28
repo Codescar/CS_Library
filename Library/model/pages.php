@@ -27,7 +27,7 @@ class pages{
 	public static function update($id, $body){
 		global $db, $user;
 		$query = "	UPDATE `{$db->table["pages"]}` 
-					SET `body` = '".mysql_real_escape_string($body)."'' 
+					SET `body` = '".mysql_real_escape_string($body)."' 
 					WHERE `id` = '".mysql_real_escape_string($id)."';";
 		$db->query($query);
 		return ;
