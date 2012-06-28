@@ -7,8 +7,6 @@
  */
 
 class option{
-	var $default;
-	
 	public static function list_all(){
 		global $db;
 		$query = "SELECT * FROM `{$db->table['options']}` ;";
