@@ -42,7 +42,7 @@
             <label for="n_pass">Νέος κωδικός: </label><input type="password" id="n_pass" name="n_pass" /><br />
             <label for="r_n_pass">Ξανά νέος κωδικός: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
             <label for="password">Τωρινός κωδικός: </label><input type="password" id="password" name="password" />
-            <input type="submit" value="Ανανέωση" style="position: absolute; right: 200px; bottom: 50px;"/>
+            <input type="submit" value="Ανανέωση" style="position: absolute; right: 200px;"/>
             <p>* Για να αλλάξετε κάποια από τα στοιχεία σας θα πρέπει να συμπληρώσετε απαραιτήτως και τον Τωρινό Κωδικό σας!</p>
     			<input type="hidden" name="hidden" value="codescar" />   
     			<?php //if($user_id == $this->id) { ; }?>

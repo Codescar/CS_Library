@@ -160,15 +160,18 @@ class User{
         global $db;
         if($user_id == -1)
         	$user_id = $this->id;
-            $query = "SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, users.usertype, users.books_lended 
-            			FROM users
-            			WHERE users.id = '$user_id'";
-            $result = $db->query($query);
-            $row = mysql_fetch_assoc($result);
-            return $row;
+		$query = "SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, users.usertype, users.books_lended 
+           			FROM users
+           			WHERE users.id = '$user_id'";
+        $result = $db->query($query);
+        $row = mysql_fetch_assoc($result);
+        return $row;
 	}
 	
-	public function update(){
+	public function update($user_id = -1){
+		global $db;
+		if($user_id == -1)
+			$user_id = $this->id;
 		$query = "	SELECT * FROM `{$db->table['users']}`
 		WHERE 	`id` = '$user_id'
 		AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
