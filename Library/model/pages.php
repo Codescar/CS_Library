@@ -12,6 +12,12 @@ class pages{
 		return $row[0];
 	}
 	
+	public static function list_all(){
+	    global $db;
+	    $query = "SELECT * FROM `{$db->table["pages"]}` ;";
+	    return $db->query($query);
+	}
+	
 	public static function get_body($id){
 	    global $db;
 	    $query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
@@ -44,12 +50,6 @@ class pages{
 	$db->query($query);
 	return ;
 	}
-	
-	public static function list_all(){
-	global $db;
-	$query = "SELECT * FROM `{$db->table["pages"]}` ;";
-	return $db->query($query);
-	} 
 	
 	public static function show($page = 0){
 		global $db;
