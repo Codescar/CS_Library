@@ -42,6 +42,8 @@
 		$user->admin->show_pendings();
 	}elseif($_GET['more'] == "announcements"){
 		$user->admin->manage_announce();
+	}elseif($_GET['more'] == "pages"){
+		$user->admin->manage_pages();
 	}elseif($_GET['more'] == "statistics"){
 	    $user->admin->show_statistics();
 	}elseif($_GET['more'] == "history"){

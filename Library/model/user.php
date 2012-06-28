@@ -2,11 +2,14 @@
 /* User class, in order to use user-account
  * system, we can continue...
  */
+
 class User{
-	public $id, $username, $email, $access_level, $admin, $message;
+	public $id, $username, $email, $access_level, $message;
+	public $admin;
 	
 	function __constructor(){
-		$admin = null;
+	    $a = new Admin;
+	    $admin = null;
 	}
 	
 	private static function pass_encrypt($pass){
