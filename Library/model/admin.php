@@ -284,10 +284,10 @@ class Admin{
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
 	        $ret = pages::list_all();
 	        ?>
-	    			<a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">Add New</a><br />
 	    			<table>
 	    			<tr>
 	    				<th>ID</th>
+	    				<th>Descr</th>
 	    				<th>Body</th>
 	    			</tr>
 	    			<?php 
@@ -295,6 +295,7 @@ class Admin{
 	    				?>
 	    				<tr>
 	    					<td><?php echo $row['id']; 		?></td>
+	    					<td><?php echo $row['desc']; 		?></td>
 	    					<td><?php echo substr($row['body'], 0, 25);  echo (strlen($row['body'])>25)  ? "..." : ""; ?></td>
 	    					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a></td>
 	    				</tr>

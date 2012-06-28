@@ -4,9 +4,9 @@ class pages{
 	
 	
 	
-	public static function get($id){
+	public static function get_body($id){
 		global $db;
-		$query = "SELECT * FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+		$query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
 		$result = $db->query($query);
 		$row = mysql_fetch_array($result);
 		return $row[0];
@@ -18,9 +18,9 @@ class pages{
 	    return $db->query($query);
 	}
 	
-	public static function get_body($id){
+	public static function get($id){
 	    global $db;
-	    $query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+	    $query = "SELECT * FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
 	    return $db->query($query);
 	}
 	
