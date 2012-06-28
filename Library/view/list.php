@@ -27,25 +27,24 @@
 	while($row = mysql_fetch_array($res)){
 		if($row['category_name'] == NULL || in_array($row['id'], $cats))
 			continue;
-		if($flag)
-			echo ", ";
-		else{
-			$flag = 1;
-			echo "\t\t\t\t<div id=\"categories\">\n<div id=\"head\">Διαλέξτε κάποια κατηγορία για φιλτράρισμα:</div><br /> \n";
-		}
-		
 		array_push($cats, array($row['id'] => $row['category_name']));
 	}
 	sort($cats, SORT_STRING);
-	foreach($cats as $cat)
+	foreach($cats as $cat => $key)
 	{
-	    if(isset($_GET['id']) && $_GET['id'] == $cat[0])
+	    if($flag)
+	        echo ", ";
+	    else{
+	        $flag = 1;
+	        echo "\t\t\t\t<div id=\"categories\">\n<div id=\"head\">Διαλέξτε κάποια κατηγορία για φιλτράρισμα:</div><br /> \n";
+	    }
+	    if(isset($_GET['id']) && $_GET['id'] == $key)
 	        echo "<div class=\"selected\">";
 	    else
 	        echo "<div class=\"non-selected\">";
 	    if($flag)
 	    {
-	        echo "<a href=\"index.php?show=list&more=category&id={$cat[0]}\">{$cat[1]}</a>";
+	        echo "<a href=\"index.php?show=list&more=category&id={$key}\">{$cat[$key]}</a>";
 	        echo "</div>";
 	    }
 	}
