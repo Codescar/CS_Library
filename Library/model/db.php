@@ -15,7 +15,8 @@ class Lbdb{
 							"messages"		=> "messages",
 							"announcements"	=> "announcements",
 							"categories"	=> "categories",
-							"options"		=> "options");
+							"options"		=> "options",
+	                        "pages"         => "pages");
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
