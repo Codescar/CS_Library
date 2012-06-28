@@ -3,10 +3,10 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	
-	$q = "SELECT * FROM `{$db->table['booklist']}` ";
+	$q = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['book_has_category']}` ";
 	
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
-		$q .= " WHERE `category` = '".mysql_real_escape_string($_GET['id'])."' ";
+		$q .= " WHERE {$db->table['book_has_category']}.category_id = '".mysql_real_escape_string($_GET['id'])."' ";
 	
 	$q .= " ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
 	$books = $db->get_books($q);
@@ -18,12 +18,6 @@
 					WHERE {$db->table['book_has_category']}.book_id is not NULL
 					GROUP BY {$db->table['book_has_category']}.category_id
 					ORDER BY {$db->table['categories']}.category_name ASC;";
-	/* 
-	SELECT category_name, {$db->table['categories']}.id 
-				FROM `{$db->table['booklist']}` 
-				CROSS JOIN `{$db->table['categories']}` 
-				ON  {$db->table['booklist']}.category = {$db->table['categories']}.id;";
-	 */
 	$res = $db->query($query);
 	
 ?>
@@ -54,37 +48,6 @@
         echo "<a href=\"index.php?show=list\"><img id=\"remove-ico\" src=\"view/images/cross.png\" alt=\"Αφαίρεση φίλτρου\" title=\"Αφαίρεση φίλτρου\" /></a>";
     if($flag)
         echo "\t\t\t\t</div>\n";
-	/* $flag = 0;
-	$cats = array();
-	while($row = mysql_fetch_array($res)){
-		if($row['category_name'] == NULL || in_array($row['id'], $cats))
-			continue;
-		array_push($cats, array($row['id'] => $row['category_name']));
-	}
-	sort($cats, SORT_STRING);
-	foreach($cats as $cat => $key)
-	{
-	    if($flag)
-	        echo ", ";
-	    else{
-	        $flag = 1;
-	        echo "\t\t\t\t<div id=\"categories\">\n<div id=\"head\">Διαλέξτε κάποια κατηγορία για φιλτράρισμα:</div><br /> \n";
-	    }
-	    if(isset($_GET['id']) && $_GET['id'] == $key)
-	        echo "<div class=\"selected\">";
-	    else
-	        echo "<div class=\"non-selected\">";
-	    echo "DUMP: "; var_dump($cat);
-	    if($flag)
-	    {
-	        echo "<a href=\"index.php?show=list&more=category&id={$key[0]}\">{$cat[$key]}</a>";
-	        echo "</div>";
-	    }
-	}
-	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
-		echo "<a href=\"index.php?show=list\"><img id=\"remove-ico\" src=\"view/images/cross.png\" alt=\"Αφαίρεση φίλτρου\" title=\"Αφαίρεση φίλτρου\" /></a>";
-	if(!empty($cats))
-		echo "\t\t\t\t</div>\n"; */
 	list_books($books);
     $db->close();
 ?>
