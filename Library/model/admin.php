@@ -47,7 +47,19 @@ class Admin{
 	}
 	
 	function show_options(){
-		
+		$opt = option::list_all();
+		?><h3>Options Page</h3>
+		<div class="inl-blck">Name</div>
+		<div class="inl-blck">Value</div>
+		<br />
+		<?php
+		foreach($opt as $option){
+			?>
+			<div class="inl-blck"><?php echo $option['Name']; ?></div>
+			<div class="inl-blck"><?php echo $option['Value'];?></div>
+			<br />
+			<?php
+		}
 	}
 	
 	function show_pendings(){

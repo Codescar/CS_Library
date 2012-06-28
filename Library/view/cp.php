@@ -64,7 +64,6 @@
 	}elseif($_GET['more'] == "lended"){
 		$user->show_lended();	
 	}
-	$db->close();
 	?>
 </div>
 <?php } ?>

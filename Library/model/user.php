@@ -23,7 +23,7 @@ class User{
 		$name = mysql_real_escape_string($name);
 		$pass = mysql_real_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
-		$query = "	SELECT * FROM `{$db->table["users"]}`
+		$query = "	SELECT * FROM `{$db->table['users']}`
 					WHERE 	`username` = '$name' 
 					AND 	`password` = '$pass'
 					LIMIT 1 ;";
@@ -83,13 +83,15 @@ class User{
 		else
 		    $query2 .= "NULL, ";
 		$query2 .= " '".$mail."', '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
-		$query = "INSERT INTO `{$db->table["users"]}` 
+		$query = "INSERT INTO `{$db->table['users']}` 
 					(`name`, `surname`, `username`, `usertype`, 
 					 `password`, `born`, `phone`, `email`, `access_lvl`, 
 					 `created_date`, `last_ip`) VALUES";
 		$query .= $query2;
         $db->query($query);
-		//TODO send an e-mail to user 
+		//TODO send an e-mail to user
+		body = option::load("mail_body");
+		mail();
 		return;
 	}
 	
@@ -105,18 +107,18 @@ class User{
 	    if($user_id == -1)
 	    	$user_id = $this->id;
 	    if($mode == 1) 
-	    	$query = "	SELECT * FROM `{$db->table["history"]}`
-	    				CROSS JOIN `{$db->table["users"]}` 
-	    				ON {$db->table["users"]}.id = {$db->table["history"]}.user_id 
+	    	$query = "	SELECT * FROM `{$db->table['history']}`
+	    				CROSS JOIN `{$db->table['users']}` 
+	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
 						ORDER BY `date`";
 	    elseif($mode == 2)
-	    	$query = "	SELECT * FROM `{$db->table["history"]}`
-	    				CROSS JOIN `{$db->table["users"]}` 
-	    				ON {$db->table["users"]}.id = {$db->table["history"]}.user_id 
+	    	$query = "	SELECT * FROM `{$db->table['history']}`
+	    				CROSS JOIN `{$db->table['users']}` 
+	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
 						GROUP BY `book_id`, `action` 
 	    				ORDER BY `date`";
 	    else
-			$query = "	SELECT * FROM `{$db->table["history"]}`
+			$query = "	SELECT * FROM `{$db->table['history']}`
 						WHERE `user_id` = '$user_id'
 						ORDER BY `date`";	    
 		$result = $db->query($query);
@@ -160,11 +162,13 @@ class User{
         global $db;
         if($user_id == -1)
         	$user_id = $this->id;
-		$query = "SELECT users.username, users.name, users.surname, users.born, users.phone, users.email, users.usertype, users.books_lended 
-           			FROM users
-           			WHERE users.id = '$user_id'";
+		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
         $result = $db->query($query);
         $row = mysql_fetch_assoc($result);
+        $query = "SELECT COUNT(*) FROM `{$db->table['lend']}` WHERE `user_id` = '$user_id'";
+        $result = $db->query($query);
+        $num = mysql_fetch_array($result);
+        $row['books_lended'] = $num[0];
         return $row;
 	}
 	
@@ -178,7 +182,7 @@ class User{
 		LIMIT 1 ;";
 		$result = $db->query($query);
 		if(mysql_num_rows($result)){
-			$q = "UPDATE `{$db->table["users"]}` SET
+			$q = "UPDATE `{$db->table['users']}` SET
 			`name` = '".mysql_real_escape_string($_POST['name'])."',
 			`surname` = '".mysql_real_escape_string($_POST['surname'])."',
 			`born` = '".mysql_real_escape_string($_POST['born'])."',
