@@ -29,6 +29,7 @@
 		<ul>
 			<li><a href="?show=admin&more=pendings">Pendings</a></li>
 			<li><a href="?show=admin&more=announcements">Announcements</a></li>
+			<li><a href="?show=admin&more=pages">Pages</a></li>
 			<li><a href="?show=admin&more=users">Show Users</a></li>
 			<li><a href="?show=admin&more=statistics">Statistics</a></li>
 			<li><a href="?show=admin&more=history">History</a></li>
