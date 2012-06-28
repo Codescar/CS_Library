@@ -44,7 +44,7 @@
             <label for="password">Τωρινός κωδικός: </label><input type="password" id="password" name="password" />
             <input type="submit" value="Ανανέωση" style="position: absolute; right: 200px; bottom: 50px;"/>
             <p>* Για να αλλάξετε κάποια από τα στοιχεία σας θα πρέπει να συμπληρώσετε απαραιτήτως και τον Τωρινό Κωδικό σας!</p>
-    			<input type="hidden" name="hidden" value="1" />   
+    			<input type="hidden" name="hidden" value="codescar" />   
     			<?php //if($user_id == $this->id) { ; }?>
             </form>
         </div>
@@ -54,8 +54,10 @@
         	<div class="box link">Λίστα αγαπημένων</div><br />
         	<div class="box link">Έκδοση κάρτας αναγνώστη</div><br />
         </div>
-    <?php }
-	elseif($_GET['more'] == "history"){
+    <?php 
+        if(isset($_POST['hidden']) && $_POST['hidden'] == "codescar")
+        	$user->update();
+	}elseif($_GET['more'] == "history"){
 		$user->show_history();
 	}elseif($_GET['more'] == "remove_request" && isset($_GET['id'])){
 		$user->cansel_request(mysql_real_escape_string($_GET['id']));

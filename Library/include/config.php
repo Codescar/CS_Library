@@ -1,6 +1,6 @@
 <?php
 	/* Config File */ 
-	$url = "http://" . $_SERVER['HTTP_HOST'] . "/Library/";
+	$url = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo/";
 	
 	$title = "Εθνική Βιβλιοθήκη Αθηνών";
 
@@ -16,7 +16,7 @@
 	$CONFIG['items_per_page'] = 5;
 	$CONFIG['right_sidebar'] = false;
 
-	$CONFIG['document-root'] = "P:\\xampp\\htdocs\\Library\\"; //Have to put the path here
+	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
 	$CONFIG['lend_default_days'] = 15;
 	load_options();
 	function load_options()
