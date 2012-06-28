@@ -42,9 +42,10 @@
 	        echo "<div class=\"selected\">";
 	    else
 	        echo "<div class=\"non-selected\">";
+	    echo "DUMP: "; var_dump($cat);
 	    if($flag)
 	    {
-	        echo "<a href=\"index.php?show=list&more=category&id={$key}\">{$cat[$key]}</a>";
+	        echo "<a href=\"index.php?show=list&more=category&id={$key[0]}\">{$cat[$key]}</a>";
 	        echo "</div>";
 	    }
 	}
