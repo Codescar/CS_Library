@@ -13,10 +13,7 @@
 	<?php if(announcements::num() > 0) {?>
 		<div id="announcements">
 			<div id="announcements-header">Ανακοινώσεις</div><br />
-			<?php 
-				announcements::show();
-				$db->close();
-			?>
+			<?php announcements::show(); ?>
 		</div>
 		<div class="block" id="quick-links">
 			<div class="box index-box link">
@@ -34,6 +31,6 @@
 		</div>
 	<?php } ?>
 	<div id="index-content">
-		
+		<?php pages::get_body(1); ?>
 	</div>
 </div>

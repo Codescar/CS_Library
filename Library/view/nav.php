@@ -7,8 +7,6 @@
 	<ul>
 		<li><a href="index.php">Αρχική</a></li>
 		<li><a href="index.php?show=list">Κατάλογος Βιβλίων</a></li>
-		<li><a href="#">Εφημερίδες</a></li>
-		<li><a href="#">Αναγνωστήρια</a></li>
 		<li><a href="index.php?show=search">Αναζήτηση</a></li>
 		<li><a href="index.php?show=info">Πληροφορίες</a></li>
 	</ul>

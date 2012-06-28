@@ -94,7 +94,7 @@ body {
 /* User */
 #user-left{
 	vertical-align: top;
-	margin: 20px 40px 0 20px;
+	margin: 20px 35px 0 20px;
 }
 #user-left a{
 	text-decoration: none;
@@ -205,12 +205,15 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
 	font-size: 20px;
 	margin: 0px;
 	padding: 0px;
+    text-align: center;
 }
 #nav-menu li{
-	padding: 8px 20px 0 28px;
+	padding: 8px 0 0 0;
 	display: inline-block;
 	border-right: 1px solid brown;
 	height: 32px;
+    text-align: center;
+    width: 244px;
 }
 #nav-menu li:last-child{
 	border: 0px;
