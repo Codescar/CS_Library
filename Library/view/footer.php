@@ -2,6 +2,7 @@
 	if(!defined('VIEW_SHOW'))
 		die("Invalid request!");
 	define('VIEW_FOOTER', true);
+	$db->close();
 ?>
 </div>
 <br />

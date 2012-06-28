@@ -7,6 +7,7 @@
 		<p class="error">Δεν είστε διαχειριστής.</p>	
 	<?php 
 	}else{
+		if(isset($_GET['more'])){
         if($_GET['more'] == "history"){?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό</div>
 		<?php }elseif($_GET['more'] == "pendings"){?>
@@ -23,7 +24,7 @@
     	        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Επιλογές</div>
         <?php }else{?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
-    <?php }?>
+    <?php }} ?>
 <div class="content">
 	<div id="admin-menu">
 		<ul>
@@ -75,7 +76,6 @@
 	        $db->return_book(mysql_real_escape_string($_GET['return']));
 	    }
 	}
-	$db->close();
 	?>
 	<br />
 </div>
