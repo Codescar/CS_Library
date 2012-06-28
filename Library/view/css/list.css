@@ -7,8 +7,8 @@
 	border-bottom: 2px #888 solid;
 }
 .list-image{
-	width: 114px;
-	height: 157px;
+	width: 142px;
+	height: 160px;
 	padding-right: 8px;
 	float: left;
 }
@@ -52,8 +52,7 @@
 	height: 32px;
 }
 .list-description {
-	padding-top: 4px;
-	width: 450px;
+	padding-top: 10px;
 	overflow: hidden; 
 	line-height: 16px;
 	font-size: 15px;
@@ -262,6 +261,10 @@
 	background-color: #e4e4e1;
 	padding: 4px;
 	border-radius: 5px;
+	height: 35px;
+	overflow: hidden;
+	text-align: center;
+	border-bottom: 1px solid black;
 }
 #categories #head{
 	text-decoration: underline;

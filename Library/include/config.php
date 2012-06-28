@@ -14,6 +14,7 @@
 	$CONFIG['allow_compression'] = true;
 	$CONFIG['debug'] = true;
 	$CONFIG['items_per_page'] = 5;
+	$CONFIG['right_sidebar'] = false;
 
 	$CONFIG['document-root'] = "P:\\xampp\\htdocs\\Library\\"; //Have to put the path here
 	$CONFIG['lend_default_days'] = 15;

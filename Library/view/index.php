@@ -47,9 +47,10 @@
 	else 
 		/* The page doesn't found */
 		include('404.php');
-		
-	if(isset($_GET['show']) && ($_GET['show'] == "help" || $_GET['show'] == "feedback"));else	 
-		include ('right_sidebar.php');
+	if($CONFIG['right_sidebar']){	
+		if(isset($_GET['show']) && ($_GET['show'] == "help" || $_GET['show'] == "feedback"));else	 
+			include ('right_sidebar.php');
+	}
 	
 	/* Footer */
 	require_once('footer.php');

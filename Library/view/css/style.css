@@ -166,7 +166,7 @@ body {
 	display: inline-block;
 	background-color: white;
 	box-shadow: 0px 0px 6px black;
-	width: 715px;
+	width: 98%;
 }
 
 #direction{
@@ -233,9 +233,6 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
 
 .list tr, th, td{
 	border: 2px solid black;
-}
-.list{
-	width: 700px;
 }
 #prev{
 	float: left;
@@ -465,12 +462,21 @@ table{
 /* --Right Sidebar-- */
 
 .box{
-	background-color: #e4e4e1;
-	box-shadow: 0 0 2px black;
-	margin: 15px 0;
-	padding: 10px 2px;
-	text-align: center;
-	font-weight: bold;
+    background-color: #E4E4E1;
+    box-shadow: 0 8px 0 black;
+    padding: 20px 30px;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.1s;
+}
+.box:active{
+    -webkit-box-shadow: 0px 2px 0px #84261a;
+    -moz-box-shadow: 0px 2px 0px #84261a;
+    box-shadow: 0px 2px 0px #84261a;
+    position:relative;
+    top:7px;
 }
 .index-box{
 	margin: 40px 0px;

@@ -49,10 +49,10 @@
             </form>
         </div>
         <div class="block" id="user-right">
-        	<div class="box link"><a href="index.php?show=cp&more=lended" style="color: black; text-decoration: none;">Δανεισμένα βιβλία</a></div>
-        	<div class="box link"><a href="index.php?show=cp&more=history" style="color: black; text-decoration: none;">Ιστορικό δανεισμού</a></div>
-        	<div class="box link">Λίστα αγαπημένων</div>
-        	<div class="box link">Έκδοση κάρτας αναγνώστη</div>
+        	<div class="box link"><a href="index.php?show=cp&more=lended">Δανεισμένα βιβλία</a></div><br />
+        	<div class="box link"><a href="index.php?show=cp&more=history">Ιστορικό δανεισμού</a></div><br />
+        	<div class="box link">Λίστα αγαπημένων</div><br />
+        	<div class="box link">Έκδοση κάρτας αναγνώστη</div><br />
         </div>
     <?php }
 	elseif($_GET['more'] == "history"){
