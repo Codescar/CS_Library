@@ -24,10 +24,10 @@ class pages{
 	    return $db->query($query);
 	}
 	
-	public static function update($id, $title, $body){
+	public static function update($id, $body){
 		global $db, $user;
 		$query = "	UPDATE `{$db->table["pages"]}` 
-					SET `title` = '".mysql_real_escape_string($title)."' , `body` = '".mysql_real_escape_string($body)."' , `date` = NOW() , `author` = '{$user->id}' 
+					SET `body` = '".mysql_real_escape_string($body)."'' 
 					WHERE `id` = '".mysql_real_escape_string($id)."';";
 		$db->query($query);
 		return ;

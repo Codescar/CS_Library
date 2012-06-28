@@ -29,10 +29,10 @@ class announcements{
 		return ;
 	}	
 	
-	public static function update($id,  $body){
+	public static function update($id, $title, $body){
 		global $db, $user;
 		$query = "	UPDATE `{$db->table["announcements"]}` 
-					SET `body` = '".mysql_real_escape_string($body)."' , `date` = NOW() , `author` = '{$user->id}' 
+					SET `body` = '".mysql_real_escape_string($body)."' , `title` = '".mysql_real_escape_string($title)."', `date` = NOW() , `author` = '{$user->id}' 
 					WHERE `id` = '".mysql_real_escape_string($id)."';";
 		$db->query($query);
 		return ;
