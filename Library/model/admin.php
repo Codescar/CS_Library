@@ -102,14 +102,12 @@ class Admin{
 		<?php
 		while($option = mysql_fetch_array($res)){
 			$edit_link = "index.php?show=admin&more=options&name=".$option['Name']."&value=".$option['Value'];
-			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option['Name'];
-			?>
+			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option['Name']; ?>
 			<div class="inl-blck"><?php echo $option['Name']; ?></div>
 			<div class="inl-blck"><?php echo $option['Value']; ?></div>
 			<div class="inl-blck fl-right"><a href="<?php echo $delete_link; ?>">Delete</a></div>
 			<div class="inl-blck fl-right"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
-			<br />
-			<?php
+			<br /> <?php
 		}
         $edit = false;
 		if(isset($_GET['name']) && isset($_GET['value']))
@@ -150,10 +148,9 @@ class Admin{
 		
 		$lend_res 		= $db->query($lend_query);
 		$requests_res 	= $db->query($request_query);
-		
 		?>
 		<div id="lends">
-		<span class="center"><h3>Lends</h3></span>
+            <span class="center"><h3>Lends</h3></span>
 			<table>
 			<tr>
 				<th>Α/Α</th>
@@ -167,8 +164,7 @@ class Admin{
 			<?php 
 				$l = 1;
 				while($len = mysql_fetch_object($requests_res)){
-					?>
-					<tr>
+					?> <tr>
 						<td><?php echo $l++; ?></td>
 						<td><?php echo $len->title; ?></td>
 						<td><?php echo $len->username; ?>(<?php echo $len->user_id; ?>)</td>
@@ -180,12 +176,9 @@ class Admin{
 						<td><?php echo $len->date; ?></td>
 						<td><?php echo $len->phone; ?></td>
 						<td><a href="mailto:<?php echo $ret->email; ?>"><?php echo $len->email; ?></a></td>
-						
-					</tr>
-					<?php 
+					</tr> <?php 
 				}
-			?>
-			</table>
+			?> </table>
 		</div>
 		<div id="returns">
 		<span class="center"><h3>Returns</h3></span>
@@ -202,8 +195,7 @@ class Admin{
 			<?php 
 				$r = 1;
 				while($ret = mysql_fetch_object($lend_res)){
-					?>
-					<tr>
+					?> <tr>
 						<td><?php echo $r++; ?></td>
 						<td><?php echo $ret->title; ?></td>
 						<td><?php echo $ret->username; ?>(<?php echo $ret->user_id; ?>)</td>
@@ -211,13 +203,9 @@ class Admin{
 						<td><?php echo $ret->taken; ?></td>
 						<td><?php echo $ret->phone; ?></td>
 						<td><a href="mailto:<?php echo $ret->email; ?>"><?php echo $ret->email; ?></a></td>
-						
-					</tr>
-					<?php 
+					</tr> <?php 
 				}
-			?>
-			
-			</table>
+			?> </table>
 		</div>
 		<?php 
 		
@@ -230,18 +218,15 @@ class Admin{
 				!isset($_POST['email']) 		|| !isset($_POST['department']) ||
 				empty($_POST['username']) 		|| empty($_POST['password']) || 
 				empty($_POST['email']) 	){
-				?>
-				<p class="error">Cannot Create the User!</p>
-				<?php 
+				?> <p class="error">Cannot Create the User!</p>	<?php 
 			}
 			else{
-			//do the new user creation
-			$user->createUser(	mysql_real_escape_string($_POST['username']), 
-								mysql_real_escape_string($_POST['password']), 
-								mysql_real_escape_string($_POST['email']));
-			?>
-			<p class="success">The User have been created!</p>
-			<?php }
+                //do the new user creation
+                $user->createUser(	mysql_real_escape_string($_POST['username']), 
+                                    mysql_real_escape_string($_POST['password']), 
+                                    mysql_real_escape_string($_POST['email']));
+                ?> <p class="success">The User have been created!</p> <?php 
+            }
 		} ?>
 		<form action="" method="post" id="new-user-form">
 		<label for="username">Username: </label><input type="text" id="username" name="username" /><br />
@@ -257,7 +242,7 @@ class Admin{
 		//TODO may use pages for the results
 		$query = "SELECT * FROM `users` ;";
 		$res = $db->query($query);
-		?> <table >
+		?> <table>
 		<tr>
 			<th>ID</th>
 			<th>Username</th>

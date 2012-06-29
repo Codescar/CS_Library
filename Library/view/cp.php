@@ -8,7 +8,7 @@
 	<?php 
 	} else {
 	if(isset($_GET['more']) && $_GET['more'] == "lended"){ ?>
-	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Δανεισμένα Βιβλία</div>
+	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Βιβλία που έχω τώρα</div>
 	<?php }elseif(isset($_GET['more']) && $_GET['more'] == "history"){ ?>
 	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό δανεισμού</div>
 	<?php }else{ ?>

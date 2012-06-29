@@ -65,8 +65,15 @@
 	color: #000;	
 }
 .list-button, .book-button, .form-button{
-	padding: 5px 5px;
+	background-color: #E4E4E1;
+	box-shadow: 3px 3px 6px black;
+	padding: 10px 10px;
+	position: relative;
 	text-align: center;
+	font-weight: bold;
+	border-radius: 5px;
+	-webkit-transition: all 0.1s;
+	margin: 0 0 20px 0;
 }
 .book-button{
 	display: inline-block;

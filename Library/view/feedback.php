@@ -10,7 +10,8 @@
 	    echo "<span class=\"success\">Ευχαριστούμε για το μύνημά σας!</span>";
 	    $message = "Sent from Feedback\nSub: ".$_POST['type']."\n".$_POST['text']."\nEmail: ".$_POST['email']."\n";
     	$message = wordwrap($message, 170);
-    	mail('kostislion@gmail.com', 'Feedback', $message);
+    	$admin_email = option::load('admin_email');
+    	mail($admin_email, 'Feedback', $message);
 	}
 	?>
 	<form action="" method="post" id="feedback-form">

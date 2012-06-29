@@ -47,7 +47,7 @@ class announcements{
 			<div class="announce">
 				<div class="announce-head"><?php echo $row['title']; ?></div>
 				<div class="announce-content"><?php echo $row['body']; ?></div>
-				<p class="announce-footer">Δημιουργήηκε από το χρήστη <?php echo (strlen($row['author']) >= 1) ? user::get_name($row['author']) : "Ανώνυμο"; ?> την <?php echo (strlen($row['date']) >= 1) ? date('d-m-Y στις H:i', strtotime($row['date'])) : "";?>.</p>
+				<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($row['author']) >= 1) ? user::get_name($row['author']) : "Ανώνυμο"; ?> την <?php echo (strlen($row['date']) >= 1) ? date('d-m-Y στις H:i', strtotime($row['date'])) : "";?>.</p>
 			</div><br />
 			<?php 
 		}
