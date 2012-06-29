@@ -24,7 +24,7 @@
 	}
 	if(mysql_num_rows($results) == 0)
 		die("Λάθος αίτημα");
-		
+	$lended  = FALSE;
 	$results = mysql_fetch_array($results);
 	
 	if(isset($_GET['lend']) && $logged && !$requested && !$have){
@@ -98,8 +98,10 @@
 			<?php }
 			elseif($logged && $have){
 				if($logged && (($taken = in_there_pos($lend, $id)) != -1)) { ?>
-					<div class="error" style="margin: 10px 0 0 0;">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
-					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?></div><?php
+					<div class="error" >
+					Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και <br />θα πρέπει να το επιστρέψεις μέχρι την 
+					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?>
+					</div><?php
 				}
 			} else { }
 			/*
@@ -116,4 +118,3 @@
 		});
 	</script>
 </div>
-<?php $db->close(); ?>

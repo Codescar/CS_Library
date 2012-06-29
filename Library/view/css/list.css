@@ -209,11 +209,15 @@
 #index-content ol{
 	list-style-type: upper-roman;
 }
+#buttons{
+	padding: 0 10px;	
+}
 .info-button{
 	border: 1px dashed yellow; 
 	border-radius: 4px;
 	padding: 5px 2px;
 	display: inline-block;
+	box-shadow: 2px 2px 2px black;
 }
 .info-button img{
 	padding: 0px 6px 0 0 ;
