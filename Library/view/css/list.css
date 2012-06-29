@@ -150,6 +150,7 @@
 }
 .book-colored{
 	color: #798800;
+	font-size: 18px;
 }
 .book-button{
 }
@@ -159,7 +160,9 @@
 .book-left-info div{
 	padding-top: 6px;
 }
-
+.book-description{
+	margin: 0 0 20px 0;
+}
 .info-accordion .head{	
 	cursor: pointer;
 	margin: 20px auto 10px auto;
@@ -234,7 +237,7 @@
 	border: 1px solid rgb(176, 206, 148);
 	color: rgb(62, 73, 52);
 	line-height: 150%;
-	padding: 10px 10px 10px 30px;
+	padding: 10px 10px 10px 40px;
 }
 .message .error, .error { 
 	background-color: rgb(243, 221, 221);

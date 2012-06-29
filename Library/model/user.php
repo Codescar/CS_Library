@@ -159,16 +159,46 @@ class User{
 
 	public function show_info($user_id = -1){
         global $db;
-        if($user_id == -1)
-        	$user_id = $this->id;
+		if($user_id == -1)
+			$user_id = $this->id;
 		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
-        $result = $db->query($query);
-        $row = mysql_fetch_assoc($result);
-        $query = "SELECT COUNT(*) FROM `{$db->table['lend']}` WHERE `user_id` = '$user_id'";
-        $result = $db->query($query);
-        $num = mysql_fetch_array($result);
-        $row['books_lended'] = $num[0];
-        return $row;
+		$result = $db->query($query);
+		$row = mysql_fetch_assoc($result);
+		$query = "SELECT COUNT(*) FROM `{$db->table['lend']}` WHERE `user_id` = '$user_id'";
+		$result = $db->query($query);
+		$num = mysql_fetch_array($result);
+		$row['books_lended'] = $num[0]; 
+		?>
+        <div class="block" id="user-left">
+			<img src="view/images/user-icon.png" alt="User Images" /><br />
+			<a href="#">Αλλάξτε την φωτογραφία</a><br />
+			<br /><span class="bold">Όνομα Χρήστη:</span> <?php echo $row['username']; ?>
+			<br /><span class="bold">Τύπος Χρήστη:</span> <?php echo $row['usertype']; ?>
+			<br /><span class="bold">Δανεισμένα βιβλία:</span> <?php echo $row['books_lended']; ?>
+		</div>
+		<div class="block" id="user-info">
+			<form action="" method="post" id="change-info">
+				<label for="name">Όνομα: </label><input type="text" id="name" name="name" value="<?php echo $row['name']; ?>" /><br />
+				<label for="surname">Επίθετο: </label><input type="text" id="surname" name="surname" value="<?php echo $row['surname']; ?>" /><br />
+				<label for="email">E-mail: </label><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" /><br />
+				<label for="born">Γεννήθηκε: </label><input type="date" id="born" name="born" value="<?php echo $row['born']; ?>" /><br />
+				<label for="phone">Τηλέφωνο: </label><input type="tel" id="phone" name="phone" value="<?php echo $row['phone']; ?>" /><br />
+				<label for="n_pass">Νέος κωδικός: </label><input type="password" id="n_pass" name="n_pass" /><br />
+				<label for="r_n_pass">Ξανά νέος κωδικός: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
+				<label for="password">Τωρινός κωδικός: </label><input type="password" id="password" name="password" />
+				<input type="submit" value="Ανανέωση" style="position: absolute; right: 200px;" />
+				<p>* Για να αλλάξετε κάποια από τα στοιχεία σας θα πρέπει να συμπληρώσετε απαραιτήτως και τον Τωρινό Κωδικό σας!</p>
+				<input type="hidden" name="hidden" value="codescar" />   
+				<?php //if($user_id == $this->id) { ; }?>
+			</form>
+		</div>
+		<div class="block" id="user-right">
+			<div class="box link"><a href="index.php?show=cp&more=lended">Δανεισμένα βιβλία</a></div><br />
+			<div class="box link"><a href="index.php?show=cp&more=history">Ιστορικό δανεισμού</a></div><br />
+			<div class="box link">Λίστα αγαπημένων</div><br />
+			<div class="box link">Έκδοση κάρτας αναγνώστη</div><br />
+		</div>
+		<?php 
 	}
 	
 	public function update($user_id = -1){

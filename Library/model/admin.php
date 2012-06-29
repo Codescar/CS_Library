@@ -261,9 +261,9 @@ class Admin{
 	
 	function show_user($id){
 		global $user;
-		?> <p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p><br />
-		<p >Click <a href="?show=admin&more=user_history&id=<?php echo $id; ?>">here</a> to see the User's History</p>
-		<?php $user->show_info(mysql_real_escape_string($id));	
+		?> <p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p> <?php
+		$user->show_info(mysql_real_escape_string($id));
+		//TODO add some options like ban / delete / and so on
 	}
 	
 	function user_history($id){
