@@ -4,7 +4,7 @@
 	define('VIEW_SHOW', true);
 	
 ?>
-<div class="content" style="width: 860px;">
+<div class="content">
 	<?php 
 	if(isset($_POST['hidden']) && $_POST['hidden'] == "1"){
 	    echo "<span class=\"success\">Ευχαριστούμε για το μύνημά σας!</span>";

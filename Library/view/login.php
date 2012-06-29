@@ -95,4 +95,3 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 }?>
 <br />
 </div>
-<?php $db->close();	?>

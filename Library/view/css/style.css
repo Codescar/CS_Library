@@ -585,3 +585,38 @@ table{
 	display: inline-block;
     width: 150px;
 }
+.inl-block{
+	display: inline-block;
+}
+.panel-blocks{
+    width: 100%;
+    margin: 50px auto 0 auto;
+    text-align: center;
+}
+.panel-images{
+	width: 324px;
+    height: 100px;
+    padding: 20px 0;
+}
+.content .panel-blocks:first-child{
+    margin-top: 0px;
+}
+a.panel-images{
+    text-decoration: none;
+    color: black;
+}
+a.panel-images:hover{
+    height: 98px;
+    width: 322px;
+    border: 1px dashed black;
+}
+.panel-img{
+    width: 100px;
+    height: 80px;
+}
+.fl-left{
+    float: left;
+}
+.fl-right{
+    float: right;
+}

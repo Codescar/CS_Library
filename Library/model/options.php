@@ -27,5 +27,12 @@ class option{
 					SET `Name` = '$name' , `Value` = '$val' ";
 		$db->query($query);
 	}
+	
+	public static function delete($name){
+		global $db;
+		$query = "DELETE FROM `{$db->table['options']}`
+					WHERE `Name` = '$name' ";
+		$db->query($query);
+	}
 };
 ?>

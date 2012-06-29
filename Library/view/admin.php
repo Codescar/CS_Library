@@ -7,40 +7,31 @@
 		<p class="error">Δεν είστε διαχειριστής.</p>	
 	<?php 
 	}else{
-		if(isset($_GET['more'])){
-        if($_GET['more'] == "history"){?>
+		if(!isset($_GET['more'])){ ?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</a></div>
+        <?php }elseif($_GET['more'] == "history"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό</div>
-		<?php }elseif($_GET['more'] == "pendings"){?>
+		<?php }elseif($_GET['more'] == "pendings"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σε αναμονή</div>
-		<?php }elseif($_GET['more'] == "announcements"){?>
+		<?php }elseif($_GET['more'] == "announcements"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ανακοινώσεις</div>
-		<?php }elseif($_GET['more'] == "users"){?>
+		<?php }elseif($_GET['more'] == "users"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Χρήστες</div>
-		<?php }elseif($_GET['more'] == "statistics"){?>
+		<?php }elseif($_GET['more'] == "statistics"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Στατιστικά</div>
-        <?php }elseif($_GET['more'] == "new_user"){?>
+        <?php }elseif($_GET['more'] == "new_user"){ ?>
         	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Δημιουργία Χρήστη</div>
-    	<?php }elseif($_GET['more'] == "options"){?>
-    	        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Επιλογές</div>
-        <?php }else{?>
+    	<?php }elseif($_GET['more'] == "options"){ ?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Επιλογές</div>
+        <?php }else{ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
-    <?php }} ?>
+    <?php } ?>
 <div class="content">
-	<div id="admin-menu">
-		<ul>
-			<li><a href="?show=admin&more=pendings">Pendings</a></li>
-			<li><a href="?show=admin&more=announcements">Announcements</a></li>
-			<li><a href="?show=admin&more=pages">Pages</a></li>
-			<li><a href="?show=admin&more=users">Show Users</a></li>
-			<li><a href="?show=admin&more=statistics">Statistics</a></li>
-			<li><a href="?show=admin&more=history">History</a></li>
-			<li><a href="?show=admin&more=new_user">Create User</a></li>
-			<li><a href="?show=admin&more=options">Options</a></li>
-		</ul>
-	</div>
-	<?php 
+	<?php
 	global $db;
-	if(!isset($_GET['more']) || $_GET['more'] == "pendings"){
+	if(!isset($_GET['more'])){
+		$user->admin->show_index();
+	}elseif($_GET['more'] == "pendings"){
 		$user->admin->show_pendings();
 	}elseif($_GET['more'] == "announcements"){
 		$user->admin->manage_announce();
