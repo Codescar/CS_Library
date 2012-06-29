@@ -2,8 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	if(!$user->is_logged_in() || !$user->is_admin()){
-	?>
+	if(!$user->is_logged_in() || !$user->is_admin()){ ?>
 		<p class="error">Δεν είστε διαχειριστής.</p>	
 	<?php 
 	}else{
@@ -13,6 +12,8 @@
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό</div>
 		<?php }elseif($_GET['more'] == "pendings"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σε αναμονή</div>
+        <?php }elseif($_GET['more'] == "pages"){ ?>
+        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σελίδες</div>
 		<?php }elseif($_GET['more'] == "announcements"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ανακοινώσεις</div>
 		<?php }elseif($_GET['more'] == "users"){ ?>

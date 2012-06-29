@@ -10,6 +10,8 @@ function list_books($books){
 			$lend[$i][0] = $tmp['book_id'];
 			$lend[$i][1] = $tmp['taken'];
 		}
+		if($tmp == false)
+		    $lend = false;
 	}
 	?>
 	<div class="list">
@@ -27,7 +29,7 @@ function list_books($books){
 				<div class="list-right">
 					<div class="list-avail">
 						<?php if($row['availability'] == 0) { 
-								if($logged && in_there_pos($lend, $row['id']) != -1) { ?>
+								if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
 									<div class="info-button box" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
 									<div class="box list-button" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
 								<?php } else {?>

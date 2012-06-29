@@ -6,10 +6,10 @@
 	$q = "SELECT * FROM `{$db->table['booklist']}`";
 	
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
-		$q .= " LEFT JOIN `{$db->table['book_has_category']}` ON {$db->table['booklist']}.id = {$db->table['book_has_category']}.book_id" 
-		   .  "WHERE {$db->table['book_has_category']}.category_id = '".mysql_real_escape_string($_GET['id'])."' ";
+		$q .= " LEFT JOIN `{$db->table['book_has_category']}` ON {$db->table['booklist']}.id = {$db->table['book_has_category']}.book_id " 
+		   .  "WHERE {$db->table['book_has_category']}.category_id = ".mysql_real_escape_string($_GET['id'])." ";
 	
-	$q .= " GROUP BY id ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
+	$q .= " ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
 	$books = $db->get_books($q);
 	
 	$query = "	SELECT `category_name`,  {$db->table['categories']}.id
