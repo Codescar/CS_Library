@@ -581,12 +581,8 @@ table{
 	display: inline-block;
 	margin: 0 0 0 20px;
 }
-.inl-blck{
-	display: inline-block;
+.opt-block{
     width: 150px;
-}
-.inl-block{
-	display: inline-block;
 }
 .panel-blocks{
     width: 100%;

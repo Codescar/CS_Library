@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="book-right-info">
-			<div id="buttons">
+			<div id="buttons" class="block">
 				<div class="box book-button book-add-to-wish">
 				    <?php if(!$logged){ ?>
 	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
@@ -79,7 +79,7 @@
 	    			<div class="info-button box button"><img src="view/images/information.png" />Το Έχεις!</div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
-			<div class="book-avail">
+			<div class="book-avail block">
 				<span class="book-colored">Διαθεσιμότητα:</span>
 				<?php echo (!$have && $results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
 			</div>

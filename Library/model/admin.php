@@ -21,40 +21,40 @@ class Admin{
 	function show_index(){
 	?>
 		<div class="panel-blocks">
-			<a class="inl-block panel-images" href="index.php?show=admin&more=announcements" >
-				<img class="inl-block panel-img" src="view/images/announcements.png" />
+			<a class="block panel-images" href="index.php?show=admin&more=announcements" >
+				<img class="block panel-img" src="view/images/announcements.png" />
 				<h3>Announcements</h3>
 			</a>
-			<a class="inl-block panel-images" href="index.php?show=admin&more=history" >
-				<img class="inl-block panel-img" src="view/images/log.png" />
+			<a class="block panel-images" href="index.php?show=admin&more=history" >
+				<img class="block panel-img" src="view/images/log.png" />
 				<h3>History</h3>
 			</a>
-			<a class="inl-block panel-images" href="index.php?show=admin&more=users" >
-				<img class="inl-block panel-img" src="view/images/users.png" />
+			<a class="block panel-images" href="index.php?show=admin&more=users" >
+				<img class="block panel-img" src="view/images/users.png" />
 				<h3>Users</h3>
 			</a>
 		</div>
 		<div class="panel-blocks">
-            <a class="inl-block panel-images" href="index.php?show=admin&more=pendings" >
-				<img class="inl-block panel-img" src="view/images/attention.png" />
+            <a class="block panel-images" href="index.php?show=admin&more=pendings" >
+				<img class="block panel-img" src="view/images/attention.png" />
 				<h3>Pendings</h3>
 			</a>
-			<a class="inl-block panel-images" href="index.php?show=admin&more=pages" >
-				<img class="inl-block panel-img" src="view/images/pages.png" />
+			<a class="block panel-images" href="index.php?show=admin&more=pages" >
+				<img class="block panel-img" src="view/images/pages.png" />
 				<h3>Pages</h3>
 			</a>
-			<a class="inl-block panel-images" href="index.php?show=admin&more=new_user" >
-				<img class="inl-block panel-img" src="view/images/user.png" />
+			<a class="block panel-images" href="index.php?show=admin&more=new_user" >
+				<img class="block panel-img" src="view/images/user.png" />
 				<h3>Create User</h3>
 			</a>
         </div>
 		<div class="panel-blocks">
-            <a class="inl-block panel-images" href="index.php?show=admin&more=statistics" >
-				<img class="inl-block panel-img" src="view/images/statistics.png" />
+            <a class="block panel-images" href="index.php?show=admin&more=statistics" >
+				<img class="block panel-img" src="view/images/statistics.png" />
 				<h3>Statistics</h3>
 			</a>
-            <a class="inl-block panel-images" href="index.php?show=admin&more=options" >
-				<img class="inl-block panel-img" src="view/images/option.png" />
+            <a class="block panel-images" href="index.php?show=admin&more=options" >
+				<img class="block panel-img" src="view/images/option.png" />
 				<h3>Options</h3>
 			</a>
         </div>
@@ -96,17 +96,17 @@ class Admin{
             option::save($_POST['name'], $_POST['value']);
 		$res = option::list_all();
 		?><h3>Options Page</h3>
-		<div class="inl-blck">Name</div>
-		<div class="inl-blck">Value</div>
+		<div class="block opt-block">Name</div>
+		<div class="block opt-block">Value</div>
 		<br />
 		<?php
 		while($option = mysql_fetch_array($res)){
 			$edit_link = "index.php?show=admin&more=options&name=".$option['Name']."&value=".$option['Value'];
 			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option['Name']; ?>
-			<div class="inl-blck"><?php echo $option['Name']; ?></div>
-			<div class="inl-blck"><?php echo $option['Value']; ?></div>
-			<div class="inl-blck fl-right"><a href="<?php echo $delete_link; ?>">Delete</a></div>
-			<div class="inl-blck fl-right"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
+			<div class="block opt-block"><?php echo $option['Name']; ?></div>
+			<div class="block opt-block"><?php echo $option['Value']; ?></div>
+			<div class="block opt-block fl-right"><a href="<?php echo $delete_link; ?>">Delete</a></div>
+			<div class="block opt-block fl-right"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
 			<br /> <?php
 		}
         $edit = false;
@@ -115,15 +115,15 @@ class Admin{
 		?>
         <form action="" method="post">
             <h4>Πρόσθεσε νέο option</h4>
-            <div class="inl-blck"><label for="name">Name: </label>
+            <div class="block opt-block"><label for="name">Name: </label>
             	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
             </div>
-            <div class="inl-blck"></div>
-            <div class="inl-blck"><label for="value">Value: </label>
+            <div class="block opt-block"></div>
+            <div class="block opt-block"><label for="value">Value: </label>
             	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
             </div>
-            <div class="inl-blck"></div>
-            <div class="inl-blck"><input type="submit" value="<?php echo ($edit) ? "Save" : "Add" ;?>" /></div>
+            <div class="block opt-block"></div>
+            <div class="block opt-block"><input type="submit" value="<?php echo ($edit) ? "Save" : "Add" ;?>" /></div>
             <input type="hidden" name="hidden" value="codescar" />
         </form>
         <?php
