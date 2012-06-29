@@ -169,6 +169,7 @@ body {
 	background-color: white;
 	box-shadow: 0px 0px 6px black;
 	width: 98%;
+	position: relative;
 }
 
 #direction{
@@ -266,6 +267,7 @@ footer{
 }
 table{
 	width: 98%;
+	border-collapse: collapse;
 }
 .title{
 	width: 350px;

@@ -131,7 +131,7 @@ class User{
 			else
 				echo "\t\t\t\t<tr>";
 			echo "<td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
-			echo ($mode) ? "<td>{$row['name']} ({$row['user_id']})</td>" : "";
+			echo ($mode) ? "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>" : "";
 			echo "<td class=\"action\">";
             switch($row['action']){
 		    case 1:

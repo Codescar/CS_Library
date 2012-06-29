@@ -158,8 +158,6 @@ class Admin{
 				<th>User</th>
 				<th>Action</th>
 				<th>Date</th>
-				<th>Phone</th>
-				<th>Email</th>
 			</tr>
 			<?php 
 				$l = 1;
@@ -167,15 +165,13 @@ class Admin{
 					?> <tr>
 						<td><?php echo $l++; ?></td>
 						<td><?php echo $len->title; ?></td>
-						<td><?php echo $len->username; ?>(<?php echo $len->user_id; ?>)</td>
+						<td><a href="?show=admin&more=user&id=<?php echo $len->user_id; ?>" ><?php echo $len->username; ?></a></td>
 						<?php if(book_avail($len->book_id)){ ?>
 							<td><a href="?show=admin&more=lend&lend=<?php echo $len->book_id; ?>&user=<?php echo $len->user_id; ?>" class="request-book">Request</a></td>
 						<?php }else{ ?>
 							<td>Request</td>
 						<?php } ?>
 						<td><?php echo $len->date; ?></td>
-						<td><?php echo $len->phone; ?></td>
-						<td><a href="mailto:<?php echo $ret->email; ?>"><?php echo $len->email; ?></a></td>
 					</tr> <?php 
 				}
 			?> </table>
@@ -189,8 +185,6 @@ class Admin{
 				<th>User</th>
 				<th>Action</th>
 				<th>Date</th>
-				<th>Phone</th>
-				<th>Email</th>
 			</tr>
 			<?php 
 				$r = 1;
@@ -198,11 +192,9 @@ class Admin{
 					?> <tr>
 						<td><?php echo $r++; ?></td>
 						<td><?php echo $ret->title; ?></td>
-						<td><?php echo $ret->username; ?>(<?php echo $ret->user_id; ?>)</td>
+						<td><a href="?show=admin&more=user&id=<?php echo $ret->user_id; ?>" ><?php echo $ret->username; ?></a></td>
 						<td><a href="?show=admin&more=return&return=<?php echo $ret->book_id; ?>&user=<?php echo $ret->user_id; ?>" class="return-book">Have it now</a></td>
 						<td><?php echo $ret->taken; ?></td>
-						<td><?php echo $ret->phone; ?></td>
-						<td><a href="mailto:<?php echo $ret->email; ?>"><?php echo $ret->email; ?></a></td>
 					</tr> <?php 
 				}
 			?> </table>
@@ -254,14 +246,18 @@ class Admin{
 				<td><?php echo $row->id; ?></td>
 				<td><a href="?show=admin&more=user&id=<?php echo $row->id; ?>"><?php echo $row->username; ?></a></td>
 				<td><?php echo $row->phone; ?></td>
-				<td><?php echo $row->email; ?></td>
+				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
 			</tr> <?php 
 		} ?> </table> <?php
 	}
 	
 	function show_user($id){
 		global $user;
-		?> <p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p> <?php
+		//TODO add a back link
+		?> 
+			<!-- <a href="" >Επιστροφή</a>  -->
+			<p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p> 
+		<?php
 		$user->show_info(mysql_real_escape_string($id));
 		//TODO add some options like ban / delete / and so on
 	}

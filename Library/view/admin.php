@@ -16,6 +16,8 @@
         	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σελίδες</div>
 		<?php }elseif($_GET['more'] == "announcements"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ανακοινώσεις</div>
+		<?php }elseif($_GET['more'] == "user" && isset($_GET['id'])){ ?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin&more=users" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;<?php echo user::get_name($_GET['id']); ?></div>
 		<?php }elseif($_GET['more'] == "users"){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Χρήστες</div>
 		<?php }elseif($_GET['more'] == "statistics"){ ?>
