@@ -170,6 +170,7 @@ body {
 	box-shadow: 0px 0px 6px black;
 	width: 98%;
 	position: relative;
+	min-height: 300px;
 }
 
 #direction{
@@ -503,7 +504,7 @@ table{
 	padding: 10px 10px 10px 0;
 }
 .search_head{
-	width: 200px;
+	width: 300px;
 	font-size: 18px;
 	text-align: center;
 	vertical-align: top;
@@ -599,7 +600,7 @@ table{
 .content .panel-blocks:first-child{
     margin-top: 0px;
 }
-a.panel-images{
+a.panel-links{
     text-decoration: none;
     color: black;
 }

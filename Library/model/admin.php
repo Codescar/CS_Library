@@ -21,42 +21,42 @@ class Admin{
 	function show_index(){
 	?>
 		<div class="panel-blocks">
-			<a class="block panel-images" href="index.php?show=admin&more=announcements" >
+			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=announcements" >
 				<img class="block panel-img" src="view/images/announcements.png" />
-				<h3>Announcements</h3>
-			</a>
-			<a class="block panel-images" href="index.php?show=admin&more=history" >
+				Announcements
+			</a></h3>
+			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=history" >
 				<img class="block panel-img" src="view/images/log.png" />
-				<h3>History</h3>
-			</a>
-			<a class="block panel-images" href="index.php?show=admin&more=users" >
+				History
+			</a></h3>
+			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=users" >
 				<img class="block panel-img" src="view/images/users.png" />
-				<h3>Users</h3>
-			</a>
+				Users
+			</a></h3>
 		</div>
 		<div class="panel-blocks">
-            <a class="block panel-images" href="index.php?show=admin&more=pendings" >
+            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pendings" >
 				<img class="block panel-img" src="view/images/attention.png" />
-				<h3>Pendings</h3>
-			</a>
-			<a class="block panel-images" href="index.php?show=admin&more=pages" >
+				Pendings
+			</a></h3>
+			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pages" >
 				<img class="block panel-img" src="view/images/pages.png" />
-				<h3>Pages</h3>
-			</a>
-			<a class="block panel-images" href="index.php?show=admin&more=new_user" >
+				Pages
+			</a></h3>
+			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=new_user" >
 				<img class="block panel-img" src="view/images/user.png" />
-				<h3>Create User</h3>
-			</a>
+				Create User
+			</a></h3>
         </div>
 		<div class="panel-blocks">
-            <a class="block panel-images" href="index.php?show=admin&more=statistics" >
+            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=statistics" >
 				<img class="block panel-img" src="view/images/statistics.png" />
-				<h3>Statistics</h3>
-			</a>
-            <a class="block panel-images" href="index.php?show=admin&more=options" >
+				Statistics
+			</a></h3>
+            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=options" >
 				<img class="block panel-img" src="view/images/option.png" />
-				<h3>Options</h3>
-			</a>
+				Options
+			</a></h3>
         </div>
 	<?php
 	}
@@ -84,8 +84,26 @@ class Admin{
 	}
 	
 	function show_history(){
-		global $user;
-		$user->show_history(1);
+		global $db;
+		$query = "	SELECT * FROM `{$db->table['log_lend']}`
+    				CROSS JOIN `{$db->table['users']}`
+    				ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
+    				ORDER BY `{$db->table['log_lend']}`.taken";
+		$result = $db->query($query);
+		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
+		$flag = 0;
+		while($row = mysql_fetch_array($result)){
+		    if($flag++ % 2 == 0)
+		        echo "\t\t\t\t<tr class=\"alt\">";
+		    else
+		        echo "\t\t\t\t<tr>";
+		    echo "<td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
+		    echo "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>";
+		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td></tr><tr></tr>\n";
+		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr><tr></tr>\n";
+		}
+        echo "</table><br />"; 
+        return;
 		//TODO Have to group them by book and disable lending for already dended books
 	}
 	
@@ -132,25 +150,25 @@ class Admin{
 	function show_pendings(){
 		global $user, $db;
 		
-		$lend_query 	= "	SELECT * FROM `lend` 
-							CROSS JOIN `users` 
-							ON lend.user_id = users.id
-							CROSS JOIN `booklist` 
-							ON lend.book_id = booklist.id; ";
+		$lend_query 	= "	SELECT * FROM `{$db->table['lend']}`
+							CROSS JOIN `{$db->table['users']}`
+							ON `{$db->table['lend']}`.user_id = `{$db->table['users']}`.id
+							CROSS JOIN `{$db->table['booklist']}`
+							ON `{$db->table['lend']}`.book_id = `{$db->table['booklist']}`.id; ";
 		
-		$request_query 	= "	SELECT * FROM `requests` 
-							CROSS JOIN `users` 
-							ON requests.user_id = users.id 
-							CROSS JOIN `booklist` 
-							ON requests.book_id = booklist.id
-							GROUP BY book_id
+		$request_query 	= "	SELECT * FROM `{$db->table['requests']}` 
+							CROSS JOIN `{$db->table['users']}`
+							ON `{$db->table['requests']}`.user_id = `{$db->table['booklist']}`.id 
+							CROSS JOIN `{$db->table['booklist']}` 
+							ON `{$db->table['requests']}`.book_id = `{$db->table['booklist']}`.id
+							GROUP BY `{$db->table['requests']}`.book_id
 							ORDER BY date ASC; ";
 		
 		$lend_res 		= $db->query($lend_query);
 		$requests_res 	= $db->query($request_query);
 		?>
 		<div id="lends">
-            <span class="center"><h3>Lends</h3></span>
+            <h3 class="center">Lends</h3>
 			<table>
 			<tr>
 				<th>Α/Α</th>
@@ -177,7 +195,7 @@ class Admin{
 			?> </table>
 		</div>
 		<div id="returns">
-		<span class="center"><h3>Returns</h3></span>
+		<h3 class="center">Returns</h3>
 			<table>
 			<tr>
 				<th>Α/Α</th>
@@ -254,10 +272,7 @@ class Admin{
 	function show_user($id){
 		global $user;
 		//TODO add a back link
-		?> 
-			<!-- <a href="" >Επιστροφή</a>  -->
-			<p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p> 
-		<?php
+		?> <p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p> <?php
 		$user->show_info(mysql_real_escape_string($id));
 		//TODO add some options like ban / delete / and so on
 	}
@@ -265,6 +280,18 @@ class Admin{
 	function user_history($id){
 		global $user;
 		$user->show_history(0, mysql_real_escape_string($id));
+	}
+	
+	function return_book(){
+	    if(!isset($_GET['return']) && !isset($_GET['user'])){
+	        ?> <p class="error">Error</p> <?php
+	        return;
+	    }else{
+	        $u_name = user::get_name($_GET['user']);
+	        $b_name = get_book_name($_GET['return']);
+	        ?><p class="success center">Ο χρήστης<?php echo $u_name; ?> επέστρεψε το βιβλίο <?php echo $b_name; ?></p><?php
+	        $db->return_book(mysql_real_escape_string($_GET['return']));
+	    }
 	}
 	
 	function manage_announce(){
@@ -335,5 +362,6 @@ class Admin{
 			?> <p class="success">Page Updated</p> <?php 
 		}
 	}
+
 };
 ?>

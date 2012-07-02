@@ -35,10 +35,9 @@
 					<div class="block" id="header-date">
 					    <?php echo date_gr(time(), "Long") ?>
 					</div>
-					<div class="block" id="social"></div>
 				</div>
 				<div class="block" id="header-timeline">
-					Δευτέρα ως Παρασκευή 9:00-20:00<div id="header-phone">210 33.82.601</div>
+					<?php pages::get_body(3); ?>
 				</div>
 			</div>
 			<div class="logo">

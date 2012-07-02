@@ -7,28 +7,34 @@
 	<?php 
 	}else{
 		if(!isset($_GET['more'])){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</a></div>
-        <?php }elseif($_GET['more'] == "history"){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ιστορικό</div>
-		<?php }elseif($_GET['more'] == "pendings"){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σε αναμονή</div>
-        <?php }elseif($_GET['more'] == "pages"){ ?>
-        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Σελίδες</div>
-		<?php }elseif($_GET['more'] == "announcements"){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Ανακοινώσεις</div>
-		<?php }elseif($_GET['more'] == "user" && isset($_GET['id'])){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin&more=users" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;<?php echo user::get_name($_GET['id']); ?></div>
-		<?php }elseif($_GET['more'] == "users"){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Χρήστες</div>
-		<?php }elseif($_GET['more'] == "statistics"){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Στατιστικά</div>
-        <?php }elseif($_GET['more'] == "new_user"){ ?>
-        	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Δημιουργία Χρήστη</div>
-    	<?php }elseif($_GET['more'] == "options"){ ?>
-			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;Επιλογές</div>
-        <?php }else{ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
-    <?php } ?>
+        <?php }else{ ?>
+			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=admin">Διαχειριστικό Πάνελ</a>&nbsp;&gt;&gt;&nbsp;<?php 
+			    if($_GET['more'] == "history"){
+				    $msg = "Ιστορικό</div>";
+		        }elseif($_GET['more'] == "pendings"){
+				    $msg = "Σε αναμονή</div>"; 
+                }elseif($_GET['more'] == "pages"){
+        	        $msg = "Σελίδες</div>";
+		        }elseif($_GET['more'] == "announcements"){
+			        $msg = "Ανακοινώσεις</div>";
+		        }elseif($_GET['more'] == "users"){
+			        $msg = "Χρήστες</div>";
+		        }elseif($_GET['more'] == "statistics"){
+                    $msg = "Στατιστικά</div>";
+                }elseif($_GET['more'] == "new_user"){
+        	        $msg = "Δημιουργία Χρήστη</div>";
+    	        }elseif($_GET['more'] == "options"){
+			        $msg = "Επιλογές</div>";
+			    }elseif($_GET['more'] == "return"){
+			            $msg = "Επιστροφή Βιβλίου</div>";
+			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
+			        $msg = "<a href=\"index.php?show=admin&more=users\" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;".user::get_name($_GET['id'])."</div>";
+                }else{ ?>
+					</div><?php 
+                }
+                if(isset($msg)) echo $msg; 
+            }?>
 <div class="content">
 	<?php
 	global $db;
@@ -63,12 +69,7 @@
 		}
 	}
 	elseif($_GET['more'] == "return"){
-	    if(!isset($_GET['return']) && !isset($_GET['user']))
-	        echo "<p class=\"error\">Error</p>";
-	    else{
-	        echo "<p class=\"success\">Done, book {$_GET['return']} returned from user with id {$_GET['user']}.</p>";
-	        $db->return_book(mysql_real_escape_string($_GET['return']));
-	    }
+	    $user->admin->return_book();
 	}
 	?>
 	<br />

@@ -106,16 +106,20 @@ class User{
 	    if($user_id == -1)
 	    	$user_id = $this->id;
 	    if($mode == 1) 
-	    	$query = "	SELECT * FROM `{$db->table['history']}`
-	    				CROSS JOIN `{$db->table['users']}` 
-	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
-						ORDER BY `date`";
-	    elseif($mode == 2)
-	    	$query = "	SELECT * FROM `{$db->table['history']}`
-	    				CROSS JOIN `{$db->table['users']}` 
-	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
-						GROUP BY `book_id`, `action` 
-	    				ORDER BY `date`";
+// 	    	$query = "	SELECT * FROM `{$db->table['history']}`
+// 	    				CROSS JOIN `{$db->table['users']}` 
+// 	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
+// 						ORDER BY `date`";
+	        $query = "	SELECT * FROM `{$db->table['log_lend']}`
+	    				CROSS JOIN `{$db->table['users']}`
+	    				ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
+	    				ORDER BY `{$db->table['log_lend']}`.taken";
+// 	    elseif($mode == 2)
+// 	    	$query = "	SELECT * FROM `{$db->table['history']}`
+// 	    				CROSS JOIN `{$db->table['users']}` 
+// 	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
+// 						GROUP BY `book_id`, `action` 
+// 	    				ORDER BY `date`";
 	    else
 			$query = "	SELECT * FROM `{$db->table['history']}`
 						WHERE `user_id` = '$user_id'

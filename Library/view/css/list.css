@@ -74,6 +74,7 @@
 	border-radius: 5px;
 	-webkit-transition: all 0.1s;
 	margin: 0 0 20px 0;
+	border: none;
 }
 .book-button{
 	display: inline-block;

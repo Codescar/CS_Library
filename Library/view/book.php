@@ -6,6 +6,9 @@
 	if(!isset($_GET['id']))
 		die("Λάθος αίτημα");
 		
+	$lended  = FALSE;
+	$have = FALSE;
+	$requested = FALSE;
 	$id = mysql_real_escape_string($_GET['id']);
 	$results = $db->query("SELECT *, COUNT(category_id) AS numCategories 
 							FROM {$db->table['booklist']} 
@@ -24,9 +27,7 @@
 	}
 	if(mysql_num_rows($results) == 0)
 		die("Λάθος αίτημα");
-	$lended  = FALSE;
 	$results = mysql_fetch_array($results);
-	
 	if(isset($_GET['lend']) && $logged && !$requested && !$have){
 		lend_request($id);
 		$lended = TRUE;
@@ -85,7 +86,7 @@
 			</div>
 			<div class="book-description">
 			<?php if($results['description'] != NULL) { ?>
-				<br /><span class="book-colored">Περιγραφή: </span><span style="font-size: 17px;"><?php echo $results['description']."</span>"; 
+				<br /><span class="book-colored">Περιγραφή: </span><span style="font-size: 17px;"><?php echo $results['description']; ?></span> <?php
 			} else { ?> 
 				Χωρίς Περιγραφή.
 			<?php } ?>

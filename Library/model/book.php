@@ -175,7 +175,7 @@ function in_there_pos($where, $what){
 
 function get_category_name($id){
 	global $db;
-	$query = "SELECT category_name FROM {$db->table['categories']} 
+	$query = "SELECT {$db->table['categories']}.category_name FROM {$db->table['categories']} 
 				CROSS JOIN {$db->table['book_has_category']} 
 				ON {$db->table['categories']}.id = {$db->table['book_has_category']}.category_id
 				WHERE {$db->table['book_has_category']}.book_id = '".mysql_real_escape_string($id)."' 
@@ -193,4 +193,12 @@ function get_category_name($id){
 	return $ret;
 	
 }
+
+function get_book_name($id){
+    $query = "SELECT {$db->table['booklist']}.title FROM {$db->table['booklist']}
+    			WHERE {$db->table['booklist']}.id = '".mysql_real_escape_string($id)."'";
+    $res = $db->query($query);
+    $result = mysql_fetch_row($res);
+    return $result[0];
+} 
 ?>
