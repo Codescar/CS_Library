@@ -195,6 +195,7 @@ function get_category_name($id){
 }
 
 function get_book_name($id){
+    global $db;
     $query = "SELECT {$db->table['booklist']}.title FROM {$db->table['booklist']}
     			WHERE {$db->table['booklist']}.id = '".mysql_real_escape_string($id)."'";
     $res = $db->query($query);

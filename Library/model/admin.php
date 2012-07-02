@@ -22,39 +22,39 @@ class Admin{
 	?>
 		<div class="panel-blocks">
 			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=announcements" >
-				<img class="block panel-img" src="view/images/announcements.png" />
+				<img class="block panel-img" src="view/images/announcements.png" /><br />
 				Announcements
 			</a></h3>
 			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=history" >
-				<img class="block panel-img" src="view/images/log.png" />
+				<img class="block panel-img" src="view/images/log.png" /><br />
 				History
 			</a></h3>
 			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=users" >
-				<img class="block panel-img" src="view/images/users.png" />
+				<img class="block panel-img" src="view/images/users.png" /><br />
 				Users
 			</a></h3>
 		</div>
 		<div class="panel-blocks">
             <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pendings" >
-				<img class="block panel-img" src="view/images/attention.png" />
+				<img class="block panel-img" src="view/images/attention.png" /><br />
 				Pendings
 			</a></h3>
 			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pages" >
-				<img class="block panel-img" src="view/images/pages.png" />
+				<img class="block panel-img" src="view/images/pages.png" /><br />
 				Pages
 			</a></h3>
 			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=new_user" >
-				<img class="block panel-img" src="view/images/user.png" />
+				<img class="block panel-img" src="view/images/user.png" /><br />
 				Create User
 			</a></h3>
         </div>
 		<div class="panel-blocks">
             <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=statistics" >
-				<img class="block panel-img" src="view/images/statistics.png" />
+				<img class="block panel-img" src="view/images/statistics.png" /><br />
 				Statistics
 			</a></h3>
             <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=options" >
-				<img class="block panel-img" src="view/images/option.png" />
+				<img class="block panel-img" src="view/images/option.png" /><br />
 				Options
 			</a></h3>
         </div>
@@ -85,9 +85,12 @@ class Admin{
 	
 	function show_history(){
 		global $db;
-		$query = "	SELECT * FROM `{$db->table['log_lend']}`
-    				CROSS JOIN `{$db->table['users']}`
-    				ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
+		$query = "	SELECT title, username, taken, returned, book_id, user_id 
+					FROM `{$db->table['log_lend']}`
+    					CROSS JOIN `{$db->table['users']}`
+    						ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
+    					CROSS JOIN `{$db->table['booklist']}`
+    						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id
     				ORDER BY `{$db->table['log_lend']}`.taken";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
@@ -99,7 +102,7 @@ class Admin{
 		        echo "\t\t\t\t<tr>";
 		    echo "<td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
 		    echo "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>";
-		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td></tr><tr></tr>\n";
+		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td>";
 		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr><tr></tr>\n";
 		}
         echo "</table><br />"; 
@@ -158,7 +161,7 @@ class Admin{
 		
 		$request_query 	= "	SELECT * FROM `{$db->table['requests']}` 
 							CROSS JOIN `{$db->table['users']}`
-							ON `{$db->table['requests']}`.user_id = `{$db->table['booklist']}`.id 
+							ON `{$db->table['requests']}`.user_id = `{$db->table['users']}`.id 
 							CROSS JOIN `{$db->table['booklist']}` 
 							ON `{$db->table['requests']}`.book_id = `{$db->table['booklist']}`.id
 							GROUP BY `{$db->table['requests']}`.book_id
@@ -283,6 +286,7 @@ class Admin{
 	}
 	
 	function return_book(){
+	    global $db;
 	    if(!isset($_GET['return']) && !isset($_GET['user'])){
 	        ?> <p class="error">Error</p> <?php
 	        return;
