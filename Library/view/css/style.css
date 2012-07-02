@@ -604,7 +604,7 @@ a.panel-links{
     text-decoration: none;
     color: black;
 }
-a.panel-images:hover{
+h3.panel-images:hover{
     height: 98px;
     width: 322px;
     border: 1px dashed black;

@@ -264,13 +264,25 @@
 }
 #history a{
 	text-decoration: none;
-	colir: black;
-}
-#history .action{
-	width: 90px;
 }
 #history .date{
-	width: 100px;
+	font-family: Verdana;
+	font-size: 15px;
+}
+.date:hover{
+	color: red;
+}
+th{
+	font-size: 18px;
+}
+tr:nth-child(even) a{
+	color: orange;
+}
+tr:nth-child(odd) a{
+	color: brown;
+}
+tr:nth-child(even){
+	background-color: #eaf2d3;
 }
 #categories{
 	background-color: #e4e4e1;

@@ -3,17 +3,17 @@
 		die("Invalid request!");
 	define('VIEW_INDEX', true);
 	
+	/* Load the rest model files*/
+	load_model();	
+	/* Load the user's messagebox*/
+	$user->message = new message();
+	
 	/* Header File */
 	require_once('header.php');
 	/* navigation menu */
 	if(isset($_GET['show']) && $_GET['show'] == "help");else
 		include('nav.php');
 		
-	/* Load the rest model files*/
-	load_model();
-	
-	/* Load the user's messagebox*/
-	$user->message = new message();
 	
 	/* include the right page to show */
 	if(!isset($_GET['show'])) 
