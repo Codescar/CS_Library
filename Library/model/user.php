@@ -197,10 +197,9 @@ class User{
 			</form>
 		</div>
 		<div class="block" id="user-right">
-			<div class="box link"><a href="index.php?show=cp&more=lended">Δανεισμένα βιβλία</a></div><br />
-			<div class="box link"><a href="index.php?show=cp&more=history">Ιστορικό δανεισμού</a></div><br />
-			<div class="box link">Λίστα αγαπημένων</div><br />
-			<div class="box link">Έκδοση κάρτας αναγνώστη</div><br />
+			<a href="index.php?show=cp&more=lended"><button type="button" class="box link">Δανεισμένα βιβλία</button></a><br /><br />
+			<a href="index.php?show=cp&more=history"><button type="button" class="box link">Ιστορικό δανεισμού</button></a><br /><br />
+			<button type="button" class="box link">Λίστα αγαπημένων</button><br /><br />
 		</div>
 		<?php 
 	}

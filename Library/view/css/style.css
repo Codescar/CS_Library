@@ -465,12 +465,14 @@ table{
 .box.link{
     background-color: #E4E4E1;
     box-shadow: 3px 3px 6px black;
-    padding: 10px 0px;
+    padding: 10px 10px;
     position: relative;
     text-align: center;
     font-weight: bold;
     border-radius: 5px;
     -webkit-transition: all 0.1s;
+    width: 150px;
+    border: none;
 }
 .box:active{
     -webkit-box-shadow: 1px 1px 4px black;
@@ -605,7 +607,6 @@ a.panel-links{
     color: black;
 }
 h3.panel-images:hover{
-    height: 98px;
     width: 322px;
     border: 1px dashed black;
 }

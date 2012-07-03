@@ -96,16 +96,12 @@ class Admin{
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
 		$flag = 0;
 		while($row = mysql_fetch_array($result)){
-		    if($flag++ % 2 == 0)
-		        echo "\t\t\t\t<tr class=\"alt\">";
-		    else
-		        echo "\t\t\t\t<tr>";
-		    echo "<td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
+		    echo "<tr><td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
 		    echo "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>";
 		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td>";
-		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr><tr></tr>\n";
+		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr>\n";
 		}
-        echo "</table><br />"; 
+        echo "</table>"; 
         return;
 		//TODO Have to group them by book and disable lending for already dended books
 	}
