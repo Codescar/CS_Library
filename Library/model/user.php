@@ -179,12 +179,14 @@ class User{
 				<input type="file" name="profilePicture" />
 				<input type="hidden" name="hidden" value="1" />
 			</form>
-			//TODO use the script localys
+		<?php 
+		//TODO use the script localy 
+		?>
 			<script src="http://malsup.github.com/jquery.form.js"></script>
 			<script> 
 		        // wait for the DOM to be loaded 
 		        $(document).ready(function() { 
-		        	$('#uploadForm').change(function() { $('#uploadForm').submit(); });
+		        	$('#uploadForm profilePicture').change(function() { $('#uploadForm').submit(); });
 
 		        			
 		            // bind 'myForm' and provide a simple callback function 
