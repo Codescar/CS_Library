@@ -175,7 +175,22 @@ class User{
 		?>
         <div class="block" id="user-left">
 			<img src="view/images/user-icon.png" alt="User Images" /><br />
-			<a href="#">Αλλάξτε την φωτογραφία</a><br />
+			<form action="" id="uploadForm" >
+				<input type="file" name="profilePicture" />
+				<input type="hidden" name="hidden" value="1" />
+			</form>
+			<script src="http://malsup.github.com/jquery.form.js"></script>
+			<script> 
+		        // wait for the DOM to be loaded 
+		        $(document).ready(function() { 
+		            // bind 'myForm' and provide a simple callback function 
+		            $('#uploadForm').ajaxForm(function() { 
+		                alert("Thank you for your comment!"); 
+		                
+		            }); 
+		        }); 
+    		</script> 
+			<!-- <a href="#">Αλλάξτε την φωτογραφία</a> --><br />
 			<br /><span class="bold">Όνομα Χρήστη:</span> <?php echo $row['username']; ?>
 			<br /><span class="bold">Τύπος Χρήστη:</span> <?php echo $row['usertype']; ?>
 			<br /><span class="bold">Δανεισμένα βιβλία:</span> <?php echo $row['books_lended']; ?>
