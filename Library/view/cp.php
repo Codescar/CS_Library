@@ -40,7 +40,10 @@
 			/* Check if is a valid url! */
 			/* end with an error ! */
 		}
-		update_avatar_in_db(mysql_real_escape_string($_POST['profilePicture']), 0);
+		if(isImage($_POST['profilePicture']))
+			update_avatar_in_db(mysql_real_escape_string($_POST['profilePicture']), 0);
+		else
+			echo "<div class=\"error\">Invalid URL!</div>";
 	}
 	elseif(isset($_POST['hidden']) && $_POST['hidden'] == "no_image"){
 		update_avatar_in_db(null, -1);
@@ -139,5 +142,36 @@ function update_avatar_in_db($avatar = null, $is_file = 0)
 	echo "<div class=\"success\">Your image have been updated!</div>";
 	
 	return $file;
+}
+function isImage($url)
+{
+	$params = array('http' => array(
+                 'method' => 'HEAD'
+              ));
+	$ctx = stream_context_create($params);
+	$fp = @fopen($url, 'rb', false, $ctx);
+    if (!$fp) 
+       return false;  // Problem with url
+
+    $meta = stream_get_meta_data($fp);
+    if ($meta === false)
+    {
+        fclose($fp);
+        return false;  // Problem reading data from url
+    }
+
+    $wrapper_data = $meta["wrapper_data"];
+    if(is_array($wrapper_data)){
+      foreach(array_keys($wrapper_data) as $hh){
+          if (substr($wrapper_data[$hh], 0, 19) == "Content-Type: image") // strlen("Content-Type: image") == 19 
+          {
+            fclose($fp);
+            return true;
+          }
+      }
+    }
+
+   fclose($fp);
+   return false;
 }
 ?>
