@@ -205,7 +205,7 @@ class User{
 		<div id="PictureUtil" style="display: none;">
 			<h3>Ενημέρωση εικόνας προφίλ</h3>
 
-			<input type="radio" name="profile_image_or_no" checked="checked" id="with-image"/> Χρήση προκαθορισμένης εικόνας<br/>
+			<input type="radio" name="profile_image_or_no" checked="checked" id="with-image"/><label for="with-image"> Χρήση προκαθορισμένης εικόνας</label><br/>
 			<ul>
 				<li>
 					Ανέβασμα αρχείου εικόνας<br/>
@@ -215,7 +215,7 @@ class User{
 						<input type="hidden" name="hidden" value="file_upload" /><br/>
 						<input type="submit" onclick="check_with_image();" value="Ανέβασμα" />
 					</form>
-				</li><br/>
+				</li>
 				<li>
 					Χρήση εικόνας από URL<br/>
 					<div class="subtitle">Σιγουρευτείτε ότι η εικόνα είναι διαθέσιμη και δεν θα διαγραφεί.</div>
@@ -227,14 +227,21 @@ class User{
 				</li>
 			</ul><br/>
 			
-			<input type="radio" name="profile_image_or_no" id="no-image"/> Χωρίς εικόνα προφίλ
+			<input type="radio" name="profile_image_or_no" id="no-image"/> <label for="no-image">Χωρίς εικόνα προφίλ</label>
 				<form action="" id="uploadForm" method="post" >
 				<input type="hidden" name="hidden" value="no_image" /><br/>
 					<input type="submit" onclick="check_no_image();" value="Συνέχεια" />
 				</form>
 		</div>
         <div class="block" id="user-left">
-			<img src="view/images/user-icon.png" alt="User Images" /><br />
+        <?php 
+        	$image_url = "view/images/user-icon.png";
+        	
+        	if($ret = get_avatar())
+        		$image_url = $ret['avatar_path'];
+        	
+        ?>
+			<img src="<?php echo $image_url; ?>" style="width: 150px; height: 150px;" alt="User Image" /><br />
 			
 			<a href="#" onclick="showPictureUtil();">Αλλάξτε την φωτογραφία</a><br />
 			<br /><span class="bold">Όνομα Χρήστη:</span> <?php echo $row['username']; ?>
