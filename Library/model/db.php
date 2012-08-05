@@ -18,7 +18,8 @@ class Lbdb{
 							"options"		    => "options",
 	                        "pages"       	    => "pages", 
 	                        "book_has_category" => "book_has_category",
-							"avatars"			=> "avatars" );
+							"avatars"			=> "avatars",
+							"favorites"			=> "favorites" );
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
