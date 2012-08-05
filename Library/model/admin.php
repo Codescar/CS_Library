@@ -296,24 +296,24 @@ class Admin{
 	
 	function manage_announce(){
 		if(!isset($_GET['id']) && !isset($_GET['add'])){
-			$ret = announcements::list_all();
-			?> <a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">Add New</a><br />
+			$ret = announcements::list_all(); ?> 
+			<a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
+				<button type="button" class="box link">Νέα Ανακοίνωση</button>
+			</a>
 			<table>
 			<tr>
-				<th>ID</th>
 				<th>Title</th>
 				<th>Body</th>
-				<th>Date</th>
 				<th>Author</th>
+				<th>Date</th>
 				<th>Action</th>
 			</tr> <?php 
 			while($row = mysql_fetch_array($ret)){
 				?> <tr>
-					<td><?php echo $row['id']; 		?></td>
-					<td><?php echo substr($row['title'], 0, 25); echo (strlen($row['title'])>25) ? "..." : ""; ?></td>
-					<td><?php echo substr($row['body'], 0, 25);  echo (strlen($row['body'])>25)  ? "..." : ""; ?></td>
+					<td><?php echo substr($row['title'], 0, 40); echo (strlen($row['title']) > 40) ? "..." : ""; ?></td>
+					<td><?php echo substr($row['body'], 0, 40);  echo (strlen($row['body']) > 40)  ? "..." : ""; ?></td>
+					<td><?php echo User::get_name($row['author']);	?></td>
 					<td><?php echo $row['date'];	?></td>
-					<td><?php echo $row['author'];	?></td>
 					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row['id'], "delete" => "true"))); ?>">Delete</a></td>
 				</tr> <?php 
 			}

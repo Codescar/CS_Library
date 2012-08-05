@@ -15,7 +15,7 @@ class option{
 
 	public static function load($name){
 		global $db;
-		$query = "SELECT * FROM `{$db->table['options']}` WHERE `Name` = $name LIMIT 1";
+		$query = "SELECT * FROM `{$db->table['options']}` WHERE `Name` = '$name' LIMIT 1";
 		$res = $db->query($query);
 		$value = mysql_fetch_array($res);
 		return $value[0];

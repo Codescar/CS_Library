@@ -15,12 +15,6 @@
 	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προφίλ χρήστη</div>
 	<?php } ?>
 <div class="content" >
-	<!-- <div class="menu">
-		<ul>
-			<li><a href="?show=cp&more=info">Στοιχεία</a></li>
-			<li><a href="?show=cp&more=history">Ιστορικό</a></li>
-		</ul>
-	</div> -->
 	<?php 
 	global $db;
 	

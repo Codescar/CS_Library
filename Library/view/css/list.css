@@ -277,9 +277,13 @@ th{
 }
 tr:nth-child(even) a{
 	color: orange;
+	text-decoration: none;
+	font-weight: bold;
 }
 tr:nth-child(odd) a{
 	color: brown;
+	text-decoration: none;
+	font-weight: bold;
 }
 tr:nth-child(even){
 	background-color: #eaf2d3;

@@ -121,41 +121,42 @@ class User{
 // 						GROUP BY `book_id`, `action` 
 // 	    				ORDER BY `date`";
 	    else
-			$query = "	SELECT * FROM `{$db->table['history']}`
-						WHERE `user_id` = '$user_id'
-						ORDER BY `date`";	    
+			$query = "	SELECT * FROM `{$db->table['log_lend']}`
+						WHERE `{$db->table['log_lend']}`.`user_id` = '$user_id'
+						ORDER BY `{$db->table['log_lend']}`.`returned`";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th>";
-		echo ($mode ) ? "<th>Χρήστης</th>" : "";
-		echo "<th>Κατάσταση</th><th>Ημερομηνία Τελευταίας Αλλαγής</th></tr>";
+		echo ($mode) ? "<th>Χρήστης</th>" : "";
+		echo "<th>Κατάσταση</th><th>Το Πήρες</th><th>Το Έφερες</th></tr>";
 		$flag = 0;
 		while($row = mysql_fetch_array($result)){
 			if($flag++ % 2 == 0)
 				echo "\t\t\t\t<tr class=\"alt\">";
 			else
 				echo "\t\t\t\t<tr>";
-			echo "<td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
+			echo "<td class=\"table-book-title\"><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
 			echo ($mode) ? "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>" : "";
-			echo "<td class=\"action\">";
-            switch($row['action']){
-		    case 1:
-		    	echo ($mode) && book_avail($row['book_id'])
-		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Request</a>"
-				: "Request (<a href=\"?show=cp&more=remove_request&id={$row['id']}\" class=\"cansel-request\">Delete</a>)";
-		        break;
-		    case 2:
-		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
-				echo "Το έχεις πάρει";
-		        break;
-		    case 3:
-		    	//TODO return or back is the correct action for an admin?
-		    	echo ($mode ) 
-		    	? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Have it now</a>"
-				: "Το έχεις τώρα";
-				break;
-            }
-            echo "</td>";
-			echo  "<td class=\"date\">".date('d-m-Y', strtotime($row['date']))."</td></tr><tr></tr>\n";
+// 			echo "<td class=\"action\">";
+//             switch($row['action']){
+// 		    case 1:
+// 		    	echo ($mode) && book_avail($row['book_id'])
+// 		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Ζητήθηκε</a>"
+// 				: "Ζητήθηκε (<a href=\"?show=cp&more=remove_request&id={$row['id']}\" class=\"cansel-request\">Ακύρωση</a>)";
+// 		        break;
+// 		    case 2:
+// 		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
+// 				echo "Επεστράφη";
+// 		        break;
+// 		    case 3:
+// 		    	//TODO return or back is the correct action for an admin?
+// 		    	echo ($mode) 
+// 		    	? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Δανεισμένο</a>"
+// 				: "Δανεισμένο";
+// 				break;
+//             }
+//			echo "</td>";
+			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td></tr>\n";
+			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr>\n";
 		}
 		echo "</table><br />"; 
 		return;

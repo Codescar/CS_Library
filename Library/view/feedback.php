@@ -7,7 +7,7 @@
 <div class="content">
 	<?php 
 	if(isset($_POST['hidden']) && $_POST['hidden'] == "1"){
-	    echo "<span class=\"success\">Ευχαριστούμε για το μύνημά σας!</span>";
+	    echo "<div class=\"success\">Ευχαριστούμε για το μύνημά σας!</div>";
 	    $message = "Sent from Feedback\nSub: ".$_POST['type']."\n".$_POST['text']."\nEmail: ".$_POST['email']."\n";
     	$message = wordwrap($message, 170);
     	$admin_email = option::load('admin_email');
