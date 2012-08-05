@@ -122,12 +122,14 @@ class User{
 // 	    				ORDER BY `date`";
 	    else
 			$query = "	SELECT * FROM `{$db->table['log_lend']}`
+						CROSS JOIN `{$db->table['booklist']}`
+						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id
 						WHERE `{$db->table['log_lend']}`.`user_id` = '$user_id'
 						ORDER BY `{$db->table['log_lend']}`.`returned`";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th>";
 		echo ($mode) ? "<th>Χρήστης</th>" : "";
-		echo "<th>Κατάσταση</th><th>Το Πήρες</th><th>Το Έφερες</th></tr>";
+		echo "<th>Το Πήρες</th><th>Το Έφερες</th></tr>";
 		$flag = 0;
 		while($row = mysql_fetch_array($result)){
 			if($flag++ % 2 == 0)
@@ -155,7 +157,7 @@ class User{
 // 				break;
 //             }
 //			echo "</td>";
-			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td></tr>\n";
+			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td>\n";
 			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr>\n";
 		}
 		echo "</table><br />"; 

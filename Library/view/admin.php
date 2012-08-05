@@ -18,6 +18,8 @@
         	        $msg = "Σελίδες</div>";
 		        }elseif($_GET['more'] == "announcements"){
 			        $msg = "Ανακοινώσεις</div>";
+			        if(isset($_GET['id']) && $_GET['id'] == 0)
+			        	$msg = "<a href=\"index.php?show=admin&more=announcements\">Ανακοινώσεις</a>&nbsp;&gt;&gt;&nbsp;Νέα Ανακοίνωση";
 		        }elseif($_GET['more'] == "users"){
 			        $msg = "Χρήστες</div>";
 		        }elseif($_GET['more'] == "statistics"){

@@ -18,7 +18,7 @@ class option{
 		$query = "SELECT * FROM `{$db->table['options']}` WHERE `Name` = '$name' LIMIT 1";
 		$res = $db->query($query);
 		$value = mysql_fetch_array($res);
-		return $value[0];
+		return $value['Value'];
 	}
 
 	public static function save($name, $val){

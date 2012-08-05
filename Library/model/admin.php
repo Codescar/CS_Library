@@ -321,10 +321,11 @@ class Admin{
 		}
 		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
 			$ret = announcements::get($_GET['id']);
-			$row = mysql_fetch_array($ret);
-			?> <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-				<label for="title">Title:</label> <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" /><br />
-				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+			$row = mysql_fetch_array($ret); ?>
+			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
+				<textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+				<label for="title" class="bold">Title:</label> 
+					<input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" />
 				<input type="submit" value="Save" />
 			</form> <?php 	
 		}

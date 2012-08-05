@@ -255,11 +255,10 @@
 }
 #history td, #history th{
 	border: 1px solid #21170d;
-	text-align: center;
+	padding: 5px 10px;
 }
 #history .alt td{
 	border: 1px solid rgb(152, 191, 33);
-	padding: 3px 7px 2px 7px;
 	background-color: #eaf2d3;
 }
 #history a{
@@ -274,6 +273,9 @@
 }
 th{
 	font-size: 18px;
+}
+td{
+	text-align: center;
 }
 tr:nth-child(even) a{
 	color: orange;
