@@ -9,6 +9,8 @@
 	require_once('model/session.php');
 	require_once('model/admin.php');
 	require_once('model/user.php');
+	
+	require_once('model/templates.php');
 		
 	function load_model(){/* Models */
 		require_once('model/book.php');

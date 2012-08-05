@@ -18,6 +18,9 @@
 
 	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
 	$CONFIG['lend_default_days'] = 15;
+	
+	define(TEMPLATE_PATH, "templates/");
+	
 	load_options();
 	function load_options()
 	{

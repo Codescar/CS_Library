@@ -620,3 +620,10 @@ h3.panel-images:hover{
 .fl-right{
     float: right;
 }
+
+.subtitle{
+	color: grey;
+	font-size: 13px;
+	font-style: italic;
+	margin: 0 0 0 50px;
+}

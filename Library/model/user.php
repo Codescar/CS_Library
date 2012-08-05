@@ -162,7 +162,7 @@ class User{
 	}
 
 	public function show_info($user_id = -1){
-        global $db;
+        global $db, $row;
 		if($user_id == -1)
 			$user_id = $this->id;
 		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
@@ -172,104 +172,7 @@ class User{
 		$result = $db->query($query);
 		$num = mysql_fetch_array($result);
 		$row['books_lended'] = $num[0]; 
-		?>
-		<script type="text/javascript">
-		function showPictureUtil()
-		{
-		    $("#PictureUtil").dialog({ 
-		        modal: true, 
-		        overlay: { 
-		            opacity: 0.7, 
-		            background: "black"
-		        },
-		        width: "60%"	  
-		    })
-		}
-		function check_no_image(){
-			$('#no-image').attr('checked', 'checked');
-			
-		}
-		function check_with_image(){
-			$('#with-image').attr('checked', 'checked');
-			
-		}
-		</script>
-		<style type="text/css">
-		.subtitle{
-			size: 80%;
-			opacity: 0.8;
-			color: grey;
-			font-style: italic;
-		}
-		</style>
-		<div id="PictureUtil" style="display: none;">
-			<h3>Ενημέρωση εικόνας προφίλ</h3>
 
-			<input type="radio" name="profile_image_or_no" checked="checked" id="with-image"/><label for="with-image"> Χρήση προκαθορισμένης εικόνας</label><br/>
-			<ul>
-				<li>
-					Ανέβασμα αρχείου εικόνας<br/>
-					<div class="subtitle">Η εικόνα πρέπει να είναι μέχρι 150x150 εικονοστροιχεία και μέγεθος μικρότερο του 1MB.</div>
-					<form action="" id="uploadForm" method="post" enctype="multipart/form-data" >
-						<input type="file" onclick="check_with_image();" name="profilePicture" id="profilePicture" />
-						<input type="hidden" name="hidden" value="file_upload" /><br/>
-						<input type="submit" onclick="check_with_image();" value="Ανέβασμα" />
-					</form>
-				</li>
-				<li>
-					Χρήση εικόνας από URL<br/>
-					<div class="subtitle">Σιγουρευτείτε ότι η εικόνα είναι διαθέσιμη και δεν θα διαγραφεί.</div>
-					<form action="" id="uploadForm" method="post" >
-						<input type="text" onclick="check_with_image();" name="profilePicture" id="profilePicture" value="http://example.com/image.jpg" size="60"/>
-						<input type="hidden" name="hidden" value="use_url" /><br/>
-						<input type="submit" onclick="check_with_image();" value="Χρήση" />
-					</form>
-				</li>
-			</ul><br/>
-			
-			<input type="radio" name="profile_image_or_no" id="no-image"/> <label for="no-image">Χωρίς εικόνα προφίλ</label>
-				<form action="" id="uploadForm" method="post" >
-				<input type="hidden" name="hidden" value="no_image" /><br/>
-					<input type="submit" onclick="check_no_image();" value="Συνέχεια" />
-				</form>
-		</div>
-        <div class="block" id="user-left">
-        <?php 
-        	$image_url = "view/images/user-icon.png";
-        	
-        	if($ret = get_avatar())
-        		$image_url = $ret['avatar_path'];
-        	
-        ?>
-			<img src="<?php echo $image_url; ?>" style="width: 150px; height: 150px;" alt="User Image" /><br />
-			
-			<a href="#" onclick="showPictureUtil();">Αλλάξτε την φωτογραφία</a><br />
-			<br /><span class="bold">Όνομα Χρήστη:</span> <?php echo $row['username']; ?>
-			<br /><span class="bold">Τύπος Χρήστη:</span> <?php echo $row['usertype']; ?>
-			<br /><span class="bold">Δανεισμένα βιβλία:</span> <?php echo $row['books_lended']; ?>
-		</div>
-		<div class="block" id="user-info">
-			<form action="" method="post" id="change-info">
-				<label for="name">Όνομα: </label><input type="text" id="name" name="name" value="<?php echo $row['name']; ?>" /><br />
-				<label for="surname">Επίθετο: </label><input type="text" id="surname" name="surname" value="<?php echo $row['surname']; ?>" /><br />
-				<label for="email">E-mail: </label><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" /><br />
-				<label for="born">Γεννήθηκε: </label><input type="date" id="born" name="born" value="<?php echo $row['born']; ?>" /><br />
-				<label for="phone">Τηλέφωνο: </label><input type="tel" id="phone" name="phone" value="<?php echo $row['phone']; ?>" /><br />
-				<label for="n_pass">Νέος κωδικός: </label><input type="password" id="n_pass" name="n_pass" /><br />
-				<label for="r_n_pass">Ξανά νέος κωδικός: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
-				<label for="password">Τωρινός κωδικός: </label><input type="password" id="password" name="password" />
-				<input type="submit" value="Ανανέωση" style="position: absolute; right: 200px;" />
-				<p>* Για να αλλάξετε κάποια από τα στοιχεία σας θα πρέπει να συμπληρώσετε απαραιτήτως και τον Τωρινό Κωδικό σας!</p>
-				<input type="hidden" name="hidden" value="codescar" />   
-				<?php //if($user_id == $this->id) { ; }?>
-			</form>
-		</div>
-		<div class="block" id="user-right">
-			<a href="index.php?show=cp&more=lended"><button type="button" class="box link">Δανεισμένα βιβλία</button></a><br /><br />
-			<a href="index.php?show=cp&more=history"><button type="button" class="box link">Ιστορικό δανεισμού</button></a><br /><br />
-			<button type="button" class="box link">Λίστα αγαπημένων</button><br /><br />
-		</div>
-		<?php 
 	}
 	
 	public function update($user_id = -1){
@@ -431,6 +334,123 @@ function date_gr($timestamp, $mode) {
             $result = $day[$dval]." $nval-$mval";
     }
     return $result;
+}
+
+function upload_file(){
+	global $user;
+	
+	$upload_dir = "avatars/";
+	$allowedExts = array("jpg", "jpeg", "gif", "png");
+	$expl = explode(".",$_FILES["profilePicture"]["name"]);
+	
+	if ( isset($_FILES) 
+			&& (($_FILES["profilePicture"]["type"] == "image/gif")
+			|| ($_FILES["profilePicture"]["type"] == "image/jpeg")
+			|| ($_FILES["profilePicture"]["type"] == "image/png")
+			|| ($_FILES["profilePicture"]["type"] == "image/pjpeg"))
+			&& ($_FILES["profilePicture"]["size"] < 1000000)
+			&& in_array(end($expl), $allowedExts))
+ 	{
+	  	
+	    $file_name = $upload_dir . $user->id . "." . end($expl);
+	    
+	    if (file_exists($file_name))
+	      	unlink($file_name);
+	      	
+	    if (!file_exists($file_name))
+	      {
+	      	if(!move_uploaded_file($_FILES["profilePicture"]["tmp_name"], $file_name))
+	      		return 0;
+	      	else
+	      		return $file_name;
+	      	
+	      }
+	   	else
+	    	return 0;
+	}
+	else
+		echo "<div class=\"error\">Invalid file!</div>";
+	return 0;
+}
+
+function get_avatar()
+{
+	global $db, $user;
+	
+	$user_id = $user->id;
+	
+	$query = "SELECT * FROM `{$db->table['avatars']}` WHERE `user_id` = '$user_id' LIMIT 1;";
+	$result = $db->query($query);
+	$res = mysql_fetch_array($result);
+	
+	if(mysql_num_rows($result) != 0 )
+		return $res;
+	
+	
+	return 0;
+}
+
+function update_avatar_in_db($avatar = null, $is_file = 0)
+{
+	global $db, $user;
+	
+	$user_id = $user->id;
+
+	$res = get_avatar();
+	
+	if($res != 0 && $res['is_file'] == 1)
+	{
+		$file = $res['avatar_path'];
+		if (file_exists($file))
+	      	unlink($file);
+	}
+	else
+		$file = 0;
+	
+	if($res == 0 && $is_file != -1)
+		$query = "INSERT INTO `{$db->table['avatars']}` (`user_id`, `is_file`, `avatar_path`) VALUES ('$user_id', '$is_file', '$avatar');";
+	elseif($is_file == -1)
+		$query = "DELETE FROM `{$db->table['avatars']}` WHERE `user_id` = '$user_id' LIMIT 1;";
+	else
+		$query = "UPDATE `{$db->table['avatars']}` SET `is_file` = '$is_file', `avatar_path` = '$avatar' WHERE `user_id` = '$user_id' LIMIT 1;";
+	
+	$db->query($query);
+	
+	echo "<div class=\"success\">Your image have been updated!</div>";
+	
+	return $file;
+}
+
+function isImage($url)
+{
+	$params = array('http' => array(
+                 'method' => 'HEAD'
+              ));
+	$ctx = stream_context_create($params);
+	$fp = @fopen($url, 'rb', false, $ctx);
+    if (!$fp) 
+       return false;  // Problem with url
+
+    $meta = stream_get_meta_data($fp);
+    if ($meta === false)
+    {
+        fclose($fp);
+        return false;  // Problem reading data from url
+    }
+
+    $wrapper_data = $meta["wrapper_data"];
+    if(is_array($wrapper_data)){
+      foreach(array_keys($wrapper_data) as $hh){
+          if (substr($wrapper_data[$hh], 0, 19) == "Content-Type: image") // strlen("Content-Type: image") == 19 
+          {
+            fclose($fp);
+            return true;
+          }
+      }
+    }
+
+   fclose($fp);
+   return false;
 }
 
 ?>
