@@ -57,6 +57,17 @@ class Admin{
 				<img class="block panel-img" src="view/images/option.png" /><br />
 				Options
 			</a></h3>
+			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=maintance" >
+				<img class="block panel-img" src="view/images/maintaince.jpg" /><br />
+				Maintance
+			</a></h3>
+        </div>
+        <div class="panel-blocks">
+            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=update" >
+				<img class="block panel-img" src="view/images/update.png" /><br />
+				Update
+			</a></h3>
+          
         </div>
 	<?php
 	}
@@ -362,6 +373,26 @@ class Admin{
 				pages::update($_GET['id'], $_POST['body']);
 			?> <p class="success">Page Updated</p> <?php 
 		}
+	}
+	
+	function maintance(){
+		//TODO maybe optimise the mysql tables
+		//TODO disable the public access until it's done
+		
+		global $CONFIG;
+		
+		if($CONFIG['maintance']){
+			$CONFIG['maintance'] = true;
+			$flag = true;
+		}
+		else
+			$flag = false;
+		
+		/* Remove invalid favorites (missing user or book) */
+		favorites::cleanup_favorites();
+
+		if($flag)
+			$CONFIG['maintance'] = false;
 	}
 
 };

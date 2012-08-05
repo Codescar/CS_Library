@@ -32,7 +32,7 @@
 			            $msg = "Επιστροφή Βιβλίου</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
 			        $msg = "<a href=\"index.php?show=admin&more=users\" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;".user::get_name($_GET['id'])."</div>";
-                }else{ ?>
+			    }else{ ?>
 					</div><?php 
                 }
                 if(isset($msg)) echo $msg; 
@@ -69,8 +69,11 @@
 		    echo "<p class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</p>";
 		    $db->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']), '0');
 		}
-	}
-	elseif($_GET['more'] == "return"){
+	}elseif($_GET['more'] == "maintance"){
+		$user->admin->maintance();
+  	}elseif($_GET['more'] == "update"){
+  		include('update.php');
+  	}elseif($_GET['more'] == "return"){
 	    $user->admin->return_book();
 	}
 	?>

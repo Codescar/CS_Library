@@ -8,13 +8,18 @@
 	/* Load the user's messagebox*/
 	$user->message = new message();
 	
+	if($CONFIG['maintance'] && !$user->is_admin() && (!isset($_GET['show']) || (($_GET['show'] != "login") && ($_GET['show'] != "maintance"))))
+			header('Location: index.php?show=maintance');		
+	
 	/* Header File */
 	require_once('header.php');
 	/* navigation menu */
 	if(isset($_GET['show']) && $_GET['show'] == "help");else
 		include('nav.php');
-		
 	
+	if($CONFIG['maintance'] && $user->is_admin())
+			echo '<div class="error">Page is in Maintance Mode!</div>';
+			
 	/* include the right page to show */
 	if(!isset($_GET['show'])) 
 		include('show.php');
@@ -42,8 +47,8 @@
 		include('admin.php');
 	elseif($_GET['show'] == "info")
 		include('info.php');
-	elseif($_GET['show'] == "update")
-		include('update.php');
+	elseif($_GET['show'] == "maintance")
+		render_template("maintance.php");
 	else 
 		/* The page doesn't found */
 		include('404.php');

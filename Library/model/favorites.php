@@ -26,7 +26,7 @@
 							) LIMIT 1;";
 			
 			$results = $db->query($query);
-			$num = mysql_affected_rows($results);
+			$num = mysql_affected_rows();
 			
 			return $num;
 		}
@@ -41,7 +41,7 @@
 							AND `book_id` = '$book_id' LIMIT 1;";
 			
 			$results = $db->query($query);
-			$num = mysql_affected_rows($results);
+			$num = mysql_affected_rows();
 			
 			return $num;
 		}
@@ -54,7 +54,7 @@
 							OR `book_id` NOT IN(SELECT `id` FROM `{$db->table['booklist']}`); ";
 			
 			$results = $db->query($query);
-			$num = mysql_affected_rows($results);
+			$num = mysql_affected_rows();
 			
 			return $num;
 		}

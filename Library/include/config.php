@@ -15,6 +15,8 @@
 	$CONFIG['debug'] = true;
 	$CONFIG['items_per_page'] = 5;
 	$CONFIG['right_sidebar'] = false;
+	$CONFIG['maintance'] = false;
+	
 
 	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
 	$CONFIG['lend_default_days'] = 15;

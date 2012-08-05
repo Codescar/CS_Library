@@ -1,7 +1,6 @@
 <?php 
-	if(!defined('VIEW_NAV'))
+	if(!defined('VIEW_NAV') || !defined('VIEW_SHOW') || !$user->is_admin())
 		die("Invalid request!");
-	define('VIEW_SHOW', true);
 
 ?>
 <div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Update</div>
