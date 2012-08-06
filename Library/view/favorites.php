@@ -10,6 +10,8 @@
 		<div class="content"><div class="error">Πρέπει να συνδεθείτε πρώτα.</div></div>	
 	<?php }else{
 		$books = $db->get_books($user->favorites->get_favorites());
-		echo "<div class=\"content\">".list_books($books)."</div>";
+		echo "<div class=\"content\">";
+		list_books($books);
+		echo "</div>";
 	}
 ?>

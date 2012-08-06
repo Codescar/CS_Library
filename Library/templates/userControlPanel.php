@@ -1,7 +1,6 @@
 <?php 
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
-	define('VIEW_SHOW', true); 
 	global $row;
 ?>
 <div id="PictureUtil" style="display: none;">

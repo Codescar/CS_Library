@@ -29,7 +29,7 @@
 			        $msg = "Χρήστες</div>";
 			        if(isset($_GET['add']) && $_GET['add'] == "new_user"){
 			        	$msg = "<a href=\"index.php?show=admin&more=users\">Χρήστες</a>&nbsp;&gt;&gt;&nbsp;";
-        	        	$msg = ."Δημιουργία Χρήστη</div>";
+        	        	$msg .= "Δημιουργία Χρήστη</div>";
 			        }
 		        }elseif($_GET['more'] == "statistics"){
                     $msg = "Στατιστικά</div>";
