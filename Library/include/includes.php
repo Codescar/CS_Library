@@ -9,6 +9,7 @@
 	require_once('model/session.php');
 	require_once('model/admin.php');
 	require_once('model/user.php');
+	require_once('model/favorites.php');
 	
 	require_once('model/templates.php');
 		
@@ -20,6 +21,6 @@
 		require_once('model/options.php');
 		require_once('model/ckeditor/ckeditor.php');	/* Web-Based Text Editor Library */
 		require_once('model/XPM/MAIL.php');				/* Mail Library */
-		require_once('model/favorites.php');
+		
 	}
 ?>

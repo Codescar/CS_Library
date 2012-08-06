@@ -49,6 +49,8 @@
 		include('info.php');
 	elseif($_GET['show'] == "maintance")
 		render_template("maintance.php");
+	elseif($_GET['show'] == "favorites")
+		include('favorites.php');
 	else 
 		/* The page doesn't found */
 		include('404.php');

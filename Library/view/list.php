@@ -10,7 +10,7 @@
 		   .  "WHERE {$db->table['book_has_category']}.category_id = ".mysql_real_escape_string($_GET['id'])." ";
 	
 	$q .= " ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
-	$books = $db->get_books($q);
+	$books = $db->get_books($db->query($q));
 	
 	$query = "	SELECT `category_name`,  {$db->table['categories']}.id
 					FROM {$db->table['book_has_category']}

@@ -57,10 +57,13 @@ class Admin{
 				<img class="block panel-img" src="view/images/option.png" /><br />
 				Options
 			</a></h3>
-			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=maintance" >
+			<h3 class="block panel-images"><a id="maintance-button" class="panel-links" href="index.php?show=admin&more=maintance" >
 				<img class="block panel-img" src="view/images/maintaince.jpg" /><br />
 				Maintance
 			</a></h3>
+			<script type="text/javascript">
+				$('#maintance-button').click(function(){return confirm("Are you sure you want to enter maintance mode? Until it ends site will be unavailable to the public.");});
+			</script>
         </div>
         <div class="panel-blocks">
             <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=update" >
@@ -389,7 +392,7 @@ class Admin{
 			$flag = false;
 		
 		/* Remove invalid favorites (missing user or book) */
-		favorites::cleanup_favorites();
+		$user->favorites->cleanup_favorites();
 
 		if($flag)
 			$CONFIG['maintance'] = false;

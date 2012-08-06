@@ -14,6 +14,9 @@
 		else{
 			if($user->is_admin())
 				$user->admin 	= new Admin($user);
+			
+			$user->favorites = new favorites;
+			
 			$_SESSION['user']   = serialize($user);
 			?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>

@@ -61,11 +61,8 @@
 		<div class="book-right-info">
 			<div id="buttons" class="block">
 				<div class="box book-button book-add-to-wish">
-				    <?php if(!$logged){ ?>
-	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
-	    			<?php }else{ ?>
-	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
-	    			<?php }?>
+					<?php favorites::show_favorites_button(); ?>
+				   
 	    		</div>
 	    		<?php if(!$have && !$requested && $results['availability']){ ?>
 	    		<div class="box book-button book-lend-book" id="lend">

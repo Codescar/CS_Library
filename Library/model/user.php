@@ -6,9 +6,10 @@
 class User{
 	public $id, $username, $email, $access_level, $message;
 	public $admin;
+	public $favorites;
 	
 	function __constructor(){
-	    $a = new Admin;
+	    $a = new Admin; //TODO why is that here?
 	    $admin = null;
 	}
 	
@@ -224,7 +225,8 @@ class User{
 			$code.= "</span></a>".$more;
 		}
 		elseif($_SESSION['logged_in'] == 1){
-			$code .= "<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">Προφίλ</span></a>";
+			$code .= "	<a id=\"lnkAccount\" href=\"?show=cp\"><span class=\"icon\"></span><span class=\"tooltip\">Προφίλ</span></a>|
+						<a id=\"lnkFavorites\" href=\"?show=favorites\"><span class=\"icon\"></span><span class=\"tooltip\">Αγαπημένα</span></a>";
 			if($this->is_admin() /*Trying something with better looing $this instanceof Admin*/)
 			    $code .= " | <a id=\"lnkAdmin\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a>";
 				//$code .= " | <a id=\"\" href=\"?show=admin\"><span class=\"icon\"></span><span class=\"tooltip\">Admin</span></a> | <a id=\"\" href=\"?show=msg\"><span class=\"icon\"></span><span class=\"tooltip\">Μηνύματα</span></a>";
@@ -283,8 +285,8 @@ class User{
 
 	function show_lended(){
 		global $CONFIG, $db;
-		$books = $db->get_books("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
-		WHERE {$db->table['lend']}.user_id = '{$this->id}' ");
+		$books = $db->get_books($db->query("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
+		WHERE {$db->table['lend']}.user_id = '{$this->id}' "));
 		if($books == FALSE){ ?>
 			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο</div>
 		<?php }

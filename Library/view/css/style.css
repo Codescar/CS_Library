@@ -36,7 +36,7 @@ body {
 }
  
 .logo { 
-	width: 590px;
+	width: 510px;
 	padding: 65px 0 0 0;
 	display: inline-block;
 }
@@ -111,7 +111,7 @@ body {
 
 .customermenu {
 	color: white;
-	width: 400px;
+	width: 480px;
 	text-align: right;
 	float: right;
 	margin: 60px 5px 2px 0px;
@@ -136,6 +136,10 @@ body {
 
 #lnkAccount .icon{
 	background-position: 0px 2px;
+}
+
+#lnkFavorites .icon{
+	background-image: url("../images/favorites.png");
 }
 
 #lnkLogout .icon, #lnkLogin .icon{

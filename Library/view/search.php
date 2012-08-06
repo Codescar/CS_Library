@@ -156,7 +156,7 @@ else {
 		
 	$query .= "1=1 ORDER BY id ASC ";
 	
-	$books = $db->get_books($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page']);
+	$books = $db->get_books($db->query($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page']));
 	
 	$num = mysql_num_rows($db->query("SELECT id FROM ".$query));
 ?>
