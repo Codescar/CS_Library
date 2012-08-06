@@ -16,65 +16,8 @@ class Admin{
 	
 	function restore(){
 		//TODO add a confirmation link to a table
-	}
 	
-	function show_index(){
-	?>
-		<div class="panel-blocks">
-			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=announcements" >
-				<img class="block panel-img" src="view/images/announcements.png" /><br />
-				Announcements
-			</a></h3>
-			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=history" >
-				<img class="block panel-img" src="view/images/log.png" /><br />
-				History
-			</a></h3>
-			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=users" >
-				<img class="block panel-img" src="view/images/users.png" /><br />
-				Users
-			</a></h3>
-		</div>
-		<div class="panel-blocks">
-            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pendings" >
-				<img class="block panel-img" src="view/images/attention.png" /><br />
-				Pendings
-			</a></h3>
-			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pages" >
-				<img class="block panel-img" src="view/images/pages.png" /><br />
-				Pages
-			</a></h3>
-			<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=new_user" >
-				<img class="block panel-img" src="view/images/user.png" /><br />
-				Create User
-			</a></h3>
-        </div>
-		<div class="panel-blocks">
-            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=statistics" >
-				<img class="block panel-img" src="view/images/statistics.png" /><br />
-				Statistics
-			</a></h3>
-            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=options" >
-				<img class="block panel-img" src="view/images/option.png" /><br />
-				Options
-			</a></h3>
-			<h3 class="block panel-images"><a id="maintance-button" class="panel-links" href="index.php?show=admin&more=maintance" >
-				<img class="block panel-img" src="view/images/maintaince.jpg" /><br />
-				Maintance
-			</a></h3>
-			<script type="text/javascript">
-				$('#maintance-button').click(function(){return confirm("Are you sure you want to enter maintance mode? Until it ends site will be unavailable to the public.");});
-			</script>
-        </div>
-        <div class="panel-blocks">
-            <h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=update" >
-				<img class="block panel-img" src="view/images/update.png" /><br />
-				Update
-			</a></h3>
-          
-        </div>
-	<?php
 	}
-	
 	function show_statistics(){
 		global $db;
 		//Show the number of all the books, the current lended books
@@ -238,9 +181,8 @@ class Admin{
 		global $db, $user;
 		if(isset($_POST['hidden']) && $_POST['hidden'] == 1){
 			if(	!isset($_POST['username']) 		|| !isset($_POST['password']) || 
-				!isset($_POST['email']) 		|| !isset($_POST['department']) ||
-				empty($_POST['username']) 		|| empty($_POST['password']) || 
-				empty($_POST['email']) 	){
+				!isset($_POST['email']) 		||  empty($_POST['username']) || 
+				 empty($_POST['password']) 		||  empty($_POST['email']) ){
 				?> <p class="error">Cannot Create the User!</p>	<?php 
 			}
 			else{
@@ -279,7 +221,11 @@ class Admin{
 				<td><?php echo $row->phone; ?></td>
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
 			</tr> <?php 
-		} ?> </table> <?php
+		} ?> </table> 
+		<a class="add-new" href="?show=admin&amp;more=users&amp;add=new_user">
+			<button type="button" class="box link">Δημιουργία Χρήστη</button>
+		</a>
+		<?php
 	}
 	
 	function show_user($id){

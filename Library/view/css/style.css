@@ -610,10 +610,6 @@ a.panel-links{
     text-decoration: none;
     color: black;
 }
-h3.panel-images:hover{
-    width: 322px;
-    border: 1px dashed black;
-}
 .panel-img{
     width: 100px;
     height: 80px;

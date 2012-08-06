@@ -3,9 +3,7 @@
 		die("Invalid request!");
 
 ?>
-<div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Update</div>
-    <div class="content">
-		<h1>DYNAMIC UPDATE SYSTEM</h1>
+<h2>DYNAMIC UPDATE SYSTEM</h2>
 <?php
 ini_set('max_execution_time',60);
 $updateURL = "http://projects.codescar.eu/Library/UPDATES/";

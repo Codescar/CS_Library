@@ -18,30 +18,37 @@
         	        $msg = "Σελίδες</div>";
 		        }elseif($_GET['more'] == "announcements"){
 			        $msg = "Ανακοινώσεις</div>";
-			        if(isset($_GET['id']) && $_GET['id'] == 0)
-			        	$msg = "<a href=\"index.php?show=admin&more=announcements\">Ανακοινώσεις</a>&nbsp;&gt;&gt;&nbsp;Νέα Ανακοίνωση";
+					if(isset($_GET['id'])){
+						$msg = "<a href=\"index.php?show=admin&more=announcements\">Ανακοινώσεις</a>&nbsp;&gt;&gt;&nbsp;";
+						if($_GET['id'] == 0)
+							$msg .= "Νέα Ανακοίνωση</div>";
+						else
+							$msg .= "Επεξεργασία Ανακοίνωσης</div>";
+					}
 		        }elseif($_GET['more'] == "users"){
 			        $msg = "Χρήστες</div>";
+			        if(isset($_GET['add']) && $_GET['add'] == "new_user"){
+			        	$msg = "<a href=\"index.php?show=admin&more=users\">Χρήστες</a>&nbsp;&gt;&gt;&nbsp;";
+        	        	$msg = ."Δημιουργία Χρήστη</div>";
+			        }
 		        }elseif($_GET['more'] == "statistics"){
                     $msg = "Στατιστικά</div>";
-                }elseif($_GET['more'] == "new_user"){
-        	        $msg = "Δημιουργία Χρήστη</div>";
     	        }elseif($_GET['more'] == "options"){
 			        $msg = "Επιλογές</div>";
 			    }elseif($_GET['more'] == "return"){
-			            $msg = "Επιστροφή Βιβλίου</div>";
+					$msg = "Επιστροφή Βιβλίου</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
 			        $msg = "<a href=\"index.php?show=admin&more=users\" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;".user::get_name($_GET['id'])."</div>";
 			    }else{ ?>
 					</div><?php 
                 }
                 if(isset($msg)) echo $msg; 
-            }?>
+            } ?>
 <div class="content">
 	<?php
 	global $db;
 	if(!isset($_GET['more'])){
-		$user->admin->show_index();
+		render_template('adminPanel.php');
 	}elseif($_GET['more'] == "pendings"){
 		$user->admin->show_pendings();
 	}elseif($_GET['more'] == "announcements"){
@@ -52,7 +59,7 @@
 	    $user->admin->show_statistics();
 	}elseif($_GET['more'] == "history"){
 		$user->admin->show_history();
-	}elseif($_GET['more'] == "new_user"){
+	}elseif($_GET['more'] == "users" && $_GET['add'] == "new_user"){
 		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
 		$user->admin->show_options();

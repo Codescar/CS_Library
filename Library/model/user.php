@@ -341,7 +341,7 @@ function date_gr($timestamp, $mode) {
     return $result;
 }
 
-function upload_file(){
+function upload_file() {
 	global $user;
 	
 	$upload_dir = "avatars/";
@@ -378,8 +378,7 @@ function upload_file(){
 	return 0;
 }
 
-function get_avatar()
-{
+function get_avatar() {
 	global $db, $user;
 	
 	$user_id = $user->id;
@@ -395,8 +394,7 @@ function get_avatar()
 	return 0;
 }
 
-function update_avatar_in_db($avatar = null, $is_file = 0)
-{
+function update_avatar_in_db($avatar = null, $is_file = 0) {
 	global $db, $user;
 	
 	$user_id = $user->id;
@@ -426,8 +424,7 @@ function update_avatar_in_db($avatar = null, $is_file = 0)
 	return $file;
 }
 
-function isImage($url)
-{
+function isImage($url) {
 	$params = array('http' => array(
                  'method' => 'HEAD'
               ));

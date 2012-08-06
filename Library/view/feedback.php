@@ -4,6 +4,7 @@
 	define('VIEW_SHOW', true);
 	
 ?>
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επικοινωνία</div>
 <div class="content">
 	<?php 
 	if(isset($_POST['hidden']) && $_POST['hidden'] == "codescar"){
