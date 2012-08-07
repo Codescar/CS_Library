@@ -22,7 +22,7 @@
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>
 			<div class="content">
     			<div class="success">Επιτυχής σύνδεση...<br />
-    		<?php redirect($url);
+    		<?php redirect($CONFIG['url']);
 		}
 	}elseif(isset($_GET['do']) && $_GET['do'] == "register"){
 		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['mail']) || $_POST['password'] != $_POST['password2'])

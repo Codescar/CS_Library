@@ -9,17 +9,17 @@
 	<meta name="keywords" content="CS_Library" />
 	<meta name="description" content="CS_Library" />
 	<meta name="author" content="lion2486, sudavar" />
-	<title><?php echo $title; ?></title>
-	<link rel="stylesheet" href="<?php echo $url; ?>view/css/style.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo $url; ?>view/css/list.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo $url; ?>model/jquery.lightbox/css/jquery.lightbox-0.5.css" type="text/css" />
-	<link rel="stylesheet" href="<?php echo $url; ?>view/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" />
+	<title><?php echo $CONFIG['title']; ?></title>
+	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>view/css/style.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>view/css/list.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>model/jquery.lightbox/css/jquery.lightbox-0.5.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>view/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" />
 	<link rel="icon" type="image/png" href="/views/images/favicon.ico">
-	<script src="<?php echo $url; ?>view/js/jquery-1.6.2.min.js" type="text/javascript"></script>
-	<script src="<?php echo $url; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-	<script src="<?php echo $url; ?>view/js/js.js" type="text/javascript"></script>
-	<script src="<?php echo $url; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
-	<script src="<?php echo $url; ?>model/jquery.lightbox/js/jquery.lightbox-0.5.js" type="text/javascript"></script>
+	<script src="<?php echo $CONFIG['url']; ?>view/js/jquery-1.6.2.min.js" type="text/javascript"></script>
+	<script src="<?php echo $CONFIG['url']; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+	<script src="<?php echo $CONFIG['url']; ?>view/js/js.js" type="text/javascript"></script>
+	<script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
+	<script src="<?php echo $CONFIG['url']; ?>model/jquery.lightbox/js/jquery.lightbox-0.5.js" type="text/javascript"></script>
 	<!--[if gte IE 9]>
 		<style type="text/css">
 			.gradient {	filter: none; }
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="logo">
-				<a href="<?php echo $url; ?>"><?php echo $title; ?></a>
+				<a href="<?php echo $CONFIG['url']; ?>"><?php echo $CONFIG['title']; ?></a>
 			</div>
 			<div class="customermenu"><?php echo $user->show_login_status(); ?></div>
 		</div><?php } ?>

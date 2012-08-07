@@ -1,38 +1,37 @@
 <?php
 	/* Config File */ 
-	$url = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo/";
-	
-	$title = "Εθνική Βιβλιοθήκη Αθηνών";
 
 	/* Session Settings, Max IDLE TIME */
-	define('MAX_IDLE_TIME', '3600');
+	define(MAX_IDLE_TIME, 3600);
+	define(TEMPLATE_PATH, "templates/");
 	
 	global $CONFIG;
+	
+	/* Basic installation configs */
+	$CONFIG['title'] = "Εθνική Βιβλιοθήκη Αθηνών";
+	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
+	$CONFIG['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo/";
+	
+	/* Modules configs*/
 	$CONFIG['allow_register'] = true;
 	$CONFIG['allow_login'] = true;
 	$CONFIG['allow_admin'] = true;
 	$CONFIG['allow_compression'] = true;
+	
+	/* developer options */
 	$CONFIG['debug'] = true;
-	$CONFIG['items_per_page'] = 5;
-	$CONFIG['right_sidebar'] = false;
 	$CONFIG['maintance'] = false;
 	
-
-	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
+	/* visuals - costumisations */
+	$CONFIG['items_per_page'] = 5;
+	$CONFIG['right_sidebar'] = false;
 	$CONFIG['lend_default_days'] = 15;
 	
-	define(TEMPLATE_PATH, "templates/");
+	/*
+	 * Load the config from the database, 
+	 * if there are same, 
+	 * it overides them. //TODO do we want that or the opposite?
+	 */
+	option::load_options();
 	
-	load_options();
-	function load_options()
-	{
-		global $db, $CONFIG;
-		$results = $db -> query("SELECT * FROM `{$db -> table['options']}`");
-		while($row = mysql_fetch_array($results))
-		{
-			
-			$CONFIG[$row['Name']] = $row['Value'];
-		}
-		return;
-	}
 ?>

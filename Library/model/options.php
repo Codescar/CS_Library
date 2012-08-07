@@ -36,5 +36,14 @@ class option{
 					WHERE `Name` = '$name' ";
 		$db->query($query);
 	}
+	
+	public static function load_options(){
+		global $db, $CONFIG;
+		$results = $db -> query("SELECT * FROM `{$db -> table['options']}`");
+		while($row = mysql_fetch_array($results))
+			$CONFIG[$row['Name']] = $row['Value'];
+		
+		return true;
+	}
 };
 ?>

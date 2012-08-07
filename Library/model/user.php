@@ -92,6 +92,7 @@ class User{
         $db->query($query);
 		//TODO send an e-mail to user
 		$body = option::load("mail_body");
+		//TODO why this option is loading now? All options are loaded in the include.php to the global varialbe $CONFIG[]
 		return;
 	}
 	
@@ -214,9 +215,9 @@ class User{
 	}
 	
 	public function show_login_status(){
-		global $CONFIG, $url;
+		global $CONFIG;
 		$code = "<span>";
-		$more = " | <a id=\"lnkFeedback\" href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Επικοινωνία</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('$url?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
+		$more = " | <a id=\"lnkFeedback\" href=\"?show=feedback\"><span class=\"icon\"></span><span class=\"tooltip\">Επικοινωνία</span></a> | <a id=\"lnkHelp\" href=\"javascript: pop_up('{$CONFIG['url']}?show=help')\"><span class=\"icon\"></span><span class=\"tooltip\">Βοήθεια</span></a>";
 		if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != 1){
 			if($CONFIG['allow_login'])
 				$code .= "<a id=\"lnkLogin\" href=\"?show=login\"><span class=\"icon\"></span><span class=\"tooltip\">Είσοδος";

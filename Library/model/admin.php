@@ -252,7 +252,7 @@ class Admin{
 	        $b_name = get_book_name($_GET['return']);
 	        $db->return_book(mysql_real_escape_string($_GET['return']));
 	        ?><div class="success center">Ο χρήστης<?php echo $u_name; ?> επέστρεψε το βιβλίο <?php echo $b_name."<br />";
-	        redirect($url, 4000);
+	        redirect($CONFIG['url'], 4000);
 	    }
 	}
 	
