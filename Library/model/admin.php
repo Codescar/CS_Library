@@ -257,57 +257,60 @@ class Admin{
 	}
 	
 	function manage_announce(){
-		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
-			if($_GET['id'] != 0)
-				announcements::update($_GET['id'], $_POST['title'], $_POST['body'])	;
-			else
-				announcements::add($_POST['title'], $_POST['body']);
-			?> <div class="success">Announcement Added/Updated</div> <?php 
-		}
-		if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
-			announcements::delete($_GET['id']);
-			?> <div class="success">The announcement has been removed.</div> <?php 
-		}
-		if(!isset($_GET['id']) && !isset($_GET['add'])){
-			$ret = announcements::list_all(); ?> 
-			<a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
-				<button type="button" class="box link">Νέα Ανακοίνωση</button>
-			</a>
-			<table>
-			<tr>
-				<th>Title</th>
-				<th>Body</th>
-				<th>Author</th>
-				<th>Date</th>
-				<th>Action</th>
-			</tr> <?php 
-			while($row = mysql_fetch_array($ret)){
-				?> <tr>
-					<td><?php echo substr($row['title'], 0, 40); echo (strlen($row['title']) > 40) ? "..." : ""; ?></td>
-					<td><?php echo substr($row['body'], 0, 40);  echo (strlen($row['body']) > 40)  ? "..." : ""; ?></td>
-					<td><?php echo User::get_name($row['author']);	?></td>
-					<td><?php echo $row['date'];	?></td>
-					<td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row['id'], "delete" => "true"))); ?>">Delete</a></td>
-				</tr> <?php 
-			}
-			?> </table>	<?php 
-		}
-		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
-			$ret = announcements::get($_GET['id']);
-			$row = mysql_fetch_array($ret); ?>
-			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-				<textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
-				<label for="title" class="bold">Title:</label> 
-					<input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" />
-				<input type="submit" value="Save" />
-			</form> <?php 	
-		}
+	 if(!isset($_GET['id']) && !isset($_GET['add'])){
+            $ret = announcements::list_all(); ?>
+            <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
+                <button type="button" class="box link">Νέα Ανακοίνωση</button>
+            </a>
+            <table>
+            <tr>
+                <th>Title</th>
+                <th>Body</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr> <?php
+            while($row = mysql_fetch_array($ret)){
+                ?> <tr>
+                    <td><?php echo substr($row['title'], 0, 40); echo (strlen($row['title']) > 40) ? "..." : ""; ?></td>
+                    <td><?php echo substr($row['body'], 0, 40);  echo (strlen($row['body']) > 40)  ? "..." : ""; ?></td>
+                    <td><?php echo User::get_name($row['author']);    ?></td>
+                    <td><?php echo $row['date'];    ?></td>
+                    <td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row['id'], "delete" => "true"))); ?>">Delete</a></td>
+                </tr> <?php
+            }
+            ?> </table>    <?php
+        }
+        elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
+            $ret = announcements::get($_GET['id']);
+            $row = mysql_fetch_array($ret); ?>
+            <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
+                <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+                <label for="title" class="bold">Title:</label>
+                    <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" />
+                <input type="submit" value="Save" />
+            </form> <?php
+        }
+        elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
+            if($_GET['id'] != 0)
+                announcements::update($_GET['id'], $_POST['title'], $_POST['body'])    ;
+            else
+                announcements::add($_POST['title'], $_POST['body']);
+            ?> <div class="success">Announcement Added/Updated <br /><?php 
+            redirect("index.php?show=admin&more=announcements");
+        }
+        if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
+                announcements::delete($_GET['id']);
+                ?> <div class="success">The announcement has been removed. <br /><?php 
+            redirect("index.php?show=admin&more=announcements");
+        }
 	}
 
 	function manage_pages(){
 		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
 				pages::update($_GET['id'], $_POST['body']);
-			?> <div class="success">Page Updated</div> <?php 
+			?> <div class="success">Page Updated  <br /><?php 
+            redirect("index.php?show=admin&more=pages");
 		}
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
 	        $ret = pages::list_all();
