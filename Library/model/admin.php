@@ -231,8 +231,9 @@ class Admin{
 	function show_user($id){
 		global $user;
 		//TODO add a back link
-		?> <p class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</p> <?php
+		?> <div class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</div> <?php
 		$user->show_info(mysql_real_escape_string($id));
+		render_template("userControlPanel.php");
 		//TODO add some options like ban / delete / and so on
 	}
 	
@@ -244,17 +245,29 @@ class Admin{
 	function return_book(){
 	    global $db;
 	    if(!isset($_GET['return']) && !isset($_GET['user'])){
-	        ?> <p class="error">Error</p> <?php
+	        ?><div class="error">Error</div><?php
 	        return;
 	    }else{
 	        $u_name = user::get_name($_GET['user']);
 	        $b_name = get_book_name($_GET['return']);
-	        ?><p class="success center">Ο χρήστης<?php echo $u_name; ?> επέστρεψε το βιβλίο <?php echo $b_name; ?></p><?php
 	        $db->return_book(mysql_real_escape_string($_GET['return']));
+	        ?><div class="success center">Ο χρήστης<?php echo $u_name; ?> επέστρεψε το βιβλίο <?php echo $b_name."<br />";
+	        redirect($url, 4000);
 	    }
 	}
 	
 	function manage_announce(){
+		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
+			if($_GET['id'] != 0)
+				announcements::update($_GET['id'], $_POST['title'], $_POST['body'])	;
+			else
+				announcements::add($_POST['title'], $_POST['body']);
+			?> <div class="success">Announcement Added/Updated</div> <?php 
+		}
+		if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
+			announcements::delete($_GET['id']);
+			?> <div class="success">The announcement has been removed.</div> <?php 
+		}
 		if(!isset($_GET['id']) && !isset($_GET['add'])){
 			$ret = announcements::list_all(); ?> 
 			<a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
@@ -289,20 +302,13 @@ class Admin{
 				<input type="submit" value="Save" />
 			</form> <?php 	
 		}
-		elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
-			if($_GET['id'] != 0)
-				announcements::update($_GET['id'], $_POST['title'], $_POST['body'])	;
-			else
-				announcements::add($_POST['title'], $_POST['body']);
-			?> <p class="success">Announcement Added/Updated</p> <?php 
-		}
-		if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
-				announcements::delete($_GET['id']);
-				?> <p class="success">The announcement has been removed.</p> <?php 
-		}				
 	}
 
 	function manage_pages(){
+		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
+				pages::update($_GET['id'], $_POST['body']);
+			?> <div class="success">Page Updated</div> <?php 
+		}
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
 	        $ret = pages::list_all();
 			while($row = mysql_fetch_array($ret)){
@@ -317,10 +323,6 @@ class Admin{
 				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
 				<input type="submit" value="Save" />
 			</form>	<?php 	
-		}
-		elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
-				pages::update($_GET['id'], $_POST['body']);
-			?> <p class="success">Page Updated</p> <?php 
 		}
 	}
 	

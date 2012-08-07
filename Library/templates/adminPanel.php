@@ -1,7 +1,6 @@
 <?php 
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
-	define('VIEW_SHOW', true);
 ?>
 <div class="panel-blocks">
 	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=announcements" >

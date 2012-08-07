@@ -13,7 +13,7 @@
 			$error = "Λάθος πληροφορίες, δοκιμάστε ξανά...";
 		else{
 			if($user->is_admin())
-				$user->admin 	= new Admin($user);
+				$user->admin = new Admin($user);
 			
 			$user->favorites = new favorites;
 			
@@ -21,13 +21,8 @@
 			?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Είσοδος</div>
 			<div class="content">
-				<br />
-    			<div class="success">Επιτυχής σύνδεση...<br/>
-    			Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href="<?php echo $url; ?>">εδώ</a>.</div>
-    			<script type="text/javascript">
-    				var t=setTimeout("window.location = '<?php echo $url; ?>'",2000);
-    			</script>
-			<?php 
+    			<div class="success">Επιτυχής σύνδεση...<br />
+    		<?php redirect($url);
 		}
 	}elseif(isset($_GET['do']) && $_GET['do'] == "register"){
 		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['mail']) || $_POST['password'] != $_POST['password2'])

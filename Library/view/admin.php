@@ -35,6 +35,8 @@
                     $msg = "Στατιστικά</div>";
     	        }elseif($_GET['more'] == "options"){
 			        $msg = "Επιλογές</div>";
+		        }elseif($_GET['more'] == "update"){
+		        	$msg = "Update Codescar Library</div>";
 			    }elseif($_GET['more'] == "return"){
 					$msg = "Επιστροφή Βιβλίου</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
@@ -59,7 +61,8 @@
 	    $user->admin->show_statistics();
 	}elseif($_GET['more'] == "history"){
 		$user->admin->show_history();
-	}elseif($_GET['more'] == "users" && $_GET['add'] == "new_user"){
+	}elseif($_GET['more'] == "users" && 
+			(isset($_GET['add']) &&  $_GET['add'] == "new_user")){
 		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
 		$user->admin->show_options();
@@ -84,6 +87,5 @@
 	    $user->admin->return_book();
 	}
 	?>
-	<br />
 </div>
 <?php } ?>

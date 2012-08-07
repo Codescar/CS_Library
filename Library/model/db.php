@@ -104,9 +104,6 @@ class Lbdb{
 	}
 	
 	function close(){
-		global $CONFIG;
-	    if($CONFIG['debug'])
-	        echo "<br />"."Closing ".$this->connection."<br />";
 		mysql_close($this->connection);
 	}
 	
@@ -131,7 +128,7 @@ class Lbdb{
 	 * 
 	 * Returns FALSE if there are no results
 	 */
-	public function get_books($res ){
+	public function get_books($res){
 		//$res = $this->query($query);
 		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
 		if($books['1'] == FALSE)	
@@ -180,5 +177,9 @@ class Lbdb{
 	}
 }
 
+function redirect($url, $time = 2000){
+	echo "Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href=\".$url.\">εδώ</a>.</div>"
+		."<script type=\"text/javascript\">var t=setTimeout(\"window.location = '".$url."'\",."$time".)</script>";
+}
 
 ?>
