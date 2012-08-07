@@ -98,8 +98,8 @@ class User{
 	
 	public static function delete_user($id){
 		global $db, $CONFIG; 
-		$query = "DELETE FROM `{$db->table['users']}`
-					WHRERE `{$db->table['users']}`.id = '$id'
+		$query = "	DELETE FROM `{$db->table['users']}`
+					WHRERE `{$db->table['users']}`.`id` = '$id'
 					LIMIT 1";
 		echo "<div class=\"success\">User ".user::get_name($id)."deleted <br />";
 		$db->query($query);
