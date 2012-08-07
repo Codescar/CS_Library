@@ -183,14 +183,13 @@ class Admin{
 			if(	!isset($_POST['username']) 		|| !isset($_POST['password']) || 
 				!isset($_POST['email']) 		||  empty($_POST['username']) || 
 				 empty($_POST['password']) 		||  empty($_POST['email']) ){
-				?> <p class="error">Cannot Create the User!</p>	<?php 
+				?> <div class="error">Cannot Create the User!</div>	<?php 
 			}
 			else{
-                //do the new user creation
                 $user->createUser(	mysql_real_escape_string($_POST['username']), 
                                     mysql_real_escape_string($_POST['password']), 
                                     mysql_real_escape_string($_POST['email']));
-                ?> <p class="success">The User have been created!</p> <?php 
+                ?> <div class="success">The User have been created!</div> <?php 
             }
 		} ?>
 		<form action="" method="post" id="new-user-form">
@@ -212,11 +211,11 @@ class Admin{
 			<th>ID</th>
 			<th>Username</th>
 			<th>Phone</th>
-			<th>email</th>
+			<th>Email</th>
 		</tr> <?php 
 		while($row = mysql_fetch_object($res)){
 			?><tr>
-				<td><?php echo $row->id; ?></td>
+				<td><?php echo $row->id; ?> -- <a href="?show=admin&more=del_user&id=<?php echo $row->id; ?>">Delete</a></td>
 				<td><a href="?show=admin&more=user&id=<?php echo $row->id; ?>"><?php echo $row->username; ?></a></td>
 				<td><?php echo $row->phone; ?></td>
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>

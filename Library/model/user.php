@@ -96,6 +96,14 @@ class User{
 		return;
 	}
 	
+	public static function delete_user($id){
+		$query = "DELETE FROM `{$db->table['users']}`
+					WHRERE `{$db->table['users']}`.id = '$id'
+					LIMIT 1";
+		echo "<div class=\"success\">User ".user::get_name($id)."deleted <br />";
+		redirect($CONFIG['url']."?show=admin&more=users",4000);
+	}
+	
 	//TODO replace tale/column names below here
 	public function show_history($mode = 0, $user_id = -1){
 		/**

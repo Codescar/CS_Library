@@ -31,6 +31,9 @@
 			        	$msg = "<a href=\"index.php?show=admin&more=users\">Χρήστες</a>&nbsp;&gt;&gt;&nbsp;";
         	        	$msg .= "Δημιουργία Χρήστη</div>";
 			        }
+		        }elseif($_GET['more'] == "del_user" && isset($_GET['id'])){
+					$msg = "<a href=\"index.php?show=admin&more=users\">Χρήστες</a>&nbsp;&gt;&gt;&nbsp;";
+					$msg .= "Διαγραφή Χρήστη</div>";
 		        }elseif($_GET['more'] == "statistics"){
                     $msg = "Στατιστικά</div>";
     	        }elseif($_GET['more'] == "options"){
@@ -61,22 +64,24 @@
 	    $user->admin->show_statistics();
 	}elseif($_GET['more'] == "history"){
 		$user->admin->show_history();
+	}elseif($_GET['more'] == "user_history" && isset($_GET['id'])){
+		$user->admin->user_history($_GET['id']);
+	}elseif($_GET['more'] == "users"){
+		$user->admin->show_users();
+	}elseif($_GET['more'] == "user" && isset($_GET['id'])){
+		$user->admin->show_user($_GET['id']);
+	}elseif($_GET['more'] == "del_user" && isset($_GET['id'])){
+		user::delete_user($id);
 	}elseif($_GET['more'] == "users" && 
 			(isset($_GET['add']) &&  $_GET['add'] == "new_user")){
 		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
 		$user->admin->show_options();
-	}elseif($_GET['more'] == "users"){
-		$user->admin->show_users();
-	}elseif($_GET['more'] == "user" && isset($_GET['id'])){
-		$user->admin->show_user($_GET['id']);
-	}elseif($_GET['more'] == "user_history" && isset($_GET['id'])){
-		$user->admin->user_history($_GET['id']);
 	}elseif($_GET['more'] == "lend"){
 		if(!isset($_GET['lend']) && !isset($_GET['user']))
-			echo "<p class=\"error\">Error</p>";
+			echo "<div class=\"error\">Error</div>";
 		else{
-		    echo "<p class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</p>";
+		    echo "<div class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</div>";
 		    $db->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']), '0');
 		}
 	}elseif($_GET['more'] == "maintance"){
