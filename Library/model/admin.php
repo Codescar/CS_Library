@@ -206,7 +206,7 @@ class Admin{
 		//TODO may use pages for the results
 		$query = "SELECT * FROM `users` ;";
 		$res = $db->query($query);
-		?> <table>
+		?> <table class="add-new-under">
 		<tr>
 			<th>ID</th>
 			<th>Username</th>
@@ -261,7 +261,7 @@ class Admin{
             <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
                 <button type="button" class="box link">Νέα Ανακοίνωση</button>
             </a>
-            <table>
+            <table class="add-new-under">
             <tr>
                 <th>Title</th>
                 <th>Body</th>
