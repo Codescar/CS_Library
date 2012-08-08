@@ -66,7 +66,7 @@
 		$user->admin->show_history();
 	}elseif($_GET['more'] == "user_history" && isset($_GET['id'])){
 		$user->admin->user_history($_GET['id']);
-	}elseif($_GET['more'] == "users"){
+	}elseif($_GET['more'] == "users" && !isset($_GET['add'])){
 		$user->admin->show_users();
 	}elseif($_GET['more'] == "user" && isset($_GET['id'])){
 		$user->admin->show_user($_GET['id']);

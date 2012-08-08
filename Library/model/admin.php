@@ -193,9 +193,10 @@ class Admin{
             }
 		} ?>
 		<form action="" method="post" id="new-user-form">
-		<label for="username">Username: </label><input type="text" id="username" name="username" /><br />
-		<label for="password">Password: </label><input type="text" id="password" name="password" /><br />
-		<label for="email">E-mail: </label><input type="email" id="email" name="email" /><br />
+		<label for="username">Username: </label><input type="text" id="username" name="username" />
+		<label for="password">Password: </label><input type="password" id="password" name="password" /><br />
+		<label for="email">E-mail: </label><input type="email" id="email" name="email" />
+		<label for="name">Phone: </label><input type="text" id="phone" name="phone" /><br />
 		<input type="hidden" name="hidden" value="1" />
 		<input type="submit" value="Create" />
 		</form> <?php 
@@ -204,7 +205,7 @@ class Admin{
 	function show_users(){
 		global $db;
 		//TODO may use pages for the results
-		$query = "SELECT * FROM `users` ;";
+		$query = "SELECT * FROM `users` ORDER BY `id`;";
 		$res = $db->query($query);
 		?> <table class="add-new-under">
 		<tr>
