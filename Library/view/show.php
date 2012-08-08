@@ -24,7 +24,6 @@
 			    <?php }?>
 			</div>
 			<div class="box index-box link">Νέες κυκλοφορίες</div>
-			<div class="box index-box link">Προτάσεις</div>
 			<div class="box index-box link">Ανακοινώσεις</div>
 			<div class="box index-box link">Δελτία τύπου</div>
 			<div class="box index-box link">Θέσεις εργασίας</div>
