@@ -16,6 +16,9 @@ function list_books($books){
 	?>
 	<div class="list">
 	<?php
+	if(empty($books))
+		echo '<div class="error">There are no items.</div>';
+	else
 		foreach($books as $row){
 			$book_url = "index.php?show=book&amp;id=".$row['id'];
 			if($row == $books['0']) continue;	
@@ -40,11 +43,13 @@ function list_books($books){
 							<?php } ?>
 					</div>
 					<div class="box list-button list-add-to-wish">
-    					<?php if(!$logged){ ?>
+    					<?php 
+    						favorites::show_favorites_button($row['id']);
+    					/*if(!$logged){ ?>
     	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
     	    			<?php }else{ ?>
     	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
-    	    			<?php }?>
+    	    			<?php }*/?>
 					</div>
 					<?php if($row['availability'] != 0) { ?>
 					<div class="box list-button list-lend-book">

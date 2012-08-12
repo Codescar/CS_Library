@@ -1,6 +1,6 @@
 <?php
 class Lbdb{
-	private $connection, $hostname, $username, $password, $dbname;
+	private $connection, $hostname, $username, $password, $dbname, $queries;
 	public $booklist;
 	//TODO have to use the arrays for the names of the column/tables everywhere I think... much work!
 	public $table = array(
@@ -74,8 +74,9 @@ class Lbdb{
 														"user_id"		=> "user_id",
 														"date"			=> "date")
 	);*/
-	function __construct(){
+	public function __construct(){
 		global $db_hostname, $db_username, $db_password, $db_name;
+		$this->queries = 0;
 		$this->connection = 0;
 		$this->hostname = $db_hostname;
 		$this->username = $db_username;
@@ -83,7 +84,7 @@ class Lbdb{
 		$this->dbname = $db_name;
 	}
 
-	function connect(){
+	public function connect(){
 	    global $CONFIG;
 	    if($CONFIG['debug']){
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
@@ -103,7 +104,7 @@ class Lbdb{
 	    return;
 	}
 	
-	function close(){
+	public function close(){
 		mysql_close($this->connection);
 	}
 	
@@ -111,12 +112,16 @@ class Lbdb{
 	 * Need some fixing, in order to get
 	 * protected from harmful queries. 
 	 */
-	function query($query){
+	public function query($query){
 		global $CONFIG;
-	    if($CONFIG['debug'])
+	    
+		if($CONFIG['debug'])
 		    $results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
 	    else
 	        $results = mysql_query($query, $this->connection);
+	        
+	    $this->queries ++;
+	    
 		return $results;
 	}
 	
@@ -140,7 +145,7 @@ class Lbdb{
 		return $books;
 	}
 	
-	function lend_book($bk_id, $usr_id){
+	public function lend_book($bk_id, $usr_id){
         $lend =	"	INSERT INTO `{$this->table['lend']}` 
 					(`book_id`, `user_id`, `taken`) VALUES 
 					('$bk_id', '$usr_id', NOW()) ;
@@ -149,7 +154,7 @@ class Lbdb{
 	    return;
 	}
 	
-	function return_book($bk_id){
+	public function return_book($bk_id){
 		$return ="	UPDATE `{$this->table['lend']}`
 					SET `returned` = NOW()
 					WHERE book_id = '$bk_id'
@@ -175,7 +180,11 @@ class Lbdb{
 	    $this->query($query); 
 	    return;
 	}
-}
+	
+	public function get_queries_num(){
+		return $this->queries;
+	}
+};
 
 function redirect($url, $time = 2000){
 	echo "Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href=\"".$url."\">εδώ</a>.</div>"

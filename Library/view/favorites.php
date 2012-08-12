@@ -9,6 +9,19 @@
 	if(!$user->is_logged_in()){ ?>
 		<div class="content"><div class="error">Πρέπει να συνδεθείτε πρώτα.</div></div>	
 	<?php }else{
+		
+		if(isset($_GET['action']) && $_GET['action'] == "add"){
+			if(!isset($_GET['id']))
+				echo '<div class="error">Invalid request.</div>';
+				else
+					$user->favorites->add_favorite(mysql_real_escape_string($_GET['id']));
+		}elseif(isset($_GET['action']) && $_GET['action'] == "remove"){
+			if(!isset($_GET['id']))
+				echo '<div class="error">Invalid request.</div>';
+			else
+				$user->favorites->delete_favorite(mysql_real_escape_string($_GET['id']));
+		}
+		
 		$books = $db->get_books($user->favorites->get_favorites());
 		echo "<div class=\"content\">";
 		list_books($books);
