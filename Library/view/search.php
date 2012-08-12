@@ -156,12 +156,11 @@ else {
 		
 	$query .= "1=1 ORDER BY id ASC ";
 	
-	$books = $db->get_books($db->query($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page']));
+	$books = $db->get_books($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], "SELECT COUNT(id) FROM ".$query);
 	
-	$num = mysql_num_rows($db->query("SELECT id FROM ".$query));
 ?>
 	<div class="list">
-	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>" βρέθηκαν <?php echo $num; ?><br />
+	Αποτελέσματα αναζήτησης για "<?php echo $_GET['search']; ?>" βρέθηκαν <?php echo $books['0']; ?><br />
 	<?php if($books){
 		list_books($books);
 	}

@@ -296,8 +296,8 @@ class User{
 
 	function show_lended(){
 		global $CONFIG, $db;
-		$books = $db->get_books($db->query("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
-		WHERE {$db->table['lend']}.user_id = '{$this->id}' "));
+		$books = $db->get_books("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
+		WHERE {$db->table['lend']}.user_id = '{$this->id}' ");
 		if($books == FALSE){ ?>
 			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο</div>
 		<?php }
