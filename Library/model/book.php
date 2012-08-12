@@ -45,11 +45,7 @@ function list_books($books){
 					<div class="box list-button list-add-to-wish">
     					<?php 
     						favorites::show_favorites_button($row['id']);
-    					/*if(!$logged){ ?>
-    	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
-    	    			<?php }else{ ?>
-    	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="#">+ Aγαπημένα</a>
-    	    			<?php }*/?>
+    					?>
 					</div>
 					<?php if($row['availability'] != 0) { ?>
 					<div class="box list-button list-lend-book">
@@ -109,7 +105,7 @@ function list_books($books){
 		<div id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
 		<?php } ?>
 		<div class="list-cur-page" >Σελίδα <?php echo $page + 1; ?></div> 
-		<?php if(count($books) > $CONFIG['items_per_page'] ) { ?>
+		<?php if(/*count($books)*/$books['0'] > ($page + 1) * $CONFIG['items_per_page'] ) { ?>
 		<div id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
 		<?php } ?>
 	</div>

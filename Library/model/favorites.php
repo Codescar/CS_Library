@@ -14,17 +14,16 @@
 		}
 		
 		public function get_favorites(){
-			global $db;			
+			global $db, $CONFIG, $page;			
 			
 			$query = "	SELECT * FROM `{$db->table['booklist']}` 
 							WHERE `id` 
 								IN (SELECT `book_id` 
 										FROM `{$db->table['favorites']}` 
-										WHERE `user_id` = '$this->user_id');";
+										WHERE `user_id` = '$this->user_id') 
+							ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", {$CONFIG['items_per_page']}; ";
 			
-			$results = $db->query($query);
-			
-			return $results;
+			return $query;
 		}
 		
 		public function add_favorite($book_id){
@@ -73,9 +72,12 @@
 		}
 	
 		private function build_cache(){
+			global $db;
+			
 			$tmp = array();
 						
-			$res = $this->get_favorites();
+			$res = $db->query($this->get_favorites());
+			
 			while($row = mysql_fetch_array($res)){
 				array_push($tmp, $row['id']);
 			}

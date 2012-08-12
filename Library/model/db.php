@@ -133,15 +133,16 @@ class Lbdb{
 	 * 
 	 * Returns FALSE if there are no results
 	 */
-	public function get_books($res){
-		//$res = $this->query($query);
+	public function get_books($query, $query2){
+		$res = $this->query($query);
 		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
 		if($books['1'] == FALSE)	
 			return FALSE;
 		array_pop($books);
-		//$a = mysql_fetch_array($this->query("SELECT COUNT(*) FROM `{$this->table['booklist']}`;"));
-		$a = mysql_num_rows($res);
-		$books['0'] = $a['0'];
+		$r = $this->query($query2);
+		$b = mysql_fetch_array($r);
+		$books['0'] = $b[0];
+		
 		return $books;
 	}
 	

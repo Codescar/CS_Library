@@ -61,7 +61,7 @@
 		<div class="book-right-info">
 			<div id="buttons" class="block">
 				<div class="box book-button book-add-to-wish">
-					<?php favorites::show_favorites_button(); ?>
+					<?php favorites::show_favorites_button($results['id']); ?>
 				   
 	    		</div>
 	    		<?php if(!$have && !$requested && $results['availability']){ ?>

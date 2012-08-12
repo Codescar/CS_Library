@@ -3,7 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	
-	global $db; ?>
+	global $db, $user; ?>
 	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Αγαπημένα Βιβλία</div>
 	<?php
 	if(!$user->is_logged_in()){ ?>
@@ -13,8 +13,8 @@
 		if(isset($_GET['action']) && $_GET['action'] == "add"){
 			if(!isset($_GET['id']))
 				echo '<div class="error">Invalid request.</div>';
-				else
-					$user->favorites->add_favorite(mysql_real_escape_string($_GET['id']));
+			else
+				$user->favorites->add_favorite(mysql_real_escape_string($_GET['id']));
 		}elseif(isset($_GET['action']) && $_GET['action'] == "remove"){
 			if(!isset($_GET['id']))
 				echo '<div class="error">Invalid request.</div>';
@@ -22,9 +22,10 @@
 				$user->favorites->delete_favorite(mysql_real_escape_string($_GET['id']));
 		}
 		
-		$books = $db->get_books($user->favorites->get_favorites());
+		$books = $db->get_books($user->favorites->get_favorites(), 
+								"SELECT COUNT(*) FROM `{$db->table['favorites']}` WHERE `user_id` = '{$user->id}';");
 		echo "<div class=\"content\">";
-		list_books($books);
+			list_books($books);
 		echo "</div>";
 	}
 ?>
