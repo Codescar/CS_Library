@@ -31,7 +31,7 @@
 			global $db;	
 			
 			$query = "	INSERT INTO `{$db->table['favorites']}` (`user_id`, `book_id`, `date`)
-							SELECT * FROM (SELECT '{$this->user_id}', '$book_id', NOW()) AS tmp
+							SELECT * FROM (SELECT '{$this->user_id}' AS a, '$book_id' AS b, NOW() AS c) AS tmp
 							WHERE EXISTS (
     							SELECT `id` FROM `{$db->table['booklist']}` WHERE `id` = '$book_id'
 							) LIMIT 1;";
