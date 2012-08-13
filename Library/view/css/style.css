@@ -340,24 +340,68 @@ table{
 	/*color: red;
 	font-style: italic;*/
 }
+/* About Page */
+.about{
+	width: 600px;
+	font-size: 16px;
+}
+.about-title{
+	text-align: center;
+	font-weight: bold;
+	margin: 5px 0 15px 0;
+}
 .developers{
 	width: 300px;
-	background-color: #aaaaaa; 	
-	padding: 6px;
-	border: 1px dashed yellow;
-	margin: 0px;
+	background-color: #AAA;
+	margin: 20px 0 0 0;
+	vertical-align: top;
+	text-align: center;
+	color: #ffffff;
+	padding: 10px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#5c3a11 0%,
+		#945715);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#5c3a11),
+		to(#945715));
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #401001;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
 }
 .dev{
-	background-color: #888888;
-	padding-left: 10px;	
-	padding-top: 2px;
+	padding: 5px 15px;
+	margin: 0px auto 10px auto;
 	width: 80%;
+	text-align: left;
+	border-top-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+.dev-name{
+	font-size: 20px;
 }
 .title{
 	font-size: 16px;
 	font-weight: bold;
 }	
-
+div.developers a{
+	text-decoration: none;
+	text-shadow: none;
+}
 .avail{
 	color: green;
 	font-style: italic;

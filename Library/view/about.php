@@ -5,10 +5,13 @@
 	
 ?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Σχετικά με το Project</div>
-<div class="content" style="padding: 10px;">
-	<div class="block">CodeScar Library Project<br />
-    	<a href="http://codescar.eu">http://codescar.eu</a><br />
-    	<a href="http://projects.codescar.eu/Library/">http://projects.codescar.eu/Library/</a><br />
+<div class="content">
+	<div class="block about">
+		<div class="about-title">
+			CodeScar Library Project<br />
+	    	<a href="http://codescar.eu">http://codescar.eu</a><br />
+	    	<a href="http://projects.codescar.eu/Library/">http://projects.codescar.eu/Library/</a>
+    	</div>
     	Version 0.1(alpha), (r34, 10/11/2011) <br />
     	Version 0.2(alpha), (r56, 18/12/2011) <br />
     	Version 0.3(beta) , (r58, 19/12/2011) <br />
@@ -39,15 +42,16 @@
         	</ul>
     	</div>
 	</div>
-	<div class="developers block" ><h3>Developer Team:</h3>
-		<div class="dev"><p class="title">lion2486</p>
-        	<label for="email">E-Mail: </label><a href="mailto:info@lion2486.eu">info@lion2486.eu</a><br />
-        	<label for="website">WebSite: </label><a href="http://lion2486.eu">www.lion2486.eu</a>
+	<div class="developers block" ><div class="dev-name">Developer Team:</div>
+		<div class="dev" style="background-color: orange;"><p class="dev-name">lion2486</p>
+        	<label for="email">E-Mail: </label><a class="right" href="mailto:info@lion2486.eu">info@lion2486.eu</a><br />
+        	<label for="website">WebSite: </label><a class="right" href="http://lion2486.eu">www.lion2486.eu</a>
+        	<?php //TODO correct your email and website info ?>
 		</div>
-		<br />
-		<div class="dev"><p class="title">Sudavar</p>
-    		<label for="email">E-Mail: </label><a href="mailto:yurissudavar@gmail.com"></a><br />
-    		<label for="website">WebSite: </label><a href="http://"></a>
+		<div class="dev" style="background-color: chocolate;"><p class="dev-name">Sudavar</p>
+    		<label for="email">E-Mail: </label><a class="right" href="mailto:sudavar@codescar.eu">sudavar@codescar.eu</a><br />
+    		<label for="website">WebSite: </label><a class="right" href="http://efepa.gr">www.efepa.gr</a>
 		</div>
+		<div class="bold" >Care to join? <br />Send us an <a href="mailto:info@codescar.eu">email</a> :)</div>
 	</div>
 </div>
