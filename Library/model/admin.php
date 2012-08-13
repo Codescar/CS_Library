@@ -343,8 +343,12 @@ class Admin{
 		/* Remove invalid favorites (missing user or book) */
 		$user->favorites->cleanup_favorites();
 		
-		?> <div class="success">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br /><?php
-				redirect("index.php");
+		if($CONFIG['maintance']) {
+			?> <div class="success">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br /> <?php
+		}else{
+			?> <div class="success">Η Υπηρεσία μπήκε σε κανονική κατάσταση λειτουργίας<br /> <?php
+		}
+			redirect("index.php");
 		
 		//WTF does the following code do?
 // 		if($CONFIG['maintance']){

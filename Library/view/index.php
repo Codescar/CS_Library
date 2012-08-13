@@ -16,10 +16,7 @@
 	/* navigation menu */
 	if(isset($_GET['show']) && $_GET['show'] == "help");else
 		include('nav.php');
-	
-	if($CONFIG['maintance'] && $user->is_admin())
-			echo '<div class="error">Page is in Maintance Mode!</div>';
-			
+
 	/* include the right page to show */
 	if(!isset($_GET['show'])) 
 		include('show.php');

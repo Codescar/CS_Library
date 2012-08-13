@@ -34,7 +34,7 @@
 				<div class="block" id="header-date">
 				    <?php echo date_gr(time(), "Long") ?>
 				</div>
-				<?php if($CONFIG['maintance']) 
+				<?php if($CONFIG['maintance'] && $user->is_admin()) 
 					echo "<div class=\"block\" id=\"error-maintenance\">Η υπηρεσία είναι σε κατάσταση συντήρησης</div>";
 				?>
 				<div class="block" id="header-timeline">

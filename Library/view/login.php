@@ -13,7 +13,6 @@
 			$error = "Λάθος στοιχεία, δοκιμάστε ξανά...";
 		}
 		elseif($CONFIG['maintance'] && $user->access_level < 100) {
-			$error = "Μόνο admins μπορούν να εισέλθουν κατά την συντήρηση";
 			session_unset();
 			session_destroy();
 		}
@@ -59,7 +58,7 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 	<input type="submit" value="Υποβολή" class="submit"/>	
 	</form>
 </fieldset>
-<?php if($CONFIG['allow_register']) { ?>
+<?php if($CONFIG['allow_register'] && !$CONFIG['maintance']) { ?>
 <div class="bold" style="text-align: center; width: 100%; font-size: 20px;">ή</div>
 <fieldset>
 	<legend class="bold" style="font-size: 20px;">Εγγραφή χρήστη</legend>
