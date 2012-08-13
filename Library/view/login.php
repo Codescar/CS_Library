@@ -9,9 +9,13 @@
 	
 	if(isset($_GET['do']) && $_GET['do'] == "login"){		
 		
-		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION))
-			$error = "Λάθος πληροφορίες, δοκιμάστε ξανά...";
-		else{
+		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION)){
+			$error = "Λάθος στοιχεία, δοκιμάστε ξανά...";
+		}
+		elseif($CONFIG['maintance'] && $user->access_level < 100) {
+			$error = "Μόνο admins μπορούν να εισέλθουν κατά την συντήρηση";
+		}
+		else {
 			if($user->is_admin())
 				$user->admin = new Admin($user);
 			
@@ -90,6 +94,6 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 </fieldset>
 <?php 
 	} 
-}?>
+} ?>
 <br />
 </div>

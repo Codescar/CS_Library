@@ -1,8 +1,8 @@
 <?php
 /**
  * Options' handler 
- * The options are stored to the database  //TODO it
- * and editable from the control panel //TODO it
+ * The options are stored to the database
+ * and editable from the control panel
  *
  */
 

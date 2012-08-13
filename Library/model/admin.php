@@ -333,7 +333,7 @@ class Admin{
 		//TODO maybe optimise the mysql tables
 		//TODO disable the public access until it's done
 		
-		global $CONFIG;
+		global $CONFIG, $user;
 		
 		if($CONFIG['maintance']){
 			$CONFIG['maintance'] = true;
@@ -347,6 +347,8 @@ class Admin{
 
 		if($flag)
 			$CONFIG['maintance'] = false;
+		?> <div class="success">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br /><?php
+            	redirect("index.php");
 	}
 
 };

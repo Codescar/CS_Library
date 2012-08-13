@@ -26,11 +26,11 @@
     	Version 1.0(beta) , (r144, 13/03/2012) Visual addons, EAM ready. <br />
     	<div>Fixes/Adds:
         	<ul>
-        		<li>Colors & templating reworked</li>
+        		<li>Colors &amp; templating reworked</li>
         		<li>Register of users done</li>
         		<li>Book viewing inprovement</li>
         		<li>JavaScript functionality improved</li>
-        		<li>Search & advanced search</li>
+        		<li>Search &amp; advanced search</li>
         		<li>book categories</li>
         		<li>Sidebar added</li>
         		<li>Favorite button (not done)</li>

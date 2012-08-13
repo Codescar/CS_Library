@@ -35,8 +35,7 @@ class User{
 	    	$this->access_level 		= $user['access_lvl'];
 	    	$this->username				= $user['username'];
 	    	$this->email				= $user['email'];
-            
-	    	//$_SESSION['user']           = serialize($this);
+
 	    	$_SESSION['logged_in']		= 1;
 			$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];
 			$_SESSION['sessionid'] 		= session_id();
@@ -45,7 +44,7 @@ class User{
 	}
 	
 	public static function createUser($user, $pass, $mail){
-		global $db;
+		global $db, $CONFIG;
 		$user = mysql_real_escape_string($user);
 		$pass = mysql_real_escape_string($pass);
 		$pass = user::pass_encrypt($pass);
@@ -91,8 +90,7 @@ class User{
 		$query .= $query2;
         $db->query($query);
 		//TODO send an e-mail to user
-		$body = option::load("mail_body");
-		//TODO why this option is loading now? All options are loaded in the include.php to the global varialbe $CONFIG[]
+		$body = $CONFIG['mail_body'];
 		return;
 	}
 	

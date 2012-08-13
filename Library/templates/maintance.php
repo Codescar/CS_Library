@@ -5,8 +5,8 @@
 	//TODO have to make it more beatyfull :P
 ?>
 <div class="content">
-	The page is in maintance mode... please wait until the maintance ends.
-	If it takes hours contact the administrator.
-	
-	<a href="?show=login">Admin login</a>
+	Η υπηρεσία βρίσκετε σε κατάσταση συντήρησης. Παρακαλούμε περιμένετε
+	να τελειώσει. Αν διατηρηθεί έτσι, παρακαλούμε επικοινωνήστε με τον 
+	<a href="mailto:<?php echo $_CONFIG['admin_email']; ?>">Admin</a>.
+	<a href="index.php?show=login"><button type="button" class="box link">Admin login</button></a>
 </div>
