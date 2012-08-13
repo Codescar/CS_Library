@@ -14,6 +14,8 @@
 		}
 		elseif($CONFIG['maintance'] && $user->access_level < 100) {
 			$error = "Μόνο admins μπορούν να εισέλθουν κατά την συντήρηση";
+			session_unset();
+			session_destroy();
 		}
 		else {
 			if($user->is_admin())

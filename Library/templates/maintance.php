@@ -4,9 +4,11 @@
 	define('VIEW_SHOW', true);
 	//TODO have to make it more beatyfull :P
 ?>
-<div class="content">
-	Η υπηρεσία βρίσκετε σε κατάσταση συντήρησης. Παρακαλούμε περιμένετε
-	να τελειώσει. Αν διατηρηθεί έτσι, παρακαλούμε επικοινωνήστε με τον 
-	<a href="mailto:<?php echo $_CONFIG['admin_email']; ?>">Admin</a>.
+<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Κατάσταση Συντήρησης</div>
+<div class="content maintenance">
+	<img class="block maintenance-img" src="view/images/maintaince.jpg">
+	<div class="maintenance-msg">Η υπηρεσία βρίσκετε σε κατάσταση συντήρησης. Παρακαλούμε περιμένετε
+	να τελειώσει. Αν διατηρηθεί έτσι για ώρες, παρακαλούμε επικοινωνήστε με τον 
+	<a href="mailto:<?php echo $CONFIG['admin_email']; ?>">Admin</a>.</div>
 	<a class="add-new" href="index.php?show=login"><button type="button" class="box link">Admin login</button></a>
 </div>

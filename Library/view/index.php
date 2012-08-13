@@ -9,7 +9,7 @@
 	$user->message = new message();
 	
 	if($CONFIG['maintance'] && !$user->is_admin() && (!isset($_GET['show']) || (($_GET['show'] != "login") && ($_GET['show'] != "maintance"))))
-			header('Location: index.php?show=maintance');		
+			header('Location: index.php?show=maintance');
 	
 	/* Header File */
 	require_once('header.php');
