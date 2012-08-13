@@ -332,23 +332,32 @@ class Admin{
 	function maintance(){
 		//TODO maybe optimise the mysql tables
 		//TODO disable the public access until it's done
-		
 		global $CONFIG, $user;
 		
-		if($CONFIG['maintance']){
-			$CONFIG['maintance'] = true;
-			$flag = true;
-		}
+		if($CONFIG['maintance'])
+			$CONFIG['maintance'] = false;
 		else
-			$flag = false;
+			$CONFIG['maintance'] = true;
 		
 		/* Remove invalid favorites (missing user or book) */
 		$user->favorites->cleanup_favorites();
-
-		if($flag)
-			$CONFIG['maintance'] = false;
+		
 		?> <div class="success">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br /><?php
-            	redirect("index.php");
+				redirect("index.php");
+		
+		//WTF does the following code do?
+// 		if($CONFIG['maintance']){
+// 			$CONFIG['maintance'] = true;
+// 			$flag = true;
+// 		}
+// 		else
+// 			$flag = false;
+		
+// 		/* Remove invalid favorites (missing user or book) */
+// 		$user->favorites->cleanup_favorites();
+
+// 		if($flag)
+// 			$CONFIG['maintance'] = false;
 	}
 
 };

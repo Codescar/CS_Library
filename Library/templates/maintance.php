@@ -8,5 +8,5 @@
 	Η υπηρεσία βρίσκετε σε κατάσταση συντήρησης. Παρακαλούμε περιμένετε
 	να τελειώσει. Αν διατηρηθεί έτσι, παρακαλούμε επικοινωνήστε με τον 
 	<a href="mailto:<?php echo $_CONFIG['admin_email']; ?>">Admin</a>.
-	<a href="index.php?show=login"><button type="button" class="box link">Admin login</button></a>
+	<a class="add-new" href="index.php?show=login"><button type="button" class="box link">Admin login</button></a>
 </div>
