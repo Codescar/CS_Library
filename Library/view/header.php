@@ -31,11 +31,12 @@
 	<?php if(isset($_GET['show']) && $_GET['show'] == "help"); else{ ?>
 		<div id="header">
 			<div id="header-top">
-				<div id="header-left">
-					<div class="block" id="header-date">
-					    <?php echo date_gr(time(), "Long") ?>
-					</div>
+				<div class="block" id="header-date">
+				    <?php echo date_gr(time(), "Long") ?>
 				</div>
+				<?php if($CONFIG['maintance']) 
+					echo "<div class=\"block\" id=\"error-maintenance\">Η υπηρεσία είναι σε κατάσταση συντήρησης</div>";
+				?>
 				<div class="block" id="header-timeline">
 					<?php pages::get_body(3); ?>
 				</div>

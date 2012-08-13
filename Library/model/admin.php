@@ -339,6 +339,7 @@ class Admin{
 		else
 			$CONFIG['maintance'] = true;
 		
+		option::save('maintance', $CONFIG['maintance']);
 		/* Remove invalid favorites (missing user or book) */
 		$user->favorites->cleanup_favorites();
 		

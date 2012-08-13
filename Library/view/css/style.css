@@ -57,26 +57,43 @@ body {
 	width: 100%;
 	padding: 5px 0 0 0;	
 }
-#header-left{
-	float: left;
-	width: 450px;
-	margin: 0 300px 0 0;
-}
 #header-date{
 	position: relative;
 	bottom: 2px;
 	font-weight: bold;
-	margin: 0 10px;
+	margin: 0 150px 0 10px;
+	font-size: 18px;
 }
 #header-timeline{
 	position: absolute;
-	top: 0px;
+	top: 2px;
+	right: 0px;
 	font-size: 16px;
-	background-color: #21170d;
+	background-color: #21170D;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	text-align: center;
 	padding: 0 10px;
+	width: 250px;
+}
+#error-maintenance{
+	padding: 3px 20px 1px 40px;
+	position: absolute;
+	top: 2px;
+	background-color: #F3DDDD;
+	background-image: url("../images/exclamation.png");
+	border-bottom-color: #DEB7B7;
+	border-left-color: #DEB7B7;
+	border-right-color: #DEB7B7;
+	border-top-color: #DEB7B7;
+	color: #281B1B;
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-position: 10px 3px;
+	background-repeat: no-repeat;
+	background-size: auto;
+	border: 1px solid #B0CE94;
 }
 #header-phone{
 	 font-size: 23px;
@@ -662,7 +679,7 @@ a.panel-links{
 	height: 200px;
 }
 .maintenance-msg{
-	width: 450px;
+	width: 460px;
 	display: inline-block;
 	vertical-align: top;
 	font-size: 18px;
