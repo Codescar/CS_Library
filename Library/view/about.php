@@ -7,40 +7,68 @@
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Σχετικά με το Project</div>
 <div class="content">
 	<div class="block about">
-		<div class="about-title">
-			CodeScar Library Project<br />
+		<div class="block bold about-title">
+			CodeScar Library Project
+		</div>
+		<div class="block bold" style="text-align: right;">
 	    	<a href="http://codescar.eu">http://codescar.eu</a><br />
 	    	<a href="http://projects.codescar.eu/Library/">http://projects.codescar.eu/Library/</a>
-    	</div>
-    	Version 0.1(alpha), (r34, 10/11/2011) <br />
+		</div>
+    	<div class="version block">
+			<div class="center">Version 1.0(beta)<br />(r144, 13/03/2012)<br />
+					Visual addons, EAM ready.
+			</div>
+			<div>Adds:
+				<ul>
+					<li>User Restigration (not done)</li>
+					<li>Search &amp; advanced search</li>
+					<li>Book categories</li>
+					<li>Favorite button (not done)</li>
+					<li>Availability icons of books</li>
+				</ul>
+			</div>
+			<div>Fixes:
+				<ul>
+					<li>Colors &amp; templating reworked</li>
+					<li>Book viewing inprovement</li>
+					<li>JavaScript functionality improved</li>
+					<li>Many smaller fixes</li>
+				</ul>
+			</div>
+		</div>
+    	<div class="version hidden">
+			<div class="center">Version 0.4(beta)<br />(r65, 26/12/2011)<br />
+					Working on...
+			</div>
+			<div>Adds:
+				<ul>
+					<li>Help content written (maybe will add more)</li>
+					<li>Option to delete a request for users</li>
+					<li>Message Fuction work part1</li>
+				</ul>
+			</div>
+			<div>Fixes:
+				<ul>
+					<li>Improvements in admin panel</li>
+					<li>Some fixes in control panel</li>
+					<li>Book listing fix</li>
+				</ul>
+			</div>
+		</div>
+		<div class="block about-info" >
+			Το Codescar Library είναι ένα σύστημα online διαχείρισης μιας βιβλιοθήκης. Πλέον μπορείτε 
+			και εσείς να το εγκαταστήστε και να διαχειριστείτε την δική σας βιβλιοθήκη online.
+			<br /><br /><br />
+			<?php //TODO make those buttons work !not a high priority!
+					// previous will work with jqeury ui and will show the previous version which is hidden
+					// download must be each associated with the correct version
+			?>
+			<a href="#"><button type="button" class="right box link" style="width: 170px;">Προηγούμενη Έκδοση</button></a>
+			<a href="#"><button type="button" class="left box link" style="width: 90px;">Κατέβασμα</button></a>
+		</div>
+		<!-- Version 0.1(alpha), (r34, 10/11/2011) <br />
     	Version 0.2(alpha), (r56, 18/12/2011) <br />
-    	Version 0.3(beta) , (r58, 19/12/2011) <br />
-    	Version 0.4(beta) , (r65, 26/12/2011) Working on... <br />
-    	<div>Fixes/Adds:
-        	<ul>
-        		<li>Improvements in admin panel</li>
-        		<li>Help content written (maybe will add more)</li>
-        		<li>Option to delete a request for users</li>
-        		<li>Some fixes in control panel</li>
-        		<li>Message Fuction work part1</li>
-        		<li>Book listing fix</li>
-        	</ul>
-    	</div>
-    	Version 1.0(beta) , (r144, 13/03/2012) Visual addons, EAM ready. <br />
-    	<div>Fixes/Adds:
-        	<ul>
-        		<li>Colors &amp; templating reworked</li>
-        		<li>Register of users done</li>
-        		<li>Book viewing inprovement</li>
-        		<li>JavaScript functionality improved</li>
-        		<li>Search &amp; advanced search</li>
-        		<li>book categories</li>
-        		<li>Sidebar added</li>
-        		<li>Favorite button (not done)</li>
-        		<li>Availability icons of books</li>
-        		<li>Many smaller fixes</li>
-        	</ul>
-    	</div>
+    	Version 0.3(beta) , (r58, 19/12/2011) <br />  -->
 	</div>
 	<div class="developers block" ><div class="dev-name">Developer Team:</div>
 		<div class="dev" style="background-color: orange;"><p class="dev-name">lion2486</p>
