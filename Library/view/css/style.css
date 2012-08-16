@@ -192,7 +192,11 @@ body {
 	position: relative;
 	min-height: 300px;
 }
-
+#show-index{
+    width: 580px;
+    height: 510px;
+    padding: 10px;
+}
 .index-title {
 	color: white;
 	font-size: 26px;
@@ -205,12 +209,13 @@ body {
 }
 
 #direction{
-	margin: 6px 15px;
-	font-size: 16px;
-	font-weight: bold;
-	font-family: Arial;
-	text-shadow: 1px 1px 1px black;
-	color: brown;
+	padding: 5px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial;
+    text-shadow: 1px 1px 1px black;
+    color: brown;
+    width: 970px;
 }
 
 #direction a{
@@ -610,18 +615,18 @@ div.developers a{
     color: black;
 }
 .index-box{
-	margin: 10px 10px;
+	margin: 0px 35px 15px 35px;
 	padding: 10px;
 	background-color: #E4E4E1;
-box-shadow: 3px 3px 6px black;
-padding: 10px 10px;
-position: relative;
-text-align: center;
-font-weight: bold;
-border-radius: 5px;
--webkit-transition: all 0.1s;
-width: 100px;
-border: none;
+    box-shadow: 3px 3px 6px black;
+    padding: 10px 10px;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.1s;
+    width: 100px;
+    border: none;
 }
 .block{
 	display: inline-block;
