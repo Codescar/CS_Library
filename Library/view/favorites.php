@@ -6,10 +6,10 @@
 	global $db, $user; ?>
 	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Αγαπημένα Βιβλία</div>
 	<?php
-	if(!$user->is_logged_in()){ ?>
-		<div class="content"><div class="error">Πρέπει να συνδεθείτε πρώτα.</div></div>	
-	<?php }else{
-		
+	if(!$user->is_logged_in()){ 
+		?><div class="content"><div class="error">Πρέπει να συνδεθείτε πρώτα.<br /><?php 
+		redirect("index.php?show=login");
+	}else{
 		if(isset($_GET['action']) && $_GET['action'] == "add"){
 			if(!isset($_GET['id']))
 				echo '<div class="error">Invalid request.</div>';

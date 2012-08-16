@@ -3,9 +3,8 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	if(!$user->is_logged_in()){
-	?>
-		<div class="content"><p class="error">Πρέπει να συνδεθείτε πρώτα.</p></div>	
-	<?php 
+		?><div class="content"><p class="error">Πρέπει να συνδεθείτε πρώτα.<br /><?php
+		redirect("index.php?show=login");
 	} else {
 	if(isset($_GET['more']) && $_GET['more'] == "lended"){ ?>
 	<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=cp">Προφίλ χρήστη</a>&nbsp;&gt;&gt;&nbsp;Βιβλία που έχω τώρα</div>

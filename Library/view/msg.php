@@ -3,9 +3,8 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	if(!$user->is_logged_in()){
-	?>
-		<p>Πρέπει να συνδεθείτε πρώτα.</p>	
-	<?php 
+		?><div class="content"><p class="error">Πρέπει να συνδεθείτε πρώτα.<br /><?php
+		redirect("index.php?show=login"); 
 	}else{
 ?>
 <div class="content">
