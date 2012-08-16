@@ -2,34 +2,24 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	
+
 	$logged = $user->is_logged_in();
 ?>
 <div id="direction"><a href="index.php">Αρχική</a></div>
 <div class="content">
-	<div class="index-title">
-		Καλώς ορίσατε στην ηλεκτρονική πύλη της Εθνικής Βιβλιοθήκης Αθηνών.
+	<div class="block" id="show-index">
+		render_template("indexPanel.php");
 	</div>
-	<?php if(announcements::num() > 0) {?>
-		<div id="announcements">
-			<div id="announcements-header">Ανακοινώσεις</div><br />
+	<?php if(announcements::num() > 0) { ?>
+		<div class="block" id="announcements">
+			<div id="announcements-header">Ανακοινώσεις</div>
 			<?php announcements::show(); ?>
-		</div>
-		<div class="block" id="quick-links">
-			<div class="box index-box link">
-		        <?php if($logged){?>
-					<a href="index.php?show=cp&more=lended">Δανεισμένα</a>
-			    <?php } else{?>
-					Διασημότερα
-			    <?php }?>
+			<div class="center">
+				<?php if($user->is_admin()) { ?>
+					<a href="index.php?show=admin&more=announcements&id=0"><button type="button" class="link">Νέα</button></a>
+				<?php } ?>
+				<a href="#"><button type="button" class="link">Παλιότερες</button></a>
 			</div>
-			<div class="box index-box link">Νέες κυκλοφορίες</div>
-			<div class="box index-box link">Ανακοινώσεις</div>
-			<div class="box index-box link">Δελτία τύπου</div>
-			<div class="box index-box link">Θέσεις εργασίας</div>
 		</div>
 	<?php } ?>
-	<div id="index-content">
-		<?php pages::get_body(1); ?>
-	</div>
 </div>

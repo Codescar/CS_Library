@@ -480,42 +480,42 @@ div.developers a{
 }
 
 #announcements{
-	margin: 10px 0 0 0;
-	width: 750px;
-	display: inline-block;
+	background-color: aliceBlue;
+    border-radius: 10px;
+    width: 350px;
+    padding: 0 10px;
 	font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
 
 #announcements-header{
 	font-size: 20px;
-	font-weight: bold;
-	text-align: center;
-	text-decoration: none;
-	color: black;
-	background-color: silver;
-	border-radius: 5px;
-	margin: 0 0 0 450px;
-	width: 300px;
-	line-height: 1.5;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    margin: 2px 0;
+    line-height: 1.5;
 }	
 	
 .announce{
 	background-color: silver;
-	padding: 5px 6px 4px 6px; 
-	border-radius: 5px;
+    padding: 5px 0px 5px 10px;
+    margin: 0 0 15px 0;
+    border-radius: 5px;
 }
 
 .announce-head{
-	font-size: 20px;
-	font-weight: bolder;
-	text-align: center;
-	text-decoration: none;
-	color: white;
-	background-color: maroon;
-	border-radius: 8px;
-	margin: 0 0 0 20px;
-	width: 400px;
-	line-height: 1.4;
+	font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: maroon;
+    border-radius: 8px;
+    margin: 0 0 0 20px;
+    width: 350px;
+    line-height: 1.4;
 }
 
 .announce-footer{
@@ -610,8 +610,18 @@ div.developers a{
     color: black;
 }
 .index-box{
-	margin: 40px 0px;
+	margin: 10px 10px;
 	padding: 10px;
+	background-color: #E4E4E1;
+box-shadow: 3px 3px 6px black;
+padding: 10px 10px;
+position: relative;
+text-align: center;
+font-weight: bold;
+border-radius: 5px;
+-webkit-transition: all 0.1s;
+width: 100px;
+border: none;
 }
 .block{
 	display: inline-block;
