@@ -97,7 +97,7 @@ class Admin{
             	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
             </div>
             <div class="block opt-block"></div>
-            <div class="block opt-block"><input type="submit" value="<?php echo ($edit) ? "Save" : "Add" ;?>" /></div>
+            <div class="block opt-block"><input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε" ;?>" /></div>
             <input type="hidden" name="hidden" value="codescar" />
         </form>
         <?php
@@ -223,7 +223,7 @@ class Admin{
 			</tr> <?php 
 		} ?> </table> 
 		<a class="add-new" href="?show=admin&amp;more=users&amp;add=new_user">
-			<button type="button" class="box link">Δημιουργία Χρήστη</button>
+			<button type="button" class="box link cp-button bold center">Δημιουργία Χρήστη</button>
 		</a>
 		<?php
 	}
@@ -260,7 +260,7 @@ class Admin{
 	 if(!isset($_GET['id']) && !isset($_GET['add'])){
             $ret = announcements::list_all(); ?>
             <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
-                <button type="button" class="box link">Νέα Ανακοίνωση</button>
+                <button type="button" class="box link cp-button bold center">Νέα Ανακοίνωση</button>
             </a>
             <table class="add-new-under">
             <tr>

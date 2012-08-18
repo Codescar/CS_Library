@@ -65,7 +65,7 @@
 			</form>
 		</div>
 		<div class="block" id="user-right">
-			<a href="index.php?show=cp&more=lended"><button type="button" class="box link">Δανεισμένα βιβλία</button></a><br /><br />
-			<a href="index.php?show=cp&more=history"><button type="button" class="box link">Ιστορικό δανεισμού</button></a><br /><br />
-			<a href="index.php?show=favorites"><button type="button" class="box link">Λίστα αγαπημένων</button></a><br /><br />
+			<a href="index.php?show=cp&more=lended"><button type="button" class="cp-button link box center bold">Δανεισμένα βιβλία</button></a><br /><br />
+			<a href="index.php?show=cp&more=history"><button type="button" class="cp-button link box center bold">Ιστορικό δανεισμού</button></a><br /><br />
+			<a href="index.php?show=favorites"><button type="button" class="cp-button link box center bold">Λίστα αγαπημένων</button></a><br /><br />
 		</div>

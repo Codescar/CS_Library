@@ -505,7 +505,7 @@ div.developers a{
 	
 .announce{
 	background-color: silver;
-    padding: 5px 0px 5px 10px;
+    padding: 5px 1px 5px 10px;
     margin: 0 0 15px 0;
     border-radius: 5px;
 }
@@ -531,6 +531,7 @@ div.developers a{
 	padding: 0;
 	margin: 0;
 	text-align: right;
+	text-shadow: 1px 1px 1px black;
 }
 
 /* Right Sidebar */
@@ -591,43 +592,6 @@ div.developers a{
 }
 /* --Right Sidebar-- */
 
-.box.link{
-    background-color: #E4E4E1;
-    box-shadow: 3px 3px 6px black;
-    padding: 10px 10px;
-    position: relative;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 5px;
-    -webkit-transition: all 0.1s;
-    width: 150px;
-    border: none;
-}
-.box:active{
-    -webkit-box-shadow: 1px 1px 4px black;
-    -moz-box-shadow: 1px 1px 4px black;
-    box-shadow: 1px 1px 4px black;
-    position:relative;
-    top:7px;
-}
-.box a{
-    text-decoration: none;
-    color: black;
-}
-.index-box{
-	margin: 0px 35px 15px 35px;
-	padding: 10px;
-	background-color: #E4E4E1;
-    box-shadow: 3px 3px 6px black;
-    padding: 10px 10px;
-    position: relative;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 5px;
-    -webkit-transition: all 0.1s;
-    width: 100px;
-    border: none;
-}
 .block{
 	display: inline-block;
 	vertical-align: top;

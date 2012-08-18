@@ -24,56 +24,59 @@ function list_books($books){
 			if($row == $books['0']) continue;	
 			?>
 			<div class="list-item">
-				<!-- Image -->
-				<div class="list-image">
-					<a href="<?php echo $book_url; ?>"><img src="<?php echo ($row['image_url'] == NULL) ? "view/images/noimage.jpg": $row['image_url']; ?>" alt="<?php echo str_replace('"', "'", $row['title']); ?>" title="<?php echo str_replace('"', "'", $row['title']); ?>"/></a>
-				</div>
-				<!-- Availability -->
-				<div class="list-right">
-					<div class="list-avail">
-						<?php if($row['availability'] == 0) { 
-								if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
-									<div class="info-button box" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
-									<div class="box list-button" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
-								<?php } else {?>
-									<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
-									<div style="font-size: 9px;">Μη διαθέσιμο</div>
-							<?php } } else { ?>
-									<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
-							<?php } ?>
+				<div>
+					<!-- Image -->
+					<div class="list-image">
+						<img src="<?php echo ($row['image_url'] == NULL) ? "view/images/noimage.jpg": $row['image_url']; ?>" alt="<?php echo str_replace('"', "'", $row['title']); ?>" title="<?php echo str_replace('"', "'", $row['title']); ?>" />
 					</div>
-					<div class="box list-button list-add-to-wish">
-    					<?php 
-    						favorites::show_favorites_button($row['id']);
-    					?>
-					</div>
-					<?php if($row['availability'] != 0) { ?>
-					<div class="box list-button list-lend-book">
-						<?php if(!$logged){ ?>
-    	    				<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
-    	    			<?php }else{ ?>
-    	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
-    	    			<?php }?>
-					</div>
-					<?php } ?>
-				</div>
-				<div class="list-item-content">
-					<!-- Title -->
-					<div class="list-title">
-						<a class="list-colored" href="<?php echo $book_url; ?>" ><?php echo $row['title']; ?></a>
-					</div>
-					<!-- Writer -->
-					<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
-					<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
-					<div class="list-description">
-						<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
-							Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
-							<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
-						<?php }else{ ?>
-							<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
+					<!-- Availability -->
+					<div class="list-right">
+						<div class="list-avail">
+							<?php if($row['availability'] == 0) { 
+									if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
+										<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
+										<div class="box list-button center bold" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
+									<?php } else {?>
+										<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+										<div style="font-size: 9px;">Μη διαθέσιμο</div>
+								<?php } } else { ?>
+										<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
+								<?php } ?>
+						</div>
+						<div class="box list-button list-add-to-wish center bold">
+							<?php 
+								favorites::show_favorites_button($row['id']);
+							?>
+						</div>
+						<?php if($row['availability'] != 0) { ?>
+						<div class="box list-button list-lend-book center bold">
+							<?php if(!$logged){ ?>
+								<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
+							<?php }else{ ?>
+								<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
+							<?php }?>
+						</div>
 						<?php } ?>
 					</div>
+					<div class="list-item-content">
+						<!-- Title -->
+						<div class="list-title list-colored">
+							<?php echo $row['title']; ?>
+						</div>
+						<!-- Writer -->
+						<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
+						<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
+						<div class="list-description">
+							<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
+								Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
+								<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
+							<?php }else{ ?>
+								<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
+							<?php } ?>
+						</div>
+					</div>
 				</div>
+				<a class="list-item-link" href ='<?php echo $book_url; ?>'></a>
 			</div>
 			<?php 
 		}

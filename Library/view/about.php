@@ -63,8 +63,8 @@
 					// previous will work with jqeury ui and will show the previous version which is hidden
 					// download must be each associated with the correct version
 			?>
-			<a href="#"><button type="button" class="right box link" style="width: 170px;">Προηγούμενη Έκδοση</button></a>
-			<a href="#"><button type="button" class="left box link" style="width: 90px;">Κατέβασμα</button></a>
+			<a href="#"><button type="button" class="right box link form-button center bold" style="width: 170px;">Προηγούμενη Έκδοση</button></a>
+			<a href="#"><button type="button" class="left box link form-button center bold" style="width: 90px;">Κατέβασμα</button></a>
 		</div>
 		<!-- Version 0.1(alpha), (r34, 10/11/2011) <br />
     	Version 0.2(alpha), (r56, 18/12/2011) <br />

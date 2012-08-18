@@ -40,7 +40,7 @@
         	<input type="text" name="name" id="name" required="required" />
         	<label for="email" style="margin: 0 0 0 50px;">Το E-mail σας: </label>
         	<input type="email" name="email" id="email" required="required" />
-        	<input type="submit" value="Αποστολή" style="margin: 0 0 0 150px;"/>
+        	<input class="cp-button bold center link box" type="submit" value="Αποστολή" style="margin: 0 0 0 150px;"/>
     	</div>
 	</form>
 </div>

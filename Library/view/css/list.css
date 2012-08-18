@@ -3,6 +3,19 @@
 	height: 170px;
 	border-bottom: 2px #888 solid;
 	overflow: hidden;
+	position: relative;
+}
+.list-item:hover{
+	background-color: #DEECF0;
+	border-radius: 5px;
+}
+.list-item-link{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
 }
 .list-image{
 	width: 142px;
@@ -22,12 +35,12 @@
 	width: 900px;
 	position: relative;
 	right: 25px;
-}
-.list-title a{
 	font-size: 22px;
 	font-weight: bolder;
-	/*font-variant: small-caps;*/
 	text-decoration: none;
+}
+.list-title a{
+	
 }
 .list-writer {
 	padding-top: 6px;
@@ -67,17 +80,44 @@
 .list-non-colored{
 	color: #000;	
 }
-.list-button, .book-button, .form-button{
+.list-button, .book-button, .form-button, .cp-button, .index-button{
 	background-color: #E4E4E1;
 	box-shadow: 3px 3px 6px black;
-	padding: 10px 10px;
-	position: relative;
-	text-align: center;
-	font-weight: bold;
-	border-radius: 5px;
-	-webkit-transition: all 0.1s;
-	margin: 5px 0 15px 0;
 	border: none;
+	border-radius: 5px;
+	position: relative;
+	padding: 10px;
+	margin: 5px 0 15px 0;
+	-webkit-transition: all 0.1s;
+}
+.list-button{
+	z-index: 2;
+}
+.cp-button{
+	margin: 5px 0px;
+    width: 150px;
+}
+.box:hover{
+    -webkit-box-shadow: 2px 2px 5px black;
+    -moz-box-shadow: 2px 2px 5px black;
+    box-shadow: 2px 2px 5px black;
+    position: relative;
+    top: 3px;
+}
+.box:active{
+    -webkit-box-shadow: 1px 1px 4px black;
+    -moz-box-shadow: 1px 1px 4px black;
+    box-shadow: 1px 1px 4px black;
+    position: relative;
+    top: 10px;
+}
+.box a{
+    text-decoration: none;
+    color: black;
+}
+.index-button{
+	margin: 0px 35px 15px 35px;
+	width: 100px;
 }
 .book-button{
 	display: inline-block;
@@ -115,19 +155,13 @@
 	padding: 25px;
 	position: relative;
 }
-.book-title, .index-title{
+.book-title{
 	text-align: center;
 	font-size: 28px;
 	font-weight: bolder;
 	text-decoration: none;
 	color: orange;
 	background-color: maroon;
-}
-.index-title{
-	 color: white;
-	 font-size: 20px;
-	 line-height: 1.5em;
-	 border-radius: 4px;
 }
 .book-info{
 	margin-top: 15px;

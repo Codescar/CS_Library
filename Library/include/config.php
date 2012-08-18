@@ -8,7 +8,7 @@
 	global $CONFIG;
 	
 	/* Basic installation configs */
-	$CONFIG['title'] = "Εθνική Βιβλιοθήκη Αθηνών";
+	$CONFIG['title'] = "CodeScar Library Managment System";
 	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
 	$CONFIG['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo/";
 	
