@@ -29,12 +29,13 @@ class User{
 					AND 	`password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
-		$user = mysql_fetch_array($result);
+		//TODO use the full capabilities of fetch_object for user
+		$user = mysql_fetch_object($result);
 	    if($user){
-	    	$this->id 					= $user['id'];
-	    	$this->access_level 		= $user['access_lvl'];
-	    	$this->username				= $user['username'];
-	    	$this->email				= $user['email'];
+	    	$this->id 					= $user->id;
+	    	$this->access_level 		= $user->access_lvl;
+	    	$this->username				= $user->username;
+	    	$this->email				= $user->email;
 
 	    	$_SESSION['logged_in']		= 1;
 			$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];
@@ -99,47 +100,24 @@ class User{
 		$query = "	DELETE FROM `{$db->table['users']}`
 					WHERE `{$db->table['users']}`.`id` = '$id'
 					LIMIT 1";
-		echo "<div class=\"success\">User ".user::get_name($id)." deleted <br />";
+		echo "<div class=\"success\">Ο χρήστης ".user::get_name($id)." διαγράφηκε.<br />";
+		//TODO we should print the username instead of the name
 		$db->query($query);
 		redirect($CONFIG['url']."?show=admin&more=users",4000);
 	}
 	
 	//TODO replace tale/column names below here
-	public function show_history($mode = 0, $user_id = -1){
-		/**
-		 * $mode values:
-		 * default: 0, normal user mode, see the history of 1 user
-		 * 1, admin, show all the histories
-		 * 2, admin, show pendings only....
-		 */
+	public function show_history($user_id = -1){
 	    global $db;
 	    if($user_id == -1)
 	    	$user_id = $this->id;
-	    if($mode == 1) 
-// 	    	$query = "	SELECT * FROM `{$db->table['history']}`
-// 	    				CROSS JOIN `{$db->table['users']}` 
-// 	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
-// 						ORDER BY `date`";
-	        $query = "	SELECT * FROM `{$db->table['log_lend']}`
-	    				CROSS JOIN `{$db->table['users']}`
-	    				ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
-	    				ORDER BY `{$db->table['log_lend']}`.taken";
-// 	    elseif($mode == 2)
-// 	    	$query = "	SELECT * FROM `{$db->table['history']}`
-// 	    				CROSS JOIN `{$db->table['users']}` 
-// 	    				ON {$db->table['users']}.id = {$db->table['history']}.user_id 
-// 						GROUP BY `book_id`, `action` 
-// 	    				ORDER BY `date`";
-	    else
-			$query = "	SELECT * FROM `{$db->table['log_lend']}`
-						CROSS JOIN `{$db->table['booklist']}`
-						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id
-						WHERE `{$db->table['log_lend']}`.`user_id` = '$user_id'
-						ORDER BY `{$db->table['log_lend']}`.`returned`";
+		$query = "	SELECT * FROM `{$db->table['log_lend']}`
+					CROSS JOIN `{$db->table['booklist']}`
+					ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id
+					WHERE `{$db->table['log_lend']}`.`user_id` = '$user_id'
+					ORDER BY `{$db->table['log_lend']}`.`returned`";
 		$result = $db->query($query);
-		echo "<table id=\"history\"><tr><th>Βιβλίο</th>";
-		echo ($mode) ? "<th>Χρήστης</th>" : "";
-		echo "<th>Το Πήρες</th><th>Το Έφερες</th></tr>";
+		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Το Πήρες</th><th>Το Έφερες</th></tr>";
 		$flag = 0;
 		while($row = mysql_fetch_array($result)){
 			if($flag++ % 2 == 0)
@@ -147,26 +125,6 @@ class User{
 			else
 				echo "\t\t\t\t<tr>";
 			echo "<td class=\"table-book-title\"><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
-			echo ($mode) ? "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>" : "";
-// 			echo "<td class=\"action\">";
-//             switch($row['action']){
-// 		    case 1:
-// 		    	echo ($mode) && book_avail($row['book_id'])
-// 		    	? "<a href=\"?show=admin&more=lend&lend={$row['book_id']}&user={$row['user_id']}\" class=\"request-book\">Ζητήθηκε</a>"
-// 				: "Ζητήθηκε (<a href=\"?show=cp&more=remove_request&id={$row['id']}\" class=\"cansel-request\">Ακύρωση</a>)";
-// 		        break;
-// 		    case 2:
-// 		    	//TODO Change the actions to know if lended is now lended and if were lended in the past
-// 				echo "Επεστράφη";
-// 		        break;
-// 		    case 3:
-// 		    	//TODO return or back is the correct action for an admin?
-// 		    	echo ($mode) 
-// 		    	? "<a href=\"?show=admin&more=return&return={$row['book_id']}&user={$row['user_id']}\" class=\"return-book\">Δανεισμένο</a>"
-// 				: "Δανεισμένο";
-// 				break;
-//             }
-//			echo "</td>";
 			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td>\n";
 			echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr>\n";
 		}
@@ -175,16 +133,16 @@ class User{
 	}
 
 	public function show_info($user_id = -1){
-        global $db, $row;
+        global $db, $user_info;
 		if($user_id == -1)
 			$user_id = $this->id;
 		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
 		$result = $db->query($query);
-		$row = mysql_fetch_assoc($result);
-		$query = "SELECT COUNT(*) FROM `{$db->table['lend']}` WHERE `user_id` = '$user_id'";
+		$user_info = mysql_fetch_object($result);
+		$query = "SELECT COUNT(*) AS books_lended FROM `{$db->table['lend']}` WHERE `user_id` = '$user_id'";
 		$result = $db->query($query);
-		$num = mysql_fetch_array($result);
-		$row['books_lended'] = $num[0]; 
+		$more_info = mysql_fetch_object($result);
+		$user_info->books_lended = $more_info->books_lended; 
 
 	}
 	
@@ -193,9 +151,9 @@ class User{
 		if($user_id == -1)
 			$user_id = $this->id;
 		$query = "	SELECT * FROM `{$db->table['users']}`
-		WHERE 	`id` = '$user_id'
-		AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
-		LIMIT 1 ;";
+					WHERE 	`id` = '$user_id'
+					AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
+					LIMIT 1 ;";
 		$result = $db->query($query);
 		if(mysql_num_rows($result)){
 			$q = "UPDATE `{$db->table['users']}` SET
@@ -266,14 +224,13 @@ class User{
 	    return ($this->access_level >= 100) ? true : false;
 	}
 	
-	public function cansel_request($id){
+	public function cansel_request($id, $current_url){
 		global $db;	
 		
 		$query = "DELETE FROM `requests` WHERE `id` = '$id' AND `user_id` = '{$this->id}'; ";
 		$db->query($query);
-		?>
-		<p class="success">Your request have been deleted!</p>
-		<?php 		
+		?> <div class="success">Η αίτηση δανεισμού σου ακυρώθηκε!<br /><?php
+		redirect($current_url);
 	}	
 	
 	public static function get_name($id){
@@ -294,16 +251,19 @@ class User{
 
 	function show_lended(){
 		global $CONFIG, $db;
-		$books = $db->get_books("SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
-		WHERE {$db->table['lend']}.user_id = '{$this->id}' ");
-		if($books == FALSE){ ?>
-			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο</div>
+		$query = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` 
+					ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
+				  WHERE {$db->table['lend']}.user_id = '{$this->id}' ";
+		$books = $db->get_books($query);
+		if(!$books){ ?>
+			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο.</div>
 		<?php }
 		list_books($books); 
 		return;
 	}
 };
 
+//TODO those should be moved to another file
 function date_gr($timestamp, $mode) {
 
     $result = "";

@@ -99,20 +99,15 @@
 		public static function show_favorites_button($id){
 			global $user;
 			
-			if(!$user->is_logged_in()){ ?>
-    			<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a>
-    		<?php 
+			if(!$user->is_logged_in()){ 
+				?> <a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">+ Aγαπημένα</a> <?php 
 			}else{ 
 				$favorites = $user->favorites->get_cache();
 				
 				if(in_array($id, $favorites)){
-					?>
-					<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το αφαιρέσεις από τα αγαπημένα σου;');" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">- Aγαπημένα</a>
-					<?php 
-				}else{
-    		?>
-	    		<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">+ Aγαπημένα</a>
-    		<?php 
+					?> <a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το αφαιρέσεις από τα αγαπημένα σου;');" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">- Aγαπημένα</a> <?php 
+				}else{ 
+					?> <a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;');" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">+ Aγαπημένα</a> <?php 
 				}
 			}
 			

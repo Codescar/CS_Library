@@ -18,6 +18,7 @@ class Admin{
 		//TODO add a confirmation link to a table
 	
 	}
+
 	function show_statistics(){
 		global $db;
 		//Show the number of all the books, the current lended books
@@ -51,49 +52,45 @@ class Admin{
     				ORDER BY `{$db->table['log_lend']}`.taken";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
-		$flag = 0;
-		while($row = mysql_fetch_array($result)){
-		    echo "<tr><td><a href=\"index.php?show=book&id={$row['book_id']}\">{$row['title']}</a></td>";
-		    echo "<td><a href=\"?show=admin&more=user&id={$row['user_id']}\">{$row['username']}</a></td>";
-		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['taken']))."</td>";
-		    echo "<td class=\"date\">".date('d-m-Y', strtotime($row['returned']))."</td></tr>\n";
+		while($book = mysql_fetch_object($result)){
+		    echo "<tr><td><a href=\"index.php?show=book&id={$book->book_id}\">{$book->title}</a></td>";
+		    echo "<td><a href=\"?show=admin&more=user&id={$book->user_id}\">{$book->username}</a></td>";
+		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->taken))."</td>";
+		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->returned))."</td></tr>\n";
 		}
-        echo "</table>"; 
-        return;
-		//TODO Have to group them by book and disable lending for already dended books
+        echo "</table>";
 	}
 	
 	function show_options(){
 		if(isset($_GET['delete']) && $_GET['delete'] == 'true')
 			option::delete($_GET['name']);
         if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
-            option::save($_POST['name'], $_POST['value']);
+            option::save($_POST['name'], $_POST['value'], $_POST['description']);
 		$res = option::list_all();
-		?><h3>Options Page</h3>
-		<div class="block opt-block">Name</div>
-		<div class="block opt-block">Value</div>
-		<br />
-		<?php
-		while($option = mysql_fetch_array($res)){
-			$edit_link = "index.php?show=admin&more=options&name=".$option['Name']."&value=".$option['Value'];
-			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option['Name']; ?>
-			<div class="block opt-block"><?php echo $option['Name']; ?></div>
-			<div class="block opt-block"><?php echo $option['Value']; ?></div>
+		?><h3>Ρυθμίσεις</h3><?php
+		while($option = mysql_fetch_object($res)){
+			$edit_link = "index.php?show=admin&more=options&name=".$option->name."&description=".$option->description."&value=".$option->value;
+			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option->name; ?>
+			<div class="block opt-block"><?php echo $option->name; ?></div>
+			<div class="block opt-block"><?php echo $option->description; ?></div>
+			<div class="block opt-block"><?php echo $option->value; ?></div>
 			<div class="block opt-block fl-right"><a href="<?php echo $delete_link; ?>">Delete</a></div>
 			<div class="block opt-block fl-right"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
 			<br /> <?php
 		}
         $edit = false;
-		if(isset($_GET['name']) && isset($_GET['value']))
+		if(isset($_GET['name']) && isset($_GET['value']) && isset($_GET['description']))
             $edit = true;
 		?>
         <form action="" method="post">
             <h4>Πρόσθεσε νέο option</h4>
-            <div class="block opt-block"><label for="name">Name: </label>
+            <div class="block opt-block"><label for="name">Όνομα: </label>
             	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
             </div>
-            <div class="block opt-block"></div>
-            <div class="block opt-block"><label for="value">Value: </label>
+            <div class="block opt-block"><label for="description">Περιγραφή: </label>
+            	<input type="text" id="description" name="description"  value="<?php echo ($edit) ? $_GET['description'] : "" ; ?>" />
+            </div>
+            <div class="block opt-block"><label for="value">Τιμή: </label>
             	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
             </div>
             <div class="block opt-block"></div>
@@ -124,7 +121,7 @@ class Admin{
 		$requests_res 	= $db->query($request_query);
 		?>
 		<div id="lends">
-            <h3 class="center">Lends</h3>
+            <h3 class="center">Αιτήματα Δανεισμού</h3>
 			<table>
 			<tr>
 				<th>Α/Α</th>
@@ -151,7 +148,7 @@ class Admin{
 			?> </table>
 		</div>
 		<div id="returns">
-		<h3 class="center">Returns</h3>
+		<h3 class="center">Δανεισμένα Βιβλία</h3>
 			<table>
 			<tr>
 				<th>Α/Α</th>
@@ -179,25 +176,28 @@ class Admin{
 	
 	function create_user(){
 		global $db, $user;
-		if(isset($_POST['hidden']) && $_POST['hidden'] == 1){
+		if(isset($_POST['hidden']) && $_POST['hidden'] == "codescar"){
 			if(	!isset($_POST['username']) 		|| !isset($_POST['password']) || 
 				!isset($_POST['email']) 		||  empty($_POST['username']) || 
 				 empty($_POST['password']) 		||  empty($_POST['email']) ){
-				?> <div class="error">Cannot Create the User!</div>	<?php 
+				?> <div class="error">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br /><?php
+				redirect("index.php?show=admin&more=users");
 			}
 			else{
                 $user->createUser(	mysql_real_escape_string($_POST['username']), 
                                     mysql_real_escape_string($_POST['password']), 
                                     mysql_real_escape_string($_POST['email']));
-                ?> <div class="success">The User have been created!</div> <?php 
+                ?> <div class="success">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br /><?php
+				redirect("index.php?show=admin&more=users", 4000);
+                //TODO send an email to the user 
             }
 		} ?>
 		<form action="" method="post" id="new-user-form">
-		<label for="username">Username: </label><input type="text" id="username" name="username" />
-		<label for="password">Password: </label><input type="password" id="password" name="password" /><br />
-		<label for="email">E-mail: </label><input type="email" id="email" name="email" />
-		<label for="name">Phone: </label><input type="text" id="phone" name="phone" /><br />
-		<input type="hidden" name="hidden" value="1" />
+		<label for="username">*Όνομα Χρήστη: </label><input type="text" id="username" name="username" required="required" />
+		<label for="password">*Κωδικός: </label><input type="password" id="password" name="password" required="required" /><br />
+		<label for="email">*E-mail: </label><input type="email" id="email" name="email" required="required" />
+		<label for="name">Τηλέφωνο: </label><input type="text" id="phone" name="phone" /><br />
+		<input type="hidden" name="hidden" value="codescar" />
 		<input type="submit" value="Create" />
 		</form> <?php 
 	}
@@ -210,8 +210,8 @@ class Admin{
 		?> <table class="add-new-under">
 		<tr>
 			<th>ID</th>
-			<th>Username</th>
-			<th>Phone</th>
+			<th>Όνομα Χρήστη</th>
+			<th>Τηλέφωνο</th>
 			<th>Email</th>
 		</tr> <?php 
 		while($row = mysql_fetch_object($res)){
@@ -239,20 +239,21 @@ class Admin{
 	
 	function user_history($id){
 		global $user;
-		$user->show_history(0, mysql_real_escape_string($id));
+		$user->show_history(mysql_real_escape_string($id));
 	}
 	
 	function return_book(){
-	    global $db;
+	    global $db, $CONFIG;
 	    if(!isset($_GET['return']) && !isset($_GET['user'])){
-	        ?><div class="error">Error</div><?php
+	        ?><div class="error">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά <br /><?php
+	        redirect("index.php?show=admin&more=pendings");
 	        return;
 	    }else{
 	        $u_name = user::get_name($_GET['user']);
 	        $b_name = get_book_name($_GET['return']);
 	        $db->return_book(mysql_real_escape_string($_GET['return']));
 	        ?><div class="success center">Ο χρήστης<?php echo $u_name; ?> επέστρεψε το βιβλίο <?php echo $b_name."<br />";
-	        redirect($CONFIG['url'], 4000);
+	        redirect("index.php?show=admin&more=pendings", 4000);
 	    }
 	}
 	
@@ -264,30 +265,30 @@ class Admin{
             </a>
             <table class="add-new-under">
             <tr>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>Action</th>
+                <th>Τίτλος</th>
+                <th>Σώμα</th>
+                <th>Συγγραφέας</th>
+                <th>Ημερομηνία</th>
+                <th>Επιλογές</th>
             </tr> <?php
-            while($row = mysql_fetch_array($ret)){
+            while($announcement = mysql_fetch_object($ret)){
                 ?> <tr>
-                    <td><?php echo substr($row['title'], 0, 40); echo (strlen($row['title']) > 40) ? "..." : ""; ?></td>
-                    <td><?php echo substr($row['body'], 0, 40);  echo (strlen($row['body']) > 40)  ? "..." : ""; ?></td>
-                    <td><?php echo User::get_name($row['author']);    ?></td>
-                    <td><?php echo $row['date'];    ?></td>
-                    <td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row['id'], "delete" => "true"))); ?>">Delete</a></td>
+                    <td><?php echo substr($announcement->title, 0, 40); echo (strlen($announcement->title) > 40) ? "..." : ""; ?></td>
+                    <td><?php echo substr($announcement->body, 0, 40);  echo (strlen($announcement->body) > 40)  ? "..." : ""; ?></td>
+                    <td><?php echo $announcement->username; ?></td>
+                    <td><?php echo $announcement->date; ?></td>
+                    <td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id))); ?>">Επεξεργασία</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id, "delete" => "true"))); ?>">Διαγραφή</a></td>
                 </tr> <?php
             }
-            ?> </table>    <?php
+            ?> </table> <?php
         }
         elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
             $ret = announcements::get($_GET['id']);
             $row = mysql_fetch_array($ret); ?>
             <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-                <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+                <textarea class="ckeditor" name="body" id="body"><?php echo $announcement->body; ?></textarea><br />
                 <label for="title" class="bold">Title:</label>
-                    <input type="text" name="title" id="title" value="<?php echo $row['title']; ?>" />
+                    <input type="text" name="title" id="title" value="<?php echo $announcement->title; ?>" />
                 <input type="submit" value="Save" />
             </form> <?php
         }
@@ -296,12 +297,12 @@ class Admin{
                 announcements::update($_GET['id'], $_POST['title'], $_POST['body'])    ;
             else
                 announcements::add($_POST['title'], $_POST['body']);
-            ?> <div class="success">Announcement Added/Updated <br /><?php 
+            ?> <div class="success">Η ανακοίνωση δημιουργήθηε/ανανεώθηκε.<br /><?php 
             redirect("index.php?show=admin&more=announcements");
         }
         if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
                 announcements::delete($_GET['id']);
-                ?> <div class="success">The announcement has been removed. <br /><?php 
+                ?> <div class="success">Η ανακοίνωση διαγράφηκε.<br /><?php 
             redirect("index.php?show=admin&more=announcements");
         }
 	}
@@ -309,21 +310,21 @@ class Admin{
 	function manage_pages(){
 		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
 				pages::update($_GET['id'], $_POST['body']);
-			?> <div class="success">Page Updated  <br /><?php 
+			?> <div class="success">Το κείμενο ανανεώθηκε<br /><?php 
             redirect("index.php?show=admin&more=pages");
 		}
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
 	        $ret = pages::list_all();
-			while($row = mysql_fetch_array($ret)){
-				 echo $row['desc'];
-				 ?> -- <a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $row[0]))); ?>">Edit</a><br /> <?php 
+			while($page = mysql_fetch_object($ret)){
+				 echo $page->desc;
+				 ?> -- <a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $page->id))); ?>">Edit</a><br /> <?php 
 			}
 	    }
 		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){		
 			$ret = pages::get($_GET['id']);
-			$row = mysql_fetch_array($ret);
+			$page = mysql_fetch_object($ret);
 			?> <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $row['body']; ?></textarea><br />
+				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $page->body; ?></textarea><br />
 				<input type="submit" value="Save" />
 			</form>	<?php 	
 		}

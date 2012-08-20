@@ -4,7 +4,8 @@ class announcements{
 	
 	public static function list_all(){
 		global $db;
-		$query = "SELECT * FROM `{$db->table["announcements"]}` ;";
+		$query = "SELECT * FROM `{$db->table["announcements"]}` CROSS JOIN `{$db->table["users"]}` 
+						ON `{$db->table["announcements"]}`.author = `{$db->table["users"]}`.id ;";
 		return $db->query($query);
 	}
 	
@@ -44,14 +45,14 @@ class announcements{
 					CROSS JOIN `{$db->table["users"]}` ON `{$db->table["announcements"]}`.author = `{$db->table["users"]}`.id
 					ORDER BY `date` desc;";
 		$result = $db->query($query);
-		if($row = mysql_fetch_array($result)){
+		if($announcement = mysql_fetch_object($result)){
 			do{ ?>
 				<div class="announce">
-					<div class="announce-head"><?php echo $row['title']; ?></div>
-					<div class="announce-content"><?php echo $row['body']; ?></div>
-					<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($row['name']) >= 1) ? $row['name'] : "Ανώνυμο"; ?> την <?php echo (strlen($row['date']) >= 1) ? date('d-m-Y στις H:i', strtotime($row['date'])) : "";?>.</p>
+					<div class="announce-head"><?php echo $announcement->title; ?></div>
+					<div class="announce-content"><?php echo $announcement->body; ?></div>
+					<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($announcement->name) >= 1) ? $announcement->name : "Ανώνυμο"; ?> την <?php echo (strlen($announcement->date) >= 1) ? date('d-m-Y στις H:i', strtotime($announcement->date)) : "";?>.</p>
 				</div>
-			<?php }while($row = mysql_fetch_array($result));
+			<?php }while($announcement = mysql_fetch_object($result));
 		} else {
 			?> <div class="announce">Δεν δημιουργήθηκε ακόμα ανακοίνωση</div> <?php
 		}

@@ -88,16 +88,16 @@ class Lbdb{
 	    global $CONFIG;
 	    if($CONFIG['debug']){
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
-	            or die("Could not connect: ".mysql_error());
+	            or die("Δεν μπόρεσε να γίνει σύνδεση με την βάση. Error: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
-	            or die("Error selecting database: ".mysql_error());
+	            or die("Πρόβλημα με την επιλογή βάσης: ".mysql_error());
 	    }
 	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
 	        mysql_select_db($this->dbname, $this->connection);   
 	    }
 	    $this->query("SET NAMES 'utf8'");
-	    /* query("SET time_zone = 'Europe/Athens'") 
+	    /* TODO query("SET time_zone = 'Europe/Athens'") 
 	     * Have to install timezones in mysql server 
 	     */
 	   	$this->query("SET time_zone = '+2:00'");
@@ -109,18 +109,17 @@ class Lbdb{
 	}
 	
 	/*
-	 * Need some fixing, in order to get
-	 * protected from harmful queries. 
+	 * Need some fixing, in order to get protected from harmful queries. 
 	 */
 	public function query($query){
 		global $CONFIG;
 	    
 		if($CONFIG['debug'])
-		    $results = mysql_query($query, $this->connection) or die("Query error: ".mysql_error());
+		    $results = mysql_query($query, $this->connection) or die("Error κατά την εκτέλεση query: ".mysql_error());
 	    else
 	        $results = mysql_query($query, $this->connection);
 	        
-	    $this->queries ++;
+	    $this->queries++;
 	    
 		return $results;
 	}
@@ -152,8 +151,7 @@ class Lbdb{
 	public function lend_book($bk_id, $usr_id){
         $lend =	"	INSERT INTO `{$this->table['lend']}` 
 					(`book_id`, `user_id`, `taken`) VALUES 
-					('$bk_id', '$usr_id', NOW()) ;
-				";
+					('$bk_id', '$usr_id', NOW()) ;";
 	    $this->query($lend);
 	    return;
 	}
@@ -190,6 +188,7 @@ class Lbdb{
 	}
 };
 
+//TODO must put that function to another file
 function redirect($url, $time = 2000){
 	echo "Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href=\"".$url."\">εδώ</a>.</div>"
 		."<script type=\"text/javascript\">var t=setTimeout(\"window.location = '".$url."'\",".$time.")</script>";

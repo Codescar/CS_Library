@@ -17,11 +17,11 @@ function list_books($books){
 	<div class="list">
 	<?php
 	if(empty($books))
-		echo '<div class="error">There are no items.</div>';
+		echo '<div class="error">Η λίστα που ζητήσατε δεν περιέχει βιβλία.</div>';
 	else
 		foreach($books as $row){
 			$book_url = "index.php?show=book&amp;id=".$row['id'];
-			if($row == $books['0']) continue;	
+			if($row == $books['0']) continue;
 			?>
 			<div class="list-item">
 				<div>
@@ -186,8 +186,7 @@ function get_category_name($id){
 				ORDER BY category_name ASC;";
 	$res = $db->query($query);
 	$flag = 0;
-	while($row = mysql_fetch_array($res))
-	{
+	while($row = mysql_fetch_array($res)){
 	    if($flag)
 	        $ret .= ", ". $row['category_name'];
 	    else   
@@ -203,7 +202,7 @@ function get_book_name($id){
     $query = "SELECT {$db->table['booklist']}.title FROM {$db->table['booklist']}
     			WHERE {$db->table['booklist']}.id = '".mysql_real_escape_string($id)."'";
     $res = $db->query($query);
-    $result = mysql_fetch_row($res);
-    return $result[0];
+    $book = mysql_fetch_object($res);
+    return $book->title;
 } 
 ?>

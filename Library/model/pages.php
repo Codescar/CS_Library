@@ -6,10 +6,10 @@ class pages{
 	
 	public static function get_body($id){
 		global $db;
-		$query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+		$query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `{$db->table["pages"]}`.`id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
 		$result = $db->query($query);
-		$row = mysql_fetch_array($result);
-		echo $row[0];
+		$page = mysql_fetch_object($result);
+		echo $page->body;
 		return 1;
 	}
 	
@@ -21,15 +21,15 @@ class pages{
 	
 	public static function get($id){
 	    global $db;
-	    $query = "SELECT * FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+	    $query = "SELECT * FROM `{$db->table["pages"]}` WHERE `{$db->table["pages"]}`.`id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
 	    return $db->query($query);
 	}
 	
 	public static function update($id, $body){
 		global $db, $user;
 		$query = "	UPDATE `{$db->table["pages"]}` 
-					SET `body` = '".mysql_real_escape_string($body)."' 
-					WHERE `id` = '".mysql_real_escape_string($id)."';";
+					SET `{$db->table["pages"]}`.`body` = '".mysql_real_escape_string($body)."' 
+					WHERE `{$db->table["pages"]}`.`id` = '".mysql_real_escape_string($id)."';";
 		$db->query($query);
 		return ;
 	}
