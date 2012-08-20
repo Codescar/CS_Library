@@ -99,9 +99,8 @@
     width: 150px;
 }
 .form-button{
-	margin: 5px 0px;
     width: 150px;
-	margin: 0 0 0 100px;
+	margin: 0 5px 0 100px;
 }
 .box:hover{
     -webkit-box-shadow: 2px 2px 5px black;

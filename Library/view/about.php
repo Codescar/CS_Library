@@ -63,8 +63,8 @@
 					// previous will work with jqeury ui and will show the previous version which is hidden
 					// download must be each associated with the correct version
 			?>
-			<a href="#"><button type="button" class="right box link form-button center bold" style="width: 170px;">Προηγούμενη Έκδοση</button></a>
-			<a href="#"><button type="button" class="left box link form-button center bold" style="width: 90px;">Κατέβασμα</button></a>
+				<a href="#"><button type="button" class="right block box link cp-button center bold" style="width: 90px;">Κατέβασμα</button></a>
+				<a href="#"><button type="button" class="block box link cp-button center bold" style="width: 170px;">Προηγούμενη Έκδοση</button></a>
 		</div>
 		<!-- Version 0.1(alpha), (r34, 10/11/2011) <br />
     	Version 0.2(alpha), (r56, 18/12/2011) <br />
@@ -74,7 +74,6 @@
 		<div class="dev" style="background-color: orange;"><p class="dev-name">lion2486</p>
         	<label for="email">E-Mail: </label><a class="right" href="mailto:info@lion2486.eu">info@lion2486.eu</a><br />
         	<label for="website">WebSite: </label><a class="right" href="http://lion2486.eu">www.lion2486.eu</a>
-        	<?php //TODO correct your email and website info ?>
 		</div>
 		<div class="dev" style="background-color: chocolate;"><p class="dev-name">Sudavar</p>
     		<label for="email">E-Mail: </label><a class="right" href="mailto:sudavar@codescar.eu">sudavar@codescar.eu</a><br />
