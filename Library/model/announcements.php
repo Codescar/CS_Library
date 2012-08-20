@@ -40,25 +40,21 @@ class announcements{
 	
 	public static function show($page = 0){
 		global $db;
-		$query = "SELECT * FROM `{$db->table["announcements"]}` ORDER BY `date` desc;";
+		$query = "SELECT * FROM `{$db->table["announcements"]}` 
+					CROSS JOIN `{$db->table["users"]}` ON `{$db->table["announcements"]}`.author = `{$db->table["users"]}`.id
+					ORDER BY `date` desc;";
 		$result = $db->query($query);
-		while($row = mysql_fetch_array($result)){
-			?>
-			<div class="announce">
-				<div class="announce-head"><?php echo $row['title']; ?></div>
-				<div class="announce-content"><?php echo $row['body']; ?></div>
-				<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($row['author']) >= 1) ? user::get_name($row['author']) : "Ανώνυμο"; ?> την <?php echo (strlen($row['date']) >= 1) ? date('d-m-Y στις H:i', strtotime($row['date'])) : "";?>.</p>
-			</div>
-			<?php 
+		if($row = mysql_fetch_array($result)){
+			do{ ?>
+				<div class="announce">
+					<div class="announce-head"><?php echo $row['title']; ?></div>
+					<div class="announce-content"><?php echo $row['body']; ?></div>
+					<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($row['name']) >= 1) ? $row['name'] : "Ανώνυμο"; ?> την <?php echo (strlen($row['date']) >= 1) ? date('d-m-Y στις H:i', strtotime($row['date'])) : "";?>.</p>
+				</div>
+			<?php }while($row = mysql_fetch_array($result));
+		} else {
+			?> <div class="announce">Δεν δημιουργήθηκε ακόμα ανακοίνωση</div> <?php
 		}
-	}
-	
-	public static function num(){
-		global $db;
-		$query = "SELECT id FROM `{$db->table["announcements"]}`;";
-		$result = $db->query($query);
-		$num = mysql_num_rows($result);
-		return $num;
 	}
 };
 ?>

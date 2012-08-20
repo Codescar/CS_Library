@@ -61,8 +61,7 @@
 		<div class="book-right-info">
 			<div id="buttons" class="block">
 				<div class="box book-button book-add-to-wish">
-					<?php favorites::show_favorites_button($results['id']); ?>
-				   
+					<?php favorites::show_favorites_button($results['id']); ?>  
 	    		</div>
 	    		<?php if(!$have && !$requested && $results['availability']){ ?>
 	    		<div class="box book-button book-lend-book" id="lend">
@@ -74,21 +73,17 @@
 	    		</div>
 	    		<?php } elseif($logged && $have) { ?>
 	    			<div class="book-button box"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
-	    			<div class="info-button box button"><img src="view/images/information.png" />Το Έχεις!</div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
 			<div class="book-avail block">
 				<span class="book-colored">Διαθεσιμότητα:</span>
-				<?php echo (!$have && $results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; ?>
+				<?php if($logged && $have) {
+						echo "<span class=\"avail\">Το έχεις εσύ</span>";
+					} else {
+						echo (!$have && $results['availability'] == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; 
+					} ?>
 			</div>
-			<div class="book-description">
-			<?php if($results['description'] != NULL) { ?>
-				<br /><span class="book-colored">Περιγραφή: </span><span style="font-size: 17px;"><?php echo $results['description']; ?></span> <?php
-			} else { ?> 
-				Χωρίς Περιγραφή.
-			<?php } ?>
-			</div>
-    		<?php if($lended){ ?>
+			<?php if($lended){ ?>
     			<p class="error">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php ;
     		}
     		if($logged && $requested && !$have){ ?>
@@ -101,13 +96,25 @@
 					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?>
 					</div><?php
 				}
-			} else { }
+			} elseif(isset($msg)){ ?>
+				<div class="error" ><?php echo $msg."<br />";
+				redirect("index.php?show=login", 4);
+			}
 			/*
 			 * <p class="error">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 
 			 *	<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken))));?>
 			 * </p>
 			 */
 			?>
+			<div class="book-description">
+				<span class="book-colored">Περιγραφή: </span><span style="font-size: 17px;">
+					<?php if($results['description'] != NULL) { ?>
+						<?php echo $results['description'];
+					} else { ?> 
+						Μη διαθέσιμη.
+					<?php } ?>
+				</span> 
+			</div>
 		</div>
 	</div><!-- .book-right-info end -->
 	<script type="text/javascript">
