@@ -248,12 +248,12 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
     text-align: center;
 }
 #nav-menu li{
-	padding: 8px 0 0 0;
 	display: inline-block;
 	border-right: 1px solid brown;
 	height: 32px;
     text-align: center;
     width: 244px;
+    position: relative;
 }
 #nav-menu li:last-child{
 	border: 0px;
@@ -268,7 +268,14 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
 #nav-menu a{
 	text-decoration: none;
 	color: white;
-	text-shadow: 1px 1px 5px black;	
+	text-shadow: 1px 1px 5px black;
+	height: 80%;
+	width: 70%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	padding: 8px 0 0 0;
+	margin: 0 0 0 15%;
 }
 
 .list tr, th, td{
@@ -734,6 +741,10 @@ div.developers a{
     height: 100px;
     padding: 20px 0;
 }
+.panel-images:hover{
+	position: relative;
+	top: 5px;
+}
 .content .panel-blocks:first-child{
     margin-top: 0px;
 }
@@ -744,10 +755,6 @@ a.panel-links{
 .panel-img{
     width: 100px;
     height: 80px;
-}
-.panel-img:hover{
-	position: relative;
-	top: 5px;
 }
 .fl-left{
     float: left;
