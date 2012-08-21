@@ -98,7 +98,7 @@
 				}
 			} elseif(isset($msg)){ ?>
 				<div class="error" ><?php echo $msg."<br />";
-				redirect("index.php?show=login", 4);
+				redirect("index.php?show=login", 4000);
 			}
 			/*
 			 * <p class="error">Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψει μέχρι την 

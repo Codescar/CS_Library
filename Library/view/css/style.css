@@ -686,14 +686,14 @@ div.developers a{
 }
 .option{
 	margin: 0 0 10px 0;
-	padding: 15px;
+	padding: 10px 0 10px 10px;
 }
 .option:hover{
 	background-color: darkGray;
 	border-radius: 10px;
 }
 .opt-name{
-	width: 100px;
+	width: 120px;
 }
 .opt-description{
 	width: 280px;
@@ -709,15 +709,17 @@ div.developers a{
 	width: 320px;
 	height: 90px;
 }
-input.new-opt-name-value-div{
+.new-opt-name-value-div input{
 	width: 300px;
 }
 .new-opt-description-div{
 	width: 420px;
 	height: 90px;
 }
-textarea.new-opt-description-div{
+.new-opt-description-div textarea{
 	width: 400px;
+	height: 60px;
+	margin: 2px 0 0 0;
 }
 .new-opt-save{
 	padding: 30px 0 0 40px;
@@ -742,6 +744,10 @@ a.panel-links{
 .panel-img{
     width: 100px;
     height: 80px;
+}
+.panel-img:hover{
+	position: relative;
+	top: 5px;
 }
 .fl-left{
     float: left;

@@ -4,5 +4,6 @@
 	define('VIEW_SHOW', true);
 ?>
 <div class="content">
-	<p >Λάθος αίτημα...</p>
+	<div >Λάθος αίτημα...<br />
+	<?php redirect("index.php", 4000) ?>
 </div>

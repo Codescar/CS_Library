@@ -83,11 +83,11 @@ class Admin{
 		if(isset($_GET['name']) && isset($_GET['value']) && isset($_GET['description']))
             $edit = true;
 		?>
-        <form action="" method="post">
+        <form action="index.php?show=admin&more=options" method="post">
             <h4>Πρόσθεσε νέα ρύθμιση</h4>
             <div class="block new-opt-name-value-div center">
             	<label class="bold" for="name">Όνομα: </label><br />
-            	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
+            	<input type="text" class="bold" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
             	<br />
             	<label class="bold" for="value">Τιμή: </label><br />
             	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
