@@ -21,12 +21,12 @@ class option{
 		return $option->value;
 	}
 
-	public static function save($name, $value, $description = ""){
+	public static function save($name, $value, $description){
 		global $db;
 		$query = "INSERT INTO `{$db->table['options']}` 
 					SET `name` = '$name', `description` = '$description', `value` = '$value' 
 					ON DUPLICATE KEY UPDATE
-						`value` = '$value' ";
+						`value` = '$value', `description` = '$description' ";
 		$db->query($query);
 	}
 
@@ -41,7 +41,7 @@ class option{
 		global $db, $CONFIG;
 		$results = $db -> query("SELECT * FROM `{$db -> table['options']}`");
 		while($option = mysql_fetch_object($results))
-			$CONFIG[$option['name']] = $option['value'];
+			$CONFIG[$option->name] = $option->value;
 		return true;
 	}
 };

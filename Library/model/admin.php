@@ -67,34 +67,38 @@ class Admin{
         if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
             option::save($_POST['name'], $_POST['value'], $_POST['description']);
 		$res = option::list_all();
-		?><h3>Ρυθμίσεις</h3><?php
+		?> <?php
 		while($option = mysql_fetch_object($res)){
 			$edit_link = "index.php?show=admin&more=options&name=".$option->name."&description=".$option->description."&value=".$option->value;
 			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option->name; ?>
-			<div class="block opt-block"><?php echo $option->name; ?></div>
-			<div class="block opt-block"><?php echo $option->description; ?></div>
-			<div class="block opt-block"><?php echo $option->value; ?></div>
-			<div class="block opt-block fl-right"><a href="<?php echo $delete_link; ?>">Delete</a></div>
-			<div class="block opt-block fl-right"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
-			<br /> <?php
+			<div class="option">
+				<div class="block opt-name"><?php echo $option->name; ?></div>
+				<div class="block opt-description"><?php echo $option->description; ?></div>
+				<div class="block opt-value"><?php echo $option->value; ?></div>
+				<div class="block opt-action"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
+				<div class="block opt-action"><a href="<?php echo $delete_link; ?>">Delete</a></div>
+			</div><?php
 		}
         $edit = false;
 		if(isset($_GET['name']) && isset($_GET['value']) && isset($_GET['description']))
             $edit = true;
 		?>
         <form action="" method="post">
-            <h4>Πρόσθεσε νέο option</h4>
-            <div class="block opt-block"><label for="name">Όνομα: </label>
+            <h4>Πρόσθεσε νέα ρύθμιση</h4>
+            <div class="block new-opt-name-value-div center">
+            	<label class="bold" for="name">Όνομα: </label><br />
             	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
-            </div>
-            <div class="block opt-block"><label for="description">Περιγραφή: </label>
-            	<input type="text" id="description" name="description"  value="<?php echo ($edit) ? $_GET['description'] : "" ; ?>" />
-            </div>
-            <div class="block opt-block"><label for="value">Τιμή: </label>
+            	<br />
+            	<label class="bold" for="value">Τιμή: </label><br />
             	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
             </div>
-            <div class="block opt-block"></div>
-            <div class="block opt-block"><input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε" ;?>" /></div>
+            <div class="block new-opt-description-div center">
+				<label class="bold" for="description">Περιγραφή: </label><br />
+            	<textarea id="description" name="description"><?php echo ($edit) ? $_GET['description'] : "" ; ?></textarea>
+            </div>
+            <div class="block new-opt-save">
+				<input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε" ;?>" />
+			</div>
             <input type="hidden" name="hidden" value="codescar" />
         </form>
         <?php
@@ -284,7 +288,7 @@ class Admin{
         }
         elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
             $ret = announcements::get($_GET['id']);
-            $row = mysql_fetch_array($ret); ?>
+            $announcement = mysql_fetch_object($ret); ?>
             <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
                 <textarea class="ckeditor" name="body" id="body"><?php echo $announcement->body; ?></textarea><br />
                 <label for="title" class="bold">Title:</label>

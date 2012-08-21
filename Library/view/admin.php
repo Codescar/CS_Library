@@ -37,7 +37,7 @@
 		        }elseif($_GET['more'] == "statistics"){
                     $msg = "Στατιστικά</div>";
     	        }elseif($_GET['more'] == "options"){
-			        $msg = "Επιλογές</div>";
+			        $msg = "Ρυθμίσεις</div>";
 		        }elseif($_GET['more'] == "update"){
 		        	$msg = "Update Codescar Library</div>";
 			    }elseif($_GET['more'] == "return"){

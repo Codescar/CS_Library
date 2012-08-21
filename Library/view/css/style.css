@@ -274,12 +274,6 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
 .list tr, th, td{
 	border: 2px solid black;
 }
-#prev{
-	float: left;
-}
-#next{
-	float: right;
-}
 footer{
 	font-size: 10pt;
 	font-style: italic;
@@ -690,8 +684,43 @@ div.developers a{
 	display: inline-block;
 	margin: 0 0 0 20px;
 }
-.opt-block{
-    width: 150px;
+.option{
+	margin: 0 0 10px 0;
+	padding: 15px;
+}
+.option:hover{
+	background-color: darkGray;
+	border-radius: 10px;
+}
+.opt-name{
+	width: 100px;
+}
+.opt-description{
+	width: 280px;
+	padding: 0 10px;
+}
+.opt-value{
+	width: 450px;
+}
+.opt-action{
+	width: 40px;
+}
+.new-opt-name-value-div{
+	width: 320px;
+	height: 90px;
+}
+input.new-opt-name-value-div{
+	width: 300px;
+}
+.new-opt-description-div{
+	width: 420px;
+	height: 90px;
+}
+textarea.new-opt-description-div{
+	width: 400px;
+}
+.new-opt-save{
+	padding: 30px 0 0 40px;
 }
 .panel-blocks{
     width: 100%;

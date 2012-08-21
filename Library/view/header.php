@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>view/css/list.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>model/jquery.lightbox/css/jquery.lightbox-0.5.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $CONFIG['url']; ?>view/css/smoothness/jquery-ui-1.8.16.custom.css" type="text/css" />
-	<link rel="icon" type="image/png" href="/views/images/favicon.ico">
+	<link rel="icon" type="image/png" href="<?php echo $CONFIG['url']; ?>view/images/favicon.ico">
 	<script src="<?php echo $CONFIG['url']; ?>view/js/jquery-1.6.2.min.js" type="text/javascript"></script>
 	<script src="<?php echo $CONFIG['url']; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="<?php echo $CONFIG['url']; ?>view/js/js.js" type="text/javascript"></script>

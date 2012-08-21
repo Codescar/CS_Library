@@ -105,11 +105,11 @@ function list_books($books){
 	?>
 	<div class="list-nav-bar">
 		<?php if($page >= 1) { ?>
-		<div id="prev"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
+		<div class="fl-left"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
 		<?php } ?>
 		<div class="list-cur-page" >Σελίδα <?php echo $page + 1; ?></div> 
 		<?php if(/*count($books)*/$books['0'] > ($page + 1) * $CONFIG['items_per_page'] ) { ?>
-		<div id="next"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
+		<div class="fl-right"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
 		<?php } ?>
 	</div>
 	<?php } ?>
