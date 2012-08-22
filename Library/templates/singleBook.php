@@ -1,7 +1,7 @@
 <?php
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
-	global $book, $lended, $logged, $requested, $have, $taken, $lend, $msg;
+	global $book, $lended, $logged, $requested, $have, $taken, $lend, $msg, $CONFIG;
 ?>
 <div class="book-title"><?php echo $book->title; ?></div>
 	<div class="book-info">

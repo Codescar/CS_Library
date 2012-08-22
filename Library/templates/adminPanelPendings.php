@@ -5,7 +5,10 @@
 ?>
 <div id="lends">
 	<table>
-	<tr><th>Αιτήματα Δανεισμού</th></tr>
+	<tr><th></th><th></th>
+		<th>Αιτήματα Δανεισμού</th>
+		<th></th><th></th>
+	</tr>
 	<tr>
 		<th>Α/Α</th>
 		<th>Τίτλος βιβλίου</th>
@@ -27,7 +30,10 @@
 			<td>Request</td>
 		<?php } ?>
 	</tr> <?php } ?>
-	<tr><th>Δανεισμένα Βιβλία</th></tr>
+	<tr><th></th><th></th>
+		<th>Δανεισμένα Βιβλία</th>
+		<th></th><th></th>
+	</tr>
 	<?php 
 	$num = 1;
 	while($return = mysql_fetch_object($lend_res)){

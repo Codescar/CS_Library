@@ -106,7 +106,7 @@ class Admin{
 	}
 	
 	function show_pendings(){
-		global $user, $db;
+		global $user, $db, $lend_res, $request_res;
 		
 		$lend_query 	= "	SELECT * FROM `{$db->table['lend']}`
 							CROSS JOIN `{$db->table['users']}`
