@@ -142,7 +142,7 @@ function lend_request($id){
 			 		VALUES ('$id', '".$user->id."', NOW());";
 	$db->query($request);
 	$book_availability = "	UPDATE `{$db->table['booklist']}`
-				SET `availability` = 0
+				SET `availability` = 2
 				WHERE `id` = '$id';";
 	$db->query($book_availability); 
 	return;

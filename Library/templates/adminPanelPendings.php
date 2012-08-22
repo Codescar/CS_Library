@@ -5,15 +5,12 @@
 ?>
 <div id="lends">
 	<table>
-	<tr><th></th><th></th>
-		<th>Αιτήματα Δανεισμού</th>
-		<th></th><th></th>
-	</tr>
+	<caption>Αιτήματα Δανεισμού</caption>
 	<tr>
 		<th>Α/Α</th>
 		<th>Τίτλος βιβλίου</th>
 		<th>Όνομα Χρήστη</th>
-		<th>Ημερομηνία</th>
+		<th>Το ζήτησε</th>
 		<th>Ενέργεια</th>
 	</tr>
 	<?php 
@@ -30,9 +27,17 @@
 			<td>Request</td>
 		<?php } ?>
 	</tr> <?php } ?>
-	<tr><th></th><th></th>
-		<th>Δανεισμένα Βιβλία</th>
-		<th></th><th></th>
+	</table>
+	<br />
+	<table>
+	<caption>Δανεισμένα Βιβλία</caption>
+	<tr>
+		<th>Α/Α</th>
+		<th>Τίτλος βιβλίου</th>
+		<th>Όνομα Χρήστη</th>
+		<th>Το πήρε</th>
+		<th>Να το φέρει</th>
+		<th>Ενέργεια</th>
 	</tr>
 	<?php 
 	$num = 1;
@@ -42,6 +47,7 @@
 		<td><?php echo $return->title; ?></td>
 		<td><a href="?show=admin&more=user&id=<?php echo $return->user_id; ?>" ><?php echo $return->username; ?></a></td>
 		<td><?php echo date('d-m-Y', strtotime($return->taken)); ?></td>
+		<td><?php echo date('d-m-Y', strtotime($return->must_return)); ?></td>
 		<td><a href="?show=admin&more=return&return=<?php echo $return->book_id; ?>&user=<?php echo $return->user_id; ?>" class="return-book">Επιστροφή</a></td>
 	</tr> 
 	<?php } ?> </table>

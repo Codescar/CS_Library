@@ -27,14 +27,14 @@
 				<?php if($logged && $have){
 						echo "<span class=\"avail\">Το έχεις εσύ</span>";
 					}else{
-						echo (!$have && $book->availability == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; 
+						echo (!$have && !$requested && $book->availability == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; 
 					} ?>
 			</div>
 			<div id="buttons" class="block">
 				<div class="box book-button book-add-to-wish">
 					<?php favorites::show_favorites_button($book->id); ?>  
 	    		</div>
-	    		<?php if(!$have && !$requested && $book->availability){ ?>
+	    		<?php if(!$have && !$requested && $book->availability == 1){ ?>
 	    		<div class="box book-button book-lend-book" id="lend">
 	    			<?php if(!$logged){ ?>
 	    				<a onclick="alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
@@ -46,10 +46,10 @@
 	    			<div class="book-button box"><a onclick="alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες'); return false" href="#">Ανανέωση</a></div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
-			<?php if($logged && $requested && !$have){
+			<?php if($logged && $requested && !$have && !isset($_GET['lend'])){
 				?> <p class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</p><?php ;
 			}
-			if($requested && isset($_GET['lend']) ){
+			if($requested){
 				?> <p class="error">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php ;
     		}
 			elseif($logged && $have){

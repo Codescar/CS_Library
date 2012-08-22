@@ -148,10 +148,11 @@ class Lbdb{
 		return $books;
 	}
 	
-	public function lend_book($bk_id, $usr_id){
+	public function lend_book($book_id, $user_id){
+		global $CONFIG;
         $lend =	"	INSERT INTO `{$this->table['lend']}` 
-					(`book_id`, `user_id`, `taken`) VALUES 
-					('$bk_id', '$usr_id', NOW()) ;";
+					(`book_id`, `user_id`, `taken`, `must_return`) VALUES 
+					('$book_id', '$user_id', NOW(), ADDDATE(NOW(), {$CONFIG['lend_days']} ) ;";
 	    $this->query($lend);
 	    return;
 	}
