@@ -137,20 +137,14 @@ function have_book($book_id, $user_id){
 
 function lend_request($id){
 	global $db, $user;
-// 	$query = "	INSERT INTO `{$db->table["requests"]}` (
-// 					`book_id`, 
-// 					`user_id`, 
-// 					`date`)
-// 			 		VALUES ('$id', '".$user->id."', NOW());";
-// 	$db->query($query);
-	$lend =	"	INSERT INTO `{$db->table['lend']}`
-    				(`book_id`, `user_id`, `taken`) VALUES 
-    				('$id', '".$user->id."', NOW());";
-	$db->query($lend);
-	$query = "	UPDATE `{$db->table['booklist']}`
+	$request = "INSERT INTO `{$db->table["requests"]}` (
+					`book_id`, `user_id`, `date`)
+			 		VALUES ('$id', '".$user->id."', NOW());";
+	$db->query($request);
+	$book_availability = "	UPDATE `{$db->table['booklist']}`
 				SET `availability` = 0
 				WHERE `id` = '$id';";
-	$db->query($query); 
+	$db->query($book_availability); 
 	return;
 }
 

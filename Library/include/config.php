@@ -22,11 +22,17 @@
 	$CONFIG['debug'] = true;
 	$CONFIG['maintance'] = false;
 	
-	/* visuals - costumisations */
+	/* visuals */
 	$CONFIG['items_per_page'] = 5;
 	$CONFIG['right_sidebar'] = false;
-	$CONFIG['lend_default_days'] = 15;
 	
+	/* lending procedure */
+	$CONFIG['lendings'] = 3;
+	$CONFIG['requests'] = 2;
+	$CONFIG['request_life'] = 2;
+	$CONFIG['lend_days'] = 15;
+	$CONFIG['extra_days_lend'] = 15;
+		
 	/*
 	 * Load the config from the database, 
 	 * if there are same, 

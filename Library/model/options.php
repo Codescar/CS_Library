@@ -21,19 +21,30 @@ class option{
 		return $option->value;
 	}
 
-	public static function save($name, $value, $description){
+	public static function save($name, $value, $description, $id){
 		global $db;
+		$save_only_value = false;
+		if($description == "" && $id == -1){
+			$save_only_value = true;
+		}
 		$query = "INSERT INTO `{$db->table['options']}` 
-					SET `name` = '$name', `description` = '$description', `value` = '$value' 
+					SET `name` = '$name', `value` = '$value' ";
+		if($save_only_value){ 
+			$extra = "ON DUPLICATE KEY UPDATE SET `value` = '$value' ";
+		} else { 
+			$extra = ", `description` = '$description'
+					WHERE `id` = '$id' 
 					ON DUPLICATE KEY UPDATE
-						`value` = '$value', `description` = '$description' ";
-		$db->query($query);
+					SET `name` = '$name', `description` = '$description', `value` = '$value' ";
+		}
+		$db->query($query.$extra);
 	}
 
-	public static function delete($name){
+	public static function delete($id){
 		global $db;
+		//TODO Or maybe deleting by name will be more secure?
 		$query = "DELETE FROM `{$db->table['options']}`
-					WHERE `name` = '$name' ";
+					WHERE `id` = '$id' ";
 		$db->query($query);
 	}
 	

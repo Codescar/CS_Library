@@ -63,16 +63,16 @@ class Admin{
 	
 	function show_options(){
 		if(isset($_GET['delete']) && $_GET['delete'] == 'true')
-			option::delete($_GET['name']);
+			option::delete($_GET['id']);
         if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
-            option::save($_POST['name'], $_POST['value'], $_POST['description']);
+            option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id']);
 		$res = option::list_all();
 		?> <?php
 		while($option = mysql_fetch_object($res)){
-			$edit_link = "index.php?show=admin&more=options&name=".$option->name."&description=".$option->description."&value=".$option->value;
-			$delete_link = "index.php?show=admin&more=options&delete=true&name=".$option->name; ?>
+			$edit_link = "index.php?show=admin&more=options&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
+			$delete_link = "index.php?show=admin&more=options&delete=true&id=".$option->id; ?>
 			<div class="option">
-				<div class="block opt-name"><?php echo $option->name; ?></div>
+				<div class="block bold opt-name"><?php echo $option->name; ?></div>
 				<div class="block opt-description"><?php echo $option->description; ?></div>
 				<div class="block opt-value"><?php echo $option->value; ?></div>
 				<div class="block opt-action"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
@@ -87,7 +87,7 @@ class Admin{
             <h4>Πρόσθεσε νέα ρύθμιση</h4>
             <div class="block new-opt-name-value-div center">
             	<label class="bold" for="name">Όνομα: </label><br />
-            	<input type="text" class="bold" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
+            	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
             	<br />
             	<label class="bold" for="value">Τιμή: </label><br />
             	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
@@ -99,6 +99,7 @@ class Admin{
             <div class="block new-opt-save">
 				<input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε" ;?>" />
 			</div>
+			<input type="hidden" name="id" value="<?php echo ($edit) ? $_GET['id'] : "" ; ?>" />
             <input type="hidden" name="hidden" value="codescar" />
         </form>
         <?php
@@ -344,7 +345,7 @@ class Admin{
 		else
 			$CONFIG['maintance'] = true;
 		
-		option::save('maintance', $CONFIG['maintance']);
+		option::save('maintance', $CONFIG['maintance'], "", -1);
 		/* Remove invalid favorites (missing user or book) */
 		$user->favorites->cleanup_favorites();
 		
