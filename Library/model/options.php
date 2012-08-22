@@ -23,21 +23,20 @@ class option{
 
 	public static function save($name, $value, $description, $id){
 		global $db;
-		$save_only_value = false;
+		$save_value = false;
 		if($description == "" && $id == -1){
-			$save_only_value = true;
+			$save_value = true;
 		}
 		$query = "INSERT INTO `{$db->table['options']}` 
-					SET `name` = '$name', `value` = '$value' ";
-		if($save_only_value){ 
-			$extra = "ON DUPLICATE KEY UPDATE SET `value` = '$value' ";
-		} else { 
-			$extra = ", `description` = '$description'
-					WHERE `id` = '$id' 
-					ON DUPLICATE KEY UPDATE
-					SET `name` = '$name', `description` = '$description', `value` = '$value' ";
+					SET `name` = '$name', `description` = '$description', `value` = '$value'
+				  ON DUPLICATE KEY UPDATE 
+					SET `name` = '$name', `description` = '$description', `value` = '$value' "; 
+		if($save_value){ 
+			$query = "UPDATE `{$db->table['options']}`
+						SET `value` = '$value'
+					  WHERE `name` = '$name' ";
 		}
-		$db->query($query.$extra);
+		$db->query($query);
 	}
 
 	public static function delete($id){
