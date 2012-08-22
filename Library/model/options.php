@@ -30,7 +30,7 @@ class option{
 		$query = "INSERT INTO `{$db->table['options']}` 
 					SET `name` = '$name', `description` = '$description', `value` = '$value'
 				  ON DUPLICATE KEY UPDATE 
-					SET `name` = '$name', `description` = '$description', `value` = '$value' "; 
+					`name` = '$name', `description` = '$description', `value` = '$value' "; 
 		if($save_value){ 
 			$query = "UPDATE `{$db->table['options']}`
 						SET `value` = '$value'

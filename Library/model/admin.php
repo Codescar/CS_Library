@@ -113,7 +113,7 @@ class Admin{
 							ON `{$db->table['lend']}`.user_id = `{$db->table['users']}`.id
 							CROSS JOIN `{$db->table['booklist']}`
 							ON `{$db->table['lend']}`.book_id = `{$db->table['booklist']}`.id; ";
-		
+
 		$request_query 	= "	SELECT * FROM `{$db->table['requests']}` 
 							CROSS JOIN `{$db->table['users']}`
 							ON `{$db->table['requests']}`.user_id = `{$db->table['users']}`.id 
@@ -123,60 +123,8 @@ class Admin{
 							ORDER BY date ASC; ";
 		
 		$lend_res 		= $db->query($lend_query);
-		$requests_res 	= $db->query($request_query);
-		?>
-		<div id="lends">
-            <h3 class="center">Αιτήματα Δανεισμού</h3>
-			<table>
-			<tr>
-				<th>Α/Α</th>
-				<th>Title</th>
-				<th>User</th>
-				<th>Action</th>
-				<th>Date</th>
-			</tr>
-			<?php 
-				$l = 1;
-				while($len = mysql_fetch_object($requests_res)){
-					?> <tr>
-						<td><?php echo $l++; ?></td>
-						<td><?php echo $len->title; ?></td>
-						<td><a href="?show=admin&more=user&id=<?php echo $len->user_id; ?>" ><?php echo $len->username; ?></a></td>
-						<?php if(book_avail($len->book_id)){ ?>
-							<td><a href="?show=admin&more=lend&lend=<?php echo $len->book_id; ?>&user=<?php echo $len->user_id; ?>" class="request-book">Request</a></td>
-						<?php }else{ ?>
-							<td>Request</td>
-						<?php } ?>
-						<td><?php echo $len->date; ?></td>
-					</tr> <?php 
-				}
-			?> </table>
-		</div>
-		<div id="returns">
-		<h3 class="center">Δανεισμένα Βιβλία</h3>
-			<table>
-			<tr>
-				<th>Α/Α</th>
-				<th>Title</th>
-				<th>User</th>
-				<th>Action</th>
-				<th>Date</th>
-			</tr>
-			<?php 
-				$r = 1;
-				while($ret = mysql_fetch_object($lend_res)){
-					?> <tr>
-						<td><?php echo $r++; ?></td>
-						<td><?php echo $ret->title; ?></td>
-						<td><a href="?show=admin&more=user&id=<?php echo $ret->user_id; ?>" ><?php echo $ret->username; ?></a></td>
-						<td><a href="?show=admin&more=return&return=<?php echo $ret->book_id; ?>&user=<?php echo $ret->user_id; ?>" class="return-book">Have it now</a></td>
-						<td><?php echo $ret->taken; ?></td>
-					</tr> <?php 
-				}
-			?> </table>
-		</div>
-		<?php 
-		
+		$request_res 	= $db->query($request_query);
+		render_template("adminPanelPendings.php");
 	}
 	
 	function create_user(){

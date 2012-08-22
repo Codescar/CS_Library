@@ -1,4 +1,6 @@
 <?php
+	if(!defined('VIEW_NAV'))
+		die("Invalid request!");
 	global $book, $lended, $logged, $requested, $have, $taken, $lend, $msg;
 ?>
 <div class="book-title"><?php echo $book->title; ?></div>
@@ -51,7 +53,7 @@
 				?> <p class="error">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php ;
     		}
 			elseif($logged && $have){
-				if($logged && (($taken = in_there_pos($lend, $book_id)) != -1)) { ?>
+				if($logged && (($taken = in_there_pos($lend, $book->id)) != -1)) { ?>
 					<div class="error" >
 					Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και <br />θα πρέπει να το επιστρέψεις μέχρι την 
 					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_days'], date("Y", strtotime($taken))));  ?>
