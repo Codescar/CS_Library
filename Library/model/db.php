@@ -108,6 +108,7 @@ class Lbdb{
 	}
 	
 	public function close(){
+		global $CONFIG;
 		if($CONFIG['debug'])
 	    	$start = microtime(true);
 		mysql_close($this->connection);
