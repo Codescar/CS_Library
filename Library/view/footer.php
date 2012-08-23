@@ -13,10 +13,10 @@
 	<?php 
 		if($CONFIG['debug']){
 			global $php_started;
-			echo "Page Created on ". ((float)(microtime(true) - $php_started)) ." Seconds<br/>";
-			echo "<br/>{$db->get_queries_num()} queries executed!<br/>";
+			echo "<br/>Page Created on ". ((float)(microtime(true) - $php_started)) ." Seconds<br/>";
+			echo "{$db->get_queries_num()} queries executed!<br/>";
 			echo "In {$db->query_time} Seconds<br/>";
-			echo "<!-- CONFIG VARIABLES: ";  print_r($CONFIG); echo " -->";
+			echo "\n<!-- CONFIG VARIABLES: ";  print_r($CONFIG); echo " -->\n";
 		}
 	?>
 </footer>
