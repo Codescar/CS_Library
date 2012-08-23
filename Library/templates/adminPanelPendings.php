@@ -22,12 +22,13 @@
 		<td><a href="?show=admin&more=user&id=<?php echo $request->user_id; ?>" ><?php echo $request->username; ?></a></td>
 		<td><?php echo date('d-m-Y στις H:i', strtotime($request->date)); ?></td>
 		<?php if(book_avail($request->book_id)){ ?>
-			<td><a href="?show=admin&more=lend&lend=<?php echo $request->book_id; ?>&user=<?php echo $request->user_id; ?>" class="request-book">Δανεισμός</a></td>
-		<?php }else{ 
-		//TODO add a link and function to delete the request by demand
-			?>
-			<td>Request</td>
-		<?php } ?>
+			<td><a href="?show=admin&more=lend&lend=<?php echo $request->book_id; ?>&user=<?php echo $request->user_id; ?>" class="request-book">Δανεισμός</a>
+			<?php //TODO fix this link to delete the currrent request ?>
+			-- <a href="?show=admin&more=request" class="request-book">Διαγραφή</a>
+			</td>
+		<?php }else{
+			?><td>Μη διαθέσιμο</td><?php 
+			} ?>
 	</tr> <?php } ?>
 	</table>
 	<br />

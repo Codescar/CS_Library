@@ -2,9 +2,9 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	if(!$user->is_logged_in() || !$user->is_admin()){ ?>
-		<p class="error">Δεν είστε διαχειριστής.</p>	
-	<?php 
+	if(!$user->is_logged_in() || !$user->is_admin()){
+		echo "<div class=\"error\">Δεν είστε διαχειριστής";
+		redirect("index.php?show=cp"); 
 	}else{
 		if(!isset($_GET['more'])){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
@@ -85,17 +85,21 @@
   		include('update.php');
   	}elseif($_GET['more'] == "lend"){
   		if(!isset($_GET['lend']) && !isset($_GET['user'])){
-  			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά <br />";
+  			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 	        redirect("index.php?show=admin&more=pendings");
   		}else{
 			$user->admin->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']));
+			echo "<div class=\"error\">Ο δανεισμός καταγράφηκε<br />";
+			redirect("index.php?show=admin&more=pendings");
 		}
   	}elseif($_GET['more'] == "return"){
 		if(!isset($_GET['return']) && !isset($_GET['user'])){
-			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά <br />";
+			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 	        redirect("index.php?show=admin&more=pendings");
 	    }else{
 	    	$user->admin->return_book(mysql_real_escape_string($_GET['return']), mysql_real_escape_string($_GET['user']));
+	    	echo "<div class=\"success\">Η επιστροφή καταγράφηκε<br />";
+	    	redirect("index.php?show=admin&more=pendings");
 	    }
 	}
 	?>
