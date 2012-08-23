@@ -93,7 +93,7 @@ class Lbdb{
 	            or die("Δεν μπόρεσε να γίνει σύνδεση με την βάση. Error: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
 	            or die("Πρόβλημα με την επιλογή βάσης: ".mysql_error());
-	         $this->query_time += microtime(true) - start;
+	         $this->query_time += microtime(true) - $start;
 	    }
 	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
@@ -112,7 +112,7 @@ class Lbdb{
 	    	$start = microtime(true);
 		mysql_close($this->connection);
 		if($CONFIG['debug'])
-			$this->query_time += microtime(true) - start;
+			$this->query_time += microtime(true) - $start;
 	}
 	
 	/*
@@ -128,7 +128,7 @@ class Lbdb{
 	        $results = mysql_query($query, $this->connection);
 	        
 	    if($CONFIG['debug'])
-			$this->query_time += microtime(true) - start;
+			$this->query_time += microtime(true) - $start;
 	    $this->queries++;
 	    
 		return $results;
