@@ -1,4 +1,5 @@
 <?php
+	global $php_started;
 	$php_started = microtime(true);
 	
 	define('INDEX', true);
