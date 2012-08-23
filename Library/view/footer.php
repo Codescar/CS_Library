@@ -12,8 +12,10 @@
 	<a href="?show=about">About</a>
 	<?php 
 		if($CONFIG['debug']){
-			echo '<br/>' . $db->get_queries_num() . ' queries executed!<br/>';
-			//printr($CONFIG);
+			echo "Page Created on {microtime(true) - $php_started} Seconds<br/>";
+			echo "<br/>{$db->get_queries_num()} queries executed!<br/>";
+			echo "In {$db->query_time} Seconds<br/>"
+			echo "<!-- CONFIG VARIABLES: ";  printr($CONFIG); echo " -->";
 		}
 	?>
 </footer>

@@ -1,4 +1,6 @@
 <?php
+	$php_started = microtime(true);
+	
 	define('INDEX', true);
 	session_start();
 	global $db, $user, $page;

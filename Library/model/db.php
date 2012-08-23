@@ -1,7 +1,7 @@
 <?php
 class Lbdb{
 	private $connection, $hostname, $username, $password, $dbname, $queries;
-	public $booklist;
+	public $booklist, $query_time;
 	//TODO have to use the arrays for the names of the column/tables everywhere I think... much work!
 	public $table = array(
 							"booklist" 		    => "booklist",
@@ -82,15 +82,18 @@ class Lbdb{
 		$this->username = $db_username;
 		$this->password = $db_password;
 		$this->dbname = $db_name;
+		$this->query_time = 0;
 	}
 
 	public function connect(){
 	    global $CONFIG;
 	    if($CONFIG['debug']){
+	    	$start = microtime(true);
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
 	            or die("Δεν μπόρεσε να γίνει σύνδεση με την βάση. Error: ".mysql_error());
 	        mysql_select_db($this->dbname, $this->connection)
 	            or die("Πρόβλημα με την επιλογή βάσης: ".mysql_error());
+	         $this->query_time += microtime(true) - start;
 	    }
 	    else{
 	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
@@ -105,7 +108,11 @@ class Lbdb{
 	}
 	
 	public function close(){
+		if($CONFIG['debug'])
+	    	$start = microtime(true);
 		mysql_close($this->connection);
+		if($CONFIG['debug'])
+			$this->query_time += microtime(true) - start;
 	}
 	
 	/*
@@ -114,11 +121,14 @@ class Lbdb{
 	public function query($query){
 		global $CONFIG;
 	    
-		if($CONFIG['debug'])
-		    $results = mysql_query($query, $this->connection) or die("Error κατά την εκτέλεση query: ".mysql_error());
-	    else
+		if($CONFIG['debug']){
+	    	$start = microtime(true);
+			$results = mysql_query($query, $this->connection) or die("Error κατά την εκτέλεση query: ".mysql_error());
+		}else
 	        $results = mysql_query($query, $this->connection);
 	        
+	    if($CONFIG['debug'])
+			$this->query_time += microtime(true) - start;
 	    $this->queries++;
 	    
 		return $results;
