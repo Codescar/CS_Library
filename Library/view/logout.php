@@ -7,6 +7,6 @@
 ?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Έξοδος</div>
 <div class="content">
-	<div class="success">Επιτυχής αποσύνδεση...<br />
-	<?php redirect($CONFIG['url']); ?>
+	<?php echo "<div class=\"success\">Επιτυχής αποσύνδεση...<br />";
+	 redirect($CONFIG['url']); ?>
 </div>

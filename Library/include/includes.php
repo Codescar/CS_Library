@@ -6,6 +6,7 @@
 	$db->connect();
 	require_once('model/options.php');
 	require_once('include/config.php');
+	require_once('model/functions.php');
 	
 	require_once('model/session.php');
 	require_once('model/admin.php');
