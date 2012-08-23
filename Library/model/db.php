@@ -193,8 +193,9 @@ class Lbdb{
 	
 	public function log_the_lend($book_id){
 		$log_it ="	INSERT INTO `{$this->table['log_lend']}`
-					(book_id, department_id, user_id, taken, returned)
-						SELECT * FROM `{$this->table['lend']}`
+					(book_id, user_id, taken, must_return, returned)
+						SELECT book_id, user_id, taken, must_return, returned 
+						FROM `{$this->table['lend']}`
 							WHERE book_id = '$book_id'; ";
 		$this->query($log_it);
 		$delete ="	DELETE FROM `{$this->table['lend']}`

@@ -307,6 +307,12 @@ table{
 	width: 98%;
 	border-collapse: collapse;
 }
+caption{
+	font-weight: bold;
+	font-size: 24px;
+	color: black;
+	text-shadow: 1px 1px 5px coral;
+}
 .title{
 	width: 350px;
 }
