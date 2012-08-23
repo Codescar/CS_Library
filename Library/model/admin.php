@@ -133,15 +133,15 @@ class Admin{
 			if(	!isset($_POST['username']) 		|| !isset($_POST['password']) || 
 				!isset($_POST['email']) 		||  empty($_POST['username']) || 
 				 empty($_POST['password']) 		||  empty($_POST['email']) ){
-				?> <div class="error">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br /><?php
+				echo "<div class=\"error\">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br />";
 				redirect("index.php?show=admin&more=users");
 			}
 			else{
                 $user->createUser(	mysql_real_escape_string($_POST['username']), 
                                     mysql_real_escape_string($_POST['password']), 
                                     mysql_real_escape_string($_POST['email']));
-                ?> <div class="success">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br /><?php
-				redirect("index.php?show=admin&more=users", 4000);
+                echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br />";
+				redirect("index.php?show=admin&more=users", 2500);
                 //TODO send an email to the user 
             }
 		} ?>
@@ -194,20 +194,22 @@ class Admin{
 		global $user;
 		$user->show_history(mysql_real_escape_string($id));
 	}
+
 	
-	function return_book(){
-	    global $db, $CONFIG;
-	    if(!isset($_GET['return']) && !isset($_GET['user'])){
-	        ?><div class="error">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά <br /><?php
-	        redirect("index.php?show=admin&more=pendings");
-	        return;
-	    }else{
-	        $u_name = user::get_name($_GET['user']);
-	        $b_name = get_book_name($_GET['return']);
-	        $db->return_book(mysql_real_escape_string($_GET['return']));
-	        ?><div class="success center">Ο χρήστης<?php echo $u_name; ?> επέστρεψε το βιβλίο <?php echo $b_name."<br />";
-	        redirect("index.php?show=admin&more=pendings", 4000);
-	    }
+	function lend_book($book_id, $user_id){
+		global $db;
+		$db->lend_book($book_id, $user_id);
+		$db->delete_request($book_id, $user_id);
+	}
+	
+	function return_book($book_id, $user_id){
+		global $db;
+        $u_name = user::get_name($user_id);
+        $b_name = get_book_name($book_id);
+        $db->return_book($book_id);
+        $db->log_the_lend($book_id);
+        echo "<div class=\"success center\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />";
+        redirect("index.php?show=admin&more=pendings", 2500);
 	}
 	
 	function manage_announce(){
@@ -236,12 +238,16 @@ class Admin{
             ?> </table> <?php
         }
         elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
-            $ret = announcements::get($_GET['id']);
-            $announcement = mysql_fetch_object($ret); ?>
+			$new = true;
+            if($_GET['id'] != 0){
+            	$ret = announcements::get($_GET['id']);
+            	$announcement = mysql_fetch_object($ret); 
+            	$new = false;
+            } ?>
             <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-                <textarea class="ckeditor" name="body" id="body"><?php echo $announcement->body; ?></textarea><br />
+                <textarea class="ckeditor" name="body" id="body"><?php echo ($new) ? "" : $announcement->body; ?></textarea><br />
                 <label for="title" class="bold">Title:</label>
-                    <input type="text" name="title" id="title" value="<?php echo $announcement->title; ?>" />
+                    <input type="text" name="title" id="title" value="<?php echo ($new) ? "" : $announcement->title; ?>" />
                 <input type="submit" value="Save" />
             </form> <?php
         }
@@ -250,12 +256,12 @@ class Admin{
                 announcements::update($_GET['id'], $_POST['title'], $_POST['body'])    ;
             else
                 announcements::add($_POST['title'], $_POST['body']);
-            ?> <div class="success">Η ανακοίνωση δημιουργήθηε/ανανεώθηκε.<br /><?php 
+            echo "<div class=\"success\">Η ανακοίνωση δημιουργήθηε/ανανεώθηκε.<br />";
             redirect("index.php?show=admin&more=announcements");
         }
         if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
-                announcements::delete($_GET['id']);
-                ?> <div class="success">Η ανακοίνωση διαγράφηκε.<br /><?php 
+			announcements::delete($_GET['id']);
+            echo "<div class=\"success\">Η ανακοίνωση διαγράφηκε.<br />";
             redirect("index.php?show=admin&more=announcements");
         }
 	}
@@ -263,7 +269,7 @@ class Admin{
 	function manage_pages(){
 		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
 				pages::update($_GET['id'], $_POST['body']);
-			?> <div class="success">Το κείμενο ανανεώθηκε<br /><?php 
+			echo "<div class=\"success\">Το κείμενο ανανεώθηκε<br />";
             redirect("index.php?show=admin&more=pages");
 		}
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
@@ -285,7 +291,6 @@ class Admin{
 	
 	function maintance(){
 		//TODO maybe optimise the mysql tables
-		//TODO disable the public access until it's done
 		global $CONFIG, $user;
 		
 		if($CONFIG['maintance'])
@@ -298,26 +303,11 @@ class Admin{
 		$user->favorites->cleanup_favorites();
 		
 		if($CONFIG['maintance']) {
-			?> <div class="success">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br /> <?php
+			echo "<div class=\"success\">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br />";
 		}else{
-			?> <div class="success">Η Υπηρεσία μπήκε σε κανονική κατάσταση λειτουργίας<br /> <?php
+			echo "<div class=\"success\">Η Υπηρεσία μπήκε σε κανονική κατάσταση λειτουργίας<br />";
 		}
 			redirect("index.php");
-		
-		//WTF does the following code do?
-// 		if($CONFIG['maintance']){
-// 			$CONFIG['maintance'] = true;
-// 			$flag = true;
-// 		}
-// 		else
-// 			$flag = false;
-		
-// 		/* Remove invalid favorites (missing user or book) */
-// 		$user->favorites->cleanup_favorites();
-
-// 		if($flag)
-// 			$CONFIG['maintance'] = false;
 	}
-
 };
 ?>

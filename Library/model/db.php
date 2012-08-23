@@ -163,47 +163,47 @@ class Lbdb{
 		global $CONFIG;
         $lend =	"	INSERT INTO `{$this->table['lend']}` 
 					(`book_id`, `user_id`, `taken`, `must_return`) VALUES 
-					('$book_id', '$user_id', NOW(), ADDDATE(NOW(), {$CONFIG['lend_days']} ) ;";
+					('$book_id', '$user_id', NOW(), ADDDATE(NOW(), {$CONFIG['lend_days']}) ) ;";
 	    $this->query($lend);
 	    return;
 	}
 	
-	public function return_book($bk_id){
+	public function delete_request($book_id, $user_id){
+		$query = "DELETE FROM `{$this->table['requests']}`
+					WHERE `book_id` = '$book_id' AND `user_id` = '$user_id' LIMIT 1; ";
+		$this->query($query);
+		return;
+	}
+	
+	public function return_book($book_id){
 		$return ="	UPDATE `{$this->table['lend']}`
 					SET `returned` = NOW()
-					WHERE book_id = '$bk_id'
+					WHERE book_id = '$book_id'
 					LIMIT 1;
 				";
 		$this->query($return);
-		$log_it ="	INSERT INTO `{$this->table['log_lend']}`
-						(book_id, department_id, user_id, taken, returned)
-						SELECT * FROM `{$this->table['lend']}`
-						WHERE book_id = '$bk_id';
-				";
-		$this->query($log_it);
-	    $delete ="	DELETE FROM `{$this->table['lend']}`
-					WHERE book_id = '$bk_id'
-					LIMIT 1;
-				";
-	    $this->query($delete);
 	    $query ="	UPDATE `{$this->table['booklist']}`
 					SET `availability` = 1
-					WHERE `id` = '$bk_id'
+					WHERE `id` = '$book_id'
 	    			LIMIT 1;
 	    		";
 	    $this->query($query); 
 	    return;
 	}
 	
+	public function log_the_lend($book_id){
+		$log_it ="	INSERT INTO `{$this->table['log_lend']}`
+					(book_id, department_id, user_id, taken, returned)
+						SELECT * FROM `{$this->table['lend']}`
+							WHERE book_id = '$book_id'; ";
+		$this->query($log_it);
+		$delete ="	DELETE FROM `{$this->table['lend']}`
+						WHERE book_id = '$book_id'
+					LIMIT 1; ";
+		$this->query($delete);
+	}
+	
 	public function get_queries_num(){
 		return $this->queries;
 	}
 };
-
-//TODO must put that function to another file
-function redirect($url, $time = 2000){
-	echo "Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href=\"".$url."\">εδώ</a>.</div>"
-		."<script type=\"text/javascript\">var t=setTimeout(\"window.location = '".$url."'\",".$time.")</script>";
-}
-
-?>

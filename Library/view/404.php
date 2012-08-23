@@ -5,5 +5,5 @@
 ?>
 <div class="content">
 	<div >Λάθος αίτημα...<br />
-	<?php redirect("index.php", 4000) ?>
+	<?php redirect("index.php", 3000) ?>
 </div>

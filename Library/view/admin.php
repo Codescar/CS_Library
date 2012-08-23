@@ -40,6 +40,8 @@
 			        $msg = "Ρυθμίσεις</div>";
 		        }elseif($_GET['more'] == "update"){
 		        	$msg = "Update Codescar Library</div>";
+	        	}elseif($_GET['more'] == "lend"){
+	        		$msg = "Δανεισμός Βιβλίου</div>";
 			    }elseif($_GET['more'] == "return"){
 					$msg = "Επιστροφή Βιβλίου</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
@@ -77,19 +79,24 @@
 		$user->admin->create_user();
 	}elseif($_GET['more'] == "options"){
 		$user->admin->show_options();
-	}elseif($_GET['more'] == "lend"){
-		if(!isset($_GET['lend']) && !isset($_GET['user']))
-			echo "<div class=\"error\">Error</div>";
-		else{
-		    echo "<div class=\"success\">Done, Lended book {$_GET['lend']} to user with id {$_GET['user']}.</div>";
-		    $db->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']), '0');
-		}
 	}elseif($_GET['more'] == "maintance"){
 		$user->admin->maintance();
   	}elseif($_GET['more'] == "update"){
   		include('update.php');
+  	}elseif($_GET['more'] == "lend"){
+  		if(!isset($_GET['lend']) && !isset($_GET['user'])){
+  			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά <br />";
+	        redirect("index.php?show=admin&more=pendings");
+  		}else{
+			$user->admin->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']));
+		}
   	}elseif($_GET['more'] == "return"){
-	    $user->admin->return_book();
+		if(!isset($_GET['return']) && !isset($_GET['user'])){
+			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά <br />";
+	        redirect("index.php?show=admin&more=pendings");
+	    }else{
+	    	$user->admin->return_book(mysql_real_escape_string($_GET['return']), mysql_real_escape_string($_GET['user']));
+	    }
 	}
 	?>
 </div>
