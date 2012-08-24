@@ -207,4 +207,6 @@ class Lbdb{
 	public function get_queries_num(){
 		return $this->queries;
 	}
+	
+	//TODO reset function, clears lend, log_lend, requests, book_avail = 1 think more
 };

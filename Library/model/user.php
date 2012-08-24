@@ -91,7 +91,6 @@ class User{
 		$query .= $query2;
         $db->query($query);
 		//TODO send an e-mail to user
-		$body = $CONFIG['mail_body'];
 		return;
 	}
 	

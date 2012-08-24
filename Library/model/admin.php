@@ -140,9 +140,9 @@ class Admin{
                 $user->createUser(	mysql_real_escape_string($_POST['username']), 
                                     mysql_real_escape_string($_POST['password']), 
                                     mysql_real_escape_string($_POST['email']));
+                //TODO send an email to the user 
                 echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br />";
 				redirect("index.php?show=admin&more=users", 2500);
-                //TODO send an email to the user 
             }
 		} ?>
 		<form action="" method="post" id="new-user-form">

@@ -24,7 +24,7 @@
 		<?php if(book_avail($request->book_id)){ ?>
 			<td><a href="?show=admin&more=lend&lend=<?php echo $request->book_id; ?>&user=<?php echo $request->user_id; ?>" class="request-book">Δανεισμός</a>
 			<?php //TODO fix this link to delete the currrent request ?>
-			-- <a href="?show=admin&more=request" class="request-book">Διαγραφή</a>
+			-- <a href="?show=admin&more=request_delete&book=<?php echo $request->book_id; ?>&user=<?php echo $request->user_id; ?>" class="request-book">Διαγραφή</a>
 			</td>
 		<?php }else{
 			?><td>Μη διαθέσιμο</td><?php 

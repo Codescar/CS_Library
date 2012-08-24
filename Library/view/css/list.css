@@ -288,6 +288,7 @@
 	color: rgb(62, 73, 52);
 	line-height: 150%;
 	padding: 10px 10px 10px 40px;
+	text-align: center;
 }
 .message .error, .error { 
 	background-color: rgb(243, 221, 221);
