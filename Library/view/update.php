@@ -90,7 +90,7 @@ if ($getVersions != '')
 	if (isset($updated) && $updated == true)
 	{
 		set_setting('Version',$aV);
-		echo '<p class="success">&raquo; CMS Updated to v'.$aV.'</p>';
+		echo '<div class="success">&raquo; CMS Updated to v'.$aV.'</div>';
 	}
 	else if (isset($found) && $found != true) echo '<p>&raquo; No update is available.</p>';
 

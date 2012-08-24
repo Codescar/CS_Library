@@ -37,20 +37,20 @@
 	    		<?php if(!$have && !$requested && $book->availability == 1){ ?>
 	    		<div class="box book-button book-lend-book" id="lend">
 	    			<?php if(!$logged){ ?>
-	    				<a onclick="alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
+	    				<a class="must-login" href="?show=login">Δανείσου το</a>
 	    			<?php }else{ ?>
-	    				<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
+	    				<a class="request-book" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
 	    			<?php }?>
 	    		</div>
 	    		<?php } elseif($logged && $have) { ?>
-	    			<div class="book-button box"><a onclick="alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες'); return false" href="#">Ανανέωση</a></div>
+	    			<div class="book-button box"><a class="renewal" href="#">Ανανέωση</a></div>
 	    		<?php } ?>
 			</div><!--  #buttons end -->
 			<?php if($logged && $requested && !$have && !isset($_GET['lend'])){
-				?> <p class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</p><?php ;
+				?> <div class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</div><?php ;
 			}
 			if($requested){
-				?> <p class="error">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</p><?php ;
+				?> <div class="success">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</div><?php ;
     		}
 			elseif($logged && $have){
 				if($logged && (($taken = in_there_pos($lend, $book->id)) != -1)) { ?>

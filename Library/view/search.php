@@ -112,7 +112,7 @@ if(!isset($_GET['search'])){?>
 					else{
 						$(this).parent().removeClass('search-active-radio');
 					}
-			})};
+			} ); };
 
 		$('.search_rad input').click(function (){a();});
 
@@ -129,7 +129,7 @@ elseif(!isset($_GET['search']) || $_GET['search'] == "" ||
 	(!isset($_GET['title']) && !isset($_GET['writer'])
 	&& !isset($_GET['publisher']) && !isset($_GET['isbn']) 
 	)){
-	?> <p class="error">Λάθος αναζήτηση</p></div> <?php
+		echo "<div class=\"error\">Λάθος αναζήτηση</div></div>";
 }
 else {
 	$s = mysql_real_escape_string(trim($_GET['search']));
@@ -165,7 +165,7 @@ else {
 		list_books($books);
 	}
 	else{ ?>
-	    <p class="error">Δεν βρέθηκαν αποτελέσματα</p>
+	    <div class="error">Δεν βρέθηκαν αποτελέσματα</div>
 	<?php } ?>
 	</div>
 </div>

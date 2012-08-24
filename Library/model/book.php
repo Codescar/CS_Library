@@ -35,7 +35,7 @@ function list_books($books){
 							<?php if($row['availability'] == 0) { 
 									if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
 										<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
-										<div class="box list-button center bold" style="margin-top: 0px;"><a onclick="return alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');" href="#">Ανανέωση</a></div>
+										<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
 									<?php } else {?>
 										<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
 										<div style="font-size: 9px;">Μη διαθέσιμο</div>
@@ -51,9 +51,9 @@ function list_books($books){
 						<?php if($row['availability'] != 0) { ?>
 						<div class="box list-button list-lend-book center bold">
 							<?php if(!$logged){ ?>
-								<a onclick="return alert('Πρέπει να συνδεθείτε πρώτα');" href="?show=login">Δανείσου το</a>
+								<a class="must-login" href="?show=login">Δανείσου το</a>
 							<?php }else{ ?>
-								<a onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το δανειστείς;');" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
+								<a class="request-book" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
 							<?php }?>
 						</div>
 						<?php } ?>

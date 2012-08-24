@@ -3,9 +3,12 @@ function pop_up(page)
 	window.open(page,"popup","width=600,height=600,scrollbars=yes,toolbar=no,directories=no,hotkeys=no,location=no,menubar=no,resizable=no,titlebar=no,scroll=yes");
 }
 
+//TODO make those actions work and not only show a pop up
 function loaded(){
-	
 	$('.request-book').click(function (){
+		return confirm("Να καταχωρυθεί το αίτημα δανεισμού;", "Επιβεβαίωση");
+	});
+	$('.lend-book').click(function (){
 		return confirm("Είσαι σίγουρος ότι ο χρήστης έχει παραλάβει το βιβλίο;", "Επιβεβαίωση");
 	});
 	$('.return-book').click(function (){
@@ -14,8 +17,23 @@ function loaded(){
 	$('.cansel-request').click(function (){
 		return confirm("Είσαι σίγουρος ότι Θέλεις να ακυρώσεις αυτό το αίτημά σου;", "Επιβεβαίωση");
 	});
+	$('.delete-request').click(function (){
+		return confirm("Είσαι σίγουρος ότι Θέλεις να διαγράψεις το αίτημά;", "Επιβεβαίωση");
+	});
 	$('.delete-announce').click(function (){
 		return confirm("Είσαι σίγουρος ότι Θέλεις να διαγράψεις αυτή την ανακοίνωση;", "Επιβεβαίωση");
+	});
+	$('.must-login').click(function (){
+		alert('Πρέπει να συνδεθείτε πρώτα');
+	});
+	$('.renewal').click(function (){
+		alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');
+	});
+	$('.fav-add').click(function (){
+		return confirm("Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;", "Επιβεβαίωση");
+	});
+	$('.fav-remove').click(function (){
+		return confirm("Είσαι σίγουρος ότι θέλεις να το αφαιρέσεις από τα αγαπημένα σου;", "Επιβεβαίωση");
 	});
 }
 

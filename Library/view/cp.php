@@ -3,7 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	if(!$user->is_logged_in()){
-		?><div class="content"><p class="error">Πρέπει να συνδεθείτε πρώτα.<br /><?php
+		echo "<div class=\"content\"><div class=\"error\">Πρέπει να συνδεθείτε πρώτα.<br />";
 		redirect("index.php?show=login");
 	} else {
 	if(isset($_GET['more']) && $_GET['more'] == "lended"){ ?>

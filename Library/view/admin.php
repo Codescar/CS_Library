@@ -105,6 +105,9 @@
 	    }
 	}elseif($_GET['more'] == "request_delete"){
 		if(!isset($_GET['book']) && !isset($_GET['user'])){
+			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
+			redirect("index.php?show=admin&more=pendings");
+		}else{
 			$db->delete_request(mysql_real_escape_string($_GET['book']), mysql_real_escape_string($_GET['user']));
 			echo "<div class=\"success\">Το αίτημα διαγράφηκε<br />";
 			redirect("index.php?show=admin&more=pendings");

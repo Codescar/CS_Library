@@ -9,7 +9,7 @@ class User{
 	public $favorites;
 	
 	function __constructor(){
-	    $a = new Admin; //TODO why is that here?
+	    $a = new Admin;
 	    $admin = null;
 	}
 	
