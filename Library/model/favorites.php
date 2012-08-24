@@ -105,9 +105,9 @@
 				$favorites = $user->favorites->get_cache();
 				
 				if(in_array($id, $favorites)){
-					?> <a class="fav-add" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">- Aγαπημένα</a> <?php 
+					?> <a class="fav-remove" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">- Aγαπημένα</a> <?php 
 				}else{ 
-					?> <a class="fav-remove" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">+ Aγαπημένα</a> <?php 
+					?> <a class="fav-add" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">+ Aγαπημένα</a> <?php 
 				}
 			}
 			

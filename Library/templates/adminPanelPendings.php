@@ -23,7 +23,6 @@
 		<td><?php echo date('d-m-Y στις H:i', strtotime($request->date)); ?></td>
 		<?php if(book_avail($request->book_id)){ ?>
 			<td><a href="?show=admin&more=lend&lend=<?php echo $request->book_id; ?>&user=<?php echo $request->user_id; ?>" class="lend-book">Δανεισμός</a>
-			<?php //TODO fix this link to delete the currrent request ?>
 			-- <a href="?show=admin&more=request_delete&book=<?php echo $request->book_id; ?>&user=<?php echo $request->user_id; ?>" class="delete-request">Διαγραφή</a>
 			</td>
 		<?php }else{
@@ -51,7 +50,9 @@
 		<td><a href="?show=admin&more=user&id=<?php echo $return->user_id; ?>" ><?php echo $return->username; ?></a></td>
 		<td><?php echo date('d-m-Y', strtotime($return->taken)); ?></td>
 		<td><?php echo date('d-m-Y', strtotime($return->must_return)); ?></td>
-		<td><a href="?show=admin&more=return&return=<?php echo $return->book_id; ?>&user=<?php echo $return->user_id; ?>" class="return-book">Επιστροφή</a></td>
+		<td><a href="?show=admin&more=return&return=<?php echo $return->book_id; ?>&user=<?php echo $return->user_id; ?>" class="return-book">Επιστροφή</a>
+		-- <a href="" class="renewal">Ανανέωση</a>
+		</td>
 	</tr> 
 	<?php } ?> </table>
 </div>

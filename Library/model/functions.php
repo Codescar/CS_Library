@@ -1,5 +1,5 @@
 <?php 
-function redirect($url, $time = 2000){
+function redirect($url, $time = 3000){
 	echo "Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href=\"".$url."\">εδώ</a>.</div>"
 			."<script type=\"text/javascript\">var t=setTimeout(\"window.location = '".$url."'\",".$time.")</script>";
 }

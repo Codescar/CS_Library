@@ -91,7 +91,7 @@
 	        redirect("index.php?show=admin&more=pendings");
   		}else{
 			$user->admin->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']));
-			echo "<div class=\"error\">Ο δανεισμός καταγράφηκε<br />";
+			echo "<div class=\"success\">Ο δανεισμός καταγράφηκε<br />";
 			redirect("index.php?show=admin&more=pendings");
 		}
   	}elseif($_GET['more'] == "return"){
@@ -100,7 +100,7 @@
 	        redirect("index.php?show=admin&more=pendings");
 	    }else{
 	    	$user->admin->return_book(mysql_real_escape_string($_GET['return']), mysql_real_escape_string($_GET['user']));
-	    	echo "<div class=\"success\">Η επιστροφή καταγράφηκε<br />";
+	    	echo "<br /><div class=\"success\">Η επιστροφή καταγράφηκε<br />";
 	    	redirect("index.php?show=admin&more=pendings");
 	    }
 	}elseif($_GET['more'] == "request_delete"){

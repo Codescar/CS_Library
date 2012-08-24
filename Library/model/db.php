@@ -208,5 +208,20 @@ class Lbdb{
 		return $this->queries;
 	}
 	
-	//TODO reset function, clears lend, log_lend, requests, book_avail = 1 think more
+	public function reset_database(){
+		//TODO maybe take a dump of those tables or whole mysql just in case
+		$book_availability = 
+			"UPDATE `{$this->table['booklist']}`
+				SET `availability` = 1";
+		$clear_requests =
+			"DELETE `{$this->table['requests']}`";
+		$clear_lend =
+			"DELETE `{$this->table['lend']}`";
+		$clear_log_lend = 
+			"DELETE `{$this->table['log_lend']}`";
+		$this->query($book_availability);
+		$this->query($clear_requests);
+		$this->query($clear_lend);
+		$this->query($clear_log_lend);
+	}
 };
