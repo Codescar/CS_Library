@@ -198,7 +198,7 @@ class Admin{
 	function lend_book($book_id, $user_id){
 		global $db, $CONFIG;
 		$user = user::show_info($user_id);
-		if($user->lended_books + 1 > $CONFIG['lendings'])
+		if($user->books_lended + 1 > $CONFIG['lendings'])
 			return false;
 		$db->lend_book($book_id, $user_id);
 		$db->delete_request($book_id, $user_id);

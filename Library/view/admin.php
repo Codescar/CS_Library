@@ -104,8 +104,8 @@
 	        redirect("index.php?show=admin&more=pendings");
 	    }else{
 	    	$user->admin->return_book(mysql_real_escape_string($_GET['return']), mysql_real_escape_string($_GET['user']));
-	    	$u_name = user::get_name($user_id);
-	    	$b_name = get_book_name($book_id);
+	    	$u_name = user::get_name(mysql_real_escape_string($_GET['user']));
+	    	$b_name = get_book_name(mysql_real_escape_string($_GET['return']));
 	    	echo "<div class=\"success\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />Η επιστροφή καταγράφηκε<br />";
 	    	redirect("index.php?show=admin&more=pendings");
 	    }
