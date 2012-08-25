@@ -179,6 +179,7 @@ class Lbdb{
 		$query = "DELETE FROM `{$this->table['requests']}`
 					WHERE `book_id` = '$book_id' AND `user_id` = '$user_id' LIMIT 1; ";
 		$this->query($query);
+		$this->user_change_attr($user_id, "books_requested", " - 1 ");
 		return;
 	}
 	
