@@ -203,8 +203,8 @@ class Admin{
 		$db->lend_book($book_id, $user_id);
 		$db->delete_request($book_id, $user_id);
 		$db->change_avail($book_id, 0);
-		$db->user_change_attr($user_id, "books_lended", "+");
-		$db->user_change_attr($user_id, "books_requested", "-");
+		$db->user_change_attr($user_id, "books_lended", "+ 1");
+		$db->user_change_attr($user_id, "books_requested", "- 1");
 		return true;
 	}
 
@@ -213,7 +213,7 @@ class Admin{
         $db->return_book($book_id);
         $db->log_the_lend($book_id);
         $db->change_avail($book_id, 1);
-        $db->user_change_attr($user_id, "books_lended", "-");
+        $db->user_change_attr($user_id, "books_lended", "- 1");
 	}
 	
 	function manage_announce(){

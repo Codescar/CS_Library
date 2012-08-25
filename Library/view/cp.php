@@ -17,6 +17,10 @@
 	<?php 
 	global $db;
 	
+	if(!isset($_GET['more']) || $_GET['more'] == "info"){
+		$user_info = user::show_info($user->id);
+		render_template("userControlPanel.php");
+	}
 	if(isset($_POST['hidden']) && $_POST['hidden'] == "codescar"){
 		$user->update();
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "file_upload"){
@@ -40,11 +44,9 @@
 		$user->cansel_request(mysql_real_escape_string($_GET['id']));
 	}elseif(isset($_GET['more']) && $_GET['more'] == "lended"){
 		$user->show_lended();
-	}
-	if(!isset($_GET['more']) || $_GET['more'] == "info"){
-		$user->show_info();
-		render_template("userControlPanel.php");
-	}
-	?>
+	}else{
+		echo "<div class=\"error\">Λάθος αίτημα<br />";
+		redirect("index.php?show=cp"); 
+	} ?>
 </div>
 <?php }  ?>

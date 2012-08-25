@@ -131,12 +131,13 @@ class User{
 	}
 
 	public static function show_info($user_id = -1){
-        global $db, $user_info;
+        global $db;
 		if($user_id == -1)
 			$user_id = $this->id;
 		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
 		$result = $db->query($query);
 		$user_info = mysql_fetch_object($result);
+		return $user_info;
 	}
 	
 	public function update($user_id = -1){

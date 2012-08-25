@@ -161,7 +161,7 @@ class Lbdb{
 	
 	public function user_change_attr($user_id, $attribute, $change){	
 		$query = "UPDATE `{$this->table['users']}`
-					SET `'$attribute'` = `$attribute` '$change' 1
+					SET `'$attribute'` = `$attribute` '$change'
 				 WHERE `id` = '$user_id' LIMIT 1";
 		$this->query($query);
 	}

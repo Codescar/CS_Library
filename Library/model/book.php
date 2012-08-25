@@ -145,7 +145,7 @@ function lend_request($book_id){
 			 		VALUES ('$book_id', '".$user->id."', NOW());";
 	$db->query($request);
 	$db->change_avail($book_id, 2);
-	$db->user_change_attr($user->id, "books_requested", "+");
+	$db->user_change_attr($user->id, "books_requested", "+ 1");
 	return true;
 }
 
