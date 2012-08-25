@@ -130,7 +130,7 @@ class User{
 		return;
 	}
 
-	public function show_info($user_id = -1){
+	public static function show_info($user_id = -1){
         global $db, $user_info;
 		if($user_id == -1)
 			$user_id = $this->id;

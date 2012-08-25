@@ -196,11 +196,16 @@ class Admin{
 	}
 
 	function lend_book($book_id, $user_id){
-		global $db;
+		global $db, $CONFIG;
+		$user = user::show_info($user_id);
+		if($user->lended_books + 1 > $CONFIG['lendings'])
+			return false;
 		$db->lend_book($book_id, $user_id);
 		$db->delete_request($book_id, $user_id);
 		$db->change_avail($book_id, 0);
-		$db->user_books($user_id, +1);
+		$db->user_change_attr($user_id, "books_lended", "+");
+		$db->user_change_attr($user_id, "books_requested", "-");
+		return true;
 	}
 
 	function return_book($book_id, $user_id){
@@ -208,7 +213,7 @@ class Admin{
         $db->return_book($book_id);
         $db->log_the_lend($book_id);
         $db->change_avail($book_id, 1);
-        $db->user_books($user_id, -1);
+        $db->user_change_attr($user_id, "books_lended", "-");
 	}
 	
 	function manage_announce(){
@@ -239,6 +244,7 @@ class Admin{
             ?> </table> <?php
         }
         elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
+			require_once('model/ckeditor/ckeditor.php');
 			$new = true;
             if($_GET['id'] != 0){
             	$announcement = announcements::get(mysql_real_escape_string($_GET['id'])); 

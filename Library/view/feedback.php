@@ -2,7 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	
+	require_once('model/ckeditor/ckeditor.php');
 ?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επικοινωνία</div>
 <div class="content">

@@ -159,6 +159,13 @@ class Lbdb{
 		return $books;
 	}
 	
+	public function user_change_attr($user_id, $attribute, $change){	
+		$query = "UPDATE `{$this->table['users']}`
+					SET `'$attribute'` = `$attribute` '$change' 1
+				 WHERE `id` = '$user_id' LIMIT 1";
+		$this->query($query);
+	}
+	
 	public function lend_book($book_id, $user_id){
 		global $CONFIG;
         $lend =	"	INSERT INTO `{$this->table['lend']}` 
@@ -196,6 +203,7 @@ class Lbdb{
 					LIMIT 1; ";
 		$this->query($delete);
 	}
+
 	public function change_avail($book_id, $status){
 		$query ="	UPDATE `{$this->table['booklist']}`
 						SET `availability` = '$status'
@@ -203,6 +211,7 @@ class Lbdb{
 					LIMIT 1;";
 		$this->query($query);
 	}
+
 	public function get_queries_num(){
 		return $this->queries;
 	}

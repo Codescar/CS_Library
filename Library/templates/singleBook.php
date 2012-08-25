@@ -51,13 +51,18 @@
 		}
 		if($requested && isset($_GET['lend'])){
 			?> <div class="success">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</div><?php ;
+		}elseif(!$requested && isset($_GET['lend'])){
+			?> <div class="error">Έχετε ξεπεράσει το όριο δανεισμών/αιτημάτων.<br />
+				Να υπενθυμίσουμε ότι ισχύει: <br />
+				1) Όρίο δανεισμών: <?php echo $CONFIG['lendings']; ?><br />
+				2) Όριο αιτημάτων: <?php echo $CONFIG['request']; ?><br />
+				3) Πρέπει όμως το όριο αιτημάτων και δανεισμένων σας βιβλίων να μην ξεπερνά το όριο δανεισμών
+			</div><?php ;
     	}elseif($logged && $have){
-			if($logged && (($taken = in_there_pos($lend, $book->id)) != -1)) { ?>
-				<div class="error" >
-				Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και <br />θα πρέπει να το επιστρέψεις μέχρι την 
-				<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_days'], date("Y", strtotime($taken))));  ?>
+				?><div class="success" >
+					Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($have->taken)); ?> και <br />θα πρέπει να το επιστρέψεις μέχρι την 
+					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($have->taken)), date("d", strtotime($have->taken))+$CONFIG['lend_days'], date("Y", strtotime($have->taken))));  ?>
 				</div><?php
-			}
 		}elseif(isset($msg)){ ?>
 			<?php echo "<div class=\"error\" >".$msg."<br />";
 			redirect("index.php?show=login", 3000);

@@ -20,8 +20,8 @@
 		require_once('model/message.php');
 		require_once('model/announcements.php');
 		require_once('model/pages.php');
-		require_once('model/ckeditor/ckeditor.php');	/* Web-Based Text Editor Library */
-		require_once('model/XPM/MAIL.php');				/* Mail Library */
-		
+// Those will be loaded when needed.
+//		require_once('model/ckeditor/ckeditor.php');	/* Web-Based Text Editor Library */
+//		require_once('model/XPM/MAIL.php');				/* Mail Library */
 	}
 ?>

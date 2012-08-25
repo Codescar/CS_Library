@@ -36,7 +36,7 @@ function list_books($books){
 										if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
 											<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
 											<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
-									<?php } else {?>
+									<?php } else { ?>
 											<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
 											<div style="font-size: 9px;">Μη διαθέσιμο</div>
 									<?php }
@@ -45,9 +45,7 @@ function list_books($books){
 								<?php } ?>
 						</div>
 						<div class="box list-button list-add-to-wish center bold">
-							<?php 
-								favorites::show_favorites_button($row['id']);
-							?>
+							<?php favorites::show_favorites_button($row['id']);	?>
 						</div>
 						<?php if($row['availability'] != 0) { ?>
 						<div class="box list-button list-lend-book center bold">
@@ -55,7 +53,7 @@ function list_books($books){
 								<a class="must-login" href="?show=login">Δανείσου το</a>
 							<?php }else{ ?>
 								<a class="request-book" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
-							<?php }?>
+							<?php } ?>
 						</div>
 						<?php } ?>
 					</div>
@@ -129,20 +127,25 @@ function have_book_rq($book_id, $user_id){
 
 function have_book($book_id, $user_id){
 	global $db;
-	$query = "	SELECT * FROM `{$db->table["lend"]}` 
+	$query = "	SELECT `taken` FROM `{$db->table["lend"]}` 
 				WHERE `user_id` = '".$user_id."' 
 				AND `book_id` = '$book_id'";
-	$result = mysql_num_rows($db->query($query));
+	$result = mysql_fetch_object(($db->query($query)));
 	return $result;
 }
 
 function lend_request($book_id){
-	global $db, $user;
+	global $db, $user, $CONFIG;
+	if($user->books_lended + $user->books_requested + 1 > $CONFIG['lendings'])
+		return false;
+	if($user->books_requested + 1 > $CONFIG['requests'])
+		return false;
 	$request = "INSERT INTO `{$db->table["requests"]}` (
 					`book_id`, `user_id`, `date`)
 			 		VALUES ('$book_id', '".$user->id."', NOW());";
 	$db->query($request);
 	$db->change_avail($book_id, 2);
+	$db->user_change_attr($user->id, "books_requested", "+");
 	return true;
 }
 
