@@ -44,9 +44,10 @@
 			<img src="<?php echo $image_url; ?>" style="width: 150px; height: 150px;" alt="User Image" /><br />
 			
 			<a href="#" onclick="showPictureUtil();">Αλλάξτε την φωτογραφία</a><br />
-			<br /><span class="bold">Όνομα Χρήστη:</span> <?php echo $user_info->username; ?>
-			<br /><span class="bold">Τύπος Χρήστη:</span> <?php echo $user_info->usertype; ?>
-			<br /><span class="bold">Δανεισμένα βιβλία:</span> <?php echo $user_info->books_lended; ?>
+			<br /><span class="bold">Όνομα Χρήστη: </span> <?php echo $user_info->username; ?>
+			<br /><span class="bold">Τύπος Χρήστη: </span> <?php echo $user_info->usertype; ?>
+			<br /><span class="bold">Δανεισμένα βιβλία: </span> <?php echo $user_info->books_lended; ?>
+			<br /><span class="bold">Αιτήματα δανεισμού: </span> <?php echo $user_info->books_requested; ?>
 		</div>
 		<div class="block" id="user-info">
 			<form action="" method="post" id="change-info">
