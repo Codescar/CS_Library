@@ -133,7 +133,7 @@ class Admin{
 			if(	!isset($_POST['username']) 		|| !isset($_POST['password']) || 
 				!isset($_POST['email']) 		||  empty($_POST['username']) || 
 				 empty($_POST['password']) 		||  empty($_POST['email']) ){
-				echo "<div class=\"error\">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br />";
+				echo "<div class=\"error\">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br /><br />";
 				redirect("index.php?show=admin&more=users");
 			}
 			else{
@@ -141,8 +141,8 @@ class Admin{
                                     mysql_real_escape_string($_POST['password']), 
                                     mysql_real_escape_string($_POST['email']));
                 //TODO send an email to the user 
-                echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br />";
-				redirect("index.php?show=admin&more=users", 2500);
+                echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br /><br />";
+				redirect("index.php?show=admin&more=users");
             }
 		} ?>
 		<form action="" method="post" id="new-user-form">
@@ -307,7 +307,7 @@ class Admin{
 		}else{
 			echo "<div class=\"success\">Η Υπηρεσία μπήκε σε κανονική κατάσταση λειτουργίας<br />";
 		}
-			redirect("index.php");
+			redirect("index.php?show=admin");
 	}
 };
 ?>

@@ -41,10 +41,10 @@ function loaded(){
 	$('.fav-remove').click(function (){
 		return confirm("Είσαι σίγουρος ότι θέλεις να το αφαιρέσεις από τα αγαπημένα σου;", "Επιβεβαίωση");
 	});
-	$('#enable-maintenance').click(function(){
+	$('.enable-maintenance').click(function(){
 		return confirm("Είσαι σίγουρος πως θες να ενεργοποιήσεις την κατάσταση συντήρησης? Κατά την διάρκεια της η σελίδα δεν θα είναι διαθέσιμη στους χρήστες", "Επιβεβαίωση");
 	});
-	$('#disable-maintenance').click(function(){
+	$('.disable-maintenance').click(function(){
 		return confirm("Να απενεργοποιηθεί η κατάσταση συντήρησης?", "Επιβεβαίωση");
 	});
 }

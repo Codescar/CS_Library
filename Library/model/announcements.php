@@ -4,7 +4,7 @@ class announcements{
 	
 	public static function list_all(){
 		global $db;
-		$query = "SELECT `{$db->table["announcements"]}`.`id` `{$db->table["announcements"]}`.`	title`, 
+		$query = "SELECT `{$db->table["announcements"]}`.`id`, `{$db->table["announcements"]}`.`title`, 
 					`{$db->table["announcements"]}`.`body`, `{$db->table["announcements"]}`.`date`, 
 					`{$db->table["users"]}`.`username`					
 					FROM `{$db->table["announcements"]}` CROSS JOIN `{$db->table["users"]}` 
