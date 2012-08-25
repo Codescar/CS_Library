@@ -134,8 +134,9 @@ function have_book($book_id, $user_id){
 	return $result;
 }
 
-function lend_request($book_id){
-	global $db, $user, $CONFIG;
+function lend_request($book_id, $user_id){
+	global $db, $CONFIG;
+	$user = user::show_info($user_id);
 	if($user->books_lended + $user->books_requested + 1 > $CONFIG['lendings'])
 		return false;
 	if($user->books_requested + 1 > $CONFIG['requests'])

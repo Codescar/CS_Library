@@ -21,7 +21,7 @@
 		$user_info = user::show_info($user->id);
 		render_template("userControlPanel.php");
 	}
-	if(isset($_POST['hidden']) && $_POST['hidden'] == "codescar"){
+	elseif(isset($_POST['hidden']) && $_POST['hidden'] == "codescar"){
 		$user->update();
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "file_upload"){
 		if(!isset($_POST['profilePicture'])){

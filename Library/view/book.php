@@ -22,7 +22,7 @@
 		$have = have_book($book_id, $user->id);
 		$requested = have_book_rq($book_id, $user->id);
 		if(isset($_GET['lend']) && !$requested && !$have)
-			$requested = lend_request($book_id);
+			$requested = lend_request($book_id, $user->id);
 	}
 	elseif(isset($_GET['lend']))
 		$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";

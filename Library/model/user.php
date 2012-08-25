@@ -250,7 +250,7 @@ class User{
 				  WHERE {$db->table['lend']}.user_id = '{$this->id}' ";
 		$books = $db->get_books($query);
 		if(!$books){ ?>
-			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο.</div>
+			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο.</div><br />
 		<?php }
 		list_books($books); 
 		return;
