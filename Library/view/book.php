@@ -6,7 +6,6 @@
 	if(!isset($_GET['id']))
 		die("Λάθος αίτημα");
 
-	//TODO must put the php to a controller or the rest html/php into a template
 	$lended  = FALSE;
 	$have = FALSE;
 	$requested = FALSE;
@@ -29,15 +28,14 @@
 		    $lend[$i][1] = $tmp['taken'];
 		}
 	}
-	if(isset($_GET['lend']) && $logged && !$requested && !$have){
-		lend_request($book_id);
-		$requested = TRUE;
-	}
+	if(isset($_GET['lend']) && $logged && !$requested && !$have)
+		$requested = lend_request($book_id);
 	elseif(isset($_GET['lend']) && !$logged)
 		$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
 ?>
 <div id="direction">
 	<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=list">Κατάλογος βιβλίων</a>&nbsp;&gt;&gt;&nbsp;<?php echo $book->title; ?>
 </div>
-<div class="content book-prev">
-	<?php render_template("singleBook.php"); ?>
+<?php 
+	echo "<div class=\"content book-prev\">";
+	render_template("singleBook.php"); ?>

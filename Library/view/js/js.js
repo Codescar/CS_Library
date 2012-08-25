@@ -20,6 +20,12 @@ function loaded(){
 	$('.delete-request').click(function (){
 		return confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις το αίτημά;", "Επιβεβαίωση");
 	});
+	$('.delete-option').click(function (){
+		return confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις την ρύθμιση;", "Επιβεβαίωση");
+	});
+	$('.delete-user').click(function (){
+		return confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις τον χρήστη;", "Επιβεβαίωση");
+	});
 	$('.delete-announce').click(function (){
 		return confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτή την ανακοίνωση;", "Επιβεβαίωση");
 	});
@@ -27,14 +33,19 @@ function loaded(){
 		alert('Πρέπει να συνδεθείτε πρώτα');
 	});
 	$('.renewal').click(function (){
-		alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες');
-		return false;
+		alert('Μπορείτε να κρατήσετε το βιβλίο για άλλες 15 μέρες'); return false;
 	});
 	$('.fav-add').click(function (){
 		return confirm("Είσαι σίγουρος ότι θέλεις να το προσθέσεις στα αγαπημένα σου;", "Επιβεβαίωση");
 	});
 	$('.fav-remove').click(function (){
 		return confirm("Είσαι σίγουρος ότι θέλεις να το αφαιρέσεις από τα αγαπημένα σου;", "Επιβεβαίωση");
+	});
+	$('#enable-maintenance').click(function(){
+		return confirm("Είσαι σίγουρος πως θες να ενεργοποιήσεις την κατάσταση συντήρησης? Κατά την διάρκεια της η σελίδα δεν θα είναι διαθέσιμη στους χρήστες", "Επιβεβαίωση");
+	});
+	$('#disable-maintenance').click(function(){
+		return confirm("Να απενεργοποιηθεί η κατάσταση συντήρησης?", "Επιβεβαίωση");
 	});
 }
 
@@ -49,7 +60,7 @@ function showPictureUtil()
             background: "black"
         },
         width: "60%"	  
-    })
+    });
 }
 
 function check_no_image(){

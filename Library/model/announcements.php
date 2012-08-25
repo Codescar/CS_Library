@@ -4,15 +4,22 @@ class announcements{
 	
 	public static function list_all(){
 		global $db;
-		$query = "SELECT * FROM `{$db->table["announcements"]}` CROSS JOIN `{$db->table["users"]}` 
+		$query = "SELECT `{$db->table["announcements"]}`.`id` `{$db->table["announcements"]}`.`	title`, 
+					`{$db->table["announcements"]}`.`body`, `{$db->table["announcements"]}`.`date`, 
+					`{$db->table["users"]}`.`username`					
+					FROM `{$db->table["announcements"]}` CROSS JOIN `{$db->table["users"]}` 
 						ON `{$db->table["announcements"]}`.author = `{$db->table["users"]}`.id ;";
 		return $db->query($query);
 	}
 	
+	/*
+	 * Given an id, this function returns an announcement object
+	 */
 	public static function get($id){
 		global $db;
-		$query = "SELECT * FROM `{$db->table["announcements"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
-		return $db->query($query);
+		$query = "SELECT * FROM `{$db->table["announcements"]}` WHERE `id` = '$id' LIMIT 1;";
+		$ret = $db->query($query);
+		return mysql_fetch_object($ret);
 	}
 	
 	public static function add($title, $body){

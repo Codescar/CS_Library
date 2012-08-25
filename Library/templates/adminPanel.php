@@ -39,11 +39,9 @@
 		<img class="block panel-img" src="view/images/option.png" /><br />
 		Options
 	</a></h3>
-	<h3 class="block panel-images"><a id="maintance-button" class="panel-links" href="index.php?show=admin&more=maintance" >
+	<h3 class="block panel-images"><a id="<?php echo ($CONFIG['maintance']) ? "disable-maintenance" : "enable-maintenance"; ?>"
+		class="panel-links" href="index.php?show=admin&more=maintance" >
 		<img class="block panel-img" src="view/images/maintaince.jpg" /><br />
-		Maintance
+		Maintenance
 	</a></h3>
-	<script type="text/javascript">
-		$('#maintance-button').click(function(){return confirm("Are you sure you want to enter maintance mode? Until it ends site will be unavailable to the public.");});
-	</script>
 </div>

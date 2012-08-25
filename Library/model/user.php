@@ -137,11 +137,6 @@ class User{
 		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
 		$result = $db->query($query);
 		$user_info = mysql_fetch_object($result);
-		$query = "SELECT COUNT(*) AS books_lended FROM `{$db->table['lend']}` WHERE `user_id` = '$user_id'";
-		$result = $db->query($query);
-		$more_info = mysql_fetch_object($result);
-		$user_info->books_lended = $more_info->books_lended; 
-
 	}
 	
 	public function update($user_id = -1){

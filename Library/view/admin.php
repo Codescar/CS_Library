@@ -100,7 +100,9 @@
 	        redirect("index.php?show=admin&more=pendings");
 	    }else{
 	    	$user->admin->return_book(mysql_real_escape_string($_GET['return']), mysql_real_escape_string($_GET['user']));
-	    	echo "<br /><div class=\"success\">Η επιστροφή καταγράφηκε<br />";
+	    	$u_name = user::get_name($user_id);
+	    	$b_name = get_book_name($book_id);
+	    	echo "<div class=\"success\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />Η επιστροφή καταγράφηκε<br />";
 	    	redirect("index.php?show=admin&more=pendings");
 	    }
 	}elseif($_GET['more'] == "request_delete"){

@@ -33,13 +33,14 @@ function list_books($books){
 					<div class="list-right">
 						<div class="list-avail">
 							<?php if($row['availability'] == 0) { 
-									if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
-										<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
-										<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
+										if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
+											<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
+											<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
 									<?php } else {?>
-										<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
-										<div style="font-size: 9px;">Μη διαθέσιμο</div>
-								<?php } } else { ?>
+											<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+											<div style="font-size: 9px;">Μη διαθέσιμο</div>
+									<?php }
+							 		} else { ?>
 										<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
 								<?php } ?>
 						</div>
@@ -135,17 +136,14 @@ function have_book($book_id, $user_id){
 	return $result;
 }
 
-function lend_request($id){
+function lend_request($book_id){
 	global $db, $user;
 	$request = "INSERT INTO `{$db->table["requests"]}` (
 					`book_id`, `user_id`, `date`)
-			 		VALUES ('$id', '".$user->id."', NOW());";
+			 		VALUES ('$book_id', '".$user->id."', NOW());";
 	$db->query($request);
-	$book_availability = "	UPDATE `{$db->table['booklist']}`
-				SET `availability` = 2
-				WHERE `id` = '$id';";
-	$db->query($book_availability); 
-	return;
+	$db->change_avail($book_id, 2);
+	return true;
 }
 
 function book_avail($book_id){

@@ -179,15 +179,8 @@ class Lbdb{
 		$return ="	UPDATE `{$this->table['lend']}`
 					SET `returned` = NOW()
 					WHERE book_id = '$book_id'
-					LIMIT 1;
-				";
+					LIMIT 1;";
 		$this->query($return);
-	    $query ="	UPDATE `{$this->table['booklist']}`
-					SET `availability` = 1
-					WHERE `id` = '$book_id'
-	    			LIMIT 1;
-	    		";
-	    $this->query($query); 
 	    return;
 	}
 	
@@ -203,7 +196,13 @@ class Lbdb{
 					LIMIT 1; ";
 		$this->query($delete);
 	}
-	
+	public function change_avail($book_id, $status){
+		$query ="	UPDATE `{$this->table['booklist']}`
+						SET `availability` = '$status'
+					WHERE `id` = '$book_id'
+					LIMIT 1;";
+		$this->query($query);
+	}
 	public function get_queries_num(){
 		return $this->queries;
 	}

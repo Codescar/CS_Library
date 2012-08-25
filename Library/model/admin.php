@@ -76,7 +76,7 @@ class Admin{
 				<div class="block opt-description"><?php echo $option->description; ?></div>
 				<div class="block opt-value"><?php echo $option->value; ?></div>
 				<div class="block opt-action"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
-				<div class="block opt-action"><a href="<?php echo $delete_link; ?>">Delete</a></div>
+				<div class="block opt-action"><a class="delete-option" href="<?php echo $delete_link; ?>">Delete</a></div>
 			</div><?php
 		}
         $edit = false;
@@ -169,7 +169,7 @@ class Admin{
 		</tr> <?php 
 		while($row = mysql_fetch_object($res)){
 			?><tr>
-				<td><?php echo $row->id; ?> -- <a href="?show=admin&more=del_user&id=<?php echo $row->id; ?>">Delete</a></td>
+				<td><?php echo $row->id; ?> -- <a class="delete-user" href="?show=admin&more=del_user&id=<?php echo $row->id; ?>">Delete</a></td>
 				<td><a href="?show=admin&more=user&id=<?php echo $row->id; ?>"><?php echo $row->username; ?></a></td>
 				<td><?php echo $row->phone; ?></td>
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
@@ -195,25 +195,24 @@ class Admin{
 		$user->show_history(mysql_real_escape_string($id));
 	}
 
-	
 	function lend_book($book_id, $user_id){
 		global $db;
 		$db->lend_book($book_id, $user_id);
 		$db->delete_request($book_id, $user_id);
+		$db->change_avail($book_id, 0);
+		$db->user_books($user_id, +1);
 	}
-	
+
 	function return_book($book_id, $user_id){
 		global $db;
-        $u_name = user::get_name($user_id);
-        $b_name = get_book_name($book_id);
         $db->return_book($book_id);
         $db->log_the_lend($book_id);
-        echo "<div class=\"success center\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />";
-        redirect("index.php?show=admin&more=pendings", 2500);
+        $db->change_avail($book_id, 1);
+        $db->user_books($user_id, -1);
 	}
 	
 	function manage_announce(){
-	 if(!isset($_GET['id']) && !isset($_GET['add'])){
+		if(!isset($_GET['id']) && !isset($_GET['add'])){
             $ret = announcements::list_all(); ?>
             <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
                 <button type="button" class="box link cp-button bold center">Νέα Ανακοίνωση</button>
@@ -232,7 +231,9 @@ class Admin{
                     <td><?php echo substr($announcement->body, 0, 40);  echo (strlen($announcement->body) > 40)  ? "..." : ""; ?></td>
                     <td><?php echo $announcement->username; ?></td>
                     <td><?php echo $announcement->date; ?></td>
-                    <td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id))); ?>">Επεξεργασία</a> -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id, "delete" => "true"))); ?>">Διαγραφή</a></td>
+                    <td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id))); ?>">Επεξεργασία</a>
+                    -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id, "delete" => "true"))); ?>">Διαγραφή</a>
+                    </td>
                 </tr> <?php
             }
             ?> </table> <?php
@@ -240,15 +241,14 @@ class Admin{
         elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
 			$new = true;
             if($_GET['id'] != 0){
-            	$ret = announcements::get($_GET['id']);
-            	$announcement = mysql_fetch_object($ret); 
+            	$announcement = announcements::get(mysql_real_escape_string($_GET['id'])); 
             	$new = false;
             } ?>
             <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
                 <textarea class="ckeditor" name="body" id="body"><?php echo ($new) ? "" : $announcement->body; ?></textarea><br />
-                <label for="title" class="bold">Title:</label>
+                <label for="title" class="bold">Τίτλος:</label>
                     <input type="text" name="title" id="title" value="<?php echo ($new) ? "" : $announcement->title; ?>" />
-                <input type="submit" value="Save" />
+                <input type="submit" value="Αποθήκευσε" />
             </form> <?php
         }
         elseif(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){

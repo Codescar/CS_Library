@@ -49,17 +49,16 @@
 		<?php if($logged && $requested && !$have && !isset($_GET['lend'])){
 			?> <div class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</div><?php ;
 		}
-		if($requested){
+		if($requested && isset($_GET['lend'])){
 			?> <div class="success">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</div><?php ;
-    		}
-			elseif($logged && $have){
-				if($logged && (($taken = in_there_pos($lend, $book->id)) != -1)) { ?>
+    	}elseif($logged && $have){
+			if($logged && (($taken = in_there_pos($lend, $book->id)) != -1)) { ?>
 				<div class="error" >
 				Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και <br />θα πρέπει να το επιστρέψεις μέχρι την 
 				<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_days'], date("Y", strtotime($taken))));  ?>
 				</div><?php
 			}
-		} elseif(isset($msg)){ ?>
+		}elseif(isset($msg)){ ?>
 			<?php echo "<div class=\"error\" >".$msg."<br />";
 			redirect("index.php?show=login", 3000);
 		} ?>
