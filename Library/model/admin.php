@@ -168,7 +168,7 @@ class Admin{
 		</tr> <?php 
 		while($row = mysql_fetch_object($res)){
 			?><tr>
-				<td><?php echo $row->id; ?> -- <a class="delete-user" href="?show=admin&more=del_user&id=<?php echo $row->id; ?>">Delete</a></td>
+				<td><?php echo $row->id; ?> -- <a class="delete-user" href="?show=admin&more=del_user&id=<?php echo $row->id; ?>">Διαγραφή</a></td>
 				<td><a href="?show=admin&more=user&id=<?php echo $row->id; ?>"><?php echo $row->username; ?></a></td>
 				<td><?php echo $row->phone; ?></td>
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
@@ -184,8 +184,19 @@ class Admin{
 		global $user, $user_info;
 		?> <div class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</div> <?php
 		$user_info = $user->show_info($id);
-		render_template("userControlPanel.php");
-		//TODO add some options like ban / delete / and so on
+		render_template("userControlPanel.php"); ?>
+		<div class="center" style="margin: -40px auto 0 auto;">
+			<span class="bold">Επιλογές Admin</span>
+			<a href="index.php?show=cp&amp;more=lended" style="margin: 0 40px;">
+				<button type="button" class="cp-button link box center bold" style="width: 90px;">Ban</button>
+			</a>
+			<a href="index.php?show=cp&amp;more=lended">
+				<button type="button" class="cp-button link box center bold" style="width: 90px;">Delete</button>
+			</a>
+			<a href="index.php?show=cp&amp;more=lended">
+				<button type="button" class="cp-button link box center bold" style="width: 90px;">Make Admin</button>
+			</a>
+		</div><?php 
 	}
 	
 	function user_history($id){
@@ -202,7 +213,6 @@ class Admin{
 		$db->delete_request($book_id, $user_id);
 		$db->change_avail($book_id, 0);
 		$db->user_change_attr($user_id, "books_lended", "+ 1");
-		$db->user_change_attr($user_id, "books_requested", "- 1");
 		return true;
 	}
 

@@ -16,20 +16,15 @@
 <div class="content" >
 	<?php 
 	global $db;
-	
-	echo "<!-- ".print_r($_POST)." -->";
-	if(!isset($_GET['more']) || $_GET['more'] == "info"){
-		$user_info = user::show_info($user->id);
-		render_template("userControlPanel.php");
-	}
-	elseif(isset($_POST['hidden_update']) && $_POST['hidden_update'] == "codescar"){
-		$name = $_POST['name'];
-		$surname = $_POST['surname'];
-		$email = $_POST['email'];
-		$born = $_POST['born'];
-		$phone = $_POST['phone'];
-		$new_pass = $_POST['n_pass'];
-		$r_new_pass = $_POST['r_n_pass'];
+
+	if(isset($_POST['hidden_update']) && $_POST['hidden_update'] == "codescar"){
+		$name = mysql_real_escape_string($_POST['name']);
+		$surname = mysql_real_escape_string($_POST['surname']);
+		$email = mysql_real_escape_string($_POST['email']);
+		$born = mysql_real_escape_string($_POST['born']);
+		$phone = mysql_real_escape_string($_POST['phone']);
+		$new_pass = mysql_real_escape_string($_POST['n_pass']);
+		$r_new_pass = mysql_real_escape_string($_POST['r_n_pass']);
 		$user->update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass);
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "file_upload"){
 		if(!isset($_POST['profilePicture'])){
@@ -50,12 +45,17 @@
 			echo "<div class=\"error\">Λάθος URL!</div>";
 	}elseif(isset($_POST['hidden']) && ($_POST['hidden'] == "no_image")){
 		update_avatar_in_db(null, -1);
-	}elseif(isset($_GET['more']) && $_GET['more'] == "history"){
+	}
+
+	if(!isset($_GET['more']) || $_GET['more'] == "info"){
+		$user_info = user::show_info($user->id);
+		render_template("userControlPanel.php");
+	}elseif($_GET['more'] == "history"){
 		$user->show_history();
-	}elseif(isset($_GET['more']) && isset($_GET['id']) && ($_GET['more'] == "remove_request")){
-		$user->cansel_request(mysql_real_escape_string($_GET['id']));
-	}elseif(isset($_GET['more']) && $_GET['more'] == "lended"){
+	}elseif($_GET['more'] == "lended"){
 		$user->show_lended();
+	}elseif(isset($_GET['id']) && ($_GET['more'] == "remove_request")){
+		$user->cansel_request(mysql_real_escape_string($_GET['id']));
 	}else{
 		echo "<div class=\"error\">Λάθος αίτημα<br />";
 		redirect("index.php?show=cp"); 
