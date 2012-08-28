@@ -73,7 +73,7 @@
 	}elseif($_GET['more'] == "users" && !isset($_GET['add'])){
 		$user->admin->show_users();
 	}elseif($_GET['more'] == "user" && isset($_GET['id'])){
-		$user->admin->show_user($_GET['id']);
+		$user->admin->show_user(mysql_real_escape_string($_GET['id']));
 	}elseif($_GET['more'] == "del_user" && isset($_GET['id'])){
 		user::delete_user($_GET['id']);
 	}elseif($_GET['more'] == "users" && 

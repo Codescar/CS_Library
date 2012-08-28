@@ -139,8 +139,7 @@ class Admin{
 			else{
                 $user->createUser(	mysql_real_escape_string($_POST['username']), 
                                     mysql_real_escape_string($_POST['password']), 
-                                    mysql_real_escape_string($_POST['email']));
-                //TODO send an email to the user 
+                                    mysql_real_escape_string($_POST['email'])); 
                 echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br /><br />";
 				redirect("index.php?show=admin&more=users");
             }
@@ -183,9 +182,8 @@ class Admin{
 	
 	function show_user($id){
 		global $user;
-		//TODO add a back link
 		?> <div class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</div> <?php
-		$user->show_info(mysql_real_escape_string($id));
+		$user_info = $user->show_info($id);
 		render_template("userControlPanel.php");
 		//TODO add some options like ban / delete / and so on
 	}

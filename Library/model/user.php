@@ -140,38 +140,25 @@ class User{
 		return $user_info;
 	}
 	
-	public function update($user_id = -1){
+	public function update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass){
 		global $db;
-		if($user_id == -1)
-			$user_id = $this->id;
-		$query = "	SELECT * FROM `{$db->table['users']}`
-					WHERE 	`id` = '$user_id'
-					AND 	`password` = '".mysql_real_escape_string($_POST['password'])."'
-					LIMIT 1 ;";
-		$result = $db->query($query);
-		if(mysql_num_rows($result)){
-			$q = "UPDATE `{$db->table['users']}` SET
-			`name` = '".mysql_real_escape_string($_POST['name'])."',
-			`surname` = '".mysql_real_escape_string($_POST['surname'])."',
-			`born` = '".mysql_real_escape_string($_POST['born'])."',
-			`phone` = '".mysql_real_escape_string($_POST['phone'])."',
-					`email` = '".mysql_real_escape_string($_POST['email'])."'";
-			if(isset($_POST['n_pass']) && $_POST['n_pass'] != ""){
-				if($_POST['n_pass'] == $_POST['r_n_pass'] /*&& check_password($_POST['n_pass'])*/)
-					$q .= ", `password` = '".mysql_real_escape_string($_POST['n_pass'])."'";
-			}
-			$q .= " WHERE users.id = '$user_id' AND users.password = '".mysql_real_escape_string($this->pass_encrypt($_POST['password']))."';";
-			$db->query($q);
-			echo "<div class=\"success\">Οι αλλαγές σας αποθηκεύτηκαν.</div>";
+
+		$q = "UPDATE `{$db->table['users']}` SET
+			`name` = '$name', `surname` = '$surname',
+			`born` = '$born', `phone` = '$phone',
+			`email` = '$email' ";
+		if($new_pass != "" && $new_pass = $r_new_pass){
+			/*if(check_password($_POST['n_pass']))*/
+			$new_pass = $this->pass_encrypt($new_pass);
+			$q .= ", `password` = '$new_pass' ";
 		}
-		else
-			echo "<div class=\"error\">Δώσατε λάθος κωδικό.</div>";
+		$q .= " WHERE `{$db->table['users']}`.id = '$user_id' ;";
+		$db->query($q);
+		echo "<div class=\"success\">Οι αλλαγές σας αποθηκεύτηκαν.</div>";
 	}
 	
 	public function is_logged_in(){
-		return isset($_SESSION['logged_in']) 
-		&& ($_SESSION['logged_in'] == 1) 
-		&& ($this->access_level >= 0);
+		return isset($_SESSION['logged_in']) && ($_SESSION['logged_in'] == 1) && ($this->access_level >= 0);
 	}
 	
 	public function show_login_status(){

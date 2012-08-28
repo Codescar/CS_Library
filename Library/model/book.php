@@ -47,7 +47,7 @@ function list_books($books){
 						<div class="box list-button list-add-to-wish center bold">
 							<?php favorites::show_favorites_button($row['id']);	?>
 						</div>
-						<?php if($row['availability'] != 0) { ?>
+						<?php if($row['availability'] == 1) { ?>
 						<div class="box list-button list-lend-book center bold">
 							<?php if(!$logged){ ?>
 								<a class="must-login" href="?show=login">Δανείσου το</a>

@@ -3,7 +3,6 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	global $CONFIG;
-	//TODO have to make it more beatyfull :P
 ?>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Κατάσταση Συντήρησης</div>
 <div class="content maintenance">

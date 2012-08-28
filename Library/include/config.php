@@ -35,9 +35,7 @@
 		
 	/*
 	 * Load the config from the database, 
-	 * if there are same, 
-	 * it overides them. //TODO do we want that or the opposite?
+	 * if there are same, it overides them.
 	 */
-	option::load_options();
-	
+	option::load_options();	
 ?>

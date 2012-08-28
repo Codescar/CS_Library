@@ -41,7 +41,6 @@ class option{
 
 	public static function delete($id){
 		global $db;
-		//TODO Or maybe deleting by name will be more secure?
 		$query = "DELETE FROM `{$db->table['options']}`
 					WHERE `id` = '$id' ";
 		$db->query($query);
