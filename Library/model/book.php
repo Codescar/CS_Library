@@ -32,7 +32,7 @@ function list_books($books){
 					<!-- Availability -->
 					<div class="list-right">
 						<div class="list-avail">
-							<?php if($row['availability'] == 0) { 
+							<?php if($row['availability'] != 1) { 
 										if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
 											<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
 											<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>

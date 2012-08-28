@@ -181,7 +181,7 @@ class Admin{
 	}
 	
 	function show_user($id){
-		global $user;
+		global $user, $user_info;
 		?> <div class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</div> <?php
 		$user_info = $user->show_info($id);
 		render_template("userControlPanel.php");

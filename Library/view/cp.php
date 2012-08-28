@@ -16,7 +16,8 @@
 <div class="content" >
 	<?php 
 	global $db;
-	?> echo "<!-- ".print_r($_POST)." -->"; <?php
+	
+	echo "<!-- ".print_r($_POST)." -->";
 	if(!isset($_GET['more']) || $_GET['more'] == "info"){
 		$user_info = user::show_info($user->id);
 		render_template("userControlPanel.php");
@@ -29,7 +30,6 @@
 		$phone = $_POST['phone'];
 		$new_pass = $_POST['n_pass'];
 		$r_new_pass = $_POST['r_n_pass'];
-		
 		$user->update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass);
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "file_upload"){
 		if(!isset($_POST['profilePicture'])){
