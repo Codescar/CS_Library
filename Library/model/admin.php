@@ -187,16 +187,17 @@ class Admin{
 		render_template("userControlPanel.php"); ?>
 		<div class="center" style="margin: -40px auto 0 auto;">
 			<span class="bold">Επιλογές Admin</span>
-			<a href="index.php?show=cp&amp;more=lended" style="margin: 0 40px;">
+			<a href="#" style="margin: 0 20px 0 10px;">
 				<button type="button" class="cp-button link box center bold" style="width: 90px;">Ban</button>
 			</a>
-			<a href="index.php?show=cp&amp;more=lended">
+			<a href="#" style="margin: 0 20px;">
 				<button type="button" class="cp-button link box center bold" style="width: 90px;">Delete</button>
 			</a>
-			<a href="index.php?show=cp&amp;more=lended">
-				<button type="button" class="cp-button link box center bold" style="width: 90px;">Make Admin</button>
+			<a href="#" style="margin: 0 20px;">
+				<button type="button" class="cp-button link box center bold" style="width: 100px;">Make Admin</button>
 			</a>
-		</div><?php 
+		</div>
+		<?php //TODO fix the links above and make them function
 	}
 	
 	function user_history($id){

@@ -15,8 +15,7 @@
 	<?php } ?>
 <div class="content" >
 	<?php 
-	global $db;
-
+	global $db, $user;
 	if(isset($_POST['hidden_update']) && $_POST['hidden_update'] == "codescar"){
 		$name = mysql_real_escape_string($_POST['name']);
 		$surname = mysql_real_escape_string($_POST['surname']);
@@ -25,6 +24,9 @@
 		$phone = mysql_real_escape_string($_POST['phone']);
 		$new_pass = mysql_real_escape_string($_POST['n_pass']);
 		$r_new_pass = mysql_real_escape_string($_POST['r_n_pass']);
+		$user_id = $user->id;
+		if($user->is_admin())
+			$user_id = mysql_real_escape_string($_POST['hidden_treasure']);
 		$user->update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass);
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "file_upload"){
 		if(!isset($_POST['profilePicture'])){

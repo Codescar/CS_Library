@@ -1,7 +1,7 @@
 <?php 
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
-	global $user_info;
+	global $user_info, $user;
 ?>
 	<div id="PictureUtil" style="display: none;">
 		<h3>Ενημέρωση εικόνας προφίλ</h3>
@@ -53,9 +53,9 @@
 			<label for="phone">Τηλέφωνο: </label><input type="tel" id="phone" name="phone" value="<?php echo $user_info->phone; ?>" /><br />
 			<label for="n_pass">Νέος κωδικός: </label><input type="password" id="n_pass" name="n_pass" /><br />
 			<label for="r_n_pass">Ξανά νέος κωδικός: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
-			<input type="submit" value="Αποθήκευση" style="position: absolute; right: 200px;" />
-			<input type="hidden" name="hidden_update" value="codescar" />   
-			<?php //if($user_id == $this->id) { ; } ?>
+			<input type="submit" value="Αποθήκευση" style="position: absolute; right: 85px; top: 210px;" />
+			<input type="hidden" name="hidden_update" value="codescar" />
+			<?php if($user->is_admin()) { echo "<input type=\"hidden\" name=\"hidden_treasure\" value=\"$user_info->id\" />"; } ?>
 		</form>
 	</div>
 	<div class="block" id="user-right">
