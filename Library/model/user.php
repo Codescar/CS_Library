@@ -36,6 +36,9 @@ class User{
 	    	$this->access_level 		= $user->access_lvl;
 	    	$this->username				= $user->username;
 	    	$this->email				= $user->email;
+	    	$this->banned				= $user->banned;
+	    	$this->books_lended			= $user->books_lended;
+	    	$this->books_requested		= $user->books_requested;
 
 	    	$_SESSION['logged_in']		= 1;
 			$_SESSION['cur_page'] 		= $_SERVER['SCRIPT_NAME'];

@@ -128,15 +128,17 @@ class Admin{
 			if(	!isset($_POST['username']) 		|| !isset($_POST['password']) || 
 				!isset($_POST['email']) 		||  empty($_POST['username']) || 
 				 empty($_POST['password']) 		||  empty($_POST['email']) ){
-				echo "<div class=\"error\">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br /><br />";
+				echo "<div class=\"error\">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br />";
 				redirect("index.php?show=admin&more=users");
+				echo "<br />";
 			}
 			else{
                 $user->createUser(	mysql_real_escape_string($_POST['username']), 
                                     mysql_real_escape_string($_POST['password']), 
                                     mysql_real_escape_string($_POST['email'])); 
-                echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br /><br />";
+                echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br />";
 				redirect("index.php?show=admin&more=users");
+				echo "<br />";
             }
 		} ?>
 		<form action="" method="post" id="new-user-form">
@@ -201,7 +203,7 @@ class Admin{
 		render_template("userControlPanel.php"); ?>
 		<div class="center" style="margin: -40px auto 0 auto;">
 			<span class="bold">Επιλογές Admin</span>
-			<?php if($user_info->banned){ ?>
+			<?php if(!$user_info->banned){ ?>
 			<a class="ban-user" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&ban=1" style="margin: 0 20px 0 10px;">
 				<button type="button" class="cp-button link box center bold" style="width: 170px;">Περιορισμός Χρήστη</button>
 			</a>
