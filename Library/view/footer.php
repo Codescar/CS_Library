@@ -17,6 +17,8 @@
 			echo "{$db->get_queries_num()} queries executed!<br/>";
 			echo "In {$db->query_time} Seconds<br/>";
 			echo "\n<!-- CONFIG VARIABLES: ";  print_r($CONFIG); echo " -->\n";
+			if(isset($_POST))
+				echo "\n<!-- POST VARIABLES: ";  print_r($_POST); echo " -->\n";
 		}
 	?>
 </footer>

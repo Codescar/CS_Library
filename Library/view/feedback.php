@@ -4,6 +4,7 @@
 	define('VIEW_SHOW', true);
 	require_once('model/ckeditor/ckeditor.php');
 ?>
+<script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επικοινωνία</div>
 <div class="content">
 	<?php 

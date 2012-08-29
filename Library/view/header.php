@@ -18,7 +18,6 @@
 	<script src="<?php echo $CONFIG['url']; ?>view/js/jquery-1.6.2.min.js" type="text/javascript"></script>
 	<script src="<?php echo $CONFIG['url']; ?>view/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="<?php echo $CONFIG['url']; ?>view/js/js.js" type="text/javascript"></script>
-	<script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
 	<script src="<?php echo $CONFIG['url']; ?>model/jquery.lightbox/js/jquery.lightbox-0.5.js" type="text/javascript"></script>
 	<!--[if gte IE 9]>
 		<style type="text/css">

@@ -182,7 +182,18 @@ class Admin{
 	
 	function show_user($id){
 		global $user, $user_info;
-		?> <div class="error">WARNING! CHANGES WILL NOT TAKE AFFECT!</div> <?php
+		
+		if(isset($_POST['hidden_update']) && $_POST['hidden_update'] == "codescar"){
+			$name = mysql_real_escape_string($_POST['name']);
+			$surname = mysql_real_escape_string($_POST['surname']);
+			$email = mysql_real_escape_string($_POST['email']);
+			$born = mysql_real_escape_string($_POST['born']);
+			$phone = mysql_real_escape_string($_POST['phone']);
+			$new_pass = mysql_real_escape_string($_POST['n_pass']);
+			$r_new_pass = mysql_real_escape_string($_POST['r_n_pass']);
+			$user_id = mysql_real_escape_string($_POST['hidden_treasure']);
+			$user->update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass);
+		}
 		$user_info = $user->show_info($id);
 		render_template("userControlPanel.php"); ?>
 		<div class="center" style="margin: -40px auto 0 auto;">
@@ -254,6 +265,7 @@ class Admin{
         }
         elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){
 			require_once('model/ckeditor/ckeditor.php');
+			?> <script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script> <?php
 			$new = true;
             if($_GET['id'] != 0){
             	$announcement = announcements::get(mysql_real_escape_string($_GET['id'])); 
