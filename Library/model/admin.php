@@ -10,13 +10,8 @@ class Admin{
 		$this->user = $user;
 	}
 	
-	function lend(){
-		
-	}
-	
 	function restore(){
 		//TODO add a confirmation link to a table
-	
 	}
 
 	function show_statistics(){
@@ -181,7 +176,7 @@ class Admin{
 	}
 	
 	function show_user($id){
-		global $user, $user_info;
+		global $user, $user_info, $db;
 		
 		if(isset($_POST['hidden_update']) && $_POST['hidden_update'] == "codescar"){
 			$name = mysql_real_escape_string($_POST['name']);
@@ -194,21 +189,31 @@ class Admin{
 			$user_id = mysql_real_escape_string($_POST['hidden_treasure']);
 			$user->update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass);
 		}
+		if(isset($_GET['ban']) && $_GET['ban'] != ""){
+			$db->user_change_attr($_GET['id'], "banned", " + 1 ");
+			echo "<div class=\"error\">Ο χρήστης τέθηκε ύπο περιοσμό</div>";
+		}
+		elseif(isset($_GET['unban']) && $_GET['unban'] != ""){
+			$db->user_change_attr($_GET['id'], "banned", " - 1 ");
+			echo "<div class=\"error\">Άρθηκε ο περιοσμός του χρήστη</div>";
+		}
 		$user_info = $user->show_info($id);
 		render_template("userControlPanel.php"); ?>
 		<div class="center" style="margin: -40px auto 0 auto;">
 			<span class="bold">Επιλογές Admin</span>
-			<a href="#" style="margin: 0 20px 0 10px;">
-				<button type="button" class="cp-button link box center bold" style="width: 90px;">Ban</button>
+			<?php if($user_info->banned){ ?>
+			<a class="ban-user" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&ban=1" style="margin: 0 20px 0 10px;">
+				<button type="button" class="cp-button link box center bold" style="width: 170px;">Περιορισμός Χρήστη</button>
 			</a>
-			<a href="#" style="margin: 0 20px;">
-				<button type="button" class="cp-button link box center bold" style="width: 90px;">Delete</button>
+			<?php }else{ ?>
+			<a class="unban-user" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&unban=1" style="margin: 0 20px 0 10px;">
+				<button type="button" class="cp-button link box center bold" style="width: 170px;">Αφαίρεση Περιορισμού</button>
 			</a>
-			<a href="#" style="margin: 0 20px;">
-				<button type="button" class="cp-button link box center bold" style="width: 100px;">Make Admin</button>
+			<?php } ?>
+			<a class="delete-user" href="index.php?show=admin&more=del_user&id=<?php echo $user_info->id; ?>" style="margin: 0 20px;">
+				<button type="button" class="cp-button link box center bold" style="width: 100px;">Διαγραφή</button>
 			</a>
-		</div>
-		<?php //TODO fix the links above and make them function
+		</div><?php //TODO select user role
 	}
 	
 	function user_history($id){

@@ -11,8 +11,17 @@
 		
 		if(!isset($_POST['username']) || !isset($_POST['password']) || !$user->login($_POST['username'], $_POST['password'], $_SESSION)){
 			$error = "Λάθος στοιχεία, δοκιμάστε ξανά...";
+			session_unset();
+			session_destroy();
 		}
 		elseif($CONFIG['maintance'] && $user->access_level < 100) {
+			$error = "Δεν είστε διαχειριστής";
+			session_unset();
+			session_destroy();
+		}
+		elseif($user->banned){
+			$error = "Σας έχει επιβληθεί περιορισμός και ο λογαριασμός σας είναι απενεργοποιημένος<br />
+					 Αν δεν γνωρίζετε τους λόγους που σας επιβλήθηκε περιορισμός, παρακαλώ επικοινωνήστε με τους διαχειρηστές";
 			session_unset();
 			session_destroy();
 		}

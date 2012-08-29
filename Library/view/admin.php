@@ -3,7 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	if(!$user->is_logged_in() || !$user->is_admin()){
-		echo "<div class=\"error\">Δεν είστε διαχειριστής";
+		echo "<div class=\"error\">Δεν είστε διαχειριστής<br />";
 		redirect("index.php?show=cp"); 
 	}else{
 		if(!isset($_GET['more'])){ ?>
