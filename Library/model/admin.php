@@ -197,13 +197,13 @@ class Admin{
 		}
 		elseif(isset($_GET['unban']) && $_GET['unban'] != ""){
 			$db->user_change_attr($_GET['id'], "banned", " - 1 ");
-			echo "<div class=\"error\">Άρθηκε ο περιοσμός του χρήστη</div>";
+			echo "<div class=\"success\">Άρθηκε ο περιοσμός του χρήστη</div>";
 		}
 		$user_info = $user->show_info($id);
 		render_template("userControlPanel.php"); ?>
 		<div class="center" style="margin: -40px auto 0 auto;">
 			<span class="bold">Επιλογές Admin</span>
-			<?php if(!$user_info->banned){ ?>
+			<?php if($user_info->banned == 0){ ?>
 			<a class="ban-user" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&ban=1" style="margin: 0 20px 0 10px;">
 				<button type="button" class="cp-button link box center bold" style="width: 170px;">Περιορισμός Χρήστη</button>
 			</a>

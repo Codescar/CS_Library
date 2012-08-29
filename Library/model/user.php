@@ -219,7 +219,7 @@ class User{
 	
 	public static function get_name($id){
 		global $db;
-		$query = "SELECT name FROM {$db->table['users']} WHERE `id` = '".mysql_real_escape_string($id)."';";
+		$query = "SELECT username FROM {$db->table['users']} WHERE `id` = '".mysql_real_escape_string($id)."';";
 		$result = $db->query($query);
 		$ret = mysql_fetch_row($result);
 		return $ret[0];
@@ -239,9 +239,8 @@ class User{
 					ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
 				  WHERE {$db->table['lend']}.user_id = '{$this->id}' ";
 		$books = $db->get_books($query);
-		if(!$books){ ?>
-			<div class="error">Δεν έχετε δανειστεί κανένα βιβλίο.</div><br />
-		<?php }
+		if(!$books)
+			echo "<div class=\"error\">Δεν έχετε δανειστεί κανένα βιβλίο.</div><br />";
 		list_books($books); 
 		return;
 	}
