@@ -25,6 +25,7 @@
 	/* visuals */
 	$CONFIG['items_per_page'] = 5;
 	$CONFIG['right_sidebar'] = false;
+	$CONFIG['num_of_pages_to_navigate'] = 8;
 	
 	/* lending procedure */
 	$CONFIG['lendings'] = 3;

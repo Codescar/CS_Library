@@ -81,7 +81,7 @@ function list_books($books){
 		}
 	?>
 	<?php 
-	$ext = "";
+	/*$ext = "";
 	if(isset($_GET['search'])){
 		$ext .= "&amp;do=search&amp;search={$_GET['search']}";
 		if(isset($_GET['search-type']))
@@ -98,22 +98,101 @@ function list_books($books){
 	}
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
 		$ext .= "&amp;more=category&amp;id={$_GET['id']}";	
-	
+	*/
 	if(!(isset($_GET['show']) && isset($_GET['more']) && $_GET['show'] == "cp" && $_GET['more'] == "lended"))
-	{		
+	{
+		  paggination($books['0']);	
+		  /*	
 	?>
 	<div class="list-nav-bar">
 		<?php if($page >= 1) { ?>
 		<div class="fl-left"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
 		<?php } ?>
 		<div class="list-cur-page" >Σελίδα <?php echo $page + 1; ?></div> 
-		<?php if(/*count($books)*/$books['0'] > ($page + 1) * $CONFIG['items_per_page'] ) { ?>
+		<?php if($books['0'] > ($page + 1) * $CONFIG['items_per_page'] ) { ?>
 		<div class="fl-right"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
 		<?php } ?>
 	</div>
-	<?php } ?>
+	<?php */ } ?>
 	</div>
-	<?php
+	<?php 
+}
+
+function paggination($all_items, $nums_to_display = -1, $cur_page = -1, $items_per_page = -1){
+	global $CONFIG;
+	
+	//Initializing the arguements if ignored
+	if($items_per_page == -1)
+		$items_per_page = $CONFIG['items_per_page'];
+	if($cur_page == -1 && isset($_GET['page']))
+		$cur_page = $_GET['page'];
+	elseif($cur_page == -1 && !isset($_GET['page']))
+		$cur_page = 0;
+	if($nums_to_display == -1)
+		$nums_to_display = $CONFIG['num_of_pages_to_navigate'];
+			
+	//Calculating the total pages	
+	$pages = (double)$all_items / (double)$items_per_page;	
+	if($pages - round($pages, 0) != 0)
+		$pages = (int) $pages + 1;
+	
+	if($pages <= 1)
+		return;	
+	
+	$diff = (int)$nums_to_display / (int)2;
+	if($cur_page <= $diff){
+		$page = 1;
+		$end = $nums_to_display;
+	}
+	else{
+		$page = $cur_page - $diff;
+		$end = $cur_page + $diff;
+	}
+	
+	if($end+1 >= $pages){
+		$end = $pages - 1;
+		$page = $pages - $nums_to_display - 1;
+	}
+	
+	//Building the old url
+	$newurl = "";
+	foreach($_GET as $variable => $value)
+		if($variable != "page")
+			$newurl .= $variable.'='.$value.'&amp;';
+
+	$newurl = rtrim($newurl,'&');
+	
+	echo '<div class="list-nav-bar">';
+	
+	//Display left arrow if needing
+	if($cur_page >= 1) 
+		echo '<div class="fl-left"><a href="index.php?' . $newurl .'page=' . ($cur_page-1) .'"><img src="view/images/arrow.png" alt="Προηγούμενη Σελίδα" title="Προηγούμενη Σελίδα" class="list-nav-icons" /></a></div>';
+	
+	echo '<div class="list-cur-page" >Σελίδα ' . ($cur_page+1) . '</div>';
+	
+	//Display right arrow if needing
+	if($cur_page < $pages-1) 
+		echo '<div class="fl-right"><a href="index.php?' . $newurl . 'page=' . ($cur_page + 1) . '"><img src="view/images/arrow.png" alt="Επόμενη Σελίδα" title="Επόμενη Σελίδα" class="list-nav-icons flip" /></a></div>';
+
+	 
+	//Display First Page...
+	echo '<br/><a style="margin-left: 8px; margin-right:8px;" href="index.php?'.$newurl.'page=0">Πρώτη</a>';
+	if($page != 1)
+		echo '<span> ... </span>';
+	
+	//Display the numbers of the pages
+	while($page <= $end + 1){
+		echo '<a style="margin-left: 8px; margin-right:8px;" href="index.php?'.$newurl.'page='. (round($page, 0) - 1) .'">'. round($page, 0) .'</a>';
+		$page++;
+	}
+
+	//Display Last Page...
+	if($page < $pages)
+		echo '<span> ... </span>';
+	echo '<a style="margin-left: 8px; margin-right:8px;" href="index.php?'.$newurl.'page='. ($pages-1) .'">Τελευταία</a>';
+	
+	echo '</div>';
+	return;
 }
 
 function have_book_rq($book_id, $user_id){
