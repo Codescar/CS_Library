@@ -1,4 +1,4 @@
-
+-- This is an outdated version.
 -- ----------------------------
 -- Table structure for `booklist`
 -- ----------------------------

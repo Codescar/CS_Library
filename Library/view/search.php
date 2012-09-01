@@ -14,8 +14,8 @@ if(!isset($_GET['search'])){?>
 			<div class="search_head block">Αναζητήστε τον τίτλο-λέξη που σας ενδιαφέρει:</div>
 			<div class="block">
 				<input id="search_word" type="text" name="search" onclick="this.value='';"<?php /*this.select()" */ ?> onfocus="this.select()" 
-					onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγεται κείμενο εδώ..."; ?>':this.value;" 
-					value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγεται κείμενο εδώ..."; ?>" />
+					onblur="this.value=!this.value?'<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγετε κείμενο εδώ..."; ?>':this.value;" 
+					value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : "Εισάγετε κείμενο εδώ..."; ?>" />
 				<input id="search_do" type="submit" value="Αναζήτηση" />
 				<div id="search_subtitle">Εισάγετε λέξη-κλειδί για αναζήτηση</div>
         	</div>
