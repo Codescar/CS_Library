@@ -57,27 +57,21 @@ class Admin{
 	}
 	
 	function show_options(){
-		if(isset($_GET['delete']) && $_GET['delete'] == 'true')
-			option::delete($_GET['id']);
-        if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
-            option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id']);
-		$res = option::list_all();
-		?> <?php
-		while($option = mysql_fetch_object($res)){
-			$edit_link = "index.php?show=admin&more=options&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
-			$delete_link = "index.php?show=admin&more=options&delete=true&id=".$option->id; ?>
-			<div class="option">
-				<div class="block bold opt-name"><?php echo $option->name; ?></div>
-				<div class="block opt-description"><?php echo $option->description; ?></div>
-				<div class="block opt-value"><?php echo $option->value; ?></div>
-				<div class="block opt-action"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
-				<div class="block opt-action"><a class="delete-option" href="<?php echo $delete_link; ?>">Delete</a></div>
-			</div><?php
-		}
-        $edit = false;
+		$edit = false;
 		if(isset($_GET['name']) && isset($_GET['value']) && isset($_GET['description']))
-            $edit = true;
+			$edit = true;
+		if(!isset($_GET['cat_id']) || $_GET['cat_id'] == 3)
+			$category = 3;
+		elseif($_GET['cat_id'] == 2)
+			$category = 2;
+		elseif($_GET['cat_id'] == 1)
+			$category = 1;
 		?>
+		<div>
+			<div class="block"><a href="index.php?show=admin&more=options&cat_id=3" >Ρυθμίσεις Δανεισμού</a></div>
+			<div class="block"><a href="index.php?show=admin&more=options&cat_id=2" >Ρυθμίσεις Διαχειριστή</a></div>
+			<div class="block"><a href="index.php?show=admin&more=options&cat_id=1" >Ρυθμίσεις για Developers</a></div>
+		</div>
         <form action="index.php?show=admin&more=options" method="post">
             <h4>Πρόσθεσε νέα ρύθμιση</h4>
             <div class="block new-opt-name-value-div center">
@@ -95,9 +89,27 @@ class Admin{
 				<input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε" ;?>" />
 			</div>
 			<input type="hidden" name="id" value="<?php echo ($edit) ? $_GET['id'] : "" ; ?>" />
+			<input type="hidden" name="id" value="<?php echo (isset($_GET['cat_id'])) ? $_GET['cat_id'] : "3" ; ?>" />
             <input type="hidden" name="hidden" value="codescar" />
         </form>
         <?php
+		if(isset($_GET['delete']) && $_GET['delete'] == 'true')
+			option::delete($_GET['id']);
+        if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
+            option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id']);
+        $res = option::list_all($category);
+		?> <?php
+		while($option = mysql_fetch_object($res)){
+			$edit_link = "index.php?show=admin&more=options&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
+			$delete_link = "index.php?show=admin&more=options&delete=true&id=".$option->id; ?>
+			<div class="option">
+				<div class="block bold opt-name"><?php echo $option->name; ?></div>
+				<div class="block opt-description"><?php echo $option->description; ?></div>
+				<div class="block opt-value"><?php echo $option->value; ?></div>
+				<div class="block opt-action"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
+				<div class="block opt-action"><a class="delete-option" href="<?php echo $delete_link; ?>">Delete</a></div>
+			</div><?php
+		}
 	}
 	
 	function show_pendings(){

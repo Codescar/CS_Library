@@ -7,9 +7,11 @@
  */
 
 class option{
-	public static function list_all(){
+	public static function list_all($category){
 		global $db;
 		$query = "SELECT * FROM `{$db->table['options']}`";
+		if(isset($category))
+			$query .= " WHERE `category` = '$category' ";
 		return $db->query($query);
 	}
 
