@@ -67,9 +67,9 @@ class Admin{
 		elseif($_GET['cat_id'] == 1)
 			$category = 1;
 		?>
-		<div class="block opt-category <?php echo ($category == 3) ? "active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=3" >Ρυθμίσεις Δανεισμού</a></div>
-		<div class="block opt-category <?php echo ($category == 2) ? "active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=2" >Ρυθμίσεις Διαχειριστή</a></div>
-		<div class="block opt-category <?php echo ($category == 1) ? "active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=1" >Ρυθμίσεις για Developers</a></div>
+		<div class="block opt-category <?php echo ($category == 3) ? "opt-category-active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=3" >Ρυθμίσεις Δανεισμού</a></div>
+		<div class="block opt-category <?php echo ($category == 2) ? "opt-category-active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=2" >Ρυθμίσεις Διαχειριστή</a></div>
+		<div class="block opt-category <?php echo ($category == 1) ? "opt-category-active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=1" >Ρυθμίσεις για Developers</a></div>
         <form style="margin: 20px 0 0 0;" action="index.php?show=admin&more=options" method="post">
             <div class="block new-opt-name-value-div center">
             	<label class="bold" for="name">Όνομα: </label><br />

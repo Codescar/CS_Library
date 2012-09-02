@@ -806,6 +806,7 @@ a.panel-links{
 	margin: 0 15px;
 	color: black;
 	height: 23px;
+	position: relative;
 }
 .opt-category-active{
 	border-radius: 8px;
