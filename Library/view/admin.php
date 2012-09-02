@@ -118,4 +118,5 @@
 				redirect("index.php?show=admin&more=pendings");
 			}
 		}
+	echo "</div>";
 	} ?>
