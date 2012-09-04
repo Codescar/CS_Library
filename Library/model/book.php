@@ -7,6 +7,7 @@ function list_books($books){
 		$query = "SELECT `book_id`, `taken`, `must_return` FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
 		$res = $db->query($query);
 		$user_books = array();
+		$taken = array();
 		while ($user_books[] = mysql_fetch_array($res)) {};
 	}
 	?>
@@ -18,6 +19,8 @@ function list_books($books){
 		foreach($books as $row){
 			$book_url = "index.php?show=book&amp;id=".$row['id'];
 			if($row == $books['0']) continue;
+			if($logged)
+				list($taken['has_taken'], $taken['taken'], $taken['must_return']) = in_there_pos($user_books, $row['id']);
 			?>
 			<div class="list-item">
 				<div>
@@ -29,7 +32,7 @@ function list_books($books){
 					<div class="list-right">
 						<div class="list-avail">
 							<?php if($row['availability'] != 1) { 
-										if($logged && $user_books && ($taken = in_there_pos($user_books, $row['id']) != -1)) { ?>
+										if($logged && $user_books && $taken['has_taken']) { ?>
 											<div class="info-button box center bold" style="margin-bottom: 10px;"><img src="view/images/information.png" />Το Έχεις!</div>
 											<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
 									<?php } else { ?>
@@ -62,8 +65,7 @@ function list_books($books){
 						<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
 						<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 						<div class="list-description">
-							<?php if($logged && ($taken = in_there_pos($user_books, $row['id']) != -1)) { 
-								echo "\n<!-- \$taken variable: ";  print_r($taken); echo " -->\n"; ?>
+							<?php if($logged && $taken['has_taken']) { ?>
 								<div class="success" style="width: 400px; margin: 0 auto; padding: 5px 10px 5px 20px">
 								Έχεις πάρει αυτό το βιβλίο την <span class="bold"><?php echo date('d-m-Y στις H:i', strtotime($taken['taken'])); ?></span><br />
 								και θα πρέπει να το επιστρέψεις μέχρι την <span class="bold"><?php echo date('d-m-Y', strtotime($taken['must_return'])); ?></span></div>
@@ -237,12 +239,9 @@ function book_avail($book_id){
 }
 
 function in_there_pos($where, $what){
-	$time = array();
 	foreach($where as $check){
 		if($check[0] == $what){
-			$time['taken'] = $check[1];
-			$time['must_return'] = $check[2];
-			return $time;
+			return array(true, $check[1], $check[2]);
 		}
 	}
 	return -1;
