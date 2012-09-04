@@ -300,7 +300,7 @@ class Admin{
                 announcements::update($_GET['id'], $_POST['title'], $_POST['body'])    ;
             else
                 announcements::add($_POST['title'], $_POST['body']);
-            echo "<div class=\"success\">Η ανακοίνωση δημιουργήθηε/ανανεώθηκε.<br />";
+            echo "<div class=\"success\">Η ανακοίνωση δημιουργήθηκε/ανανεώθηκε.<br />";
             redirect("index.php?show=admin&more=announcements");
         }
         if(isset($_GET['delete']) && $_GET['delete'] == "true" && isset($_GET['id'])){
@@ -342,7 +342,7 @@ class Admin{
 		else
 			$CONFIG['maintenance'] = true;
 		
-		option::save('maintenance', $CONFIG['maintenance'], "", -1);
+		option::save('maintenance', $CONFIG['maintenance'], "", -1, -1);
 		/* Remove invalid favorites (missing user or book) */
 		$user->favorites->cleanup_favorites();
 		

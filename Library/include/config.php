@@ -35,14 +35,16 @@
 	$CONFIG['request_life'] = 2;
 	$CONFIG['lend_days'] = 15;
 	$CONFIG['extra_days_lend'] = 15;
-	
-	$local_config_file = "myconfig.php";
-	
-	if(file_exists($local_config_file))
-		include $local_config_file;
+
 	/*
 	 * Load the config from the database, 
 	 * if there are same, it overides them.
 	 */
-	option::load_options();	
+	option::load_options();
+
+	$local_config_file = "include/myconfig.php";
+	
+	if(file_exists($local_config_file))
+		require $local_config_file;
+	
 ?>

@@ -61,9 +61,16 @@ function list_books($books){
 						<div class="list-title list-colored">
 							<?php echo $row['title']; ?>
 						</div>
-						<!-- Writer -->
-						<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
-						<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
+						<!-- Writer && Publisher -->
+						<div class="block">
+							<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
+							<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
+						</div>
+						<!-- Availability -->
+						<?php if(false){ ?>
+							<div class="block error" style="margin: 0 0 0 100px;">Το βιβλίο θα είναι διαθέσιμο από την <span class="bold"><?php echo $date; ?></span></div>
+						<?php } ?>
+						<!-- Description OR Dates of lend -->
 						<div class="list-description">
 							<?php if($logged && $taken['has_taken']) { ?>
 								<div class="success" style="width: 400px; margin: 0 auto; padding: 5px 10px 5px 20px">
@@ -207,7 +214,7 @@ function have_book_rq($book_id, $user_id){
 
 function have_book($book_id, $user_id){
 	global $db;
-	$query = "	SELECT `taken` FROM `{$db->table["lend"]}` 
+	$query = "	SELECT `taken`, `must_return` FROM `{$db->table["lend"]}` 
 				WHERE `user_id` = '".$user_id."' 
 				AND `book_id` = '$book_id'";
 	$result = mysql_fetch_object(($db->query($query)));
@@ -274,5 +281,14 @@ function get_book_name($id){
     $res = $db->query($query);
     $book = mysql_fetch_object($res);
     return $book->title;
+}
+
+function get_book_date($id){
+	global $db;
+	$query = "SELECT `must_return` FROM {$db->table['lend']}
+		WHERE `book_id` = '".mysql_real_escape_string($id)."'";
+	$res = $db->query($query);
+	$book = mysql_fetch_object($res);
+	return $book->must_return;
 }
 ?>

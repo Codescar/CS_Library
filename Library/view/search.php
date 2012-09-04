@@ -122,11 +122,11 @@ if(!isset($_GET['search'])){?>
 	<hr style="margin-bottom: 0px;"/>
 	<hr style="margin-top: 5px;"/>
 <?php 
-if(!isset($_GET['do']))
-    echo "</div>";
-
-elseif(!isset($_GET['search']) || $_GET['search'] == "" || 
-	(!isset($_GET['title']) && !isset($_GET['writer'])
+if(!isset($_GET['do'])){
+	echo "</div>";
+}
+elseif(!isset($_GET['search']) || ($_GET['search'] == "" && 
+	!isset($_GET['title']) && !isset($_GET['writer'])
 	&& !isset($_GET['publisher']) && !isset($_GET['isbn']) 
 	)){
 		echo "<div class=\"error\">Λάθος αναζήτηση</div></div>";

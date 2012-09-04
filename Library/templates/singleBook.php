@@ -25,7 +25,7 @@
 		<div class="book-avail block">
 			<span class="book-colored">Διαθεσιμότητα:</span>
 			<?php if($logged && $have){
-					echo "<span class=\"avail\">Το έχεις εσύ</span>";
+					?><span class="avail">Το έχεις εσύ</span>"<?php
 				}else{
 					echo (!$have && !$requested && $book->availability == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; 
 				} ?>
@@ -47,23 +47,27 @@
     		<?php } ?>
 		</div><!--  #buttons end -->
 		<?php if($logged && $requested && !$have && !isset($_GET['lend'])){
-			?> <div class="error">Έχετε κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρετε όταν είναι διαθέσιμο.</div><?php ;
+			?> <div class="error">Έχεις κάνει ήδη μια αίτησή για αυτό το βιβλίο, θα το πάρεις όταν είναι διαθέσιμο.</div><?php ;
 		}
 		if($requested && isset($_GET['lend'])){
 			?> <div class="success">Το αίτημά σας κατοχυρώθηκε και θα εξεταστεί από το διαχειριστή.</div><?php ;
 		}elseif(!$requested && isset($_GET['lend'])){
-			?> <div class="error">Έχετε ξεπεράσει το όριο δανεισμών/αιτημάτων.<br />
+			?> <div class="error">Έχεις ξεπεράσει το όριο δανεισμών/αιτημάτων.<br />
 				Να υπενθυμίσουμε ότι ισχύει: <br />
-				1) Όρίο δανεισμών: <?php echo $CONFIG['lendings']; ?><br />
+				1) Όριο δανεισμών: <?php echo $CONFIG['lendings']; ?><br />
 				2) Όριο αιτημάτων: <?php echo $CONFIG['requests']; ?><br />
 				Πρέπει όμως
 				3) Tο άθροισμα αιτημάτων και δανεισμένων σας βιβλίων να μην ξεπερνά το όριο δανεισμών
 			</div><?php ;
     	}elseif($logged && $have){
-				?><div class="success" >
-					Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($have->taken)); ?> και <br />θα πρέπει να το επιστρέψεις μέχρι την 
-					<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($have->taken)), date("d", strtotime($have->taken))+$CONFIG['lend_days'], date("Y", strtotime($have->taken))));  ?>
-				</div><?php
+			?><div class="success" >
+				Έχεις πάρει αυτό το βιβλίο την <span class="bold"><?php echo date('d-m-Y στις H:i', strtotime($have->taken)); ?></span> και <br />
+				θα πρέπει να το επιστρέψεις μέχρι την <span class="bold"><?php echo date('d-m-Y', strtotime($have->must_return)); ?></span>
+			</div><?php
+		}elseif ($book->availability == 0){
+			?><div class="error" >
+				Το βιβλίο προβλέπεται να είναι διαθέσιμο ξανά μετά την <span class="bold"><?php echo date('d-m-Y', strtotime(get_book_date($book->id))); ?></span>
+			</div><?php
 		}elseif(isset($msg)){ ?>
 			<?php echo "<div class=\"error\" >".$msg."<br />";
 			redirect("index.php?show=login", 3000);

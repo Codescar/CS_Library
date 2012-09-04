@@ -4,9 +4,7 @@
  */
 
 class User{
-	public $id, $username, $email, $access_level, $message;
-	public $admin;
-	public $favorites;
+	public $id, $username, $email, $access_level, $message, $admin, $favorites;
 	
 	function __constructor(){
 	    $a = new Admin;
