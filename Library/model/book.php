@@ -4,14 +4,10 @@ function list_books($books){
 	global $CONFIG, $page, $user, $db;
 	$logged = $user->is_logged_in();
 	if($logged){
-		$query = "SELECT * FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
+		$query = "SELECT `book_id`, `taken`, `must_return` FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
 		$res = $db->query($query);
-		for($i = 0; $tmp = mysql_fetch_array($res); $i++){
-			$lend[$i][0] = $tmp['book_id'];
-			$lend[$i][1] = $tmp['taken'];
-		}
-		if($tmp == false)
-		    $lend = false;
+		$user_books = array();
+		while ($user_books[] = mysql_fetch_array($res)) {};
 	}
 	?>
 	<div class="list">
@@ -33,7 +29,7 @@ function list_books($books){
 					<div class="list-right">
 						<div class="list-avail">
 							<?php if($row['availability'] != 1) { 
-										if($logged && $lend && in_there_pos($lend, $row['id']) != -1) { ?>
+										if($logged && $user_books && ($taken = in_there_pos($user_books, $row['id']) != -1)) { ?>
 											<div class="info-button box center bold" style="margin-top: 0px;"><img src="view/images/information.png" />Το Έχεις!</div>
 											<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
 									<?php } else { ?>
@@ -66,9 +62,10 @@ function list_books($books){
 						<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
 						<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 						<div class="list-description">
-							<?php if($logged && (($taken = in_there_pos($lend, $row['id'])) != -1)) { ?>
-								Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken)); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
-								<?php echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
+							<?php if($logged && ($taken != -1)) { ?>
+								Έχεις πάρει αυτό το βιβλίο την <?php echo date('d-m-Y στις H:i', strtotime($taken['taken'])); ?> και θα πρέπει να το επιστρέψεις μέχρι την 
+								<?php echo date('d-m-Y', strtotime($taken['must_return'])); ?>
+								<?php //echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
 							<?php }else{ ?>
 								<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
 							<?php } ?>
@@ -238,16 +235,13 @@ function book_avail($book_id){
 }
 
 function in_there_pos($where, $what){
-	
-	for($i = 0;$i < count($where);$i++)
-		if($where[$i][0] == $what)
-			return $where[$i][1];
-	return -1;
-	
+	$time = array();
 	foreach($where as $check){
-		
-		if($check[0] == $what);
-			return $check[1];
+		if($check[0] == $what){
+			$time['taken'] = $check[1];
+			$time['must_return'] = $check[2];
+			return $time;
+		}
 	}
 	return -1;
 }
