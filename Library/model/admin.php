@@ -70,7 +70,7 @@ class Admin{
 		<div class="block opt-category <?php echo ($category == 3) ? "opt-category-active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=3" >Ρυθμίσεις Δανεισμού</a></div>
 		<div class="block opt-category <?php echo ($category == 2) ? "opt-category-active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=2" >Ρυθμίσεις Διαχειριστή</a></div>
 		<div class="block opt-category <?php echo ($category == 1) ? "opt-category-active" : ""; ?>"><a href="index.php?show=admin&more=options&cat_id=1" >Ρυθμίσεις για Developers</a></div>
-        <form style="margin: 20px 0 0 0;" action="index.php?show=admin&more=options" method="post">
+        <form style="margin: 20px 0 0 0;" action="index.php?show=admin&more=options&cat_id=<?php echo $category; ?>" method="post">
             <div class="block new-opt-name-value-div center">
             	<label class="bold" for="name">Όνομα: </label><br />
             	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
@@ -97,7 +97,7 @@ class Admin{
         $res = option::list_all($category);
 		?> <?php
 		while($option = mysql_fetch_object($res)){
-			$edit_link = "index.php?show=admin&more=options&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
+			$edit_link = "index.php?show=admin&more=options&cat_id=".$category."&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
 			$delete_link = "index.php?show=admin&more=options&delete=true&id=".$option->id; ?>
 			<div class="option">
 				<div class="block bold opt-name"><?php echo $option->name; ?></div>
