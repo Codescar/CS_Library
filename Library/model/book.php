@@ -20,7 +20,7 @@ function list_books($books){
 			$book_url = "index.php?show=book&amp;id=".$row['id'];
 			if($row == $books['0']) continue;
 			if($logged)
-				list($taken['has_taken'], $taken['taken'], $taken['must_return']) = in_there_pos($user_books, $row['id']);
+				$taken = in_there_pos($user_books, $row['id']);
 			?>
 			<div class="list-item">
 				<div>
@@ -241,7 +241,7 @@ function book_avail($book_id){
 function in_there_pos($where, $what){
 	foreach($where as $check){
 		if($check[0] == $what){
-			return array(true, $check[1], $check[2]);
+			return array('has_taken' => true, 'taken' => $check[1], 'must_return' => $check[2]);
 		}
 	}
 	return -1;

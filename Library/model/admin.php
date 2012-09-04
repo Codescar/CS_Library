@@ -253,6 +253,7 @@ class Admin{
 	}
 	
 	function manage_announce(){
+		global $CONFIG;
 		if(!isset($_GET['id']) && !isset($_GET['add'])){
             $ret = announcements::list_all(); ?>
             <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">

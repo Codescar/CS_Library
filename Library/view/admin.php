@@ -115,7 +115,7 @@
 			}else{
 				$db->delete_request(mysql_real_escape_string($_GET['book']), mysql_real_escape_string($_GET['user']));
 				echo "<div class=\"success\">Το αίτημα διαγράφηκε<br />";
-				redirect("index.php?show=admin&more=pendings");
+				redirect("index.php?show=admin&more=pendings", 1500);
 			}
 		}
 	echo "</div>";
