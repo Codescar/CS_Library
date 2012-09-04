@@ -62,8 +62,10 @@ function list_books($books){
 						<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
 						<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 						<div class="list-description">
-							<?php if($logged && ($taken = in_there_pos($user_books, $row['id']) != -1)) { ?>
-								<div class="success">Έχεις πάρει αυτό το βιβλίο την <span class="bold"><?php echo date('d-m-Y στις H:i', strtotime($taken['taken'])); ?></span>
+							<?php if($logged && ($taken = in_there_pos($user_books, $row['id']) != -1)) { 
+								echo "\n<!-- \$taken variable: ";  print_r($taken); echo " -->\n"; ?>
+								<div class="success" style="width: 400px; margin: 0 auto; padding: 5px 10px 5px 20px">
+								Έχεις πάρει αυτό το βιβλίο την <span class="bold"><?php echo date('d-m-Y στις H:i', strtotime($taken['taken'])); ?></span><br />
 								και θα πρέπει να το επιστρέψεις μέχρι την <span class="bold"><?php echo date('d-m-Y', strtotime($taken['must_return'])); ?></span></div>
 								<?php //echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
 							<?php }else{ ?>
