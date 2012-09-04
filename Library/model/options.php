@@ -23,16 +23,16 @@ class option{
 		return $option->value;
 	}
 
-	public static function save($name, $value, $description, $id){
+	public static function save($name, $value, $description, $id, $category){
 		global $db;
 		$save_value = false;
 		if($description == "" && $id == -1){
 			$save_value = true;
 		}
 		$query = "INSERT INTO `{$db->table['options']}` 
-					SET `name` = '$name', `description` = '$description', `value` = '$value'
+					SET `name` = '$name', `description` = '$description', `value` = '$value', `category` = '$category'
 				  ON DUPLICATE KEY UPDATE 
-					`name` = '$name', `description` = '$description', `value` = '$value' "; 
+					`name` = '$name', `description` = '$description', `value` = '$value', `category` = '$category' "; 
 		if($save_value){ 
 			$query = "UPDATE `{$db->table['options']}`
 						SET `value` = '$value'

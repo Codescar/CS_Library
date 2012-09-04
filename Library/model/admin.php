@@ -93,12 +93,12 @@ class Admin{
 		if(isset($_GET['delete']) && $_GET['delete'] == 'true')
 			option::delete($_GET['id']);
         if(isset($_POST['hidden']) && $_POST['hidden'] == 'codescar')
-            option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id']);
+            option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id'], $_GET['cat_id']);
         $res = option::list_all($category);
 		?> <?php
 		while($option = mysql_fetch_object($res)){
 			$edit_link = "index.php?show=admin&more=options&cat_id=".$category."&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
-			$delete_link = "index.php?show=admin&more=options&delete=true&id=".$option->id; ?>
+			$delete_link = "index.php?show=admin&more=options&cat_id=".$category."&delete=true&id=".$option->id; ?>
 			<div class="option">
 				<div class="block bold opt-name"><?php echo $option->name; ?></div>
 				<div class="block opt-description"><?php echo $option->description; ?></div>
