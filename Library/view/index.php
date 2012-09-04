@@ -8,8 +8,8 @@
 	/* Load the user's messagebox*/
 	$user->message = new message();
 	
-	if($CONFIG['maintance'] && !$user->is_admin() && (!isset($_GET['show']) || (($_GET['show'] != "login") && ($_GET['show'] != "maintance"))))
-			header('Location: index.php?show=maintance');
+	if($CONFIG['maintenance'] && !$user->is_admin() && (!isset($_GET['show']) || (($_GET['show'] != "login") && ($_GET['show'] != "maintenance"))))
+			header('Location: index.php?show=maintenance');
 	
 	/* Header File */
 	require_once('header.php');
@@ -44,8 +44,8 @@
 		include('admin.php');
 	elseif($_GET['show'] == "info")
 		include('info.php');
-	elseif($_GET['show'] == "maintance")
-		render_template("maintance.php");
+	elseif($_GET['show'] == "maintenance")
+		render_template("maintenance.php");
 	elseif($_GET['show'] == "favorites")
 		include('favorites.php');
 	else 

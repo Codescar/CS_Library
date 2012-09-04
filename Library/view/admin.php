@@ -80,8 +80,8 @@
 			$user->admin->create_user();
 		}elseif($_GET['more'] == "options"){
 			$user->admin->show_options();
-		}elseif($_GET['more'] == "maintance"){
-			$user->admin->maintance();
+		}elseif($_GET['more'] == "maintenance"){
+			$user->admin->maintenance();
 	  	}elseif($_GET['more'] == "update"){
 	  		include('update.php');
 	  	}elseif($_GET['more'] == "lend"){

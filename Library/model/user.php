@@ -188,16 +188,17 @@ class User{
 	}
 	
 	public function session_check(){
+		global $CONFIG;
 		if(!isset($_SESSION['logged_in']))
 			session_empty();
 		if(!isset($_SESSION['last_active'])){
-	    	$_SESSION['last_active'] = time() + MAX_IDLE_TIME;
+	    	$_SESSION['last_active'] = time() + $CONFIG['max_idle_time'];
 		}else{
 	    	if($_SESSION['last_active'] < time()){   
 		    	session_unset(); 
 		        session_destroy();
 		    }else{
-		        $_SESSION['last_active'] = time() + MAX_IDLE_TIME;
+		        $_SESSION['last_active'] = time() + $CONFIG['max_idle_time'];
 		    }
 		}
 		$_SESSION['cur_page'] 	= $_SERVER['SCRIPT_NAME'];

@@ -2,15 +2,17 @@
 	/* Config File */ 
 
 	/* Session Settings, Max IDLE TIME */
-	define(MAX_IDLE_TIME, 3600);
-	define(TEMPLATE_PATH, "templates/");
+	//define('MAX_IDLE_TIME', 3600);
+	//define('TEMPLATE_PATH', "/usr/sites/Library/templates/");
 	
 	global $CONFIG;
 	
 	/* Basic installation configs */
-	$CONFIG['title'] = "CodeScar Library Managment System";
+	$CONFIG['title'] = "CodeScar Library Management System";
 	$CONFIG['document-root'] = "/var/www/vhosts/l2smiles.com/sites/projects.codescar.eu/Library/demo/"; //Have to put the path here
 	$CONFIG['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo/";
+	$CONFIG['max_idle_time'] =  3600;
+	$CONFIG['template_path'] =  $CONFIG['document-root']."templates/";
 	
 	/* Modules configs*/
 	$CONFIG['allow_register'] = true;
@@ -20,7 +22,7 @@
 	
 	/* developer options */
 	$CONFIG['debug'] = true;
-	$CONFIG['maintance'] = false;
+	$CONFIG['maintenance'] = false;
 	
 	/* visuals */
 	$CONFIG['items_per_page'] = 5;
@@ -33,7 +35,11 @@
 	$CONFIG['request_life'] = 2;
 	$CONFIG['lend_days'] = 15;
 	$CONFIG['extra_days_lend'] = 15;
-		
+	
+	$local_config_file = "myconfig.php";
+	
+	if(file_exists($local_config_file))
+		include $local_config_file;
 	/*
 	 * Load the config from the database, 
 	 * if there are same, it overides them.

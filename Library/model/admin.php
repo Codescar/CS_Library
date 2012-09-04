@@ -333,20 +333,20 @@ class Admin{
 		}
 	}
 	
-	function maintance(){
+	function maintenance(){
 		//TODO maybe optimise the mysql tables
 		global $CONFIG, $user;
 		
-		if($CONFIG['maintance'])
-			$CONFIG['maintance'] = false;
+		if($CONFIG['maintenance'])
+			$CONFIG['maintenance'] = false;
 		else
-			$CONFIG['maintance'] = true;
+			$CONFIG['maintenance'] = true;
 		
-		option::save('maintance', $CONFIG['maintance'], "", -1);
+		option::save('maintenance', $CONFIG['maintenance'], "", -1);
 		/* Remove invalid favorites (missing user or book) */
 		$user->favorites->cleanup_favorites();
 		
-		if($CONFIG['maintance']) {
+		if($CONFIG['maintenance']) {
 			echo "<div class=\"success\">Η Υπηρεσία μπήκε σε κατάσταση συντήρησης<br />";
 		}else{
 			echo "<div class=\"success\">Η Υπηρεσία μπήκε σε κανονική κατάσταση λειτουργίας<br />";

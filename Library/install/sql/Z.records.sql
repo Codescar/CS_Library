@@ -11,7 +11,7 @@ INSERT INTO `options` VALUES ('5', 'lendings', 'Πόσα βιβλία μπορε
 INSERT INTO `options` VALUES ('6', 'requests', 'Πόσα αιτήματα μπορεί να κάνει κάποιος', '5');
 INSERT INTO `options` VALUES ('7', 'request_life', 'Πόσες μέρες \"ισχύει\" το αίτημα', '2');
 INSERT INTO `options` VALUES ('8', 'debug', 'Μεταβλητή για developers ώστε να εμφανίζονται τα errors', 'true');
-INSERT INTO `options` VALUES ('9', 'maintance', 'Enables maintenance mode', '');
+INSERT INTO `options` VALUES ('9', 'maintenance', 'Enables maintenance mode', '');
 INSERT INTO `options` VALUES ('10', 'allow_register', '', 'true');
 INSERT INTO `options` VALUES ('11', 'allow_login', '', 'true');
 INSERT INTO `options` VALUES ('12', 'allow_admin', '', 'true');

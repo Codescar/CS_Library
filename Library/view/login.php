@@ -14,7 +14,7 @@
 			session_unset();
 			session_destroy();
 		}
-		elseif($CONFIG['maintance'] && $user->access_level < 100) {
+		elseif($CONFIG['maintenance'] && $user->access_level < 100) {
 			$error = "Δεν είστε διαχειριστής";
 			session_unset();
 			session_destroy();
@@ -56,7 +56,7 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 <div class="content">
 <?php if(isset($error) && !empty($error)) echo "<div class=\"error\">".$error."</div><br/>"; ?>
 <?php if(isset($success) && !empty($success)) echo "<div class=\"success\">".$success."</div><br/>"; ?>
-<?php if($CONFIG['maintance']) echo "<div class=\"error\">Κατάσταση συντήρησης, μόνο Admins μπορούν να εισέλθουν</div><br/>"; ?>
+<?php if($CONFIG['maintenance']) echo "<div class=\"error\">Κατάσταση συντήρησης, μόνο Admins μπορούν να εισέλθουν</div><br/>"; ?>
 <fieldset>
 	<legend class="bold" style="font-size: 20px;">Σύνδεση χρήστη</legend>
 	<form action="?show=login&do=login" method="post" id="login-form">
@@ -67,7 +67,7 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 	<input type="submit" value="Υποβολή" class="submit"/>	
 	</form>
 </fieldset>
-<?php if($CONFIG['allow_register'] && !$CONFIG['maintance']) { ?>
+<?php if($CONFIG['allow_register'] && !$CONFIG['maintenance']) { ?>
 <div class="bold" style="text-align: center; width: 100%; font-size: 20px;">ή</div>
 <fieldset>
 	<legend class="bold" style="font-size: 20px;">Εγγραφή χρήστη</legend>

@@ -40,7 +40,7 @@
 		<img class="block panel-img" src="view/images/option.png" /><br />
 		Options
 	</a></h3>
-	<h3 class="block panel-images"><a class="panel-links <?php echo ($CONFIG['maintance']) ? "disable-maintenance" : "enable-maintenance"; ?>" href="index.php?show=admin&more=maintance" >
+	<h3 class="block panel-images"><a class="panel-links <?php echo ($CONFIG['maintenance']) ? "disable-maintenance" : "enable-maintenance"; ?>" href="index.php?show=admin&more=maintenance" >
 		<img class="block panel-img" src="view/images/maintaince.jpg" /><br />
 		Maintenance
 	</a></h3>
