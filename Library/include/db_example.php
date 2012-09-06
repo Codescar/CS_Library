@@ -6,4 +6,10 @@ global $db_hostname, $db_username, $db_password, $db_name;
 	$db_password = "some_pass";
 	
 	$db_name = "codescar";
+	
+	/* With what database driver / database the installation works 
+	 * options are: MySQLDriver
+	 * 				MySQLiDriver
+	 * */
+	$CONFIG['dbDriver'] = "MySQLiDriver";
 ?>
