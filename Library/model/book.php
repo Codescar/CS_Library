@@ -170,6 +170,11 @@ function paggination($all_items, $nums_to_display = -1, $cur_page = -1, $items_p
 		$page = $pages - $nums_to_display - 1;
 	}
 	
+	if($nums_to_display > $pages){
+		$page = 1;
+		$end = $pages - 1;
+	}
+	
 	//Building the old url
 	$newurl = "";
 	foreach($_GET as $variable => $value)

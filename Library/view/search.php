@@ -133,7 +133,7 @@ elseif(!isset($_GET['search']) || ($_GET['search'] == "" &&
 }
 else {
 	$s = mysql_real_escape_string(trim($_GET['search']));
-	$q = "SELECT * FROM ";
+	
 	$query = "`{$db->table['booklist']}` WHERE title LIKE \"%$s%\" AND ";
 	/*if(isset($_GET['title']))
 		$query .= "title LIKE \"%$s%\" OR ";*/
@@ -156,7 +156,7 @@ else {
 		
 	$query .= "1=1 ORDER BY id ASC ";
 	
-	$books = $db->get_books($q.$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], "SELECT COUNT(id) FROM ".$query);
+	$books = $db->get_books("SELECT * FROM " .$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], "SELECT COUNT(id) FROM ".$query);
 	
 ?>
 	<div class="list">
