@@ -70,7 +70,7 @@
 			</div><?php
 		}elseif(isset($msg)){ ?>
 			<?php echo "<div class=\"error\" >".$msg."<br />";
-			redirect("index.php?show=login", 3000);
+			redirect("index.php?show=login", 2500);
 		} ?>
 		<div class="book-description">
 			<span class="book-colored">Περιγραφή: </span><span style="font-size: 17px;">

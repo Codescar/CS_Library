@@ -101,7 +101,7 @@ class User{
 		echo "<div class=\"success\">Ο χρήστης ".user::get_name($id)." διαγράφηκε.<br />";
 		//TODO we should print the username instead of the name
 		$db->query($query);
-		redirect($CONFIG['url']."?show=admin&more=users", 2500);
+		redirect($CONFIG['url']."?show=admin&more=users", 2000);
 	}
 
 	public function show_history(){

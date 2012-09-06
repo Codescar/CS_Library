@@ -31,14 +31,14 @@
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "file_upload"){
 		if(!isset($_POST['profilePicture'])){
 			echo "<div class=\"error\">Συνέβησε κάποιο σφάλμα, παρακαλώ προσπαθήστε ξανά!</div>";
-			redirect("index.php?show=cp");
+			redirect("index.php?show=cp", 1500);
 		}
 		elseif($avatar = upload_file()){
 			update_avatar_in_db($avatar, 1);
 		}
 		else{
 			echo "<div class=\"error\">Σφάλμα μεταφόρτωσης, παρακαλώ προσπαθήστε ξανά!</div>";
-			redirect("index.php?show=cp");
+			redirect("index.php?show=cp", 1500);
 		}
 	}elseif(isset($_POST['hidden']) && $_POST['hidden'] == "use_url"){
 		if(isImage($_POST['profilePicture']))

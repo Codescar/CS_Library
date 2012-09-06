@@ -4,7 +4,7 @@
 	define('VIEW_SHOW', true);
 	if(!$user->is_logged_in() || !$user->is_admin()){
 		echo "<div class=\"content\"><div class=\"error\">Δεν είστε διαχειριστής<br />";
-		redirect("index.php?show=cp"); 
+		redirect("index.php?show=cp", 1500); 
 	}else{
 		if(!isset($_GET['more'])){ ?>
 			<div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαχειριστικό Πάνελ</div>
@@ -96,7 +96,7 @@
 					redirect("index.php?show=admin&more=pendings");
 				} else {
 					echo "<div class=\"error\">Ο χρήστης δεν επιτρέπεται να πάρει άλλα βιβλία, ας επιστρέψει πρώτα κάποιο<br />";
-					redirect("index.php?show=admin&more=pendings");
+					redirect("index.php?show=admin&more=pendings", 2000);
 				}
 			}
 	  	}elseif($_GET['more'] == "return"){
@@ -120,7 +120,7 @@
 		    	if($res){
 			    	$b_name = get_book_name($db->db_escape_string($_GET['renewal']));
 			    	echo "<div class=\"success\">Ο χρήστης ".$u_name." μπορεί να κρατήσει<br />το βιβλίο ".$b_name." για ακόμα μερικές μέρες<br />";
-			    	redirect("index.php?show=admin&more=pendings");
+			    	redirect("index.php?show=admin&more=pendings", 1500);
 			    }else{
 					echo "<div class=\"error\">Ο χρήστης ".$u_name." πρέπει να επιστρέψει το βιβλίο<br />";
 					redirect("index.php?show=admin&more=pendings");

@@ -104,9 +104,9 @@ class Admin{
 			$edit_link = "index.php?show=admin&more=options&cat_id=".$category."&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
 			$delete_link = "index.php?show=admin&more=options&cat_id=".$category."&delete=true&id=".$option->id; ?>
 			<div class="option">
-				<div class="block bold opt-name"><?php echo $option->name; ?></div>
-				<div class="block opt-description"><?php echo $option->description; ?></div>
-				<div class="block opt-value"><?php echo $option->value; ?></div>
+				<div class="block bold opt-name<?php echo ($category == 1) ? "2" : ""; ?>"><?php echo $option->name; ?></div>
+				<div class="block opt-description<?php echo ($category == 1) ? "2" : ""; ?>"><?php echo $option->description; ?></div>
+				<div class="block opt-value<?php echo ($category == 1) ? "2" : ""; ?>"><?php echo $option->value; ?></div>
 				<div class="block opt-action"><a href="<?php echo $edit_link; ?>" >Edit</a></div>
 				<div class="block opt-action"><a class="delete-option" href="<?php echo $delete_link; ?>">Delete</a></div>
 			</div><?php
@@ -142,7 +142,7 @@ class Admin{
 				!isset($_POST['email']) 		||  empty($_POST['username']) || 
 				 empty($_POST['password']) 		||  empty($_POST['email']) ){
 				echo "<div class=\"error\">Ο χρήστης δεν δημιουργήθηκε, δεν δώσατε τις απαραίτητες πληροφορίες.<br />";
-				redirect("index.php?show=admin&more=users");
+				redirect("index.php?show=admin&more=users", 2000);
 				echo "<br />";
 			}
 			else{
@@ -368,7 +368,7 @@ class Admin{
 		}else{
 			echo "<div class=\"success\">Η Υπηρεσία μπήκε σε κανονική κατάσταση λειτουργίας<br />";
 		}
-			redirect("index.php?show=admin");
+			redirect("index.php?show=admin", 1500);
 	}
 };
 ?>

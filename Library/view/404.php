@@ -5,5 +5,5 @@
 ?>
 <div class="content">
 	<?php echo "<div class=\"error\">Λάθος αίτημα...<br />";
-	redirect("index.php", 3000) ?>
+	redirect("index.php", 2000) ?>
 </div>

@@ -704,13 +704,23 @@ div.developers a{
 	border-radius: 10px;
 }
 .opt-name{
-	width: 120px;
+	width: 150px;
 }
 .opt-description{
-	width: 280px;
+	width: 550px;
 	padding: 0 10px;
 }
 .opt-value{
+	width: 150px;
+}
+.opt-name2{
+	width: 120px;
+}
+.opt-description2{
+	width: 280px;
+	padding: 0 10px;
+}
+.opt-value2{
 	width: 450px;
 }
 .opt-action{
