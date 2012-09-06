@@ -24,7 +24,7 @@ abstract class DataBase{
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
 														"availability" 	=> "availability", 
-														"writer" 	=> "writer", 
+														"writer" 		=> "writer", 
 														"description"	=> "description", 
 														"added_on" 		=> "added_on"),
 	

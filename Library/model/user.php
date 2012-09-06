@@ -7,7 +7,6 @@ class User{
 	public $id, $username, $email, $access_level, $banned, $message, $admin, $favorites;
 	
 	function __constructor(){
-	    $a = new Admin;
 	    $admin = null;
 	}
 	
@@ -105,14 +104,12 @@ class User{
 		redirect($CONFIG['url']."?show=admin&more=users", 2500);
 	}
 
-	public function show_history($user_id = -1){
+	public function show_history(){
 	    global $db;
-	    if($user_id == -1)
-	    	$user_id = $this->id;
 		$query = "	SELECT * FROM `{$db->table['log_lend']}`
 					CROSS JOIN `{$db->table['booklist']}`
 					ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id
-					WHERE `{$db->table['log_lend']}`.`user_id` = '$user_id'
+					WHERE `{$db->table['log_lend']}`.`user_id` = '$this->id'
 					ORDER BY `{$db->table['log_lend']}`.`returned`";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Το Πήρες</th><th>Το Έφερες</th></tr>";
@@ -231,11 +228,14 @@ class User{
 		return ($num == 1);	
 	}
 
-	function show_lended(){
+	function show_lended($id = -1){
 		global $CONFIG, $db;
+		$user_id = $this->id;
+		if($id != -1)
+			$user_id = $id;
 		$query = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` 
 					ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
-				  WHERE {$db->table['lend']}.user_id = '{$this->id}' ";
+				  WHERE {$db->table['lend']}.user_id = '$user_id' ";
 		$books = $db->get_books($query);
 		if(!$books)
 			echo "<div class=\"error\">Δεν έχετε δανειστεί κανένα βιβλίο.</div><br />";

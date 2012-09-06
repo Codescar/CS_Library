@@ -107,14 +107,14 @@
     -moz-box-shadow: 2px 2px 5px black;
     box-shadow: 2px 2px 5px black;
     position: relative;
-    top: 3px;
+    top: 1px;
 }
 .box:active{
     -webkit-box-shadow: 1px 1px 4px black;
     -moz-box-shadow: 1px 1px 4px black;
     box-shadow: 1px 1px 4px black;
     position: relative;
-    top: 10px;
+    top: 5px;
 }
 .box a{
     text-decoration: none;

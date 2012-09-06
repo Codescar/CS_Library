@@ -53,9 +53,15 @@
 		$user_info = user::show_info($user->id);
 		render_template("userControlPanel.php");
 	}elseif($_GET['more'] == "history"){
-		$user->show_history();
+		if($user->is_admin())
+			$user->admin->show_history($db->db_escape_string($_GET['id']));
+		else
+			$user->show_history();
 	}elseif($_GET['more'] == "lended"){
-		$user->show_lended();
+		if($user->is_admin())
+			$user->show_lended($db->db_escape_string($_GET['id']));
+		else
+			$user->show_lended();
 	}elseif(isset($_GET['id']) && ($_GET['more'] == "remove_request")){
 		$user->cansel_request($db->db_escape_string($_GET['id']));
 	}else{

@@ -36,15 +36,17 @@ class Admin{
 		<?php 
 	}
 	
-	function show_history(){
+	function show_history($id = -1){
 		global $db;
 		$query = "	SELECT title, username, taken, returned, book_id, user_id 
 					FROM `{$db->table['log_lend']}`
     					CROSS JOIN `{$db->table['users']}`
     						ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
     					CROSS JOIN `{$db->table['booklist']}`
-    						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id
-    				ORDER BY `{$db->table['log_lend']}`.taken";
+    						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id ";
+		if($id != -1)
+			$query .= "WHERE `{$db->table['log_lend']}`.`user_id` = '$id' ";
+    	$query .= "ORDER BY `{$db->table['log_lend']}`.taken ";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
 		while($book = $db->db_fetch_object($result)){
@@ -75,10 +77,10 @@ class Admin{
         <form style="margin: 20px 0 0 0;" action="index.php?show=admin&more=options&cat_id=<?php echo $category; ?>" method="post">
             <div class="block new-opt-name-value-div center">
             	<label class="bold" for="name">Όνομα: </label><br />
-            	<input type="text" id="name" name="name" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
+            	<input type="text" id="name" name="name" required="required" value="<?php echo ($edit) ? $_GET['name'] : "" ; ?>" />
             	<br />
             	<label class="bold" for="value">Τιμή: </label><br />
-            	<input type="text" id="value" name="value"  value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
+            	<input type="text" id="value" name="value" value="<?php echo ($edit) ? $_GET['value'] : "" ; ?>" />
             </div>
             <div class="block new-opt-description-div center">
 				<label class="bold" for="description">Περιγραφή: </label><br />
@@ -182,7 +184,7 @@ class Admin{
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
 			</tr> <?php 
 		} ?> </table> 
-		<a class="add-new" href="?show=admin&amp;more=users&amp;add=new_user">
+		<a class="add-new link-button" href="?show=admin&amp;more=users&amp;add=new_user">
 			<button type="button" class="box link cp-button bold center">Δημιουργία Χρήστη</button>
 		</a>
 		<?php
@@ -215,23 +217,18 @@ class Admin{
 		<div class="center" style="margin: -40px auto 0 auto;">
 			<span class="bold">Επιλογές Admin</span>
 			<?php if($user_info->banned == 0){ ?>
-			<a class="ban-user" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&ban=1" style="margin: 0 20px 0 10px;">
+			<a class="ban-user link-button" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&ban=1" style="margin: 0 20px 0 10px;">
 				<button type="button" class="cp-button link box center bold" style="width: 170px;">Περιορισμός Χρήστη</button>
 			</a>
 			<?php }else{ ?>
-			<a class="unban-user" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&unban=1" style="margin: 0 20px 0 10px;">
+			<a class="unban-user link-button" href="index.php?show=admin&more=user&id=<?php echo $user_info->id; ?>&unban=1" style="margin: 0 20px 0 10px;">
 				<button type="button" class="cp-button link box center bold" style="width: 170px;">Αφαίρεση Περιορισμού</button>
 			</a>
 			<?php } ?>
-			<a class="delete-user" href="index.php?show=admin&more=del_user&id=<?php echo $user_info->id; ?>" style="margin: 0 20px;">
+			<a class="delete-user link-button" href="index.php?show=admin&more=del_user&id=<?php echo $user_info->id; ?>" style="margin: 0 20px;">
 				<button type="button" class="cp-button link box center bold" style="width: 100px;">Διαγραφή</button>
 			</a>
 		</div><?php //TODO select user role
-	}
-	
-	function user_history($id){
-		global $user, $db;
-		$user->show_history($db->db_escape_string($id));
 	}
 
 	function lend_book($book_id, $user_id){
@@ -275,7 +272,7 @@ class Admin{
 		$announcement = new announcements();
 		if(!isset($_GET['id']) && !isset($_GET['add'])){
             $ret = announcements::list_all(); ?>
-            <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
+            <a class="add-new link-button" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
                 <button type="button" class="box link cp-button bold center">Νέα Ανακοίνωση</button>
             </a>
             <table class="add-new-under">

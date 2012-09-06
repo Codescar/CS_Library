@@ -15,11 +15,11 @@
 		<?php announcements::show(); ?>
 		<div class="center">
 			<?php if($user->is_admin()) { ?>
-				<a href="index.php?show=admin&more=announcements&id=0">
+				<a class="link-button" href="index.php?show=admin&more=announcements&id=0">
 					<button type="button" class="index-button link box center bold">Νέα</button>
 				</a>
 			<?php } ?>
-			<a href="#"><button type="button" class="index-button link box center bold">Παλιότερες</button></a>
+			<a class="link-button" href="#"><button type="button" class="index-button link box center bold">Παλιότερες</button></a>
 		</div>
 	</div>
 </div>
