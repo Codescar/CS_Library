@@ -51,7 +51,7 @@
 		<td><?php echo date('d-m-Y', strtotime($return->taken)); ?></td>
 		<td><?php echo date('d-m-Y', strtotime($return->must_return)); ?></td>
 		<td><a href="?show=admin&more=return&return=<?php echo $return->book_id; ?>&user=<?php echo $return->user_id; ?>" class="return-book">Επιστροφή</a>
-		-- <a href="" class="renewal">Ανανέωση</a>
+		-- <a href="?show=admin&more=renewal&renewal=<?php echo $return->book_id; ?>&user=<?php echo $return->user_id; ?>" class="renewal">Ανανέωση</a>
 		</td>
 	</tr> 
 	<?php } ?> </table>

@@ -3,6 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	require_once('model/ckeditor/ckeditor.php');
+	global $CONFIG;
 ?>
 <script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script>
 <div id="direction"><a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επικοινωνία</div>
@@ -18,7 +19,7 @@
     	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
     	$headers .= 'From: info@codescar.eu' . "\r\n";
     	$headers .=	'X-Mailer: PHP/' . phpversion();
-    	$admin_email = option::load('admin_email');
+    	$admin_email = $CONFIG['admin_email'];
     	mail($admin_email, "Codescar Library ".$_POST['type'], $message, $headers);
 	}
 	?>

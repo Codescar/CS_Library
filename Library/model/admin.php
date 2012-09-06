@@ -57,6 +57,7 @@ class Admin{
 	}
 	
 	function show_options(){
+		$option = new option();
 		$edit = false;
 		if(isset($_GET['name']) && isset($_GET['value']) && isset($_GET['description']))
 			$edit = true;
@@ -96,7 +97,7 @@ class Admin{
             option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id'], $_GET['cat_id']);
         $res = option::list_all($category);
 		?> <?php
-		while($option = mysql_fetch_object($res)){
+		while($option = mysql_fetch_object($res, 'option')){
 			$edit_link = "index.php?show=admin&more=options&cat_id=".$category."&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
 			$delete_link = "index.php?show=admin&more=options&cat_id=".$category."&delete=true&id=".$option->id; ?>
 			<div class="option">
@@ -251,9 +252,26 @@ class Admin{
         $db->change_avail($book_id, 1);
         $db->user_change_attr($user_id, "books_lended", "- 1");
 	}
-	
+
+	function renew_book($book_id, $user_id){
+		global $db, $CONFIG;
+		$query = "SELECT * FROM `{$db->table['lend']}`
+					WHERE `book_id` = '$book_id' AND `user_id` = '$user_id' ";
+		$result = $db->query($query);
+		$lend = mysql_fetch_object($result);
+		if($lend->renewals < $CONFIG['renewals']){
+			$query = "UPDATE `{$db->table['lend']}`
+						SET `renewals` = `renewals` + 1 , `must_return` = ADDDATE('$lend->must_return', {$CONFIG['extra_days_lend']})
+						WHERE `book_id` = '$book_id' AND `user_id` = '$user_id'";
+			$db->query($query);
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 	function manage_announce(){
 		global $CONFIG;
+		$announcement = new announcements();
 		if(!isset($_GET['id']) && !isset($_GET['add'])){
             $ret = announcements::list_all(); ?>
             <a class="add-new" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => 0))); ?>">
@@ -267,7 +285,7 @@ class Admin{
                 <th>Ημερομηνία</th>
                 <th>Επιλογές</th>
             </tr> <?php
-            while($announcement = mysql_fetch_object($ret)){
+            while($announcement = mysql_fetch_object($ret, 'announcements')){
                 ?> <tr>
                     <td><?php echo substr($announcement->title, 0, 40); echo (strlen($announcement->title) > 40) ? "..." : ""; ?></td>
                     <td><?php echo substr($announcement->body, 0, 40);  echo (strlen($announcement->body) > 40)  ? "..." : ""; ?></td>

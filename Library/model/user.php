@@ -4,7 +4,7 @@
  */
 
 class User{
-	public $id, $username, $email, $access_level, $message, $admin, $favorites;
+	public $id, $username, $email, $access_level, $banned, $message, $admin, $favorites;
 	
 	function __constructor(){
 	    $a = new Admin;
@@ -27,7 +27,6 @@ class User{
 					AND 	`password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
-		//TODO use the full capabilities of fetch_object for user
 		$user = mysql_fetch_object($result);
 	    if($user){
 	    	$this->id 					= $user->id;

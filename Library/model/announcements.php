@@ -2,6 +2,8 @@
 
 class announcements{
 	
+	public $id, $title, $body, $author, $date, $username;
+	
 	public static function list_all(){
 		global $db;
 		$query = "SELECT `{$db->table["announcements"]}`.`id`, `{$db->table["announcements"]}`.`title`, 

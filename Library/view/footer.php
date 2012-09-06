@@ -6,8 +6,8 @@
 	$db->close();
 echo "</div>";
 ?>
-<hr/>
 <footer>
+<hr/>
 	<a href="http://codescar.eu">CodeScar</a> Library Project<br />
 	<a href="?show=about">About</a>
 	<?php 

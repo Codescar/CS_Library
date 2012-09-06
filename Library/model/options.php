@@ -7,20 +7,14 @@
  */
 
 class option{
+	public $id, $name, $value, $description, $category;
+
 	public static function list_all($category){
 		global $db;
 		$query = "SELECT * FROM `{$db->table['options']}`";
 		if(isset($category))
-			$query .= " WHERE `category` = '$category' ";
+			$query .= " WHERE `category` = '$category' ORDER BY `id` ";
 		return $db->query($query);
-	}
-
-	public static function load($name){
-		global $db;
-		$query = "SELECT * FROM `{$db->table['options']}` WHERE `name` = '$name' LIMIT 1";
-		$res = $db->query($query);
-		$option = mysql_fetch_object($res);
-		return $option->value;
 	}
 
 	public static function save($name, $value, $description, $id, $category){

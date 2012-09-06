@@ -288,6 +288,9 @@ footer{
 	font-size: 10pt;
 	font-style: italic;
 	text-align: center;
+	/* position: absolute;
+	bottom: 0px; */
+	width: 100%;
 }
 #login-form label{
 	display: inline-block;

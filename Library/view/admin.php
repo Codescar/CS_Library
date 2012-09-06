@@ -44,6 +44,8 @@
 	        		$msg = "Δανεισμός Βιβλίου</div>";
 			    }elseif($_GET['more'] == "return"){
 					$msg = "Επιστροφή Βιβλίου</div>";
+				}elseif($_GET['more'] == "renewal"){
+					$msg = "Ανανέωση Βιβλίου</div>";
 				}elseif($_GET['more'] == "request_delete"){
 					$msg = "Διαγραφή αιτήματος</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
@@ -107,6 +109,22 @@
 		    	$b_name = get_book_name(mysql_real_escape_string($_GET['return']));
 		    	echo "<div class=\"success\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />Η επιστροφή καταγράφηκε<br />";
 		    	redirect("index.php?show=admin&more=pendings");
+		    }
+		}elseif($_GET['more'] == "renewal"){
+			if(!isset($_GET['renewal']) && !isset($_GET['user'])){
+				echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
+		        redirect("index.php?show=admin&more=pendings");
+		    }else{
+		    	$res = $user->admin->renew_book(mysql_real_escape_string($_GET['renewal']), mysql_real_escape_string($_GET['user']));
+			    $u_name = user::get_name(mysql_real_escape_string($_GET['user']));
+		    	if($res){
+			    	$b_name = get_book_name(mysql_real_escape_string($_GET['renewal']));
+			    	echo "<div class=\"success\">Ο χρήστης ".$u_name." μπορεί να κρατήσει<br />το βιβλίο ".$b_name." για ακόμα μερικές μέρες<br />";
+			    	redirect("index.php?show=admin&more=pendings");
+			    }else{
+					echo "<div class=\"error\">Ο χρήστης ".$u_name." πρέπει να επιστρέψει το βιβλίο<br />";
+					redirect("index.php?show=admin&more=pendings");
+				}
 		    }
 		}elseif($_GET['more'] == "request_delete"){
 			if(!isset($_GET['book']) && !isset($_GET['user'])){

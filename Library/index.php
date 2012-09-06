@@ -10,8 +10,8 @@
 	if(isset($_SESSION['user']) && $_SESSION['user'] != "user")
 	    $user = unserialize($_SESSION['user']);
 	else
-	    $user = new User;
-	
+		$user = new User;
+
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 	$user->session_check();
 	if($CONFIG['allow_compression'])

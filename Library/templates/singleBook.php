@@ -25,7 +25,7 @@
 		<div class="book-avail block">
 			<span class="book-colored">Διαθεσιμότητα:</span>
 			<?php if($logged && $have){
-					?><span class="avail">Το έχεις εσύ</span>"<?php
+					?><span class="avail">Το έχεις εσύ</span><?php
 				}else{
 					echo (!$have && !$requested && $book->availability == 1) ? "<span class=\"avail\">Διαθέσιμο</span>" : "<span class=\"avail_no\">Μη Διαθέσιμο</span>"; 
 				} ?>

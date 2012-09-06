@@ -48,7 +48,7 @@ if(!isset($_GET['search'])){?>
     			<div class="search_chk block bold">
     				<label for="isbn">ISBN</label><input type="text" name="isbn" id="isbn" <?php echo (isset($_GET['isbn'])) ? "checked=\"".$_GET['isbn']."\"" : ""; ?>/>
     			</div>
-    			<div class="search_chk block bold" style="width: 170px; margin: 0px;">
+    			<div class="search_chk block bold" style="width: 170px; margin: 25px 0 0 0;">
     				<input style="float: left;" type="checkbox" value="1" name="available" id="available" <?php echo (isset($_GET['available'])) ? "checked=\"checked\"" : ""; ?> />
     				<label for="available">Διαθέσιμο για δανεισμό</label>
     			</div>

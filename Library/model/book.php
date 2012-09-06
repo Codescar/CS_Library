@@ -7,8 +7,12 @@ function list_books($books){
 		$query = "SELECT `book_id`, `taken`, `must_return` FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
 		$res = $db->query($query);
 		$user_books = array();
-		$taken = array();
 		while ($user_books[] = mysql_fetch_array($res)) {};
+		$taken = array();
+		$query = "SELECT `book_id`, `taken`, `must_return` FROM `{$db->table['lend']}`";
+		$res = $db->query($query);
+		$lended_books = array();
+		while ($lended_books[] = mysql_fetch_array($res)) {};
 	}
 	?>
 	<div class="list">
@@ -19,8 +23,10 @@ function list_books($books){
 		foreach($books as $row){
 			$book_url = "index.php?show=book&amp;id=".$row['id'];
 			if($row == $books['0']) continue;
-			if($logged)
+			if($logged){
 				$taken = in_there_pos($user_books, $row['id']);
+				$return_date = in_there_pos($lended_books, $row['id']);
+			}
 			?>
 			<div class="list-item">
 				<div>
@@ -62,13 +68,15 @@ function list_books($books){
 							<?php echo $row['title']; ?>
 						</div>
 						<!-- Writer && Publisher -->
-						<div class="block">
+						<div class="block" style="height: 45px;">
 							<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
 							<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 						</div>
 						<!-- Availability -->
-						<?php if(false){ ?>
-							<div class="block error" style="margin: 0 0 0 100px;">Το βιβλίο θα είναι διαθέσιμο από την <span class="bold"><?php echo $date; ?></span></div>
+						<?php if($logged && $return_date['has_taken'] && !$taken['has_taken']){ ?>
+							<div class="block error right">
+								Διαθέσιμο ξανά από <span class="bold"><?php echo date('d-m-Y', strtotime($return_date['must_return'])); ?></span>
+							</div>
 						<?php } ?>
 						<!-- Description OR Dates of lend -->
 						<div class="list-description">
