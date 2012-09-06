@@ -36,7 +36,7 @@
 							) LIMIT 1;";
 			
 			$results = $db->query($query);
-			$num = mysql_affected_rows();
+			$num = $db->db_affected_rows();
 			
 			$this->cached = false;
 			
@@ -51,7 +51,7 @@
 							AND `book_id` = '$book_id' LIMIT 1;";
 			
 			$results = $db->query($query);
-			$num = mysql_affected_rows();
+			$num = $db->db_affected_rows();
 			
 			$this->cached = false;
 			
@@ -66,7 +66,7 @@
 							OR `book_id` NOT IN(SELECT `id` FROM `{$db->table['booklist']}`); ";
 			
 			$results = $db->query($query);
-			$num = mysql_affected_rows();
+			$num = $db->db_affected_rows();
 			
 			return $num;
 		}
@@ -78,7 +78,7 @@
 						
 			$res = $db->query($this->get_favorites());
 			
-			while($row = mysql_fetch_array($res)){
+			while($row = $db->db_fetch_array($res)){
 				array_push($tmp, $row['id']);
 			}
 			

@@ -94,9 +94,9 @@ function get_avatar() {
 
 	$query = "SELECT * FROM `{$db->table['avatars']}` WHERE `user_id` = '$user_id' LIMIT 1;";
 	$result = $db->query($query);
-	$res = mysql_fetch_array($result);
+	$res = $db->db_fetch_array($result);
 
-	if(mysql_num_rows($result) != 0 )
+	if($db->db_num_rows($result) != 0 )
 		return $res;
 
 

@@ -19,15 +19,15 @@ class User{
 	public function login($name, $pass){
 		global $db;
 		
-		$name = mysql_real_escape_string($name);
-		$pass = mysql_real_escape_string($pass);
+		$name = $db->db_escape_string($name);
+		$pass = $db->db_escape_string($pass);
 		$pass = $this->pass_encrypt($pass);
 		$query = "	SELECT * FROM `{$db->table['users']}`
 					WHERE 	`username` = '$name' 
 					AND 	`password` = '$pass'
 					LIMIT 1 ;";
 		$result = $db->query($query);
-		$user = mysql_fetch_object($result);
+		$user = $db->db_fetch_object($result);
 	    if($user){
 	    	$this->id 					= $user->id;
 	    	$this->access_level 		= $user->access_lvl;
@@ -46,39 +46,39 @@ class User{
 	
 	public static function createUser($user, $pass, $mail){
 		global $db, $CONFIG;
-		$user = mysql_real_escape_string($user);
-		$pass = mysql_real_escape_string($pass);
+		$user = $db->db_escape_string($user);
+		$pass = $db->db_escape_string($pass);
 		$pass = user::pass_encrypt($pass);
-		$mail = mysql_real_escape_string($mail);
+		$mail = $db->db_escape_string($mail);
 		$query2 = "(";
 		if(!empty($_POST['name'])){
-		    $x = mysql_real_escape_string($_POST['name']);
+		    $x = $db->db_escape_string($_POST['name']);
 		    $query2 .= "'".$x."', ";
 		}
 		else
 		    $query2 .= "NULL, ";
 		if(!empty($_POST['surname'])){
-		    $x = mysql_real_escape_string($_POST['surname']);
+		    $x = $db->db_escape_string($_POST['surname']);
 		    $query2 .= "'".$x."', ";
 		}
 		else
 		    $query2 .= "NULL, ";
 		$query2 .= "'".$user."', ";
 		if(!empty($_POST['user_type'])){
-		    $x = mysql_real_escape_string($_POST['user_type']);
+		    $x = $db->db_escape_string($_POST['user_type']);
 		    $query2 .= "'".$x."', ";
 		}
 		else
 		    $query2 .= "'', ";
 		$query2 .= " '".$pass."', ";
 		if(!empty($_POST['born'])){
-		    $x = mysql_real_escape_string($_POST['born']);
+		    $x = $db->db_escape_string($_POST['born']);
 		    $query2 .= "'".$x."', ";
 		}
 		else
 		    $query2 .= "NULL, ";
 		if(!empty($_POST['phone'])){
-		    $x = mysql_real_escape_string($_POST['phone']);
+		    $x = $db->db_escape_string($_POST['phone']);
 		    $query2 .= "'".$x."', ";
 		}
 		else
@@ -117,7 +117,7 @@ class User{
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Το Πήρες</th><th>Το Έφερες</th></tr>";
 		$flag = 0;
-		while($row = mysql_fetch_array($result)){
+		while($row = $db->db_fetch_array($result)){
 			if($flag++ % 2 == 0)
 				echo "\t\t\t\t<tr class=\"alt\">";
 			else
@@ -136,7 +136,7 @@ class User{
 			$user_id = $this->id;
 		$query = "SELECT * FROM `{$db->table['users']}` WHERE `id` = '$user_id'";
 		$result = $db->query($query);
-		$user_info = mysql_fetch_object($result);
+		$user_info = $db->db_fetch_object($result);
 		return $user_info;
 	}
 	
@@ -217,17 +217,17 @@ class User{
 	
 	public static function get_name($id){
 		global $db;
-		$query = "SELECT username FROM {$db->table['users']} WHERE `id` = '".mysql_real_escape_string($id)."';";
+		$query = "SELECT username FROM {$db->table['users']} WHERE `id` = '".$db->db_escape_string($id)."';";
 		$result = $db->query($query);
-		$ret = mysql_fetch_row($result);
+		$ret = $db->db_fetch_array($result);
 		return $ret[0];
 	}
 	
 	public static function username_check($username){
 		global $db;
-		$query = "SELECT * FROM `{$db->table['users']}` WHERE `username` = '".mysql_real_escape_string($username)."' LIMIT 1;";
+		$query = "SELECT * FROM `{$db->table['users']}` WHERE `username` = '".$db->db_escape_string($username)."' LIMIT 1;";
 		$result = $db->query($query);
-		$num = mysql_num_rows($result);
+		$num = $db->db_num_rows($result);
 		return ($num == 1);	
 	}
 

@@ -1,7 +1,7 @@
 <?php
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
-	global $request_res, $lend_res;
+	global $request_res, $lend_res, $db;
 ?>
 <div id="lends">
 	<table>
@@ -15,7 +15,7 @@
 	</tr>
 	<?php 
 	$num = 1;
-	while($request = mysql_fetch_object($request_res)){ 
+	while($request = $db->db_fetch_object($request_res)){ 
 	?><tr>
 		<td><?php echo $num++; ?></td>
 		<td><?php echo $request->title; ?></td>
@@ -43,7 +43,7 @@
 	</tr>
 	<?php 
 	$num = 1;
-	while($return = mysql_fetch_object($lend_res)){
+	while($return = $db->db_fetch_object($lend_res)){
 	?> <tr>
 		<td><?php echo $num++; ?></td>
 		<td><?php echo $return->title; ?></td>

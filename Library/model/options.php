@@ -45,7 +45,7 @@ class option{
 	public static function load_options(){
 		global $db, $CONFIG;
 		$results = $db -> query("SELECT * FROM `{$db -> table['options']}`");
-		while($option = mysql_fetch_object($results))
+		while($option = $db->db_fetch_object($results))
 			$CONFIG[$option->name] = $option->value;
 		return true;
 	}

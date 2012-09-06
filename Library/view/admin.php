@@ -74,7 +74,7 @@
 		}elseif($_GET['more'] == "users" && !isset($_GET['add'])){
 			$user->admin->show_users();
 		}elseif($_GET['more'] == "user" && isset($_GET['id'])){
-			$user->admin->show_user(mysql_real_escape_string($_GET['id']));
+			$user->admin->show_user($db->db_escape_string($_GET['id']));
 		}elseif($_GET['more'] == "del_user" && isset($_GET['id'])){
 			user::delete_user($_GET['id']);
 		}elseif($_GET['more'] == "users" && 
@@ -91,7 +91,7 @@
 	  			echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 		        redirect("index.php?show=admin&more=pendings");
 	  		}else{
-				if($user->admin->lend_book(mysql_real_escape_string($_GET['lend']), mysql_real_escape_string($_GET['user']))){
+				if($user->admin->lend_book($db->db_escape_string($_GET['lend']), $db->db_escape_string($_GET['user']))){
 					echo "<div class=\"success\">Ο δανεισμός καταγράφηκε<br />";
 					redirect("index.php?show=admin&more=pendings");
 				} else {
@@ -104,9 +104,9 @@
 				echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 		        redirect("index.php?show=admin&more=pendings");
 		    }else{
-		    	$user->admin->return_book(mysql_real_escape_string($_GET['return']), mysql_real_escape_string($_GET['user']));
-		    	$u_name = user::get_name(mysql_real_escape_string($_GET['user']));
-		    	$b_name = get_book_name(mysql_real_escape_string($_GET['return']));
+		    	$user->admin->return_book($db->db_escape_string($_GET['return']), $db->db_escape_string($_GET['user']));
+		    	$u_name = user::get_name($db->db_escape_string($_GET['user']));
+		    	$b_name = get_book_name($db->db_escape_string($_GET['return']));
 		    	echo "<div class=\"success\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />Η επιστροφή καταγράφηκε<br />";
 		    	redirect("index.php?show=admin&more=pendings");
 		    }
@@ -115,10 +115,10 @@
 				echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 		        redirect("index.php?show=admin&more=pendings");
 		    }else{
-		    	$res = $user->admin->renew_book(mysql_real_escape_string($_GET['renewal']), mysql_real_escape_string($_GET['user']));
-			    $u_name = user::get_name(mysql_real_escape_string($_GET['user']));
+		    	$res = $user->admin->renew_book($db->db_escape_string($_GET['renewal']), $db->db_escape_string($_GET['user']));
+			    $u_name = user::get_name($db->db_escape_string($_GET['user']));
 		    	if($res){
-			    	$b_name = get_book_name(mysql_real_escape_string($_GET['renewal']));
+			    	$b_name = get_book_name($db->db_escape_string($_GET['renewal']));
 			    	echo "<div class=\"success\">Ο χρήστης ".$u_name." μπορεί να κρατήσει<br />το βιβλίο ".$b_name." για ακόμα μερικές μέρες<br />";
 			    	redirect("index.php?show=admin&more=pendings");
 			    }else{
@@ -131,7 +131,7 @@
 				echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 				redirect("index.php?show=admin&more=pendings");
 			}else{
-				$db->delete_request(mysql_real_escape_string($_GET['book']), mysql_real_escape_string($_GET['user']));
+				$db->delete_request($db->db_escape_string($_GET['book']), $db->db_escape_string($_GET['user']));
 				echo "<div class=\"success\">Το αίτημα διαγράφηκε<br />";
 				redirect("index.php?show=admin&more=pendings", 1500);
 			}

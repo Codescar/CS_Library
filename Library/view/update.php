@@ -110,7 +110,7 @@ function set_setting($type, $val)
     global $db;
     if($type == "Version")
     {
-        $query = "UPDATE `{$db -> table['options']}` SET `Value` = '".mysql_real_escape_string($val)."' WHERE `Name` = 'Version';";
+        $query = "UPDATE `{$db -> table['options']}` SET `Value` = '".$db->db_escape_string($val)."' WHERE `Name` = 'Version';";
         $db -> query($query);
     }
 }

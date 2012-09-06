@@ -132,22 +132,22 @@ elseif(!isset($_GET['search']) || ($_GET['search'] == "" &&
 		echo "<div class=\"error\">Λάθος αναζήτηση</div></div>";
 }
 else {
-	$s = mysql_real_escape_string(trim($_GET['search']));
+	$s = $db->db_escape_string(trim($_GET['search']));
 	
 	$query = "`{$db->table['booklist']}` WHERE title LIKE \"%$s%\" AND ";
 	/*if(isset($_GET['title']))
 		$query .= "title LIKE \"%$s%\" OR ";*/
 	if(isset($_GET['writer']) && !empty($_GET['writer'])){
-		$writer = mysql_real_escape_string(trim($_GET['writer']));
+		$writer = $db->db_escape_string(trim($_GET['writer']));
 		$query .= "writer LIKE \"%$writer%\" AND ";
 	}
 	if(isset($_GET['publisher']) && !empty($_GET['publisher'])){
-		$publisher = mysql_real_escape_string(trim($_GET['publisher']));
+		$publisher = $db->db_escape_string(trim($_GET['publisher']));
 		$query .= "publisher LIKE \"%$publisher%\" AND ";
 	}
 	
 	if(isset($_GET['isbn']) && !empty($_GET['isbn'])){
-		$isbn = mysql_real_escape_string(trim($_GET['isbn']));
+		$isbn = $db->db_escape_string(trim($_GET['isbn']));
 		$query .= "isbn LIKE \"%$isbn%\" AND ";
 	}
 	

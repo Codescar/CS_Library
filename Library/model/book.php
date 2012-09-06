@@ -7,12 +7,12 @@ function list_books($books){
 		$query = "SELECT `book_id`, `taken`, `must_return` FROM `{$db->table['lend']}` WHERE `user_id` = '{$user->id}';";
 		$res = $db->query($query);
 		$user_books = array();
-		while ($user_books[] = mysql_fetch_array($res)) {};
+		while ($user_books[] = $db->db_fetch_array($res)) {};
 		$taken = array();
 		$query = "SELECT `book_id`, `taken`, `must_return` FROM `{$db->table['lend']}`";
 		$res = $db->query($query);
 		$lended_books = array();
-		while ($lended_books[] = mysql_fetch_array($res)) {};
+		while ($lended_books[] = $db->db_fetch_array($res)) {};
 	}
 	?>
 	<div class="list">
@@ -221,7 +221,7 @@ function have_book_rq($book_id, $user_id){
 	$query = "	SELECT * FROM `{$db->table["requests"]}`
 				WHERE `user_id` = '".$user_id."'
 				AND `book_id` = '$book_id'";
-	$result = mysql_num_rows($db->query($query));
+	$result = $db->db_num_rows($db->query($query));
 	return $result;
 }
 
@@ -230,7 +230,7 @@ function have_book($book_id, $user_id){
 	$query = "	SELECT `taken`, `must_return` FROM `{$db->table["lend"]}` 
 				WHERE `user_id` = '".$user_id."' 
 				AND `book_id` = '$book_id'";
-	$result = mysql_fetch_object(($db->query($query)));
+	$result = $db->db_fetch_object(($db->query($query)));
 	return $result;
 }
 
@@ -255,7 +255,7 @@ function book_avail($book_id){
 	$query = "	SELECT `availability` from `{$db->table["booklist"]}` 
 				WHERE `id` = '$book_id'";
 	$res = $db->query($query);
-	return mysql_fetch_object($res)->availability;
+	return $db->db_fetch_object($res)->availability;
 }
 
 function in_there_pos($where, $what){
@@ -272,11 +272,11 @@ function get_category_name($id){
 	$query = "SELECT {$db->table['categories']}.category_name FROM {$db->table['categories']} 
 				CROSS JOIN {$db->table['book_has_category']} 
 				ON {$db->table['categories']}.id = {$db->table['book_has_category']}.category_id
-				WHERE {$db->table['book_has_category']}.book_id = '".mysql_real_escape_string($id)."' 
+				WHERE {$db->table['book_has_category']}.book_id = '".$db->db_escape_string($id)."' 
 				ORDER BY category_name ASC;";
 	$res = $db->query($query);
 	$flag = 0;
-	while($row = mysql_fetch_array($res)){
+	while($row = $db->db_fetch_array($res)){
 	    if($flag)
 	        $ret .= ", ". $row['category_name'];
 	    else   
@@ -290,18 +290,18 @@ function get_category_name($id){
 function get_book_name($id){
     global $db;
     $query = "SELECT {$db->table['booklist']}.title FROM {$db->table['booklist']}
-    			WHERE `id` = '".mysql_real_escape_string($id)."'";
+    			WHERE `id` = '".$db->db_escape_string($id)."'";
     $res = $db->query($query);
-    $book = mysql_fetch_object($res);
+    $book = $db->db_fetch_object($res);
     return $book->title;
 }
 
 function get_book_date($id){
 	global $db;
 	$query = "SELECT `must_return` FROM {$db->table['lend']}
-		WHERE `book_id` = '".mysql_real_escape_string($id)."'";
+		WHERE `book_id` = '".$db->db_escape_string($id)."'";
 	$res = $db->query($query);
-	$book = mysql_fetch_object($res);
+	$book = $db->db_fetch_object($res);
 	return $book->must_return;
 }
 ?>

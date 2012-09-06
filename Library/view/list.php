@@ -7,7 +7,7 @@
 	
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
 		$q .= " LEFT JOIN `{$db->table['book_has_category']}` ON {$db->table['booklist']}.id = {$db->table['book_has_category']}.book_id " 
-		   .  "WHERE {$db->table['book_has_category']}.category_id = ".mysql_real_escape_string($_GET['id'])." ";
+		   .  "WHERE {$db->table['book_has_category']}.category_id = ".$db->db_escape_string($_GET['id'])." ";
 	
 	$q .= " ORDER BY id ASC ";
 	
@@ -31,7 +31,7 @@
 <div class="content">
 <?php 
     $flag = 0;
-    while($row = mysql_fetch_array($res)){
+    while($row = $db->db_fetch_array($res)){
 
         if($flag)
         echo ", ";

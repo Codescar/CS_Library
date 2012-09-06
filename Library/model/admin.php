@@ -23,10 +23,10 @@ class Admin{
 		$q3 = "SELECT * FROM `log_lend`; ";
 		$q4 = "SELECT * FROM `lend`; ";
 		
-		$r1 = mysql_num_rows($db->query($q1));
-		$r2 = mysql_num_rows($db->query($q2));
-		$r3 = mysql_num_rows($db->query($q3));
-		$r4 = mysql_num_rows($db->query($q4));
+		$r1 = $db->db_num_rows($db->query($q1));
+		$r2 = $db->db_num_rows($db->query($q2));
+		$r3 = $db->db_num_rows($db->query($q3));
+		$r4 = $db->db_num_rows($db->query($q4));
 		?>
 		Library Statistics: <br />
 		All users Count:			<?php echo $r1; ?><br />
@@ -47,7 +47,7 @@ class Admin{
     				ORDER BY `{$db->table['log_lend']}`.taken";
 		$result = $db->query($query);
 		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
-		while($book = mysql_fetch_object($result)){
+		while($book = $db->db_fetch_object($result)){
 		    echo "<tr><td><a href=\"index.php?show=book&id={$book->book_id}\">{$book->title}</a></td>";
 		    echo "<td><a href=\"?show=admin&more=user&id={$book->user_id}\">{$book->username}</a></td>";
 		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->taken))."</td>";
@@ -57,6 +57,7 @@ class Admin{
 	}
 	
 	function show_options(){
+		global $db;
 		$option = new option();
 		$edit = false;
 		if(isset($_GET['name']) && isset($_GET['value']) && isset($_GET['description']))
@@ -97,7 +98,7 @@ class Admin{
             option::save($_POST['name'], $_POST['value'], $_POST['description'], $_POST['id'], $_GET['cat_id']);
         $res = option::list_all($category);
 		?> <?php
-		while($option = mysql_fetch_object($res, 'option')){
+		while($option = $db->db_fetch_object($res, 'option')){
 			$edit_link = "index.php?show=admin&more=options&cat_id=".$category."&id=".$option->id."&name=".$option->name."&description=".$option->description."&value=".$option->value;
 			$delete_link = "index.php?show=admin&more=options&cat_id=".$category."&delete=true&id=".$option->id; ?>
 			<div class="option">
@@ -143,9 +144,9 @@ class Admin{
 				echo "<br />";
 			}
 			else{
-                $user->createUser(	mysql_real_escape_string($_POST['username']), 
-                                    mysql_real_escape_string($_POST['password']), 
-                                    mysql_real_escape_string($_POST['email'])); 
+                $user->createUser(	$db->db_escape_string($_POST['username']), 
+                                    $db->db_escape_string($_POST['password']), 
+                                    $db->db_escape_string($_POST['email'])); 
                 echo "<div class=\"success\">Ο χρήστης δημιουργήθηκε και θα λάβει σχετικό email.<br />";
 				redirect("index.php?show=admin&more=users");
 				echo "<br />";
@@ -173,7 +174,7 @@ class Admin{
 			<th>Τηλέφωνο</th>
 			<th>Email</th>
 		</tr> <?php 
-		while($row = mysql_fetch_object($res)){
+		while($row = $db->db_fetch_object($res)){
 			?><tr>
 				<td><?php echo $row->id; ?> -- <a class="delete-user" href="?show=admin&more=del_user&id=<?php echo $row->id; ?>">Διαγραφή</a></td>
 				<td><a href="?show=admin&more=user&id=<?php echo $row->id; ?>"><?php echo $row->username; ?></a></td>
@@ -191,14 +192,14 @@ class Admin{
 		global $user, $user_info, $db;
 		
 		if(isset($_POST['hidden_update']) && $_POST['hidden_update'] == "codescar"){
-			$name = mysql_real_escape_string($_POST['name']);
-			$surname = mysql_real_escape_string($_POST['surname']);
-			$email = mysql_real_escape_string($_POST['email']);
-			$born = mysql_real_escape_string($_POST['born']);
-			$phone = mysql_real_escape_string($_POST['phone']);
-			$new_pass = mysql_real_escape_string($_POST['n_pass']);
-			$r_new_pass = mysql_real_escape_string($_POST['r_n_pass']);
-			$user_id = mysql_real_escape_string($_POST['hidden_treasure']);
+			$name = $db->db_escape_string($_POST['name']);
+			$surname = $db->db_escape_string($_POST['surname']);
+			$email = $db->db_escape_string($_POST['email']);
+			$born = $db->db_escape_string($_POST['born']);
+			$phone = $db->db_escape_string($_POST['phone']);
+			$new_pass = $db->db_escape_string($_POST['n_pass']);
+			$r_new_pass = $db->db_escape_string($_POST['r_n_pass']);
+			$user_id = $db->db_escape_string($_POST['hidden_treasure']);
 			$user->update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass);
 		}
 		if(isset($_GET['ban']) && $_GET['ban'] != ""){
@@ -229,8 +230,8 @@ class Admin{
 	}
 	
 	function user_history($id){
-		global $user;
-		$user->show_history(mysql_real_escape_string($id));
+		global $user, $db;
+		$user->show_history($db->db_escape_string($id));
 	}
 
 	function lend_book($book_id, $user_id){
@@ -258,7 +259,7 @@ class Admin{
 		$query = "SELECT * FROM `{$db->table['lend']}`
 					WHERE `book_id` = '$book_id' AND `user_id` = '$user_id' ";
 		$result = $db->query($query);
-		$lend = mysql_fetch_object($result);
+		$lend = $db->db_fetch_object($result);
 		if($lend->renewals < $CONFIG['renewals']){
 			$query = "UPDATE `{$db->table['lend']}`
 						SET `renewals` = `renewals` + 1 , `must_return` = ADDDATE('$lend->must_return', {$CONFIG['extra_days_lend']})
@@ -270,7 +271,7 @@ class Admin{
 	}
 
 	function manage_announce(){
-		global $CONFIG;
+		global $CONFIG, $db;
 		$announcement = new announcements();
 		if(!isset($_GET['id']) && !isset($_GET['add'])){
             $ret = announcements::list_all(); ?>
@@ -285,7 +286,7 @@ class Admin{
                 <th>Ημερομηνία</th>
                 <th>Επιλογές</th>
             </tr> <?php
-            while($announcement = mysql_fetch_object($ret, 'announcements')){
+            while($announcement = $db->db_fetch_object($ret, 'announcements')){
                 ?> <tr>
                     <td><?php echo substr($announcement->title, 0, 40); echo (strlen($announcement->title) > 40) ? "..." : ""; ?></td>
                     <td><?php echo substr($announcement->body, 0, 40);  echo (strlen($announcement->body) > 40)  ? "..." : ""; ?></td>
@@ -303,7 +304,7 @@ class Admin{
 			?> <script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script> <?php
 			$new = true;
             if($_GET['id'] != 0){
-            	$announcement = announcements::get(mysql_real_escape_string($_GET['id'])); 
+            	$announcement = announcements::get($db->db_escape_string($_GET['id'])); 
             	$new = false;
             } ?>
             <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
@@ -329,6 +330,7 @@ class Admin{
 	}
 
 	function manage_pages(){
+		global $db;
 		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
 				pages::update($_GET['id'], $_POST['body']);
 			echo "<div class=\"success\">Το κείμενο ανανεώθηκε<br />";
@@ -336,14 +338,14 @@ class Admin{
 		}
 	    if(!isset($_GET['id']) && !isset($_GET['add'])){
 	        $ret = pages::list_all();
-			while($page = mysql_fetch_object($ret)){
+			while($page = $db->db_fetch_object($ret)){
 				 echo $page->desc;
 				 ?> -- <a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $page->id))); ?>">Edit</a><br /> <?php 
 			}
 	    }
 		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){		
 			$ret = pages::get($_GET['id']);
-			$page = mysql_fetch_object($ret);
+			$page = $db->db_fetch_object($ret);
 			?> <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
 				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $page->body; ?></textarea><br />
 				<input type="submit" value="Save" />
@@ -352,7 +354,7 @@ class Admin{
 	}
 	
 	function maintenance(){
-		//TODO maybe optimise the mysql tables
+		//TODO maybe optimise the database tables
 		global $CONFIG, $user;
 		
 		if($CONFIG['maintenance'])

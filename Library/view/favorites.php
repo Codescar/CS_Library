@@ -14,12 +14,12 @@
 			if(!isset($_GET['id']))
 				echo '<div class="error">Invalid request.</div>';
 			else
-				$user->favorites->add_favorite(mysql_real_escape_string($_GET['id']));
+				$user->favorites->add_favorite($db->db_escape_string($_GET['id']));
 		}elseif(isset($_GET['action']) && $_GET['action'] == "remove"){
 			if(!isset($_GET['id']))
 				echo '<div class="error">Invalid request.</div>';
 			else
-				$user->favorites->delete_favorite(mysql_real_escape_string($_GET['id']));
+				$user->favorites->delete_favorite($db->db_escape_string($_GET['id']));
 		}
 		
 		$books = $db->get_books($user->favorites->get_favorites(), 

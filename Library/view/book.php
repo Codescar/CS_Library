@@ -9,15 +9,15 @@
 	$lended  = FALSE;
 	$have = FALSE;
 	$requested = FALSE;
-	$book_id = mysql_real_escape_string($_GET['id']);
+	$book_id = $db->db_escape_string($_GET['id']);
 	$results = $db->query("SELECT *, COUNT(category_id) AS numCategories 
 							FROM {$db->table['booklist']} 
 								CROSS JOIN  {$db->table['book_has_category']} 
 									ON id = book_id 
 							WHERE `id` = '$book_id';");
-	if(mysql_num_rows($results) == 0)
+	if($db->db_num_rows($results) == 0)
 		die("Λάθος αίτημα");
-	$book = mysql_fetch_object($results);
+	$book = $db->db_fetch_object($results);
 	if($logged = $user->is_logged_in()){
 		$have = have_book($book_id, $user->id);
 		$requested = have_book_rq($book_id, $user->id);

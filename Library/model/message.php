@@ -16,7 +16,7 @@ class message{
 	public function read($id){
 		global $db;
 		$query = "	SELECT * FROM `{$this->table}` 
-					WHERE `id` = '".mysql_real_escape_string($id)."'; ";
+					WHERE `id` = '".$db->db_escape_string($id)."'; ";
 		$result = $db->query($query);
 		
 	} 
@@ -26,7 +26,7 @@ class message{
 		$query = "	SELECT COUNT(id) FROM `{$this->table}` 
 					WHERE `to` = '{$this->user_id}' AND `unreaded` = '1'; ";
 		$result = $db->query($query);
-		$array = mysql_fetch_array($result);
+		$array = $db->db_fetch_array($result);
 		return $array[0];
 	}
 	
@@ -58,7 +58,7 @@ class message{
 	public function delete($id){
 		global $db;
 		$query = "	DELETE FROM `{$this->table}` 
-					WHERE `id` = '".mysql_real_escape_string($id)."'; ";
+					WHERE `id` = '".$db->db_escape_string($id)."'; ";
 		$result = $db->query($query);
 	}
 	

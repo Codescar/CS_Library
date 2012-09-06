@@ -234,4 +234,30 @@ class Lbdb{
 		$this->query($clear_lend);
 		$this->query($clear_log_lend);
 	}
+	
+	public function db_fetch_object($query_result, $class_name = null, $params = null){
+		if($class_name == null)
+			return mysql_fetch_object($query_result);
+		else
+			if($params == null)
+				return mysql_fetch_object($query_result, $class_name);
+			else
+				return mysql_fetch_object($query_result, $class_name, $params);
+	}
+	
+	public function db_fetch_array($query_result, $result_type = null){
+		return mysql_fetch_array($query_result, $result_type);
+	}
+	
+	public function db_escape_string($string){
+		return mysql_real_escape_string($string, $this->connection);
+	}
+	
+	public function db_num_rows($query_result){
+		return mysql_num_rows($query_result);
+	}
+	
+	public function db_affected_rows(){
+		return mysql_affected_rows($this->connection);
+	}
 };

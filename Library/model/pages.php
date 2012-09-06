@@ -6,9 +6,9 @@ class pages{
 	
 	public static function get_body($id){
 		global $db;
-		$query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `{$db->table["pages"]}`.`id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+		$query = "SELECT `body` FROM `{$db->table["pages"]}` WHERE `{$db->table["pages"]}`.`id` = '".$db->db_escape_string($id)."' LIMIT 1;";
 		$result = $db->query($query);
-		$page = mysql_fetch_object($result);
+		$page = $db->db_fetch_object($result);
 		echo $page->body;
 		return 1;
 	}
@@ -21,15 +21,15 @@ class pages{
 	
 	public static function get($id){
 	    global $db;
-	    $query = "SELECT * FROM `{$db->table["pages"]}` WHERE `{$db->table["pages"]}`.`id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+	    $query = "SELECT * FROM `{$db->table["pages"]}` WHERE `{$db->table["pages"]}`.`id` = '".$db->db_escape_string($id)."' LIMIT 1;";
 	    return $db->query($query);
 	}
 	
 	public static function update($id, $body){
 		global $db, $user;
 		$query = "	UPDATE `{$db->table["pages"]}` 
-					SET `{$db->table["pages"]}`.`body` = '".mysql_real_escape_string($body)."' 
-					WHERE `{$db->table["pages"]}`.`id` = '".mysql_real_escape_string($id)."';";
+					SET `{$db->table["pages"]}`.`body` = '".$db->db_escape_string($body)."' 
+					WHERE `{$db->table["pages"]}`.`id` = '".$db->db_escape_string($id)."';";
 		$db->query($query);
 		return ;
 	}
@@ -40,14 +40,14 @@ class pages{
 	* public static function add($title, $body){
 	global $db, $user;
 	$query = "	INSERT INTO `{$db->table["pages"]}` (`title`, `body`, `date`, `author`)
-	VALUES ('".mysql_real_escape_string($title)."', '".mysql_real_escape_string($body)."', NOW(), '{$user->id}') ;";
+	VALUES ('".$db->db_escape_string($title)."', '".$db->db_escape_string($body)."', NOW(), '{$user->id}') ;";
 	$db->query($query);
 	return ;
 	}
 	
 	public static function delete($id){
 	global $db;
-	$query = "DELETE FROM `{$db->table["pages"]}` WHERE `id` = '".mysql_real_escape_string($id)."' LIMIT 1;";
+	$query = "DELETE FROM `{$db->table["pages"]}` WHERE `id` = '".$db->db_escape_string($id)."' LIMIT 1;";
 	$db->query($query);
 	return ;
 	}
@@ -56,7 +56,7 @@ class pages{
 		global $db;
 		$query = "SELECT * FROM `{$db->table["pages"]}` ORDER BY `date` desc;";
 		$result = $db->query($query);
-		while($row = mysql_fetch_array($result)){
+		while($row = $db->db_fetch_array($result)){
 			?>
 			<div class="announce">
 				<div class="announce-head"><?php echo $row['title']; ?></div>
@@ -71,7 +71,7 @@ class pages{
 		global $db;
 		$query = "SELECT id FROM `{$db->table["pages"]}`;";
 		$result = $db->query($query);
-		$num = mysql_num_rows($result);
+		$num = $db->db_num_rows($result);
 		return $num;
 	}*/
 };
