@@ -1,5 +1,5 @@
 <?php
-class Lbdb{
+abstract class DataBase{
 	private $connection, $hostname, $username, $password, $dbname, $queries;
 	public $booklist, $query_time;
 	//TODO have to use the arrays for the names of the column/tables everywhere I think... much work!
@@ -85,51 +85,41 @@ class Lbdb{
 		$this->query_time = 0;
 	}
 
+	abstract protected function _connect();
+	
 	public function connect(){
-	    global $CONFIG;
-	    if($CONFIG['debug']){
-	    	$start = microtime(true);
-	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password)
-	            or die("Δεν μπόρεσε να γίνει σύνδεση με την βάση. Error: ".mysql_error());
-	        mysql_select_db($this->dbname, $this->connection)
-	            or die("Πρόβλημα με την επιλογή βάσης: ".mysql_error());
-	         $this->query_time += microtime(true) - $start;
-	    }
-	    else{
-	        $this->connection = mysql_connect($this->hostname, $this->username, $this->password);
-	        mysql_select_db($this->dbname, $this->connection);   
-	    }
-	    $this->query("SET NAMES 'utf8'");
-	    /* TODO query("SET time_zone = 'Europe/Athens'") 
-	     * Have to install timezones in mysql server 
-	     */
-	   	$this->query("SET time_zone = '+2:00'");
+	    $start = microtime(true);
+	    
+	    $this->_connect();
+	    
+	    $this->query_time += microtime(true) - $start;
+	    
 	    return;
 	}
 	
+	abstract protected function _close();
+	
 	public function close(){
-		global $CONFIG;
-		if($CONFIG['debug'])
-	    	$start = microtime(true);
-		mysql_close($this->connection);
-		if($CONFIG['debug'])
-			$this->query_time += microtime(true) - $start;
+		
+	    $start = microtime(true);
+		
+	    $this->_close();
+	    	
+		$this->query_time += microtime(true) - $start;
+		
+		return;
 	}
 	
-	/*
-	 * Need some fixing, in order to get protected from harmful queries. 
-	 */
+	abstract protected function _query($query);
+	
 	public function query($query){
-		global $CONFIG;
 	    
-		if($CONFIG['debug']){
-	    	$start = microtime(true);
-			$results = mysql_query($query, $this->connection) or die("Error κατά την εκτέλεση query: ".mysql_error());
-		}else
-	        $results = mysql_query($query, $this->connection);
-	        
-	    if($CONFIG['debug'])
-			$this->query_time += microtime(true) - $start;
+	    $start = microtime(true);
+	    
+		$results = $this->_query($query);
+		
+		$this->query_time += microtime(true) - $start;
+		
 	    $this->queries++;
 	    
 		return $results;
@@ -145,13 +135,13 @@ class Lbdb{
 	 */
 	public function get_books($query, $query2 = null){
 		$res = $this->query($query);
-		for($i = 1; $books[$i] = mysql_fetch_array($res); $i++);
+		for($i = 1; $books[$i] = $this->db_fetch_array($res); $i++);
 		if($books['1'] == FALSE)	
 			return FALSE;
 		array_pop($books);
 		if($query2 != null){
 			$r = $this->query($query2);
-			$b = mysql_fetch_array($r);
+			$b = $this->db_fetch_array($r);
 			$books['0'] = $b[0];
 		}
 		else
@@ -235,29 +225,13 @@ class Lbdb{
 		$this->query($clear_log_lend);
 	}
 	
-	public function db_fetch_object($query_result, $class_name = null, $params = null){
-		if($class_name == null)
-			return mysql_fetch_object($query_result);
-		else
-			if($params == null)
-				return mysql_fetch_object($query_result, $class_name);
-			else
-				return mysql_fetch_object($query_result, $class_name, $params);
-	}
+	abstract protected function db_fetch_object($query_result, $class_name = null, $params = null);
 	
-	public function db_fetch_array($query_result, $result_type = null){
-		return mysql_fetch_array($query_result, $result_type);
-	}
+	abstract protected function db_fetch_array($query_result, $result_type = null);
 	
-	public function db_escape_string($string){
-		return mysql_real_escape_string($string, $this->connection);
-	}
+	abstract protected function db_escape_string($string);
 	
-	public function db_num_rows($query_result){
-		return mysql_num_rows($query_result);
-	}
+	abstract protected function db_num_rows($query_result);
 	
-	public function db_affected_rows(){
-		return mysql_affected_rows($this->connection);
-	}
+	abstract protected function db_affected_rows();
 };

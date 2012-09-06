@@ -13,6 +13,11 @@
 	$CONFIG['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/Library/demo/";
 	$CONFIG['max_idle_time'] =  3600;
 	$CONFIG['template_path'] =  $CONFIG['document-root']."templates/";
+	/* With what database driver / database the installation works 
+	 * options are: MySQLDriver
+	 * 				MySQLiDriver
+	 * */
+	$CONFIG['dbDriver'] = "MySQLiDriver";
 	
 	/* Modules configs*/
 	$CONFIG['allow_register'] = true;
