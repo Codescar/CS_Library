@@ -87,18 +87,14 @@ function upload_file() {
 	return 0;
 }
 
-function get_avatar() {
+function get_avatar($user_id) {
 	global $db, $user;
-
-	$user_id = $user->id;
 
 	$query = "SELECT * FROM `{$db->table['avatars']}` WHERE `user_id` = '$user_id' LIMIT 1;";
 	$result = $db->query($query);
 	$res = $db->db_fetch_array($result);
-
 	if($db->db_num_rows($result) != 0 )
 		return $res;
-
 
 	return 0;
 }
@@ -108,10 +104,9 @@ function update_avatar_in_db($avatar = null, $is_file = 0) {
 
 	$user_id = $user->id;
 
-	$res = get_avatar();
+	$res = get_avatar($user_id);
 
-	if($res != 0 && $res['is_file'] == 1)
-	{
+	if($res != 0 && $res['is_file'] == 1){
 		$file = $res['avatar_path'];
 		if (file_exists($file))
 			unlink($file);
@@ -122,13 +117,11 @@ function update_avatar_in_db($avatar = null, $is_file = 0) {
 	if($res == 0 && $is_file != -1)
 		$query = "INSERT INTO `{$db->table['avatars']}` (`user_id`, `is_file`, `avatar_path`) VALUES ('$user_id', '$is_file', '$avatar');";
 	elseif($is_file == -1)
-	$query = "DELETE FROM `{$db->table['avatars']}` WHERE `user_id` = '$user_id' LIMIT 1;";
+		$query = "DELETE FROM `{$db->table['avatars']}` WHERE `user_id` = '$user_id' LIMIT 1;";
 	else
 		$query = "UPDATE `{$db->table['avatars']}` SET `is_file` = '$is_file', `avatar_path` = '$avatar' WHERE `user_id` = '$user_id' LIMIT 1;";
 
 	$db->query($query);
-
-	echo "<div class=\"success\">Your image have been updated!</div>";
 
 	return $file;
 }

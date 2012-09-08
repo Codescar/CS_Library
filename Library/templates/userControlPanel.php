@@ -11,7 +11,7 @@
 				Ανέβασμα αρχείου εικόνας<br />
 				<div class="subtitle">Η εικόνα πρέπει να είναι μέχρι 150x150 εικονοστροιχεία και μέγεθος μικρότερο του 1MB.</div>
 				<form action="" id="uploadForm" method="post" enctype="multipart/form-data" >
-					<input type="file" onclick="check_with_image();" name="profilePicture" id="profilePicture" />
+					<input type="file" name="profilePicture" />
 					<input type="hidden" name="hidden" value="file_upload" /><br/>
 					<input type="submit" onclick="check_with_image();" value="Ανέβασμα" />
 				</form>
@@ -34,11 +34,12 @@
 	</div>
 	<div class="block" id="user-left">
 		<?php $image_url = "view/images/user-icon.png";
-        	if($ret = get_avatar())
+        	if($ret = get_avatar($user_info->id))
         		$image_url = $ret['avatar_path']; ?>
 		<img src="<?php echo $image_url; ?>" style="width: 150px; height: 150px;" alt="User Image" /><br />
-		
-		<a href="#" onclick="showPictureUtil();">Αλλάξτε την φωτογραφία</a><br />
+		<?php if($user->id == $user_info->id) 		
+			echo "<a href=\"#\" onclick=\"showPictureUtil();\">Αλλάξτε την φωτογραφία</a><br />";
+		?>
 		<br /><span class="bold">Όνομα Χρήστη: </span> <?php echo $user_info->username; ?>
 		<br /><span class="bold">Τύπος Χρήστη: </span> <?php echo $user_info->usertype; ?>
 		<br /><span class="bold">Δανεισμένα βιβλία: </span> <?php echo $user_info->books_lended; ?>

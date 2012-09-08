@@ -66,5 +66,5 @@
 		render_template("singleBook.php"); 
 	} /* end else (don't edit, just view) */
 	else
-		die("Λάθος αίτημα");
+		include '404.php';
 	?>
