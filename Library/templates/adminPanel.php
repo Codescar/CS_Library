@@ -45,3 +45,10 @@
 		Maintenance
 	</a></h3>
 </div>
+<div class="panel-blocks">
+	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=book&edit=add" >
+		<img class="block panel-img" src="view/images/book.png" /><br />
+		Add Book
+	</a></h3>
+	
+</div>

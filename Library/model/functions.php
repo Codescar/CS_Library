@@ -1,8 +1,4 @@
 <?php 
-function redirect($url, $time = 1000){
-	echo "Αν δεν γίνεται ανακατεύθυνση, πιέστε <a href=\"".$url."\">εδώ</a>.</div>"
-			."<script type=\"text/javascript\">var t=setTimeout(\"window.location = '".$url."'\",".$time.")</script>";
-}
 
 function date_gr($timestamp, $mode) {
 

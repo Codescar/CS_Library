@@ -81,6 +81,8 @@
 				} ?>
 			</span> 
 		</div>
+		<a href="index.php?show=book&edit=edit&id=<?php echo $book->id; ?>"><div class="box book-button book-lend-book" id="lend">Επεξεργασία</div></a>
+		<a href="index.php?show=book&edit=delete&id=<?php echo $book->id; ?>" onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το διαγράψεις;');"><div class="box book-button book-lend-book" id="lend">Διαγραφή</div></a>
 	</div>
 </div><!-- .book-info end -->
 <script type="text/javascript">
