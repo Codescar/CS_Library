@@ -1,9 +1,11 @@
 <?php
 
 $sql_dir = '../sql/';
+$CONFIG['debug'] = true;
 require_once('../../include/db.php');
-
 require_once('../../model/db.php');
+require_once('../../model/dbDrivers/'. $CONFIG['dbDriver'] .'.php');
+
 
 $db = new Lbdb;
 

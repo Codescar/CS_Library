@@ -834,3 +834,8 @@ a.panel-links{
 .link-button{
 	padding: 10px 0;
 }
+.book-edit label{
+	display: inline-block;
+	width: 150px;
+	margin: 7px;
+}

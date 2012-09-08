@@ -200,6 +200,7 @@ class User{
 	}
 
 	public function is_admin(){
+		if(!$this->is_logged_in()) return false;
 	    return ($this->access_level >= 100) ? true : false;
 	}
 	

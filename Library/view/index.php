@@ -26,7 +26,7 @@
 		include('list.php');
 	elseif($_GET['show'] == "search")
 		include('search.php');
-	elseif($_GET['show'] == "book" && isset($_GET['id']))
+	elseif($_GET['show'] == "book")
 		include('book.php');
 	elseif($_GET['show'] == "login" && $CONFIG['allow_login'])
 		include('login.php');
