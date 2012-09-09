@@ -34,8 +34,11 @@
     if(isset($_GET)){
     	if(isset($_GET['id']))
 			$id = $_GET['id'];
+		else
+			$id = 0;
 		foreach ($_GET as $key => $value)
-			echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"> ";
+			if(!array_search($key, array("sp-categories", "id","category-more")))
+				echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"> ";
 		if(isset($_GET['sp-category']))
 			switch ($_GET['sp-category']){
 				case "available" : 
@@ -54,9 +57,10 @@
 	}
 	?>
     <div><div class="block" style="vertical-align: middle;">Κατηγορίες:</div><select class="block category-select" name="id"><?php
+    $flag = true;
     while($category = $db->db_fetch_object($res)){
 		echo "<option value=\"$category->id\" ";
-		echo ($id == $category->id) ? "selected=\"selected\"" : "";
+		if($id != 0) echo ($id == $category->id) ? "selected=\"selected\"" : ""; else { echo ($flag) ? "selected=\"selected\"" : ""; $flag = false; }
 		echo ">".$category->name."</option>";
 	}
     ?></select></div>
