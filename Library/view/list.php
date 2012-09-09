@@ -56,7 +56,7 @@
     <div><div class="block" style="vertical-align: middle;">Κατηγορίες:</div><select class="block category-select" name="id"><?php
     while($category = $db->db_fetch_object($res)){
 		echo "<option value=\"$category->id\" ";
-		echo ($_GET['id'] == $category->id) ? "selected=\"selected\"" : "";
+		echo ($id == $category->id) ? "selected=\"selected\"" : "";
 		echo ">".$category->name."</option>";
 	}
     ?></select></div>
