@@ -19,20 +19,21 @@ public function __construct(){
 	    if($CONFIG['debug']){
 	        $this->connection = new mysqli($this->hostname, $this->username, $this->password, $this->dbname)
 	            or die("Δεν μπόρεσε να γίνει σύνδεση με την βάση. Error: ".mysql_error());
-	   		if ($this->connection->connect_error) {
+	   		if (!empty($this->connection->connect_error)) {
     			die('Connect Error (' . $this->connection->connect_errno . ') '. $this->connection->connect_error);
 			}
 	    }
 	    else{
 	        $this->connection = @new mysqli($this->hostname, $this->username, $this->password, $this->dbname);
 	    }
+
 	    $this->query("SET NAMES 'utf8';");
 	    /* TODO query("SET time_zone = 'Europe/Athens';") 
 	     * Have to install timezones in mysql server 
 	     */
 	   	$this->query("SET time_zone = '+2:00';");
 	   	
-	    return;
+	    return $this->connection;
 	}
 	
 	protected function _close(){
@@ -84,6 +85,14 @@ public function __construct(){
 	
 	public function db_affected_rows(){
 		return mysqli_affected_rows($this->connection);
+	}
+	
+	public function db_error(){
+		
+		try{
+			
+		return mysqli_errno($this->connection);
+		}catch(Exception $e){print_r($e);}
 	}
 };
 ?>

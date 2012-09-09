@@ -30,7 +30,7 @@ public function __construct(){
 	     * Have to install timezones in mysql server 
 	     */
 	   	$this->query("SET time_zone = '+2:00';");
-	    return;
+	    return $this->connection;
 	}
 	
 	protected function _close(){
@@ -83,6 +83,10 @@ public function __construct(){
 	
 	public function db_affected_rows(){
 		return mysql_affected_rows($this->connection);
+	}
+	
+	public function db_error(){
+		return mysql_error($this->connection);
 	}
 };
 ?>

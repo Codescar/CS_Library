@@ -1,3 +1,20 @@
+	<?php 
+	//let's check if the database is accessable
+	require_once('../model/db.php');
+	switch($_POST['db_driver']){
+		case 'MySQL':	require_once('../model/dbDrivers/MySQLDriver.php');
+						break;
+		case 'MySQLi':	require_once('../model/dbDrivers/MySQLiDriver.php');
+						break;
+	}
+	
+	$db = new Lbdb();
+
+	print_r($db->connect());
+
+	
+	$db->close();
+	?>
 	<p>Setting up basic parametrs</p><br/>
 	<form action="?step=2" id="" method="post">
 	<label for="title">Title: </label>

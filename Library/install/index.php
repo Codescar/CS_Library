@@ -23,10 +23,11 @@ input{
 <body>
 <div>
 	<?php
-	if(!isset($_GET['step']))
+	if(!isset($_GET['step'])){
+		include('requirements.php');
 		//Generating database infos
 		include('steps/step0.php');
-	elseif($_GET['step'] == "1")
+	}elseif($_GET['step'] == "1")
 		//Generating basic config parametrs
 		include('steps/step1.php');
 	elseif($_GET['step'] == "2")

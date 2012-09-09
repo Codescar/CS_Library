@@ -90,11 +90,11 @@ abstract class DataBase{
 	public function connect(){
 	    $start = microtime(true);
 	    
-	    $this->_connect();
+	    $tmp = $this->_connect();
 	    
 	    $this->query_time += microtime(true) - $start;
 	    
-	    return;
+	    return $tmp;
 	}
 	
 	abstract protected function _close();
@@ -234,4 +234,6 @@ abstract class DataBase{
 	abstract protected function db_num_rows($query_result);
 	
 	abstract protected function db_affected_rows();
+	
+	abstract protected function db_error();
 };
