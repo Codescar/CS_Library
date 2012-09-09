@@ -2,7 +2,9 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	
+	?><div id="direction">
+		<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<?php echo $_GET['edit'] == "edit" ? "Επεξεργασία Βιβλίου" : "Δημιουργία Βιβλίου"; ?>
+	</div><?php
 	global $db, $user;
 
 	if(isset($_GET['id']))
@@ -102,11 +104,7 @@
 		}
 		elseif(isset($_GET['lend']))
 			$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
-	?>
-	<div id="direction">
-		<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<a href="index.php?show=list">Κατάλογος βιβλίων</a>&nbsp;&gt;&gt;&nbsp;<?php echo $book->title; ?>
-	</div>
-	<?php 
+ 
 		echo "<div class=\"content book-prev\">";
 		render_template("singleBook.php"); 
 	} /* end else (don't edit, just view) */

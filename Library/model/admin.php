@@ -37,7 +37,7 @@ class Admin{
 	}
 	
 	function show_history($id = -1){
-		global $db;
+		global $db, $CONFIG, $page;
 		$query = "	SELECT title, username, taken, returned, book_id, user_id 
 					FROM `{$db->table['log_lend']}`
     					CROSS JOIN `{$db->table['users']}`
@@ -46,16 +46,54 @@ class Admin{
     						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id ";
 		if($id != -1)
 			$query .= "WHERE `{$db->table['log_lend']}`.`user_id` = '$id' ";
-    	$query .= "ORDER BY `{$db->table['log_lend']}`.taken ";
+		$actv = 0;
+		if(isset($_GET['order'])){
+			switch ($_GET['order']){
+				case "book" : 
+					$query .= "ORDER BY `{$db->table['booklist']}`.title ";
+					$actv = 1;
+					break;
+				case "user" :
+					$query .= "ORDER BY `{$db->table['users']}`.username ";
+					$actv = 2;
+					break;
+				case "taken" :
+					$query .= "ORDER BY `{$db->table['log_lend']}`.taken ";
+					$actv = 3;
+					break;
+				default:
+					$query .= "ORDER BY `{$db->table['log_lend']}`.returned ";
+					$actv = 4;
+			}
+		} else {
+			$query .= "ORDER BY `{$db->table['log_lend']}`.returned ";
+		}
+		if(isset($_GET['ord']) && $_GET['ord'] == "asc"){
+			$query .= " ASC ";
+			$ord = 0;
+		}else{
+			$query .= " DESC ";
+			$ord = 1;
+		}
+		$query .= "LIMIT ".$page*$CONFIG['history_items_per_page'].", ".$CONFIG['history_items_per_page'].";";
+    	//echo $query."<br />";
 		$result = $db->query($query);
-		echo "<table id=\"history\"><tr><th>Βιβλίο</th><th>Χρήστης</th><th>Το Πήρε</th><th>Το Έφερε</th></tr>";
+		?><table id="history"><tr>
+			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "book", "ord" => ($actv == 1 && $ord) ? "asc" : "desc"))); ?>" >Βιβλίο <?php echo ($actv == 1 && $ord) ? "/\\" : "\/"; ?></a></th>
+			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "user", "ord" => ($actv == 2 && $ord) ? "asc" : "desc"))); ?>" >Χρήστης <?php echo ($actv == 2 && $ord) ? "/\\" : "\/"; ?></a></th>
+			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "taken", "ord" => ($actv == 3 && $ord) ? "asc" : "desc"))); ?>" >Το Πήρε <?php echo ($actv == 3 && $ord) ? "/\\" : "\/"; ?></a></th>
+			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "returned", "ord" => ($actv == 4 && $ord) ? "asc" : "desc"))); ?>" >Το Έφερε <?php echo ($actv == 4 && $ord) ? "/\\" : "\/"; ?></a></th>
+		</tr><?php
 		while($book = $db->db_fetch_object($result)){
 		    echo "<tr><td><a href=\"index.php?show=book&id={$book->book_id}\">{$book->title}</a></td>";
 		    echo "<td><a href=\"?show=admin&more=user&id={$book->user_id}\">{$book->username}</a></td>";
 		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->taken))."</td>";
 		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->returned))."</td></tr>\n";
 		}
-        echo "</table>";
+        ?></table><?php
+        $result = $db->query("SELECT * FROM `{$db->table['log_lend']}`");
+        $num = $db->db_num_rows($result);
+        paggination($num, -1, -1, $CONFIG['history_items_per_page']);
 	}
 	
 	function show_options(){
@@ -87,7 +125,7 @@ class Admin{
             	<textarea id="description" name="description"><?php echo ($edit) ? $_GET['description'] : "" ; ?></textarea>
             </div>
             <div class="block new-opt-save">
-				<input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε" ;?>" />
+				<input class="cp-button bold center link box" type="submit" value="<?php echo ($edit) ? "Αποθήκευσε" : "Πρόσθεσε"; ?>" />
 			</div>
 			<input type="hidden" name="id" value="<?php echo ($edit) ? $_GET['id'] : "" ; ?>" />
 			<input type="hidden" name="id" value="<?php echo (isset($_GET['cat_id'])) ? $_GET['cat_id'] : "3" ; ?>" />
@@ -165,9 +203,8 @@ class Admin{
 	}
 	
 	function show_users(){
-		global $db;
-		//TODO may use pages for the results
-		$query = "SELECT * FROM `users` ORDER BY `id`;";
+		global $db, $CONFIG, $page;
+		$query = "SELECT * FROM `users` ORDER BY `id` LIMIT ".$page*$CONFIG['users_per_page'].", ".$CONFIG['users_per_page'].";";
 		$res = $db->query($query);
 		?> <table class="add-new-under">
 		<tr>
@@ -188,6 +225,9 @@ class Admin{
 			<button type="button" class="box link cp-button bold center">Δημιουργία Χρήστη</button>
 		</a>
 		<?php
+		$result = $db->query("SELECT * FROM `{$db->table['users']}`");
+		$num = $db->db_num_rows($result);
+		paggination($num, -1, -1, $CONFIG['users_per_page']);
 	}
 	
 	function show_user($id){
@@ -304,7 +344,7 @@ class Admin{
             	$announcement = announcements::get($db->db_escape_string($_GET['id'])); 
             	$new = false;
             } ?>
-            <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
+            <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE"))); ?>" method="post">
                 <textarea class="ckeditor" name="body" id="body"><?php echo ($new) ? "" : $announcement->body; ?></textarea><br />
                 <label for="title" class="bold">Τίτλος:</label>
                     <input type="text" name="title" id="title" value="<?php echo ($new) ? "" : $announcement->title; ?>" />
@@ -327,7 +367,9 @@ class Admin{
 	}
 
 	function manage_pages(){
-		global $db;
+		global $db, $CONFIG;
+		require_once('model/ckeditor/ckeditor.php');
+		?><script src="<?php echo $CONFIG['url']; ?>model/ckeditor/ckeditor.js" type="text/javascript"></script><?php
 		if(isset($_GET['edit']) && $_GET['edit'] == "DONE" && isset($_GET['id'])){
 				pages::update($_GET['id'], $_POST['body']);
 			echo "<div class=\"success\">Το κείμενο ανανεώθηκε<br />";
@@ -342,9 +384,9 @@ class Admin{
 	    }
 		elseif(!isset($_GET['edit']) && !isset($_GET['delete']) && isset($_GET['id'])){		
 			$ret = pages::get($_GET['id']);
-			$page = $db->db_fetch_object($ret);
-			?> <form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE")));?>" method="post">
-				<label for="body">Body:</label> <textarea class="ckeditor" name="body" id="body"><?php echo $page->body; ?></textarea><br />
+			$page = $db->db_fetch_object($ret); ?>
+			<form action="<?php echo "?".http_build_query(array_merge($_GET, array("edit" => "DONE"))); ?>" method="post">
+				<textarea class="ckeditor" name="body" id="body"><?php echo $page->body; ?></textarea><br />
 				<input type="submit" value="Save" />
 			</form>	<?php 	
 		}

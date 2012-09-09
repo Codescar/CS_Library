@@ -31,17 +31,10 @@
 				} ?>
 		</div>
 		<div id="buttons" class="block">
-			<div class="box book-button book-add-to-wish">
-				<?php favorites::show_favorites_button($book->id); ?>  
-    		</div>
-    		<?php if(!$have && !$requested && $book->availability == 1){ ?>
-    		<div class="box book-button book-lend-book" id="lend">
-    			<?php if(!$logged){ ?>
-    				<a class="must-login" href="?show=login">Δανείσου το</a>
-    			<?php }else{ ?>
-    				<a class="request-book" href="?show=book&amp;id=<?php echo $_GET['id']; ?>&amp;lend=1">Δανείσου το</a>
-    			<?php }?>
-    		</div>
+			<?php favorites::show_favorites_button($book->id, "single");
+    		if(!$have && !$requested && $book->availability == 1){ ?>
+	    		<a class="<?php echo $logged ? "request-book" : "must-login"; ?>" href="<?php echo $logged ? "?show=book&amp;id={$_GET['id']}&amp;lend=1" : "?show=login"; ?> ">
+	    			<button type="button" class="book-button link box center bold">Δανείσου το</button></a>
     		<?php } elseif($logged && $have) { ?>
     			<div class="book-button box"><a class="renewal" href="#">Ανανέωση</a></div>
     		<?php } ?>
@@ -82,8 +75,12 @@
 			</span> 
 		</div>
 		<?php if($user->is_admin()) { ?>
-			<a href="index.php?show=book&edit=edit&id=<?php echo $book->id; ?>"><div class="box book-button book-lend-book" id="lend">Επεξεργασία</div></a>
-			<a href="index.php?show=book&edit=delete&id=<?php echo $book->id; ?>" onclick="return confirm('Είσαι σίγουρος ότι θέλεις να το διαγράψεις;');"><div class="box book-button book-lend-book" id="lend">Διαγραφή</div></a>
+			<a href="index.php?show=book&edit=edit&id=<?php echo $book->id; ?>" class="link-button">
+				<button type="button" class="index-button link box center bold">Επεξεργασία</button>
+			</a>
+			<a href="index.php?show=book&edit=delete&id=<?php echo $book->id; ?>" class="link-button delete-book">
+				<button type="button" class="index-button link box center bold">Διαγραφή</button>
+			</a>
 		<?php } ?>
 	</div>
 </div><!-- .book-info end -->
@@ -92,4 +89,4 @@
 		$('#book-image a').lightBox();
 	});
 </script>
-</div>
+<?php echo "</div>"; ?>

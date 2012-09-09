@@ -29,6 +29,9 @@ function loaded(){
 	$('.delete-announce').click(function (){
 		return confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις αυτή την ανακοίνωση;", "Επιβεβαίωση");
 	});
+	$('.delete-book').click(function (){
+		return confirm("Είσαι σίγουρος ότι θέλεις να διαγράψεις το βιβλίο;", "Επιβεβαίωση");
+	});	
 	$('.must-login').click(function (){
 		alert('Πρέπει να συνδεθείτε πρώτα');
 	});
@@ -46,6 +49,9 @@ function loaded(){
 	});
 	$('.disable-maintenance').click(function(){
 		return confirm("Να απενεργοποιηθεί η κατάσταση συντήρησης?", "Επιβεβαίωση");
+	});
+	$('.category-select').click(function(){
+		$('#category-more').attr('value', 'category');
 	});
 }
 

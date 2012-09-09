@@ -59,7 +59,7 @@ class announcements{
 				<div class="announce">
 					<div class="announce-head"><?php echo $announcement->title; ?></div>
 					<div class="announce-content"><?php echo $announcement->body; ?></div>
-					<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($announcement->name) >= 1) ? $announcement->name : "Ανώνυμο"; ?> την <?php echo (strlen($announcement->date) >= 1) ? date('d-m-Y στις H:i', strtotime($announcement->date)) : "";?>.</p>
+					<p class="announce-footer">Δημιουργήθηκε από το χρήστη <?php echo (strlen($announcement->name) >= 1) ? $announcement->name : "Ανώνυμο"; ?> την <?php echo (strlen($announcement->date) >= 1) ? date('d-m-Y στις H:i', strtotime($announcement->date)) : ""; ?>.</p>
 				</div>
 			<?php }while($announcement = $db->db_fetch_object($result));
 		} else {

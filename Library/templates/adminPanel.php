@@ -22,19 +22,19 @@
 		<img class="block panel-img" src="view/images/log.png" /><br />
 		History
 	</a></h3>
-	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pages" >
-		<img class="block panel-img" src="view/images/pages.png" /><br />
-		Pages
+	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=book&edit=add" >
+		<img class="block panel-img" src="view/images/book.png" /><br />
+		Add Book
 	</a></h3>
-	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=update" >
-		<img class="block panel-img" src="view/images/update.png" /><br />
-		Update
-	</a></h3>
-</div>
-<div class="panel-blocks">
 	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=statistics" >
 		<img class="block panel-img" src="view/images/statistics.png" /><br />
 		Statistics
+	</a></h3>
+</div>
+<div class="panel-blocks">
+	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=update" >
+		<img class="block panel-img" src="view/images/update.png" /><br />
+		Update
 	</a></h3>
 	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=options" >
 		<img class="block panel-img" src="view/images/option.png" /><br />
@@ -46,9 +46,8 @@
 	</a></h3>
 </div>
 <div class="panel-blocks">
-	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=book&edit=add" >
-		<img class="block panel-img" src="view/images/book.png" /><br />
-		Add Book
+	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=pages" >
+		<img class="block panel-img" src="view/images/pages.png" /><br />
+		Pages
 	</a></h3>
-	
 </div>

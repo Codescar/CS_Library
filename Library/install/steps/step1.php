@@ -11,7 +11,7 @@
 	<label for="path">Path: </label>
 		<input type="text" name="path" id="path" required 
 		value="<?php echo substr($_SERVER["SCRIPT_FILENAME"], 0, 
-		strlen($_SERVER["SCRIPT_FILENAME"]) - strlen("install/index.php"));;?>"
+		strlen($_SERVER["SCRIPT_FILENAME"]) - strlen("install/index.php"));; ?>"
 		placeholder="Enter the path of the installation folder on the server"/><br/>
 	<label for="items">Items per page: </label>
 		<input type="text" name="items" id="items" value="5" required 

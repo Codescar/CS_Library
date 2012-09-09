@@ -14,9 +14,7 @@ function list_books($books){
 		$lended_books = array();
 		while ($lended_books[] = $db->db_fetch_array($res)) {};
 	}
-	?>
-	<div class="list">
-	<?php
+	echo "<div class=\"list\">";
 	if(empty($books))
 		echo '<div class="error">Η λίστα που ζητήσατε δεν περιέχει βιβλία.</div>';
 	else
@@ -29,67 +27,59 @@ function list_books($books){
 			}
 			?>
 			<div class="list-item">
-				<div>
-					<!-- Image -->
-					<div class="list-image">
-						<img src="<?php echo ($row['image_url'] == NULL) ? "view/images/noimage.jpg": $row['image_url']; ?>" alt="<?php echo str_replace('"', "'", $row['title']); ?>" title="<?php echo str_replace('"', "'", $row['title']); ?>" />
+				<!-- Image -->
+				<div class="list-image block">
+					<img src="<?php echo ($row['image_url'] == NULL) ? "view/images/noimage.jpg": $row['image_url']; ?>" alt="<?php echo str_replace('"', "'", $row['title']); ?>" title="<?php echo str_replace('"', "'", $row['title']); ?>" />
+				</div>
+				<!-- Content -->
+				<div class="list-item-content block">
+					<!-- Title -->
+					<div class="list-title list-colored">
+						<?php echo $row['title']; ?>
+					</div>
+					<!-- Writer && Publisher -->
+					<div class="block" style="height: 45px;">
+						<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
+						<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
 					</div>
 					<!-- Availability -->
-					<div class="list-right">
-						<div class="list-avail">
-							<?php if($row['availability'] != 1) { 
-										if($logged && $user_books && $taken['has_taken']) { ?>
-											<div class="info-button box center bold" style="margin-bottom: 10px;"><img src="view/images/information.png" />Το Έχεις!</div>
-											<div class="box list-button center bold" style="margin-top: 0px;"><a class="renewal" href="#">Ανανέωση</a></div>
-									<?php } else { ?>
-											<img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
-											<div style="font-size: 9px;">Μη διαθέσιμο</div>
-									<?php }
-							 		} else { ?>
-										<img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" />
-								<?php } ?>
+					<?php if($logged && $return_date['has_taken'] && !$taken['has_taken']){ ?>
+						<div class="block error right">
+							Διαθέσιμο ξανά από <span class="bold"><?php echo date('d-m-Y', strtotime($return_date['must_return'])); ?></span>
 						</div>
-						<div class="box list-button list-add-to-wish center bold">
-							<?php favorites::show_favorites_button($row['id']);	?>
-						</div>
-						<?php if($row['availability'] == 1) { ?>
-						<div class="box list-button list-lend-book center bold">
-							<?php if(!$logged){ ?>
-								<a class="must-login" href="?show=login">Δανείσου το</a>
-							<?php }else{ ?>
-								<a class="request-book" href="?show=book&amp;id=<?php echo $row['id']; ?>&amp;lend=1">Δανείσου το</a>
-							<?php } ?>
-						</div>
+					<?php } ?>
+					<!-- Description OR Dates of lend -->
+					<div class="list-description">
+						<?php if($logged && $taken['has_taken']) { ?>
+							<div class="success" style="width: 400px; margin: 0 auto; padding: 5px 10px 5px 20px">
+							Έχεις πάρει αυτό το βιβλίο την <span class="bold"><?php echo date('d-m-Y στις H:i', strtotime($taken['taken'])); ?></span><br />
+							και θα πρέπει να το επιστρέψεις μέχρι την <span class="bold"><?php echo date('d-m-Y', strtotime($taken['must_return'])); ?></span></div>
+						<?php }else{ ?>
+							<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
 						<?php } ?>
 					</div>
-					<div class="list-item-content">
-						<!-- Title -->
-						<div class="list-title list-colored">
-							<?php echo $row['title']; ?>
-						</div>
-						<!-- Writer && Publisher -->
-						<div class="block" style="height: 45px;">
-							<div class="list-writer"><span class="list-colored">Συγγραφέας:</span> <?php echo strlen($row['writer'])>=2 ? $row['writer'] : "Άγνωστος"; ?></div>
-							<div class="list-publisher"><span class="list-colored">Εκδότης:</span> <?php echo strlen($row['publisher'])>=2 ? $row['publisher'] : "Άγνωστος"; ?></div>
-						</div>
-						<!-- Availability -->
-						<?php if($logged && $return_date['has_taken'] && !$taken['has_taken']){ ?>
-							<div class="block error right">
-								Διαθέσιμο ξανά από <span class="bold"><?php echo date('d-m-Y', strtotime($return_date['must_return'])); ?></span>
-							</div>
-						<?php } ?>
-						<!-- Description OR Dates of lend -->
-						<div class="list-description">
-							<?php if($logged && $taken['has_taken']) { ?>
-								<div class="success" style="width: 400px; margin: 0 auto; padding: 5px 10px 5px 20px">
-								Έχεις πάρει αυτό το βιβλίο την <span class="bold"><?php echo date('d-m-Y στις H:i', strtotime($taken['taken'])); ?></span><br />
-								και θα πρέπει να το επιστρέψεις μέχρι την <span class="bold"><?php echo date('d-m-Y', strtotime($taken['must_return'])); ?></span></div>
-								<?php //echo date('d-m-Y', mktime(0, 0, 0, date("m", strtotime($taken)), date("d", strtotime($taken))+$CONFIG['lend_default_days'], date("Y", strtotime($taken)))); ?> 
-							<?php }else{ ?>
-								<span class="list-colored">Περιγραφή:</span> <?php echo strlen($row['description'])>=2 ? $row['description'] : "Δεν υπάρχει." ?>
-							<?php } ?>
-						</div>
-					</div>
+				</div>
+				<!-- Buttons -->
+				<div class="list-buttons block">
+					<?php if($row['availability'] != 1) {
+							if($logged && $user_books && $taken['has_taken']) {
+								?><div class="info-button box center bold"><img src="view/images/information.png" />Το Έχεις!</div>
+								<a class="renewal link-button" href="#">
+									<button type="button" class="box link list-button center bold">Ανανέωση</button>
+								</a><?php
+							} else {
+								?><img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+								<div style="font-size: 11px;">Μη διαθέσιμο</div><?php
+							}
+				 		} else {
+							?><img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" /><?php
+					}
+					favorites::show_favorites_button($row['id'], "list");
+					if($row['availability'] == 1) { ?>
+						<a class="<?php echo $logged ? "request-book" : "must-login"; ?>" href="<?php echo $logged ? "?show=book&amp;id={$_GET['id']}&amp;lend=1" : "?show=login"; ?> ">
+	    					<button type="button" class="list-button list-lend-book link box center bold">Δανείσου το</button>
+	    				</a>
+					<?php } ?>
 				</div>
 				<a class="list-item-link" href ='<?php echo $book_url; ?>'></a>
 			</div>
@@ -97,41 +87,9 @@ function list_books($books){
 		}
 	?>
 	<?php 
-	/*$ext = "";
-	if(isset($_GET['search'])){
-		$ext .= "&amp;do=search&amp;search={$_GET['search']}";
-		if(isset($_GET['search-type']))
-			$ext .= "&amp;search-type={$_GET['search-type']}";
-		if(isset($_GET['title']))
-			$ext .= "&amp;title={$_GET['title']}";
-		if(isset($_GET['writer']))
-			$ext .= "&amp;writer={$_GET['writer']}";
-		if(isset($_GET['isbn']))
-			$ext .= "&amp;isbn={$_GET['isbn']}";
-		if(isset($_GET['available']))
-			$ext .= "&amp;available=1";
-		
-	}
-	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']))
-		$ext .= "&amp;more=category&amp;id={$_GET['id']}";	
-	*/
 	if(!(isset($_GET['show']) && isset($_GET['more']) && $_GET['show'] == "cp" && $_GET['more'] == "lended"))
-	{
-		  paggination($books['0']);	
-		  /*	
-	?>
-	<div class="list-nav-bar">
-		<?php if($page >= 1) { ?>
-		<div class="fl-left"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page - 1; ?>"><img src="view/images/arrow.png" alt="Πίσω" title="Πίσω" class="list-nav-icons" /></a></div>
-		<?php } ?>
-		<div class="list-cur-page" >Σελίδα <?php echo $page + 1; ?></div> 
-		<?php if($books['0'] > ($page + 1) * $CONFIG['items_per_page'] ) { ?>
-		<div class="fl-right"><a href="index.php?show=<?php echo $_GET['show'].$ext; ?>&amp;page=<?php echo $page + 1; ?>"><img src="view/images/arrow.png" alt="Μπροστά" title="Μπροστά" class="list-nav-icons flip" /></a></div>
-		<?php } ?>
-	</div>
-	<?php */ } ?>
-	</div>
-	<?php 
+		paggination($books['0']);
+	echo "</div>"; 
 }
 
 function paggination($all_items, $nums_to_display = -1, $cur_page = -1, $items_per_page = -1){

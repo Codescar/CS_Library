@@ -96,18 +96,21 @@
 			}		
 		}
 			
-		public static function show_favorites_button($id){
+		public static function show_favorites_button($id, $where){
 			global $user;
 			
+			$place = ($where == "list") ? 1 : 0;
 			if(!$user->is_logged_in()){ 
-				?> <a class="must-login" href="?show=login" >+ Aγαπημένα</a> <?php 
+				?> <a class="must-login" href="?show=login" ><button type="button" class="box <?php echo $place ? "list-button" : "book-button"; ?>">+ Aγαπημένα</button></a> <?php 
 			}else{ 
 				$favorites = $user->favorites->get_cache();
 				
 				if(in_array($id, $favorites)){
-					?> <a class="fav-remove" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">- Aγαπημένα</a> <?php 
+					?> <a class="fav-remove" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">
+							<button type="button" class="box <?php echo $place ? "list-button" : "book-button"; ?> link center bold">- Aγαπημένα</button></a> <?php 
 				}else{ 
-					?> <a class="fav-add" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">+ Aγαπημένα</a> <?php 
+					?> <a class="fav-add" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">
+							<button type="button" class="box <?php echo $place ? "list-button" : "book-button"; ?> link center bold">+ Aγαπημένα</button></a><?php 
 				}
 			}
 			
