@@ -28,10 +28,12 @@
 ?>
 <div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Κατάλογος βιβλίων</div>
 <div class="content">
-<?php
-    ?><div id=categories>
+	<div id=categories>
     <form action="" method="get" class="block" >
-    <?php if(isset($_GET)){
+    <?php $cat = 0; 
+    if(isset($_GET)){
+    	if(isset($_GET['id']))
+			$id = $_GET['id'];
 		foreach ($_GET as $key => $value)
 			echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"> ";
 		if(isset($_GET['sp-category']))
@@ -49,7 +51,8 @@
 					$cat = 4;
 					break;
 		}
-	} ?>
+	}
+	?>
     <div><div class="block" style="vertical-align: middle;">Κατηγορίες:</div><select class="block category-select" name="id"><?php
     while($category = $db->db_fetch_object($res)){
 		echo "<option value=\"$category->id\" ";

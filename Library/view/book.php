@@ -3,7 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
 	?><div id="direction">
-		<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<?php echo $_GET['edit'] == "edit" ? "Επεξεργασία Βιβλίου" : "Δημιουργία Βιβλίου"; ?>
+		<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<?php if(isset($_GET['edit'])) echo $_GET['edit'] == "edit" ? "Επεξεργασία Βιβλίου" : "Δημιουργία Βιβλίου"; ?>
 	</div><?php
 	global $db, $user;
 
