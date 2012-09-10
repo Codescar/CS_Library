@@ -13,14 +13,15 @@
 			
 		}
 		
-		public function get_favorites(){
-			global $db, $CONFIG, $page;			
-			
+		public function get_favorites($id = -1){
+			global $db, $CONFIG, $page, $user;			
+			if($id == -1)
+				$id = $user->id;
 			$query = "	SELECT * FROM `{$db->table['booklist']}` 
 							WHERE `id` 
 								IN (SELECT `book_id` 
 										FROM `{$db->table['favorites']}` 
-										WHERE `user_id` = '$this->user_id') 
+										WHERE `user_id` = '$id') 
 							ORDER BY id ASC LIMIT ".$page*$CONFIG['items_per_page'].", {$CONFIG['items_per_page']}; ";
 			
 			return $query;

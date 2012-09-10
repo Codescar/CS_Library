@@ -19,37 +19,43 @@
     }
     if(isset($_GET['id']))
     	$id = $_GET['id'];
-    $flag = false;
-	$q = "FROM `{$db->table['booklist']}`";
+    $flag1 = false;
+    $flag2 = false;
+	$q = "FROM `{$db->table['booklist']}` ";
 	if($cat['1'])
 		$q .= " LEFT JOIN `{$db->table['log_lend']}` ON {$db->table['booklist']}.id = {$db->table['log_lend']}.book_id ";
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']) && $_GET['id'] != "false"){
-		$q .= " LEFT JOIN `{$db->table['book_has_category']}` ON {$db->table['booklist']}.id = {$db->table['book_has_category']}.book_id " 
-		   .  "WHERE {$db->table['book_has_category']}.category_id = ".$db->db_escape_string($_GET['id'])." ";
-		$flag = true;
-	}
-	if($cat['1']){
-		$q .= $flag ? "AND " : "WHERE ";
-		$q .= "`{$db->table['log_lend']}`.user_id = ".$user->id." GROUP BY `{$db->table['booklist']}`.id ";
+		$q .= " LEFT JOIN `{$db->table['book_has_category']}` ON `{$db->table['booklist']}`.id = `{$db->table['book_has_category']}`.book_id " 
+		   .  "WHERE `{$db->table['book_has_category']}`.category_id = ".$db->db_escape_string($_GET['id'])." ";
+		$flag1 = true;
 	}
 	if($cat['0']){
-		$q .= $flag ? "AND " : "WHERE ";
+		$q .= $flag1 ? "AND " : "WHERE ";
 		$q .= "`{$db->table['booklist']}`.availability = 1 ";
+		$flag1 = true;
+	}
+	if($cat['1']){
+		$q .= $flag1 ? "AND " : "WHERE ";
+		$q .= "`{$db->table['log_lend']}`.user_id = ".$user->id." GROUP BY `{$db->table['booklist']}`.id ";
 	}
 	//if($cat['3'])
 		//$q .= "AND `{$db->table['booklist']}`.added_on > NOW - 15 days ";
-	if($cat['2'])
+	if($cat['2']){
 		$q .= " ORDER BY `{$db->table['booklist']}`.read_times DESC ";
-	elseif($cat['3'])
-		$q .= " ORDER BY `{$db->table['booklist']}`.added_on DESC ";
-	else
-		$q .= " ORDER BY `{$db->table['booklist']}`.id ASC ";
+		$flag2 = true;
+	}
+	if($cat['3']){
+		$q .= $flag2 ? " ," : "ORDER BY ";
+		$q .= " `{$db->table['booklist']}`.added_on DESC ";
+		$flag2 = true;
+	}
+	$q .= $flag2 ? " ," : "ORDER BY ";
+	$q .= " `{$db->table['booklist']}`.id ASC ";
 
 	$q2 = "SELECT * " . $q;
 	
 	$q = "SELECT * " . $q . "LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
 	$books = $db->get_books($q, $q2);
-	
 	$query = "	SELECT `category_name` AS name,  {$db->table['categories']}.id
 					FROM {$db->table['book_has_category']}
 					CROSS JOIN `{$db->table['categories']}` 
@@ -63,11 +69,10 @@
 <div class="content">
 	<div id=categories>
     <form action="" method="get" class="block" id="form1">
-    <?php if(isset($_GET)){
-    	foreach ($_GET as $key => $value)
-    		if($key == "show" )
-    		echo "<input type=\"hidden\" name=\"$key\" value=\"$value\"> ";
-    } ?>
+    <?php 
+    	if(isset($_GET['show']) && $_GET['show'] == "list")
+    		echo "<input type=\"hidden\" name=\"show\" value=\"list\"> ";
+    ?>
     <div><div class="block" style="vertical-align: middle;">Κατηγορίες:</div>
     <select class="block category-select" name="id">
 		<option value="false" <?php echo ($id == 0) ? "selected=\"selected\" form=\"form2\"" : ""; ?>>Κατηγορία</option>

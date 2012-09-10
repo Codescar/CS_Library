@@ -136,8 +136,11 @@ function paggination($all_items, $nums_to_display = -1, $cur_page = -1, $items_p
 	//Building the old url
 	$newurl = "";
 	foreach($_GET as $variable => $value)
-		if($variable != "page")
+		if($variable != "page" && $variable != "category")
 			$newurl .= $variable.'='.$value.'&amp;';
+	if(isset($_GET['category']))
+		foreach($_GET['category'] as $var )
+			$newurl .= "category[]=".$var.'&amp;';
 
 	$newurl = rtrim($newurl,'&');
 	

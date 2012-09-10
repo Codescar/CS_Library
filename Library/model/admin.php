@@ -35,75 +35,7 @@ class Admin{
 		All lends done until now:	<?php echo $r3; ?><br />
 		<?php 
 	}
-	
-	function show_history($id = -1){
-		global $db, $CONFIG, $page;
-		$query = "	SELECT title, username, taken, returned, book_id, user_id 
-					FROM `{$db->table['log_lend']}`
-    					CROSS JOIN `{$db->table['users']}`
-    						ON `{$db->table['users']}`.id = `{$db->table['log_lend']}`.user_id
-    					CROSS JOIN `{$db->table['booklist']}`
-    						ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id ";
-		if($id != -1)
-			$query .= "WHERE `{$db->table['log_lend']}`.`user_id` = '$id' ";
-		$actv = 0;
-		if(isset($_GET['order'])){
-			switch ($_GET['order']){
-				case "book" : 
-					$query .= "ORDER BY `{$db->table['booklist']}`.title ";
-					$actv = 1;
-					break;
-				case "user" :
-					$query .= "ORDER BY `{$db->table['users']}`.username ";
-					$actv = 2;
-					break;
-				case "taken" :
-					$query .= "ORDER BY `{$db->table['log_lend']}`.taken ";
-					$actv = 3;
-					break;
-				default:
-					$query .= "ORDER BY `{$db->table['log_lend']}`.returned ";
-					$actv = 4;
-			}
-			if(isset($_GET['ord']) && $_GET['ord'] == "asc"){
-				$query .= " ASC ";
-				$ord = 0;
-			}else{
-				$query .= " DESC ";
-				$ord = 1;
-			}
-			$query .= ", `{$db->table['log_lend']}`.returned DESC ";
-		} else {
-			$query .= "ORDER BY `{$db->table['log_lend']}`.returned ";
-			if(isset($_GET['ord']) && $_GET['ord'] == "asc"){
-				$query .= " ASC ";
-				$ord = 0;
-			}else{
-				$query .= " DESC ";
-				$ord = 1;
-			}
-		}
-		$query .= "LIMIT ".$page*$CONFIG['history_items_per_page'].", ".$CONFIG['history_items_per_page'].";";
-    	//echo $query."<br />";
-		$result = $db->query($query);
-		?><table id="history"><tr>
-			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "book", "ord" => ($actv == 1 && $ord) ? "asc" : "desc"))); ?>" >Βιβλίο <?php echo ($actv == 1 && $ord) ? "/\\" : "\/"; ?></a></th>
-			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "user", "ord" => ($actv == 2 && $ord) ? "asc" : "desc"))); ?>" >Χρήστης <?php echo ($actv == 2 && $ord) ? "/\\" : "\/"; ?></a></th>
-			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "taken", "ord" => ($actv == 3 && $ord) ? "asc" : "desc"))); ?>" >Το Πήρε <?php echo ($actv == 3 && $ord) ? "/\\" : "\/"; ?></a></th>
-			<th><a href="index.php?<?php echo http_build_query(array_merge($_GET, array("order" => "returned", "ord" => ($actv == 4 && $ord) ? "asc" : "desc"))); ?>" >Το Έφερε <?php echo ($actv == 4 && $ord) ? "/\\" : "\/"; ?></a></th>
-		</tr><?php
-		while($book = $db->db_fetch_object($result)){
-		    echo "<tr><td><a href=\"index.php?show=book&id={$book->book_id}\">{$book->title}</a></td>";
-		    echo "<td><a href=\"?show=admin&more=user&id={$book->user_id}\">{$book->username}</a></td>";
-		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->taken))."</td>";
-		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->returned))."</td></tr>\n";
-		}
-        ?></table><?php
-        $result = $db->query("SELECT * FROM `{$db->table['log_lend']}`");
-        $num = $db->db_num_rows($result);
-        paggination($num, -1, -1, $CONFIG['history_items_per_page']);
-	}
-	
+
 	function show_options(){
 		global $db;
 		$option = new option();

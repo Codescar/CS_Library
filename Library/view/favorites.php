@@ -21,8 +21,7 @@
 			else
 				$user->favorites->delete_favorite($db->db_escape_string($_GET['id']));
 		}
-		
-		$books = $db->get_books($user->favorites->get_favorites(), 
+		$books = $db->get_books($user->favorites->get_favorites(!empty($_GET['id']) ? $db->db_escape_string($_GET['id']) : -1), 
 								"SELECT * FROM `{$db->table['favorites']}` WHERE `user_id` = '{$user->id}';");
 		echo "<div class=\"content\">";
 			list_books($books);

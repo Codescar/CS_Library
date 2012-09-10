@@ -68,9 +68,9 @@
 		}elseif($_GET['more'] == "statistics"){
 		    $user->admin->show_statistics();
 		}elseif($_GET['more'] == "history"){
-			$user->admin->show_history();
+			$user->show_history();
 		}elseif($_GET['more'] == "user_history" && isset($_GET['id'])){
-			$user->admin->show_history($db->db_escape_string($_GET['id']));
+			$user->show_history($db->db_escape_string($_GET['id']));
 		}elseif($_GET['more'] == "users" && !isset($_GET['add'])){
 			$user->admin->show_users();
 		}elseif($_GET['more'] == "user" && isset($_GET['id'])){
