@@ -23,7 +23,7 @@
 		}
 		
 		$books = $db->get_books($user->favorites->get_favorites(), 
-								"SELECT COUNT(*) FROM `{$db->table['favorites']}` WHERE `user_id` = '{$user->id}';");
+								"SELECT * FROM `{$db->table['favorites']}` WHERE `user_id` = '{$user->id}';");
 		echo "<div class=\"content\">";
 			list_books($books);
 		echo "</div>";

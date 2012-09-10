@@ -237,7 +237,7 @@ class User{
 		$query = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` 
 					ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
 				  WHERE {$db->table['lend']}.user_id = '$user_id' ";
-		$books = $db->get_books($query);
+		$books = $db->get_books($query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], $query);
 		if(!$books)
 			echo "<div class=\"error\">Δεν έχετε δανειστεί κανένα βιβλίο.</div><br />";
 		list_books($books); 

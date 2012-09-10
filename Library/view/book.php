@@ -2,9 +2,6 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	?><div id="direction">
-		<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<?php if(isset($_GET['edit'])) echo $_GET['edit'] == "edit" ? "Επεξεργασία Βιβλίου" : "Δημιουργία Βιβλίου"; ?>
-	</div><?php
 	global $db, $user;
 
 	if(isset($_GET['id']))
@@ -20,7 +17,9 @@
 		$res = $db->query($query);
 		
 		$results = $db->db_fetch_array($res);
-		
+		?><div id="direction">
+			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επεξεργασία Βιβλίου
+		</div><?php
 		render_template("singleBookEdit.php", $results);
 		
 	}elseif(isset($_GET['id']) && isset($_GET['edit']) && $user->is_admin() && $_GET['edit'] == "edit_done"){
@@ -41,13 +40,18 @@
 					  WHERE `id` = $id LIMIT 1;";
 		
 		$db->query($query);
-		
+		?><div id="direction">
+			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επεξεργασία Βιβλίου
+		</div><?php
 		if($db->db_affected_rows() == 1)
 			status_page("Το βιβλίο ανανεώθηκε", "success", "?show=book&id=$id");
 		else
 			status_page("Το βιβλίο δεν ανανεώθηκε", "error", "?show=book&edit=edit&id=$id");
 			
 	}elseif(isset($_GET['edit']) && $user->is_admin() && $_GET['edit'] == "add"){
+		?><div id="direction">
+			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προσθήκη Βιβλίου
+		</div><?php
 		render_template('singleBookEdit.php');
 	}elseif(isset($_GET['edit']) && $user->is_admin() && $_GET['edit'] == "add_done"){
 		$title = $db->db_escape_string($_POST['title']);
@@ -66,7 +70,9 @@
 					VALUES ('$title', $isbn, $availability, '$writer', '$publisher',
 				 	 '$description', $pages, $publish_year, '$image_url', NOW());";
 		$db->query($query);
-		
+		?><div id="direction">
+			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Προσθήκη Βιβλίου
+		</div><?php
 		if($db->db_affected_rows() == 1)
 			status_page("Το βιβλίο προστέθηκε", "success", "?show=book&edit=add");
 		else
@@ -77,7 +83,9 @@
 		$query = "DELETE FROM `{$db->table['booklist']}` WHERE id = $book_id LIMIT 1;";
 		
 		$db->query($query);
-		
+		?><div id="direction">
+			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Διαγραφή Βιβλίου
+		</div><?php
 		if($db->db_affected_rows() == 1)
 			status_page("Το βιβλίο διεγράφη!", "success", "?show=book&edit=add");
 		else
@@ -104,7 +112,9 @@
 		}
 		elseif(isset($_GET['lend']))
 			$msg = "Θα πρέπει πρώτα να συνδεθείτε με το λογαριασμό σας!";
- 
+		?><div id="direction">
+			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;<?php echo $book->title; ?>
+		</div><?php
 		echo "<div class=\"content book-prev\">";
 		render_template("singleBook.php"); 
 	} /* end else (don't edit, just view) */

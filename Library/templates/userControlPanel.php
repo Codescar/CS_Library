@@ -42,6 +42,7 @@
 		?>
 		<br /><span class="bold">Όνομα Χρήστη: </span> <?php echo $user_info->username; ?>
 		<br /><span class="bold">Τύπος Χρήστη: </span> <?php echo $user_info->usertype; ?>
+		<br /><span class="bold">Διαβασμένα βιβλία: </span> <?php echo $user_info->read_books; ?>
 		<br /><span class="bold">Δανεισμένα βιβλία: </span> <?php echo $user_info->books_lended; ?>
 		<br /><span class="bold">Αιτήματα δανεισμού: </span> <?php echo $user_info->books_requested; ?>
 	</div>
@@ -56,11 +57,11 @@
 			<label for="r_n_pass">Ξανά νέος κωδικός: </label><input type="password" id="r_n_pass" name="r_n_pass" /><br />
 			<input type="submit" value="Αποθήκευση" class="cp-button link center bold" style="position: absolute; right: 57px; bottom: 40px;" />
 			<input type="hidden" name="hidden_update" value="codescar" />
-			<?php if($user->is_admin()) { echo "<input type=\"hidden\" name=\"hidden_treasure\" value=\"$user_info->id\" />"; } ?>
+			<?php if($user->is_admin() && $user->id != $user_info->id) { echo "<input type=\"hidden\" name=\"hidden_treasure\" value=\"$user_info->id\" />"; } ?>
 		</form>
 	</div>
 	<div class="block" id="user-right">
-		<a class="link-button" href="index.php?show=cp&more=lended&id=<?php if($user->is_admin()) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Δανεισμένα βιβλία</button></a><br /><br />
-		<a class="link-button" href="index.php?show=cp&more=history&id=<?php if($user->is_admin()) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Ιστορικό δανεισμού</button></a><br /><br />
+		<a class="link-button" href="index.php?show=cp&more=lended&id=<?php if($user->is_admin() && $user->id != $user_info->id) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Δανεισμένα βιβλία</button></a><br /><br />
+		<a class="link-button" href="index.php?show=cp&more=history&id=<?php if($user->is_admin() && $user->id != $user_info->id) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Ιστορικό δανεισμού</button></a><br /><br />
 		<a class="link-button" href="index.php?show=favorites"><button type="button" class="cp-button link box center bold">Λίστα αγαπημένων</button></a><br /><br />
 	</div>

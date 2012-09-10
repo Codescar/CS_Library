@@ -141,8 +141,7 @@ abstract class DataBase{
 		array_pop($books);
 		if($query2 != null){
 			$r = $this->query($query2);
-			$b = $this->db_fetch_array($r);
-			$books['0'] = $b[0];
+			$books['0'] = $this->db_affected_rows();
 		}
 		else
 			$books['0'] = -1;

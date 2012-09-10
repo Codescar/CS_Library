@@ -101,15 +101,15 @@
 			
 			$place = ($where == "list") ? 1 : 0;
 			if(!$user->is_logged_in()){ 
-				?> <a class="must-login" href="?show=login" ><button type="button" class="box <?php echo $place ? "list-button" : "book-button"; ?>">+ Aγαπημένα</button></a> <?php 
+				?> <a class="must-login link-button" href="?show=login" ><button type="button" class="box bold <?php echo $place ? "list-button" : "book-button"; ?>">+ Aγαπημένα</button></a> <?php 
 			}else{ 
 				$favorites = $user->favorites->get_cache();
 				
 				if(in_array($id, $favorites)){
-					?> <a class="fav-remove" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">
+					?> <a class="fav-remove link-button" href="index.php?show=favorites&action=remove&id=<?php echo $id; ?>">
 							<button type="button" class="box <?php echo $place ? "list-button" : "book-button"; ?> link center bold">- Aγαπημένα</button></a> <?php 
 				}else{ 
-					?> <a class="fav-add" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">
+					?> <a class="fav-add link-button" href="index.php?show=favorites&action=add&id=<?php echo $id; ?>">
 							<button type="button" class="box <?php echo $place ? "list-button" : "book-button"; ?> link center bold">+ Aγαπημένα</button></a><?php 
 				}
 			}

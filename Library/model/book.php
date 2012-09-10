@@ -76,7 +76,7 @@ function list_books($books){
 					}
 					favorites::show_favorites_button($row['id'], "list");
 					if($row['availability'] == 1) { ?>
-						<a class="<?php echo $logged ? "request-book" : "must-login"; ?>" href="<?php echo $logged ? "?show=book&amp;id={$_GET['id']}&amp;lend=1" : "?show=login"; ?> ">
+						<a class="link-button <?php echo $logged ? "request-book" : "must-login"; ?>" href="<?php echo $logged ? "?show=book&amp;id={$row['id']}&amp;lend=1" : "?show=login"; ?> ">
 	    					<button type="button" class="list-button list-lend-book link box center bold">Δανείσου το</button>
 	    				</a>
 					<?php } ?>

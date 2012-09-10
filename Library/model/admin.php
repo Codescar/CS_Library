@@ -65,15 +65,23 @@ class Admin{
 					$query .= "ORDER BY `{$db->table['log_lend']}`.returned ";
 					$actv = 4;
 			}
+			if(isset($_GET['ord']) && $_GET['ord'] == "asc"){
+				$query .= " ASC ";
+				$ord = 0;
+			}else{
+				$query .= " DESC ";
+				$ord = 1;
+			}
+			$query .= ", `{$db->table['log_lend']}`.returned DESC ";
 		} else {
 			$query .= "ORDER BY `{$db->table['log_lend']}`.returned ";
-		}
-		if(isset($_GET['ord']) && $_GET['ord'] == "asc"){
-			$query .= " ASC ";
-			$ord = 0;
-		}else{
-			$query .= " DESC ";
-			$ord = 1;
+			if(isset($_GET['ord']) && $_GET['ord'] == "asc"){
+				$query .= " ASC ";
+				$ord = 0;
+			}else{
+				$query .= " DESC ";
+				$ord = 1;
+			}
 		}
 		$query .= "LIMIT ".$page*$CONFIG['history_items_per_page'].", ".$CONFIG['history_items_per_page'].";";
     	//echo $query."<br />";
@@ -289,6 +297,11 @@ class Admin{
         $db->log_the_lend($book_id);
         $db->change_avail($book_id, 1);
         $db->user_change_attr($user_id, "books_lended", "- 1");
+        $db->user_change_attr($user_id, "read_books", "+ 1");
+        $query = "UPDATE `{$db->table['booklist']}`
+	        SET `read_times` = `read_times` + 1
+	        WHERE `id` = '$book_id' LIMIT 1";
+        $db->query($query);
 	}
 
 	function renew_book($book_id, $user_id){

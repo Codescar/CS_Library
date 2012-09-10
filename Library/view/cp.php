@@ -50,7 +50,7 @@
 		$user_info = user::show_info($user->id);
 		render_template("userControlPanel.php");
 	}elseif($_GET['more'] == "history"){
-		if($user->is_admin())
+		if($user->is_admin() && !empty($_GET['id']))
 			$user->admin->show_history($db->db_escape_string($_GET['id']));
 		else
 			$user->show_history();
