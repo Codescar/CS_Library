@@ -10,12 +10,10 @@
 	if(isset($_GET['id']) && isset($_GET['edit']) && $user->is_admin() && $_GET['edit'] == "edit"){
 		$id = $db->db_escape_string($_GET['id']);
 		
-		$query = "SELECT title, isbn, availability, writer, publisher, description, pages, publish_year, image_url 
+		$query = "	SELECT title, isbn, availability, writer, publisher, description, pages, publish_year, image_url 
 					FROM `{$db->table['booklist']}` 
 					WHERE `id` = $id LIMIT 1;";
-		
 		$res = $db->query($query);
-		
 		$results = $db->db_fetch_array($res);
 		?><div id="direction">
 			<a href="index.php">Αρχική</a>&nbsp;&gt;&gt;&nbsp;Επεξεργασία Βιβλίου

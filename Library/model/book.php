@@ -1,6 +1,6 @@
 <?php
 
-function list_books($books){
+function list_books($books, $admin_view = 0){
 	global $CONFIG, $page, $user, $db;
 	$logged = $user->is_logged_in();
 	if($logged){
@@ -61,21 +61,24 @@ function list_books($books){
 				</div>
 				<!-- Buttons -->
 				<div class="list-buttons block">
-					<?php if($row['availability'] != 1) {
-							if($logged && $user_books && $taken['has_taken']) {
-								?><div class="info-button box center bold"><img src="view/images/information.png" />Το Έχεις!</div>
-								<a class="renewal link-button" href="#">
-									<button type="button" class="box link list-button center bold">Ανανέωση</button>
-								</a><?php
-							} else {
-								?><img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
-								<div style="font-size: 11px;">Μη διαθέσιμο</div><?php
-							}
-				 		} else {
-							?><img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" /><?php
+					<?php 
+					if($row['availability'] != 1) {
+						if($logged && $user_books && $taken['has_taken'] && !$admin_view) {
+							?><div class="info-button box center bold"><img src="view/images/information.png" />Το Έχεις!</div>
+							<a class="renewal link-button" href="#">
+								<button type="button" class="box link list-button center bold">Ανανέωση</button>
+							</a><?php
+						} else {
+							?><img class="list-avail-img" src="view/images/cross.png" title="Μη Διαθέσιμο" alt="Μη Διαθέσιμο" />
+							<div style="font-size: 11px;">Μη διαθέσιμο</div><?php
+						}
+				 	} else {
+						?><img class="list-avail-img" src="view/images/tick.png" title="Διαθέσιμο" alt="Διαθέσιμο" /><?php
 					}
-					favorites::show_favorites_button($row['id'], "list");
-					if($row['availability'] == 1) { ?>
+					if(!$admin_view) {
+						favorites::show_favorites_button($row['id'], "list");
+					}
+					if($row['availability'] == 1 && !$admin_view) { ?>
 						<a class="link-button <?php echo $logged ? "request-book" : "must-login"; ?>" href="<?php echo $logged ? "?show=book&amp;id={$row['id']}&amp;lend=1" : "?show=login"; ?> ">
 	    					<button type="button" class="list-button list-lend-book link box center bold">Δανείσου το</button>
 	    				</a>
@@ -230,10 +233,11 @@ function in_there_pos($where, $what){
 
 function get_category_name($id){
 	global $db;
-	$query = "SELECT {$db->table['categories']}.category_name FROM {$db->table['categories']} 
-				CROSS JOIN {$db->table['book_has_category']} 
-				ON {$db->table['categories']}.id = {$db->table['book_has_category']}.category_id
-				WHERE {$db->table['book_has_category']}.book_id = '".$db->db_escape_string($id)."' 
+	$query = "	SELECT `{$db->table['categories']}`.category_name 
+				FROM `{$db->table['categories']}` 
+					CROSS JOIN `{$db->table['book_has_category']}` 
+						ON `{$db->table['categories']}`.id = `{$db->table['book_has_category']}`.category_id
+				WHERE `{$db->table['book_has_category']}`.book_id = '".$db->db_escape_string($id)."' 
 				ORDER BY category_name ASC;";
 	$res = $db->query($query);
 	$flag = 0;
@@ -250,7 +254,7 @@ function get_category_name($id){
 
 function get_book_name($id){
     global $db;
-    $query = "SELECT {$db->table['booklist']}.title FROM {$db->table['booklist']}
+    $query = "	SELECT `{$db->table['booklist']}`.title FROM `{$db->table['booklist']}`
     			WHERE `id` = '".$db->db_escape_string($id)."'";
     $res = $db->query($query);
     $book = $db->db_fetch_object($res);
@@ -259,8 +263,8 @@ function get_book_name($id){
 
 function get_book_date($id){
 	global $db;
-	$query = "SELECT `must_return` FROM {$db->table['lend']}
-		WHERE `book_id` = '".$db->db_escape_string($id)."'";
+	$query = "	SELECT must_return FROM `{$db->table['lend']}`
+				WHERE `book_id` = '".$db->db_escape_string($id)."'";
 	$res = $db->query($query);
 	$book = $db->db_fetch_object($res);
 	return $book->must_return;

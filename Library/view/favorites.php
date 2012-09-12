@@ -21,10 +21,12 @@
 			else
 				$user->favorites->delete_favorite($db->db_escape_string($_GET['id']));
 		}
-		$books = $db->get_books($user->favorites->get_favorites(!empty($_GET['id']) ? $db->db_escape_string($_GET['id']) : -1), 
-								"SELECT * FROM `{$db->table['favorites']}` WHERE `user_id` = '{$user->id}';");
+		$admin_view = !empty($_GET['user_id']);
+		$user_id = $admin_view ? $db->db_escape_string($_GET['user_id']) : $user->id; 
+		$count_query =  "SELECT COUNT(*) FROM `{$db->table['favorites']}` WHERE `user_id` = '$user_id' ; ";
+		$books = $db->get_books($user->favorites->get_favorites($admin_view ? $db->db_escape_string($_GET['user_id']) : -1), $count_query);
 		echo "<div class=\"content\">";
-			list_books($books);
+			list_books($books, $admin_view ? 1 : 0);
 		echo "</div>";
 	}
 ?>

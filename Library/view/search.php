@@ -156,7 +156,7 @@ else {
 		
 	$query .= "1=1 ORDER BY id ASC ";
 	
-	$books = $db->get_books("SELECT * FROM " .$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], "SELECT * FROM ".$query);
+	$books = $db->get_books("SELECT * FROM " .$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], "SELECT COUNT(*) FROM ".$query);
 	
 ?>
 	<div class="list">

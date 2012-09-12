@@ -515,6 +515,14 @@ div.developers a{
     border-radius: 5px;
 }
 
+.announ-div{
+	display: none;
+}
+
+.announ-div.announ-shown{
+	display: block;
+}
+
 .announce-head{
 	font-size: 18px;
     font-weight: bolder;

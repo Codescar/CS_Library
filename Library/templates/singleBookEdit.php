@@ -15,7 +15,7 @@
 		<form action="index.php?show=book&edit=<?php echo $_GET['edit']."_done"; ?><?php if(isset($_GET['id'])) echo "&id=".$_GET['id'];?>" method="post">
 			<label for="title-input">Τίτλος:</label>				<input type="text" name="title" id="title-input" <?php echo value("title", $args); ?>/><br/>
 			<label for="isbn-input">ISBN:</label>					<input type="text" name="isbn" id="isbn-input" <?php echo value("isbn", $args); ?>/><br/>
-			<label for="availability-input">Διαθεσιμότητα:</label>	<input type="radio" value="0" checked="checked" 
+			<label for="availability-input">Διαθεσιμότητα:</label>	<input type="radio" value="3" checked="checked" 
 			name="availability" id="availability-input" />Όχι		<input type="radio" value="1" name="availability" id="availability-input" />Ναι<br/>
 			<label for="writer-input">Συγγραφέας:</label>			<input type="text" name="writer" id="writer-input" <?php echo value("writer", $args); ?>/><br/>
 			<label for="publisher-input">Εκδότης:</label>			<input type="text" name="publisher" id="publisher-input" <?php echo value("publisher", $args); ?>/><br/>

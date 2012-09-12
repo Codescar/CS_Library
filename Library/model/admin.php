@@ -239,13 +239,13 @@ class Admin{
 	function renew_book($book_id, $user_id){
 		global $db, $CONFIG;
 		$query = "SELECT * FROM `{$db->table['lend']}`
-					WHERE `book_id` = '$book_id' AND `user_id` = '$user_id' ";
+					WHERE `user_id` = '$user_id' AND `book_id` = '$book_id' ";
 		$result = $db->query($query);
 		$lend = $db->db_fetch_object($result);
 		if($lend->renewals < $CONFIG['renewals']){
 			$query = "UPDATE `{$db->table['lend']}`
 						SET `renewals` = `renewals` + 1 , `must_return` = ADDDATE('$lend->must_return', {$CONFIG['extra_days_lend']})
-						WHERE `book_id` = '$book_id' AND `user_id` = '$user_id'";
+						WHERE `user_id` = '$user_id' AND `book_id` = '$book_id' ";
 			$db->query($query);
 			return TRUE;
 		}

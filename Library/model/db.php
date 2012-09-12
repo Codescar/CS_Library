@@ -141,7 +141,8 @@ abstract class DataBase{
 		array_pop($books);
 		if($query2 != null){
 			$r = $this->query($query2);
-			$books['0'] = $this->db_affected_rows();
+			$b = $this->db_fetch_array($r);
+			$books['0'] = $b[0];
 		}
 		else
 			$books['0'] = -1;
@@ -166,7 +167,7 @@ abstract class DataBase{
 	
 	public function delete_request($book_id, $user_id){
 		$query = "DELETE FROM `{$this->table['requests']}`
-					WHERE `book_id` = '$book_id' AND `user_id` = '$user_id' LIMIT 1; ";
+					WHERE `user_id` = '$user_id' AND `book_id` = '$book_id' LIMIT 1; ";
 		$this->query($query);
 		$this->change_avail($book_id, 1);
 		$this->user_change_attr($user_id, "books_requested", " - 1 ");
@@ -175,7 +176,7 @@ abstract class DataBase{
 	
 	public function return_book($book_id){
 		$return ="	UPDATE `{$this->table['lend']}`
-					SET `returned` = NOW()
+						SET `returned` = NOW()
 					WHERE book_id = '$book_id'
 					LIMIT 1;";
 		$this->query($return);
@@ -190,7 +191,7 @@ abstract class DataBase{
 							WHERE book_id = '$book_id'; ";
 		$this->query($log_it);
 		$delete ="	DELETE FROM `{$this->table['lend']}`
-						WHERE book_id = '$book_id'
+					WHERE book_id = '$book_id'
 					LIMIT 1; ";
 		$this->query($delete);
 	}

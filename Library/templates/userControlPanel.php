@@ -63,5 +63,5 @@
 	<div class="block" id="user-right">
 		<a class="link-button" href="index.php?show=cp&more=lended&id=<?php if($user->is_admin() && $user->id != $user_info->id) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Δανεισμένα βιβλία</button></a><br /><br />
 		<a class="link-button" href="index.php?show=cp&more=history&id=<?php if($user->is_admin() && $user->id != $user_info->id) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Ιστορικό δανεισμού</button></a><br /><br />
-		<a class="link-button" href="index.php?show=favorites&id=<?php if($user->is_admin() && $user->id != $user_info->id) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Λίστα αγαπημένων</button></a><br /><br />
+		<a class="link-button" href="index.php?show=favorites&user_id=<?php if($user->is_admin() && $user->id != $user_info->id) { echo $user_info->id; } ?>"><button type="button" class="cp-button link box center bold">Λίστα αγαπημένων</button></a><br /><br />
 	</div>

@@ -169,7 +169,8 @@ class User{
 		    echo "<td class=\"date\">".date('d-m-Y', strtotime($book->returned))."</td></tr>\n";
 		}
         ?></table><?php
-		$query = "SELECT * FROM `{$db->table['log_lend']}` 
+		$query = "	SELECT * 
+					FROM `{$db->table['log_lend']}` 
 					WHERE `{$db->table['log_lend']}`.`user_id` = '$id' ";
 		$result = $db->query($query);
 		$num = $db->db_num_rows($result);
@@ -189,10 +190,11 @@ class User{
 	public function update($user_id, $name, $surname, $born, $phone, $email, $new_pass, $r_new_pass){
 		global $db;
 
-		$q = "UPDATE `{$db->table['users']}` SET
-			`name` = '$name', `surname` = '$surname',
-			`born` = '$born', `phone` = '$phone',
-			`email` = '$email' ";
+		$q = "UPDATE `{$db->table['users']}` 
+				SET
+					`name` = '$name', `surname` = '$surname',
+					`born` = '$born', `phone` = '$phone',
+					`email` = '$email' ";
 		if($new_pass != "" && $new_pass = $r_new_pass){
 			/*if(check_password($_POST['n_pass']))*/
 			$new_pass = $this->pass_encrypt($new_pass);
@@ -253,10 +255,9 @@ class User{
 	    return ($this->access_level >= 100) ? true : false;
 	}
 	
-	public function cansel_request($id, $current_url){
+	public function cansel_request($book_id, $current_url){
 		global $db;	
-
-		$query = "DELETE FROM `requests` WHERE `id` = '$id' AND `user_id` = '{$this->id}'; ";
+		$query = "DELETE FROM `requests` WHERE `user_id` = '{$this->id}' AND `id` = '$book_id'; ";
 		$db->query($query);
 		echo "<div class=\"success\">Η αίτηση δανεισμού σου ακυρώθηκε!<br />";
 		redirect($current_url);
@@ -264,7 +265,7 @@ class User{
 	
 	public static function get_name($id){
 		global $db;
-		$query = "SELECT username FROM {$db->table['users']} WHERE `id` = '".$db->db_escape_string($id)."';";
+		$query = "SELECT username FROM `{$db->table['users']}` WHERE `id` = '".$db->db_escape_string($id)."';";
 		$result = $db->query($query);
 		$ret = $db->db_fetch_array($result);
 		return $ret[0];
@@ -281,13 +282,16 @@ class User{
 	function show_lended($id = -1){
 		global $CONFIG, $db, $page;
 		$user_id = $this->id;
-		if($id != -1)
+		$admin_view = false;
+		if($id != -1){
 			$user_id = $id;
-		$query = "SELECT * FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` 
-					ON {$db->table['booklist']}.id = {$db->table['lend']}.book_id 
-				  WHERE {$db->table['lend']}.user_id = '$user_id' ";
-		$books = $db->get_books($query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], $query);
-		list_books($books); 
+			$admin_view = true;
+		}
+		$query = "FROM `{$db->table['booklist']}` CROSS JOIN `{$db->table['lend']}` 
+					ON `{$db->table['booklist']}`.id = `{$db->table['lend']}`.book_id 
+				  WHERE `{$db->table['lend']}`.user_id = '$user_id' ";
+		$books = $db->get_books("SELECT * ".$query."LIMIT ".$page * $CONFIG['items_per_page'].", ".$CONFIG['items_per_page'], "SELECT COUNT(*) ".$query);
+		list_books($books, $admin_view ? 1 : 0); 
 		return;
 	}
 };

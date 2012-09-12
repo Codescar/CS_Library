@@ -9,7 +9,7 @@
     	foreach ($_GET['category'] as $var ){
     		if($var == "available")
     			$cat['0'] = true;
-    		if($var == "read")
+    		if($var == "read" && $user->is_logged_in())
     			$cat['1'] = true;
     		if($var == "popular")
     			$cat['2'] = true;
@@ -23,7 +23,7 @@
     $flag2 = false;
 	$q = "FROM `{$db->table['booklist']}` ";
 	if($cat['1'])
-		$q .= " LEFT JOIN `{$db->table['log_lend']}` ON {$db->table['booklist']}.id = {$db->table['log_lend']}.book_id ";
+		$q .= " CROSS JOIN `{$db->table['log_lend']}` ON `{$db->table['booklist']}`.id = `{$db->table['log_lend']}`.book_id ";
 	if(isset($_GET['more']) && $_GET['more'] == "category" && isset($_GET['id']) && $_GET['id'] != "false"){
 		$q .= " LEFT JOIN `{$db->table['book_has_category']}` ON `{$db->table['booklist']}`.id = `{$db->table['book_has_category']}`.book_id " 
 		   .  "WHERE `{$db->table['book_has_category']}`.category_id = ".$db->db_escape_string($_GET['id'])." ";
@@ -52,17 +52,17 @@
 	$q .= $flag2 ? " ," : "ORDER BY ";
 	$q .= " `{$db->table['booklist']}`.id ASC ";
 
-	$q2 = "SELECT * " . $q;
+	$q2 = "SELECT COUNT(*) FROM (SELECT `booklist`.id " . $q. ") as bla;";
 	
 	$q = "SELECT * " . $q . "LIMIT ".$page*$CONFIG['items_per_page'].", ".$CONFIG['items_per_page'];
 	$books = $db->get_books($q, $q2);
-	$query = "	SELECT `category_name` AS name,  {$db->table['categories']}.id
-					FROM {$db->table['book_has_category']}
+	$query = "	SELECT `category_name` AS name,  `{$db->table['categories']}`.id
+				FROM `{$db->table['book_has_category']}`
 					CROSS JOIN `{$db->table['categories']}` 
-					ON {$db->table['book_has_category']}.category_id = {$db->table['categories']}.id
-					WHERE {$db->table['book_has_category']}.book_id is not NULL
-					GROUP BY {$db->table['book_has_category']}.category_id
-					ORDER BY {$db->table['categories']}.category_name ASC;";
+						ON `{$db->table['book_has_category']}`.category_id = `{$db->table['categories']}`.id
+				WHERE `{$db->table['book_has_category']}`.book_id is not NULL
+				GROUP BY `{$db->table['book_has_category']}`.category_id
+				ORDER BY `{$db->table['categories']}`.category_name ASC;";
 	$result = $db->query($query);
 ?>
 <div id="direction"><a href="index.php">Αρχική</a> &nbsp;&gt;&gt;&nbsp; Κατάλογος βιβλίων</div>
