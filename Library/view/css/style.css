@@ -284,6 +284,11 @@ background: linear-gradient(top,  #feffe8 0%,#bfb6a5 100%); /* W3C */
 .list tr, th, td{
 	border: 2px solid black;
 }
+
+td{
+	padding: 10px 0;
+}
+
 footer{
 	font-size: 10pt;
 	font-style: italic;

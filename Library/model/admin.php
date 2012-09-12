@@ -263,17 +263,15 @@ class Admin{
             <table class="add-new-under">
             <tr>
                 <th>Τίτλος</th>
-                <th>Σώμα</th>
                 <th>Συγγραφέας</th>
                 <th>Ημερομηνία</th>
                 <th>Επιλογές</th>
             </tr> <?php
             while($announcement = $db->db_fetch_object($ret, 'announcements')){
                 ?> <tr>
-                    <td><?php echo substr($announcement->title, 0, 40); echo (strlen($announcement->title) > 40) ? "..." : ""; ?></td>
-                    <td><?php echo substr($announcement->body, 0, 40);  echo (strlen($announcement->body) > 40)  ? "..." : ""; ?></td>
+                    <td><?php echo substr($announcement->title, 0, 80); echo (strlen($announcement->title) > 80) ? "..." : ""; ?></td>
                     <td><?php echo $announcement->username; ?></td>
-                    <td><?php echo $announcement->date; ?></td>
+                    <td><?php echo substr($announcement->date, 0, 10); ?></td>
                     <td><a href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id))); ?>">Επεξεργασία</a>
                     -- <a class="delete-announce" href="<?php echo "?".http_build_query(array_merge($_GET, array("id" => $announcement->id, "delete" => "true"))); ?>">Διαγραφή</a>
                     </td>

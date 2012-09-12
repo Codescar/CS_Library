@@ -293,7 +293,6 @@
 }
 #history td, #history th{
 	border: 1px solid #21170d;
-	padding: 5px 10px;
 }
 #history .alt td{
 	border: 1px solid rgb(152, 191, 33);
@@ -310,7 +309,7 @@
 	color: red;
 }
 th{
-	font-size: 18px;
+	font-size: 20px;
 }
 td{
 	text-align: center;
