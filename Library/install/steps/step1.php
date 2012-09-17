@@ -8,6 +8,13 @@
 						break;
 	}
 	
+	global $db_hostname, $db_username, $db_password, $db_name;
+	$db_hostname = $_POST['db_host'];
+	$db_username = $_POST['db_user'];
+	$db_password = $_POST['db_pass'];
+	
+	$db_name = $_POST['db_name'];
+	
 	$db = new Lbdb();
 
 	print_r($db->connect());

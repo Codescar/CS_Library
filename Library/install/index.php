@@ -1,4 +1,8 @@
 <?php
+
+	global $CONFIG;
+	$CONFIG['debug'] = true;
+	
 	if(isset($_GET['step']) && $_GET['step'] == 0)
 	{
 		// Submiting values!

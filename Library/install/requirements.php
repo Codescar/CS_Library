@@ -16,6 +16,8 @@
 	check_module('mysql');
 	check_module('mysqli');
 	check_module('session');
+	check_module('json');
+	check_module('zip');
 	
 	function check_module($module){
 		$load_ext = get_loaded_extensions();
