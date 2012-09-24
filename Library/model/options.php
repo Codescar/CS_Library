@@ -17,7 +17,7 @@ class option{
 		return $db->query($query);
 	}
 
-	public static function save($name, $value, $description, $id, $category){
+	public static function save($name, $value, $description = "", $id = -1, $category = -1){
 		global $db;
 		$save_value = false;
 		if($description == "" && $id == -1){
