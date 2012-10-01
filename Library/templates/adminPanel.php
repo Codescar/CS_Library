@@ -50,4 +50,8 @@
 		<img class="block panel-img" src="view/images/pages.png" /><br />
 		Pages
 	</a></h3>
+	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=backup" >
+		<img class="block panel-img" src="view/images/backup.png" /><br />
+		Αντίγραφα Ασφαλείας
+	</a></h3>
 </div>

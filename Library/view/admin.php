@@ -48,6 +48,8 @@
 					$msg = "Ανανέωση Βιβλίου</div>";
 				}elseif($_GET['more'] == "request_delete"){
 					$msg = "Διαγραφή αιτήματος</div>";
+			    }elseif($_GET['more'] == "backup"){
+			    	$msg = "Αντίγραφα Ασφαλείας</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
 			        $msg = "<a href=\"index.php?show=admin&more=users\" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;".user::get_name($_GET['id'])."</div>";
 			    }else{ ?>
@@ -135,6 +137,8 @@
 				echo "<div class=\"success\">Το αίτημα διαγράφηκε<br />";
 				redirect("index.php?show=admin&more=pendings", 1500);
 			}
+		}elseif($_GET['more'] == "backup"){
+			include('backup.php');
 		}
 	echo "</div>";
 	} ?>

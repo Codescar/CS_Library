@@ -3,10 +3,7 @@
 		die("Invalid request!");
 
 		global $CONFIG;
-		
-		$CONFIG['UPDATE']['dir'] = 'UPDATE-PACKAGES/';
-		$CONFIG['UPDATE']['URL'] = "http://projects.codescar.eu/Library/UPDATES/";
-	
+
 		require_once('model/xmlstr_to_array.php');
 		/*
 		 * GET PARAMETERS
@@ -143,7 +140,8 @@ BACKUP TOOL IS NOW EXISTS YET!
 	<button type="button" style="width: 140px;" class="index-button link box center bold">BACKUP</button>
 </a> -->
 <div id="downloaded-updates">
-	<h3>Ready-to-install Updates</h3>
+	<?php $files = list_all_updates(); ?>
+	<h3>Ready-to-install Updates(<?php echo count($files); ?>)</h3>
 	<form action="index.php?show=admin&more=update&action=check" method="post">
 		<table>
 		<tr>
@@ -154,7 +152,7 @@ BACKUP TOOL IS NOW EXISTS YET!
 			<th>Action</th>
 		</tr>
 		<?php 
-			$files = list_all_updates();
+			
 			foreach($files as $file){
 				//list all updates located in update-folder
 				//with their info which is in the info.xml file

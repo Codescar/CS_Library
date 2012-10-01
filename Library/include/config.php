@@ -24,6 +24,10 @@
 	$CONFIG['debug'] = true;
 	$CONFIG['maintenance'] = false;
 	
+	/* Update Options */
+	$CONFIG['UPDATE']['dir'] = 'UPDATE-PACKAGES/';
+	$CONFIG['UPDATE']['URL'] = "http://projects.codescar.eu/Library/UPDATES/";
+	
 	/* visuals */
 	$CONFIG['items_per_page'] = 5;
 	$CONFIG['history_items_per_page'] = 20;

@@ -2,6 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	global $book, $lended, $logged, $requested, $have, $taken, $lend, $msg, $CONFIG, $user;
+	
 ?>
 <div class="book-info">
 	<div class="book-left-info">
@@ -83,6 +84,9 @@
 			</a>
 		<?php } ?>
 	</div>
+	<?php 
+		render_template('ratings.php', array($book->id));
+	?>
 </div><!-- .book-info end -->
 <script type="text/javascript">
 	$(function() {
