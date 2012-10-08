@@ -49,7 +49,7 @@ class User{
 		$pass = $db->db_escape_string($pass);
 		$pass = user::pass_encrypt($pass);
 		$mail = $db->db_escape_string($mail);
-		$query2 = "(";
+		$query2 = " (";
 		if(!empty($_POST['name'])){
 		    $x = $db->db_escape_string($_POST['name']);
 		    $query2 .= "'".$x."', ";
@@ -75,7 +75,7 @@ class User{
 		    $query2 .= "'".$x."', ";
 		}
 		else
-		    $query2 .= "NULL, ";
+		    $query2 .= "'0000-00-00', ";
 		if(!empty($_POST['phone'])){
 		    $x = $db->db_escape_string($_POST['phone']);
 		    $query2 .= "'".$x."', ";
@@ -88,6 +88,7 @@ class User{
 					 `password`, `born`, `phone`, `email`, `access_lvl`, 
 					 `created_date`, `last_ip`) VALUES";
 		$query .= $query2;
+		echo $query;
         $db->query($query);
 		//TODO send an e-mail to user
 		return;
