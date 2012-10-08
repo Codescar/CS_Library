@@ -22,10 +22,39 @@
 			<label for="pages-input">Σελίδες:</label>				<input type="text" name="pages" id="pages-input" <?php echo value("pages", $args); ?>/><br/>
 			<label for="publish_year-input">Έτος Έκδοσης:</label>	<input type="text" name="publish_year" id="publish_year-input" <?php echo value("publish_year", $args); ?>/><br/>
 			<label for="description-input">Περιγραφή:</label>		<textarea rows="8" cols="80" name="description" id="description-input" ><?php echo isset($args['description']) ? $args['description'] : ""; ?></textarea><br/>
+			<label for="categories">Κατηγορίες: </label>			<input type="text" id="categories" name="categories" list="categories-list">
+																		<datalist id="categories-list">
+																		<label>
+																			<select name="categories">
+																			<?php 
+																			global $db;
+																			$query = "SELECT `category_name` AS name,  `{$db->table['categories']}`.id
+																						FROM `{$db->table['book_has_category']}`
+																							CROSS JOIN `{$db->table['categories']}` 
+																								ON `{$db->table['book_has_category']}`.category_id = `{$db->table['categories']}`.id
+																						WHERE `{$db->table['book_has_category']}`.book_id is not NULL
+																						GROUP BY `{$db->table['book_has_category']}`.category_id
+																						ORDER BY `{$db->table['categories']}`.category_name ASC;";
+																			$result = $db->query($query);
+																			while($category = $db->db_fetch_object($result))
+																				echo "<option name=\"$category->id\" >$category->name";
+																			?>
+																			</select>
+																		</label>
+																		</datalist>
+																		<input type="button" id="add-category" value="Προσθήκη"/>
+																		<br/>
+																		<script type="text/javascript">
+																			$('#add-category').click(function (){ alert("adding " + $('#categories').val());});
+																		
+																		</script>
+
+
 			<label for="image_url-input">Εικόνα:</label>			<input type="text" name="image_url" id="image_url-input" <?php echo value("image_url", $args); ?> /><br/>		
 			<?php if(isset($_GET['id'])){ ?>
 				<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
 			<?php } ?>
+			
 			<input type="submit" value="Αποθήκευση" />
 		</form>
 

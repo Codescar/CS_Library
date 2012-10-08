@@ -19,7 +19,8 @@ abstract class DataBase{
 	                        "pages"       	    => "pages", 
 	                        "book_has_category" => "book_has_category",
 							"avatars"			=> "avatars",
-							"favorites"			=> "favorites" );
+							"favorites"			=> "favorites",
+							"ratings"			=> "ratings"  );
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
@@ -113,7 +114,7 @@ abstract class DataBase{
 	abstract protected function _query($query);
 	
 	public function query($query){
-	    
+	   
 	    $start = microtime(true);
 	    
 		$results = $this->_query($query);

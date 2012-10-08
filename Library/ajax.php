@@ -1,8 +1,4 @@
-<?php
-	require_once('include/includes.php');
-	
-	load_model();
-	
+<?php	
 	ratings_controller();
 
 ?>

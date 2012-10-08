@@ -24,5 +24,12 @@
 		ini_set('display_errors', '0');
 		define('DISPLAY_XPM4_ERRORS', false);
 	}
-	require_once('view/index.php');
+	
+	/* Load the rest model files*/
+	load_model();	
+	
+	if(isset($_GET['method']) && $_GET['method'] == "ajax")
+		require_once('ajax.php');
+	else
+		require_once('view/index.php');
 ?>

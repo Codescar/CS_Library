@@ -3,8 +3,7 @@
 		die("Invalid request!");
 	define('VIEW_INDEX', true);
 
-	/* Load the rest model files*/
-	load_model();	
+
 	/* Load the user's messagebox*/
 	//$user->message = new message();
 	

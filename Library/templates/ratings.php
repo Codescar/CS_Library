@@ -11,7 +11,7 @@
                 fetch: 1
             };
             $.post(
-                'ajax.php',
+                'index.php?method=ajax',
                 out_data,
                 function(INFO) {
                     $(widget).data( 'fsr', INFO );
@@ -45,8 +45,12 @@
                 clicked_on : $(star).attr('class'),
                 widget_id : $(star).parent().attr('id')
             };
+            <?php 
+            global $user;
+            if($user->is_logged_in()){
+            ?>
             $.post(
-                'ajax.php',
+                'index.php?method=ajax',
                 clicked_data,
                 function(INFO) {
                     widget.data( 'fsr', INFO );
@@ -54,6 +58,9 @@
                 },
                 'json'
             ); 
+            <?php } else { ?>
+			alert("Θα πρέπει να έχεις σνδεθεί με το λογαριασμό σου για να ψηφίσεις!");
+            <?php } ?>
         });
         
     });
@@ -65,7 +72,7 @@
         var exact = $(widget).data('fsr').dec_avg;
     
         window.console && console.log('and now in set_votes, it thinks the fsr is ' + $(widget).data('fsr').number_votes);
-        
+   
         $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
         $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote'); 
         $(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
