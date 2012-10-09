@@ -17,7 +17,7 @@
 		$num = round($all/$CONFIG['announ_num']);
 		for($i = 0; $i < $num; $i++){
 			echo "<div class=\" ";
-			echo ($i == 0) ? "announ-shown" : "announ-div";
+			echo ($i == 0) ? "announ-shown announ-first" : "announ-div";
 			echo ($i == $num - 1) ? " announ-last" : "";
 			echo " \">";
 			announcements::show($i);
@@ -25,12 +25,13 @@
 		}
 		?>
 		<div class="center">
+			<a class="link-button" style="display: none;" id="newer-ann" href="#"><button type="button" class="index-button link box center bold">Νεότερες</button></a>
+			<a class="link-button" id="older-ann" href="#"><button type="button" class="index-button link box center bold">Παλιότερες</button></a>
 			<?php if($user->is_admin()) { ?>
 				<a class="link-button" href="index.php?show=admin&more=announcements&id=0">
 					<button type="button" class="index-button link box center bold">Νέα</button>
 				</a>
 			<?php } ?>
-			<a class="link-button" id="old-ann" href="#"><button type="button" class="index-button link box center bold">Παλιότερες</button></a>
 		</div>
 	</div>
 </div>

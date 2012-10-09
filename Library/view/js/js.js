@@ -53,10 +53,19 @@ function loaded(){
 	$('.category-select').click(function (){
 		$('#category-more').attr('value', 'category');
 	});
-	$('#old-ann').click(function (){	
+	$('#older-ann').click(function (){
+		if($('.announ-shown').is('.announ-first'))
+			$('#newer-ann').fadeIn(1);
 		$('.announ-shown').toggleClass('announ-shown announ-div').next('.announ-div').toggleClass('announ-shown announ-div');
 		if($('.announ-shown').is('.announ-last'))
-			$('#old-ann').fadeOut(1);
+			$('#older-ann').fadeOut(1);
+	});
+	$('#newer-ann').click(function (){
+		if($('.announ-shown').is('.announ-last'))
+			$('#older-ann').fadeIn(1);
+		$('.announ-shown').toggleClass('announ-shown announ-div').prev('.announ-div').toggleClass('announ-shown announ-div');
+		if($('.announ-shown').is('.announ-first'))
+			$('#newer-ann').fadeOut(1);
 	});
 }
 
