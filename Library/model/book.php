@@ -233,7 +233,8 @@ function in_there_pos($where, $what){
 
 function get_category_name($id){
 	global $db;
-	$query = "	SELECT `{$db->table['categories']}`.category_name 
+	$query = "	SELECT 	`{$db->table['categories']}`.category_name, 
+						`{$db->table['categories']}`.id
 				FROM `{$db->table['categories']}` 
 					CROSS JOIN `{$db->table['book_has_category']}` 
 						ON `{$db->table['categories']}`.id = `{$db->table['book_has_category']}`.category_id
@@ -241,15 +242,56 @@ function get_category_name($id){
 				ORDER BY category_name ASC;";
 	$res = $db->query($query);
 	$flag = 0;
+	$ret = "";
 	while($row = $db->db_fetch_array($res)){
 	    if($flag)
-	        $ret .= ", ". $row['category_name'];
-	    else   
-	       $ret =  $row['category_name'];
+	        $ret .= ", ";
+	    $ret .=  "<span id=\"category_{$row['id']}\">{$row['category_name']}</span>";
 	    $flag = 1;
 	}
 	return $ret;
 	
+}
+
+function add_category_by_name($book_id, $category_name){
+	/* it adds the category identified by the $category_name is the category exists
+	 * or creates the new category
+	 * @return true on success, false on new category creation
+	 */
+	global $db;
+	$query = "	INSERT INTO `{$db->table['categories']}` 
+					(`category_name`)
+				VALUES
+					('{$db->db_escape_string($category_name)}')
+				ON DUPLICATE KEY UPDATE `id` = `id`;";
+	
+	$db->query($query);
+	
+	$created = ($db->db_affected_rows() == 1);
+	
+	//$query = "SELECT `id` FROM {$db->table['categories']} WHERE `category_name` = {$db->db_escape_string($category_name)};";
+	
+	$query = "INSERT INTO `{$db->table['book_has_category']}` 
+					(`book_id`, `category_id`)
+					VALUES
+					('{$db->db_escape_string($book_id)}', (SELECT `id` FROM {$db->table['categories']} WHERE `category_name` = '{$db->db_escape_string($category_name)}') );";
+	
+	$db->query($query);
+	return !$created;
+}
+
+function remove_category_by_name($book_id, $category_name){
+	global $db;
+	
+	$query = "DELETE FROM {$db->table['book_has_category']} 
+				WHERE `book_id` = '{$db->db_escape_string($book_id)}' 
+				AND `category_id` = (
+					SELECT `id` 
+						FROM {$db->table['categories']} 
+						WHERE `category_name` = '{$db->db_escape_string($category_name)}'
+					) LIMIT 1;";
+	$db->query($query);
+	return $db->db_affected_rows() == 1;
 }
 
 function get_book_name($id){

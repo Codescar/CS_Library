@@ -173,4 +173,10 @@ function arrayToObject($array) {
     }
 }
 
+function logg($file, $string){
+		$fh = fopen($file, 'a');
+		fwrite($fh, $string);
+		fclose($fh);
+}
+
 ?>

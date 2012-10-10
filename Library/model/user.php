@@ -88,7 +88,7 @@ class User{
 					 `password`, `born`, `phone`, `email`, `access_lvl`, 
 					 `created_date`, `last_ip`) VALUES";
 		$query .= $query2;
-		echo $query;
+		
         $db->query($query);
 		//TODO send an e-mail to user
 		return;
