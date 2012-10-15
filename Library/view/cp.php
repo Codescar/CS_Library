@@ -33,7 +33,9 @@
 			echo "<div class=\"error\">Σφάλμα μεταφόρτωσης, παρακαλώ προσπαθήστε ξανά!</div>";
 			redirect("index.php?show=cp", 1500);
 		}
-		elseif($avatar = upload_file()){
+		elseif($avatar = upload_file($_FILES["profilePicture"], "avatars", "image", $user->id, true, true)){
+			if($avatar === false)
+				echo "<div class=\"error\">Η Εικόνα δεν μπόρεσε να αποθηκευτεί! $avatar</div>";
 			if(update_avatar_in_db($avatar, 1) != 0)
 				echo "<div class=\"success\">Η εικόνα προφίλ σας ανανεώθηκε!</div>";
 		}

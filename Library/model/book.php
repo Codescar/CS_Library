@@ -180,24 +180,6 @@ function paggination($all_items, $nums_to_display = -1, $cur_page = -1, $items_p
 	return;
 }
 
-function have_book_rq($book_id, $user_id){
-	global $db;
-	$query = "	SELECT * FROM `{$db->table["requests"]}`
-				WHERE `user_id` = '".$user_id."'
-				AND `book_id` = '$book_id'";
-	$result = $db->db_num_rows($db->query($query));
-	return $result;
-}
-
-function have_book($book_id, $user_id){
-	global $db;
-	$query = "	SELECT `taken`, `must_return` FROM `{$db->table["lend"]}` 
-				WHERE `user_id` = '".$user_id."' 
-				AND `book_id` = '$book_id'";
-	$result = $db->db_fetch_object(($db->query($query)));
-	return $result;
-}
-
 function lend_request($book_id, $user_id){
 	global $db, $CONFIG;
 	$user = user::show_info($user_id);
@@ -231,7 +213,7 @@ function in_there_pos($where, $what){
 	return -1;
 }
 
-function get_category_name($id){
+function get_category_name($id, $SEPERATOR = ","){
 	global $db;
 	$query = "	SELECT 	`{$db->table['categories']}`.category_name, 
 						`{$db->table['categories']}`.id
@@ -245,7 +227,7 @@ function get_category_name($id){
 	$ret = "";
 	while($row = $db->db_fetch_array($res)){
 	    if($flag)
-	        $ret .= ", ";
+	        $ret .= $SEPERATOR . " ";
 	    $ret .=  "<span id=\"category_{$row['id']}\">{$row['category_name']}</span>";
 	    $flag = 1;
 	}
@@ -256,7 +238,6 @@ function get_category_name($id){
 function add_category_by_name($book_id, $category_name){
 	/* it adds the category identified by the $category_name is the category exists
 	 * or creates the new category
-	 * @return true on success, false on new category creation
 	 */
 	global $db;
 	$query = "	INSERT INTO `{$db->table['categories']}` 
@@ -277,7 +258,8 @@ function add_category_by_name($book_id, $category_name){
 					('{$db->db_escape_string($book_id)}', (SELECT `id` FROM {$db->table['categories']} WHERE `category_name` = '{$db->db_escape_string($category_name)}') );";
 	
 	$db->query($query);
-	return !$created;
+	
+	return ($db->db_affected_rows() == 1);
 }
 
 function remove_category_by_name($book_id, $category_name){
@@ -294,21 +276,98 @@ function remove_category_by_name($book_id, $category_name){
 	return $db->db_affected_rows() == 1;
 }
 
-function get_book_name($id){
-    global $db;
-    $query = "	SELECT `{$db->table['booklist']}`.title FROM `{$db->table['booklist']}`
-    			WHERE `id` = '".$db->db_escape_string($id)."'";
-    $res = $db->query($query);
-    $book = $db->db_fetch_object($res);
-    return $book->title;
-}
 
-function get_book_date($id){
-	global $db;
-	$query = "	SELECT must_return FROM `{$db->table['lend']}`
-				WHERE `book_id` = '".$db->db_escape_string($id)."'";
-	$res = $db->query($query);
-	$book = $db->db_fetch_object($res);
-	return $book->must_return;
-}
+
+class book{
+	var $id, 
+		$title, 
+		$isbn, 
+		$availability, 
+		$writer, 
+		$publisher, 
+		$description, 
+		$pages, 
+		$publish_year, 
+		$read_time, 
+		$image_url, 
+		$added_on,
+		$categories,
+		$numCategories;
+ 
+	function __construct($ID){
+		global $db;
+		$query = "	SELECT *, `categories`.category_name 
+							FROM `{$db->table['booklist']}`
+								LEFT JOIN  `{$db->table['book_has_category']}` 
+									ON `{$db->table['book_has_category']}`.book_id = `booklist`.id 
+								LEFT JOIN `{$db->table['categories']}`
+									ON `{$db->table['book_has_category']}`.category_id = `{$db->table['categories']}`.id
+							WHERE `{$db->table['booklist']}`.id = '$ID';";
+	
+		$res = $db->query($query);
+		
+		$tmp = $db->db_fetch_array($res);
+		
+		$this->id = $tmp['id'];
+		$this->title = $tmp['title']; 
+		$this->isbn = $tmp['isbn'];
+		$this->availability = $tmp['availability']; 
+		$this->writer = $tmp['writer'];
+		$this->publisher = $tmp['publisher'];
+		$this->description = $tmp['description'];
+		$this->pages = $tmp['pages'];
+		$this->publish_year = $tmp['publish_year']; 
+		$this->read_time = $tmp['read_times'];
+		$this->image_url = $tmp['image_url']; 
+		$this->added_on = $tmp['added_on'];
+		$categories = array();
+		
+		do{
+			$categories[] = $tmp['category_name'];
+		}while($tmp = $db->db_fetch_array($res));
+		
+		$this->categories = $categories;
+		$this->numCategories = count($categories);
+	}
+	
+	public function get_book_date(){
+		global $db;
+		
+		$query = "	SELECT `must_return` FROM `{$db->table['lend']}`
+					WHERE `book_id` = '{$this->id}';";
+		
+		$res = $db->query($query);
+		
+		$b = $db->db_fetch_array($res);
+		
+		return $b['must_return'];
+	}
+	
+	public function get_book_name(){
+	    return $this->title;
+	}
+	
+	public function have_book_rq($user_id){
+		global $db;
+		
+		$query = "	SELECT * FROM `{$db->table["requests"]}`
+					WHERE `user_id` = '$user_id'
+						AND `book_id` = '{$this->id}'";
+		
+		$result = $db->db_num_rows($db->query($query));
+		
+		return $result;
+	}
+	
+	public function have_book($user_id){
+		global $db;
+		$query = "	SELECT `taken`, `must_return` FROM `{$db->table["lend"]}` 
+					WHERE `user_id` = '$user_id' 
+					AND `book_id` = '{$this->id}'";
+		
+		$result = $db->db_fetch_object($db->query($query));
+		
+		return $result;
+	}
+};
 ?>

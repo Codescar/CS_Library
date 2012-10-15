@@ -3,7 +3,7 @@
 
     // This is the first thing we add ------------------------------------------
     $(document).ready(function() {
-        
+      
         $('.rate_widget').each(function(i) {
             var widget = this;
             var out_data = {
@@ -70,7 +70,8 @@
         var avg = $(widget).data('fsr').whole_avg;
         var votes = $(widget).data('fsr').number_votes;
         var exact = $(widget).data('fsr').dec_avg;
-    
+        
+        //alert('object whole_avg = ' + avg + '\nvotes: ' + votes + '\nexact: ' + exact);
         window.console && console.log('and now in set_votes, it thinks the fsr is ' + $(widget).data('fsr').number_votes);
    
         $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');

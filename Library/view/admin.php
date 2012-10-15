@@ -106,9 +106,10 @@
 				echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 		        redirect("index.php?show=admin&more=pendings");
 		    }else{
+		    	$book = new book($db->db_escape_string($_GET['return']));
 		    	$user->admin->return_book($db->db_escape_string($_GET['return']), $db->db_escape_string($_GET['user']));
 		    	$u_name = user::get_name($db->db_escape_string($_GET['user']));
-		    	$b_name = get_book_name($db->db_escape_string($_GET['return']));
+		    	$b_name = $book->get_book_name();
 		    	echo "<div class=\"success\">Ο χρήστης ".$u_name." επέστρεψε το βιβλίο ".$b_name."<br />Η επιστροφή καταγράφηκε<br />";
 		    	redirect("index.php?show=admin&more=pendings");
 		    }
@@ -117,10 +118,11 @@
 				echo "<div class=\"error\">Συνέβησε ένα σφάλμα, παρακαλώ δοκιμάστε ξανά<br />";
 		        redirect("index.php?show=admin&more=pendings");
 		    }else{
+		    	$book = new book($db->db_escape_string($_GET['renewal']));
 		    	$res = $user->admin->renew_book($db->db_escape_string($_GET['renewal']), $db->db_escape_string($_GET['user']));
 			    $u_name = user::get_name($db->db_escape_string($_GET['user']));
 		    	if($res){
-			    	$b_name = get_book_name($db->db_escape_string($_GET['renewal']));
+			    	$b_name = $book->get_book_name();
 			    	echo "<div class=\"success\">Ο χρήστης ".$u_name." μπορεί να κρατήσει<br />το βιβλίο ".$b_name." για ακόμα μερικές μέρες<br />";
 			    	redirect("index.php?show=admin&more=pendings", 1500);
 			    }else{

@@ -2,7 +2,6 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	global $book, $lended, $logged, $requested, $have, $taken, $lend, $msg, $CONFIG, $user;
-	
 ?>
 <div class="book-info">
 	<div class="book-left-info">
@@ -60,7 +59,7 @@
 			</div><?php
 		}elseif ($book->availability == 0){
 			?><div class="error" >
-				Το βιβλίο προβλέπεται να είναι διαθέσιμο ξανά μετά την <span class="bold"><?php echo date('d-m-Y', strtotime(get_book_date($book->id))); ?></span>
+				Το βιβλίο προβλέπεται να είναι διαθέσιμο ξανά μετά την <span class="bold"><?php echo date('d-m-Y', strtotime($book->get_book_date())); ?></span>
 			</div><?php
 		}elseif(isset($msg)){ ?>
 			<?php echo "<div class=\"error\" >".$msg."<br />";

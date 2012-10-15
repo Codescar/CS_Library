@@ -46,41 +46,54 @@ function date_gr($timestamp, $mode) {
 	return $result;
 }
 
-function upload_file() {
-	global $user;
+function upload_file($file, $upload_dir = "avatars", $file_type = "image", $filename = null, $check_type = true, $overwrite = true, $max_size = 1000000) {
 
-	$upload_dir = "avatars/";
-	$allowedExts = array("jpg", "jpeg", "gif", "png");
-	$expl = explode(".",$_FILES["profilePicture"]["name"]);
+	if($filename == null)
+		$filename = $file["name"];
+		
+	$upload_dir .= "/";
+	
+	switch($file_type){
+		case "ebook":	
+						$allowedExts 	= array("pdf");
+						$allowedTypes 	= array("document/pdf"); 
+						break;
+		case "image":
+		default:
+						$allowedExts 	= array("jpg", "jpeg", "gif", "png");
+						$allowedTypes 	= array("image/gif", "image/jpeg", "image/png", "image/pjpeg"); 
+						break;
+	
+	}
+	$expl = explode(".",$file["name"]);
 
-	if ( isset($_FILES)
-			&& (($_FILES["profilePicture"]["type"] == "image/gif")
-					|| ($_FILES["profilePicture"]["type"] == "image/jpeg")
-					|| ($_FILES["profilePicture"]["type"] == "image/png")
-					|| ($_FILES["profilePicture"]["type"] == "image/pjpeg"))
-			&& ($_FILES["profilePicture"]["size"] < 1000000)
+	if (isset($file)
+			&& in_array($file["type"], $allowedTypes)
+			&& $file["size"] < $max_size
 			&& in_array(end($expl), $allowedExts))
 	{
 
-		$file_name = $upload_dir . $user->id . "." . end($expl);
+		$file_name = $upload_dir .$filename . "." . end($expl);
 	  
 		if (file_exists($file_name))
-			unlink($file_name);
+			if($overwrite)
+				unlink($file_name);
+			else
+				echo "<div class=\"error\">File already exists!</div>";
 
-		if (!file_exists($file_name))
+		elseif(!file_exists($file_name))
 		{
-			if(!move_uploaded_file($_FILES["profilePicture"]["tmp_name"], $file_name))
-				return 0;
+			if(!move_uploaded_file($file["tmp_name"], $file_name))
+				return false;
 			else
 				return $file_name;
-
 		}
 		else
-			return 0;
+			return false;
 	}
 	else
 		echo "<div class=\"error\">Invalid file!</div>";
-	return 0;
+	return false;
 }
 
 function get_avatar($user_id) {
