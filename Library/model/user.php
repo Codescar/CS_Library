@@ -92,11 +92,9 @@ class User{
         $db->query($query);
         
         require_once('templates/mailTemplates.php');
-        $m = new MAIL;
-		create_mail($m, "registerUser");
+        $m = new customMail("registerUser");
 		$m->AddTo($mail);
-		
-		sent_mail($m);
+		$m->sent_mail();
 		return;
 	}
 	
