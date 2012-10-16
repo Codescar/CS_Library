@@ -23,7 +23,8 @@
 	/* developer options */
 	$CONFIG['debug']					= true;
 	$CONFIG['maintenance'] 				= false;
-	$CONFIG['charset']					= 'utf8';
+	$CONFIG['charset']					= "utf8";
+	$CONFIG['debug'] 					= true;
 	
 	/* Update Options */
 	$CONFIG['UPDATE']['dir'] 			= 'UPDATE-PACKAGES/';
@@ -47,12 +48,6 @@
 	$CONFIG['MAIL']['SMTP']['PORT']		= 25;
 	$CONFIG['MAIL']['SMTP']['USERNAME']	= "username";	
 	$CONFIG['MAIL']['SMTP']['PASSWORD'] = "password";
-
-	/*
-	 * Load the config from the database, 
-	 * if there are same, it overides them.
-	 */
-	option::load_options();
 
 	$local_config_file = "include/myconfig.php";
 	
