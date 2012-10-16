@@ -39,8 +39,8 @@
 				$this->m->Disconnect();
 		}
 		
-		public function AddTo($TO){
-			$this->m->AddTo($TO);
+		public function AddTo($TO, $NAME = null, $CHARSET = null, $ENCODING = null){
+			$this->m->addto($TO, $NAME, $CHARSET, $ENCODING);
 		}
 		
 	};
