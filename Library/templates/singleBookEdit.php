@@ -66,31 +66,9 @@
 		</form>
 	</div><!-- .book-info end -->
 </div>
-		<style type="text/css">
-				#categories_have{
-					margin-top: 20px;
-					margin-bottom: 20px;
-					margin-left: 250px;
-				}
-				#categories_have span{
-					padding: 2px;
-					border-radius: 3px;
-					max-width: 200px;
-					border: 2px green solid;
-					background-color: green;
-					color: white;
-					background-image: url('view/images/cross.png');
-					background-attachment: inherit;
-					background-size:10px 10px;
-					background-repeat: no-repeat;
-					background-position: right center;
-					display: block;
-				}
-			</style>
 			<script type="text/javascript" src="<?php echo $CONFIG['url']; ?>view/js/events.js"></script>
 			<script type="text/javascript" src="<?php echo $CONFIG['url']; ?>view/js/jquery.form.js"></script>
 			<script type="text/javascript">
-			
 			function add_click_handler(){
 				$('#categories_have span').click(function (){ 
 							if(confirm("Do you want to remove this category: " + $(this).text())){

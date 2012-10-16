@@ -90,7 +90,13 @@ class User{
 		$query .= $query2;
 		
         $db->query($query);
-		//TODO send an e-mail to user
+        
+        require_once('templates/mailTemplates.php');
+        $m = new MAIL;
+		create_mail($m, "registerUser");
+		$m->AddTo($mail);
+		
+		sent_mail($m);
 		return;
 	}
 	

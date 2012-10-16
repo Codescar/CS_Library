@@ -2,11 +2,12 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	define('VIEW_SHOW', true);
-	global $db, $user;
+	global $db, $user, $book;
 
 	if(isset($_GET['id'])){
 		$book_id = $db->db_escape_string($_GET['id']);
 		$book = new book($book_id);
+		
 	}
 	
 	if(isset($_GET['id']) && isset($_GET['edit']) && $user->is_admin() && $_GET['edit'] == "edit"){

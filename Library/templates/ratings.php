@@ -76,57 +76,7 @@
    
         $(widget).find('.star_' + avg).prevAll().andSelf().addClass('ratings_vote');
         $(widget).find('.star_' + avg).nextAll().removeClass('ratings_vote'); 
-        $(widget).find('.total_votes').text( votes + ' votes recorded (' + exact + ' rating)' );
+        $(widget).find('.total_votes').text( votes + ' ψήφοι (σύνολο ' + exact + ' βαθμοί)' );
     }
     // END FIRST THING
     </script>
-    
-    <style type="text/css">
-        .rate_widget {
-            border:     1px solid #CCC;
-            overflow:   visible;
-            padding:    10px;
-            position:   relative;
-            width:      180px;
-            height:     32px;
-        }
-        .ratings_stars {
-            background: url('view/images/ratings/star_empty.png') no-repeat;
-            float:      left;
-            height:     28px;
-            padding:    2px;
-            width:      32px;
-        }
-        .ratings_vote {
-            background: url('view/images/ratings/star_full.png') no-repeat;
-        }
-        .ratings_over {
-            background: url('view/images/ratings/star_highlight.png') no-repeat;
-        }
-        .total_votes {
-            background: #eaeaea;
-            top: 58px;
-            left: 0;
-            padding: 5px;
-            position:   absolute;  
-        } 
-        .movie_choice {
-            font: 10px verdana, sans-serif;
-            margin: 0 auto 40px auto;
-            width: 180px;
-        }
-        h1 {
-            text-align: center;
-            width: 400px;
-            margin: 20px auto;
-        }
-    </style>
-<div id="<?php echo $args[0]; ?>" class="rate_widget">
-	<div class="star_1 ratings_stars"></div>
-	<div class="star_2 ratings_stars"></div>
-	<div class="star_3 ratings_stars"></div>
-	<div class="star_4 ratings_stars"></div>
-	<div class="star_5 ratings_stars"></div>
-	<div class="total_votes">vote data</div>
-</div>
-

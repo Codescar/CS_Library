@@ -296,7 +296,19 @@ class book{
  
 	function __construct($ID){
 		global $db;
-		$query = "	SELECT *, `categories`.category_name 
+		$query = "	SELECT 	`{$db->table['booklist']}`.id, 
+							`{$db->table['booklist']}`.title,
+							`{$db->table['booklist']}`.isbn, 
+							`{$db->table['booklist']}`.availability, 
+							`{$db->table['booklist']}`.writer, 
+							`{$db->table['booklist']}`.publisher,
+							`{$db->table['booklist']}`.description, 
+							`{$db->table['booklist']}`.pages, 
+							`{$db->table['booklist']}`.publish_year, 
+							`{$db->table['booklist']}`.read_times, 
+							`{$db->table['booklist']}`.image_url, 
+							`{$db->table['booklist']}`.added_on,
+							`{$db->table['categories']}`.category_name 
 							FROM `{$db->table['booklist']}`
 								LEFT JOIN  `{$db->table['book_has_category']}` 
 									ON `{$db->table['book_has_category']}`.book_id = `booklist`.id 

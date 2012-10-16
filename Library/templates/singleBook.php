@@ -2,6 +2,7 @@
 	if(!defined('VIEW_NAV'))
 		die("Invalid request!");
 	global $book, $lended, $logged, $requested, $have, $taken, $lend, $msg, $CONFIG, $user;
+	
 ?>
 <div class="book-info">
 	<div class="book-left-info">
@@ -83,8 +84,16 @@
 			</a>
 		<?php } ?>
 	</div>
+	<div id="<?php echo $book->id; ?>" class="rate_widget">
+		<div class="star_1 ratings_stars"></div>
+		<div class="star_2 ratings_stars"></div>
+		<div class="star_3 ratings_stars"></div>
+		<div class="star_4 ratings_stars"></div>
+		<div class="star_5 ratings_stars"></div>
+		<div class="total_votes">βαθμολογία χρηστών</div>
+	</div>
 	<?php 
-		render_template('ratings.php', array($book->id));
+		render_template('ratings.php');
 	?>
 </div><!-- .book-info end -->
 <script type="text/javascript">

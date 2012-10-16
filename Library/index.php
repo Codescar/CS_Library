@@ -19,7 +19,7 @@
 	if($CONFIG['debug']){
 		error_reporting(E_ALL | E_NOTICE | E_STRICT);
 		ini_set('display_errors', '1');
-		//define('DISPLAY_XPM4_ERRORS', true);
+		define('DISPLAY_XPM4_ERRORS', true);
 	}else{
 		ini_set('display_errors', '0');
 		define('DISPLAY_XPM4_ERRORS', false);

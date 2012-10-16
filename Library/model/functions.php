@@ -192,4 +192,26 @@ function logg($file, $string){
 		fclose($fh);
 }
 
+function sent_mail(MAIL $Mail){
+	global $CONFIG;
+	
+	//$m = new MAIL;
+	$Mail->From($CONFIG['admin_email']);
+	//$m->AddTo($to);
+	//$m->Subject($subject);
+	//$m->Text($text);
+	
+	if($CONFIG['MAIL']['USE_SMTP'])
+		$c = $Mail->Connect($CONFIG['MAIL']['SMTP']['HOSTNAME'], $CONFIG['MAIL']['SMTP']['PORT'], $CONFIG['MAIL']['SMTP']['USERNAME'], $CONFIG['MAIL']['SMTP']['PASSWORD']) or die(print_r($m->Result));
+	
+	if($CONFIG['MAIL']['USE_SMTP'])
+		$res = $Mail->Send($c);
+	else
+		$res = $Mail->Send();
+		
+	echo $res ? '<p class=\"succes\">Mail sent !</p>' : '<p class=\"error\">Error !</p>';
+	
+	if($CONFIG['MAIL']['USE_SMTP'])
+		$Mail->Disconnect();
+}
 ?>
