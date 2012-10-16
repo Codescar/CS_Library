@@ -94,7 +94,7 @@ class User{
         require_once('templates/mailTemplates.php');
         $m = new customMail("registerUser");
 		$m->AddTo($mail);
-		$m->sent_mail();
+		$m->sentMail();
 		return;
 	}
 	
