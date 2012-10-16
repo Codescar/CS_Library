@@ -40,6 +40,10 @@
 		}
 		
 		public function AddTo($TO, $NAME = null, $CHARSET = null, $ENCODING = null){
+			if($CHARSET == null)
+				$CHARSET = $CONFIG['charset'];
+			if($ENCODING == null)
+				$ENCODING = $CONFIG['encoding'];
 			$this->m->addto($TO, $NAME, $CHARSET, $ENCODING);
 		}
 		

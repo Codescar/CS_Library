@@ -16,7 +16,7 @@
 	    			."<br /><br />Sent from Codescar Library Feedback\n";
     	$message = wordwrap($message, 200);
     	$headers  = 'MIME-Version: 1.0' . "\r\n";
-    	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+    	$headers .= 'Content-type: text/html; charset='. $CONFIG['charset'] . "\r\n";
     	$headers .= 'From: info@codescar.eu' . "\r\n";
     	$headers .=	'X-Mailer: PHP/' . phpversion();
     	$admin_email = $CONFIG['admin_email'];

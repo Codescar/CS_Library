@@ -5,7 +5,7 @@
 ?><!DOCTYPE html> 
 <html> 
 <head> 
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<meta content="text/html; charset=<?php echo $CONFIG['charset']; ?>" http-equiv="Content-Type" />
 	<meta name="keywords" content="CS_Library" />
 	<meta name="description" content="CS_Library" />
 	<meta name="author" content="lion2486, sudavar" />

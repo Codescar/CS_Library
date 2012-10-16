@@ -27,7 +27,7 @@ public function __construct(){
 	        $this->connection = @new mysqli($this->hostname, $this->username, $this->password, $this->dbname);
 	    }
 
-	    $this->query("SET NAMES 'utf8';");
+	    $this->query("SET NAMES '{$CONFIG['charset']}';");
 	    /* TODO query("SET time_zone = 'Europe/Athens';") 
 	     * Have to install timezones in mysql server 
 	     */
