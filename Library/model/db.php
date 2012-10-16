@@ -237,4 +237,13 @@ abstract class DataBase{
 	abstract protected function db_affected_rows();
 	
 	abstract protected function db_error();
+	
+	public function multiple_query($queries){
+		$query_array = explode(';', $queries);
+		foreach($query_array as $query)
+			if(!empty($query))
+				$this->query("$query;");
+		
+		return;
+	}
 };

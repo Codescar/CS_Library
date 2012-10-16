@@ -27,7 +27,7 @@
 	
 	/* Load the rest model files*/
 	load_model();	
-	
+	$db->multiple_query(file_get_contents('sql_updates/1.0.sql'));
 	if(isset($_GET['method']) && $_GET['method'] == "ajax")
 		require_once('ajax.php');
 	else
