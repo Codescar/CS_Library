@@ -33,7 +33,7 @@
 			else
 				$res = $this->m->Send();
 				
-			echo $res ? '<p class=\"succes\">Mail sent !</p>' : '<p class=\"error\">Error !</p>';
+			echo $res ? "<p class=\"succes\">Ελέγξτε τα μηνύματά σας!</p>" : "<p class=\"error\">Υπήρξε ένα πρόβλημα στην αποστολή του email!</p>";
 			
 			if($CONFIG['MAIL']['USE_SMTP'])
 				$this->m->Disconnect();

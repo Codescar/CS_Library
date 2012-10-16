@@ -91,6 +91,7 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 		<label for="born">Ημερομηνία Γέννησης: </label>
 		<input type="date" name="born" id="born" />
 		<br />
+		<?php if($CONFIG['allow-user-class']) { ?>
 		<label for="user_type">Τύπος Χρήστη: </label>
 		<select name="user_type">
 			<option selected="selected" value="Αναγνώστης">Αναγνώστης</option>
@@ -98,6 +99,7 @@ if(isset($error) || isset($success) ||!isset($_GET['do'])){
 			<option value="Εκδότης">Εκδότης</option>
 			<option value="Ερευνητής">Ερευνητής</option>
 		</select><br />
+		<?php } ?>
 		<span>Τα στοιχεία με * είναι απαραίτητα </span>
 		<input type="submit" value="Υποβολή" class="submit"/>	
 		</form>

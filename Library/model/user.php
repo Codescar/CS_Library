@@ -63,7 +63,7 @@ class User{
 		else
 		    $query2 .= "NULL, ";
 		$query2 .= "'".$user."', ";
-		if(!empty($_POST['user_type'])){
+		if(!empty($_POST['user_type']) && $CONFIG['allow-user-class']){
 		    $x = $db->db_escape_string($_POST['user_type']);
 		    $query2 .= "'".$x."', ";
 		}

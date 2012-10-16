@@ -19,6 +19,7 @@
 	$CONFIG['allow_login']				= true;
 	$CONFIG['allow_admin'] 				= true;
 	$CONFIG['allow_compression'] 		= true;
+	$CONFIG['allow-user-class']			= false; /* not impemented yet */
 	
 	/* developer options */
 	$CONFIG['debug']					= true;
