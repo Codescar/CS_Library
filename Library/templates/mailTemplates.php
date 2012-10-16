@@ -40,6 +40,8 @@
 		}
 		
 		public function AddTo($TO, $NAME = null, $CHARSET = null, $ENCODING = null){
+			global $CONFIG;
+			
 			if($CHARSET == null)
 				$CHARSET = $CONFIG['charset'];
 			if($ENCODING == null)
