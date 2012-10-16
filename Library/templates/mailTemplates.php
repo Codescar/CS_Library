@@ -39,14 +39,13 @@
 				$this->m->Disconnect();
 		}
 		
-		public function AddTo($TO, $NAME = null, $CHARSET = null, $ENCODING = null){
+		public function AddTo($TO, $NAME = null, $CHARSET = null){
 			global $CONFIG;
 			
 			if($CHARSET == null)
 				$CHARSET = $CONFIG['charset'];
-			if($ENCODING == null)
-				$ENCODING = $CONFIG['encoding'];
-			$this->m->addto($TO, $NAME, $CHARSET, $ENCODING);
+				
+			$this->m->addto($TO, $NAME, $CHARSET);
 		}
 		
 	};

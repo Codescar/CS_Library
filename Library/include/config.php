@@ -24,7 +24,6 @@
 	$CONFIG['debug']					= true;
 	$CONFIG['maintenance'] 				= false;
 	$CONFIG['charset']					= 'utf8';
-	$CONFIG['encoding']					= 'utf8';
 	
 	/* Update Options */
 	$CONFIG['UPDATE']['dir'] 			= 'UPDATE-PACKAGES/';
