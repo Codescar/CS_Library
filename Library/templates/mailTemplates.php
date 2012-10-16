@@ -2,7 +2,7 @@
 	class customMail{
 		var $m;
 	
-		public function  __contruct($type){
+		public function  __construct($type){
 			global $CONFIG;
 			
 			$this->m = new MAIL;
