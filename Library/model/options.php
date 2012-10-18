@@ -37,7 +37,8 @@ class option{
 
 	public static function delete($id){
 		global $db;
-		$query = "DELETE FROM `{$db->table['options']}`
+		$query = "UPDATE `{$db->table['options']}`
+					SET `value` = null
 					WHERE `id` = '$id' ";
 		$db->query($query);
 	}
@@ -46,7 +47,8 @@ class option{
 		global $db, $CONFIG;
 		$results = $db -> query("SELECT * FROM `{$db -> table['options']}`");
 		while($option = $db->db_fetch_object($results))
-			$CONFIG[$option->name] = $option->value;
+			if($option->value != null)
+				$CONFIG[$option->name] = $option->value;
 		return true;
 	}
 };

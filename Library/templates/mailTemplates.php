@@ -9,11 +9,11 @@
 			
 			$mailTemplate['registerUser']['title'] = "Εγγραφή νέου μέλους - {$CONFIG['title']}";
 			$mailTemplate['registerUser']['body'] = "
-				Ευχατιστούμε πολύ για την εγγραφή σας στην πύλη της δανειστικής μας βιβλιοθήκης. 
-				Θα χαρούμε να τη χρεισημοποιήσετε και να σας φανεί χρήσιμη\n{$CONFIG['url']}\n\nΗ Ομάδα Διαχείρησης";
+				Ευχαριστούμε πολύ για την εγγραφή σας στην πύλη της δανειστικής μας βιβλιοθήκης. 
+				Θα χαρούμε να τη χρησιμοποιήσετε.\n{$CONFIG['url']}\n\nΗ Ομάδα Διαχείρησης";
 			
-			$this->m->Subject($mailTemplate[$type]['title']);
-			$this->m->Text($mailTemplate[$type]['body']);
+			$this->m->Subject($mailTemplate[$type]['title'], $CONFIG['charset']);
+			$this->m->Text($mailTemplate[$type]['body'], $CONFIG['charset']);
 		}
 		
 		public function sentMail(){

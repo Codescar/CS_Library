@@ -9,3 +9,8 @@ CREATE TABLE `ratings` (
   PRIMARY KEY (`user_id`,`widget_id`),
   KEY `widget_id_index` (`widget_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `options`
+MODIFY COLUMN `value`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' AFTER `description`;
+
