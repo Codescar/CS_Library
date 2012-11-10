@@ -45,11 +45,11 @@
 	$CONFIG['lend_days'] 				= 15;
 	$CONFIG['extra_days_lend'] 			= 15;
 	
-	$CONFIG['MAIL']['USE_SMTP']			= true;
-	$CONFIG['MAIL']['SMTP']['HOSTNAME']	= "mail.l2blum.com";
+	$CONFIG['MAIL']['USE_SMTP']			= false;
+	$CONFIG['MAIL']['SMTP']['HOSTNAME']	= "mail.something";
 	$CONFIG['MAIL']['SMTP']['PORT']		= 25;
-	$CONFIG['MAIL']['SMTP']['USERNAME']	= "admin@l2blum.com";	
-	$CONFIG['MAIL']['SMTP']['PASSWORD'] = "kostis00";
+	$CONFIG['MAIL']['SMTP']['USERNAME']	= "admin@something";	
+	$CONFIG['MAIL']['SMTP']['PASSWORD'] = "pass";
 
 	$local_config_file = "include/myconfig.php";
 	
