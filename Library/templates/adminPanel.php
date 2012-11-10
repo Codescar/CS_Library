@@ -54,4 +54,8 @@
 		<img class="block panel-img" src="view/images/backup.png" /><br />
 		Αντίγραφα Ασφαλείας
 	</a></h3>
+	<h3 class="block panel-images"><a class="panel-links" href="index.php?show=admin&more=mailtemplates" >
+		<img class="block panel-img" src="view/images/mail.png" /><br />
+		Πρότυπα Αυτόματων Μυνημάτων
+	</a></h3>
 </div>

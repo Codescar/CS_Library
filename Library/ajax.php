@@ -27,6 +27,20 @@
 			
 	}
 	
+	if(isset($_GET['call']) && $_GET['call'] == "sent_test_mail")
+	{
+		global $db;
+		
+		$email = $_POST['test_mail_field'];
+		
+		$m = new customMail("id", $db->db_escape_string($_POST['id']));
+		$m->AddTo($email);
+		$r = $m->sentMail();
+
+		echo $r ? "<p class=\"success\">Ελέγξτε τα μηνύματά σας!</p>" : "<p class=\"error\">Υπήρξε ένα πρόβλημα στην αποστολή του email!</p>";
+		
+	}
+	
 	ratings_controller();
 
 	$db->close();

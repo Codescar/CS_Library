@@ -18,6 +18,12 @@
 			session_unset();
 			session_destroy();
 		}
+		elseif($CONFIG['register_activation'])
+			if($user->access_level == UNACTIVATED_ACCESS_LVL){
+				$error = "Ο λογαριασμός δεν είναι ενεργοποιημένος, ενεργοποιήστε τον από το email σας.";
+				session_unset();
+				session_destroy();
+			}
 		elseif($user->banned){
 			$error = "Σας έχει επιβληθεί περιορισμός και ο λογαριασμός σας είναι απενεργοποιημένος<br />
 					 Αν δεν γνωρίζετε τους λόγους που σας επιβλήθηκε περιορισμός, παρακαλώ επικοινωνήστε με τους διαχειρηστές";
@@ -45,7 +51,10 @@
 				$error = "Το όνομα χρήστη χρησιμοποιείται ήδη...";
 			else{
 				user::createUser($_POST['username'], $_POST['password'], $_POST['mail']);
-				$success = "Ο λογαριασμός σας δημιουργήθηκε, παρακαλούμε συνδεθείτε.";
+				if($CONFIG['register_activation'])
+					$success = "Ο λογαριασμός σας δημιουργήθηκε, πριν συνθεθείτε θα πρέπει να τον ενεργοποιήσετε από το email σας.";
+				else
+					$success = "Ο λογαριασμός σας δημιουργήθηκε, παρακαλούμε συνδεθείτε.";
 			}
 		}
 	}

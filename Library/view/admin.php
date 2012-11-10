@@ -50,6 +50,8 @@
 					$msg = "Διαγραφή αιτήματος</div>";
 			    }elseif($_GET['more'] == "backup"){
 			    	$msg = "Αντίγραφα Ασφαλείας</div>";
+			    }elseif($_GET['more'] == "mailtemplates"){
+			    	$msg = "Πρότυπα Αυτόματων Μυνημάτων</div>";
 			    }elseif($_GET['more'] == "user" && isset($_GET['id'])){
 			        $msg = "<a href=\"index.php?show=admin&more=users\" >Χρήστες</a>&nbsp;&gt;&gt;&nbsp;".user::get_name($_GET['id'])."</div>";
 			    }else{ ?>
@@ -141,6 +143,8 @@
 			}
 		}elseif($_GET['more'] == "backup"){
 			include('backup.php');
+		}elseif($_GET['more'] == "mailtemplates"){
+			include('mailTemplates.php');
 		}
 	echo "</div>";
 	} ?>

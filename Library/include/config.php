@@ -20,6 +20,7 @@
 	$CONFIG['allow_admin'] 				= true;
 	$CONFIG['allow_compression'] 		= true;
 	$CONFIG['allow-user-class']			= false; /* not impemented yet */
+	$CONFIG['register_activation']		= true;
 	
 	/* developer options */
 	$CONFIG['debug']					= true;
@@ -44,11 +45,11 @@
 	$CONFIG['lend_days'] 				= 15;
 	$CONFIG['extra_days_lend'] 			= 15;
 	
-	$CONFIG['MAIL']['USE_SMTP']			= false;
-	$CONFIG['MAIL']['SMTP']['HOSTNAME']	= "smtp.example.com";
+	$CONFIG['MAIL']['USE_SMTP']			= true;
+	$CONFIG['MAIL']['SMTP']['HOSTNAME']	= "mail.l2blum.com";
 	$CONFIG['MAIL']['SMTP']['PORT']		= 25;
-	$CONFIG['MAIL']['SMTP']['USERNAME']	= "username";	
-	$CONFIG['MAIL']['SMTP']['PASSWORD'] = "password";
+	$CONFIG['MAIL']['SMTP']['USERNAME']	= "admin@l2blum.com";	
+	$CONFIG['MAIL']['SMTP']['PASSWORD'] = "kostis00";
 
 	$local_config_file = "include/myconfig.php";
 	

@@ -1,18 +1,11 @@
 <?php
 /* MySQLi Connector Driver */
 class Lbdb extends DataBase{
-	
-public function __construct(){
-		global $db_hostname, $db_username, $db_password, $db_name;
-		$this->queries = 0;
-		$this->connection = 0;
-		$this->hostname = $db_hostname;
-		$this->username = $db_username;
-		$this->password = $db_password;
-		$this->dbname = $db_name;
-		$this->query_time = 0;
-	}
 
+	public function __construct() {
+       parent::__construct();
+	}
+	
 	protected function _connect(){
 	    global $CONFIG;
 	    

@@ -1,6 +1,6 @@
 <?php
 abstract class DataBase{
-	private $connection, $hostname, $username, $password, $dbname, $queries;
+	protected $connection, $hostname, $username, $password, $dbname, $queries, $prefix;
 	public $booklist, $query_time;
 	//TODO have to use the arrays for the names of the column/tables everywhere I think... much work!
 	public $table = array(
@@ -20,7 +20,9 @@ abstract class DataBase{
 	                        "book_has_category" => "book_has_category",
 							"avatars"			=> "avatars",
 							"favorites"			=> "favorites",
-							"ratings"			=> "ratings"  );
+							"ratings"			=> "ratings",
+							"mailTemplates"		=> "mailTemplates"  );
+	
 	
 /*	public $columns = array("booklist"		=>	array(	"id" 			=> "id", 
 														"title" 		=> "title", 
@@ -76,7 +78,7 @@ abstract class DataBase{
 														"date"			=> "date")
 	);*/
 	public function __construct(){
-		global $db_hostname, $db_username, $db_password, $db_name;
+		global $db_hostname, $db_username, $db_password, $db_name, $db_tables_prefix;
 		$this->queries = 0;
 		$this->connection = 0;
 		$this->hostname = $db_hostname;
@@ -84,6 +86,13 @@ abstract class DataBase{
 		$this->password = $db_password;
 		$this->dbname = $db_name;
 		$this->query_time = 0;
+		$this->prefix = $db_tables_prefix;
+		
+		function add_prefix(&$item1, $key, $prefix){
+			 $item1 = "$prefix$item1";
+		}
+		
+		array_walk($this->table, 'add_prefix', $this->prefix);
 	}
 
 	abstract protected function _connect();

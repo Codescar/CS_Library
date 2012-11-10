@@ -2,6 +2,7 @@
 /* User class, in order to use user-account
  * system, we can continue...
  */
+define('UNACTIVATED_ACCESS_LVL', '-108');
 
 class User{
 	public $id, $username, $email, $access_level, $banned, $message, $admin, $favorites;
@@ -82,7 +83,9 @@ class User{
 		}
 		else
 		    $query2 .= "NULL, ";
-		$query2 .= " '".$mail."', '0', NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
+		$query2 .= " '".$mail."', ";
+		$query2 .= $CONFIG['register_activation'] ? UNACTIVATED_ACCESS_LVL : "0";
+		$query2 .= ", NOW(), '".$_SERVER['REMOTE_ADDR']."') ";
 		$query = "INSERT INTO `{$db->table['users']}` 
 					(`name`, `surname`, `username`, `usertype`, 
 					 `password`, `born`, `phone`, `email`, `access_lvl`, 
@@ -91,10 +94,11 @@ class User{
 		
         $db->query($query);
         
-        require_once('templates/mailTemplates.php');
         $m = new customMail("registerUser");
 		$m->AddTo($mail);
-		$m->sentMail();
+		$ret = $m->sentMail();
+		
+		echo $ret ? "<p class=\"success\">Ελέγξτε τα μηνύματά σας!</p>" : "<p class=\"error\">Υπήρξε ένα πρόβλημα στην αποστολή του email!</p>";
 		return;
 	}
 	

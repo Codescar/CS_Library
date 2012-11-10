@@ -2,14 +2,10 @@
 /* SQLite Connector Driver */
 class Lbdb extends DataBase{
 	
-public function __construct(){
-		global $db_name;
-		$this->queries = 0;
-		$this->connection = 0;
-		$this->dbname = $db_name;
-		$this->query_time = 0;
+	public function __construct() {
+       parent::__construct();
 	}
-
+	
 	protected function _connect(){
 	    global $CONFIG;
 	    if($CONFIG['debug']){
