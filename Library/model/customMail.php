@@ -11,13 +11,14 @@
 			
 	class customMail{
 		var $m;
+		var $enabled;
 	
 		public function  __construct($type, $id = 0){
 			global $CONFIG, $db, $user, $mailTranslate;
 			
 			$this->m = new MAIL;
 			
-			$query = "SELECT `title`, `body` FROM `{$db->table['mailTemplates']}` WHERE LOWER(type) = LOWER('{$db->db_escape_string($type)}') ";
+			$query = "SELECT `title`, `body`, `enabled` FROM `{$db->table['mailTemplates']}` WHERE LOWER(type) = LOWER('{$db->db_escape_string($type)}') ";
 			if($type == "id")
 				$query .= " AND `id` = '$id' ";
 			$res = $db->query($query);
@@ -29,17 +30,22 @@
 				
 			$mail = $db->db_fetch_array($res);
 
+			$this->enabled = $mail['enabled'];
+			
 			$this->m->Subject(strtr($mail['title'], $this->translate), $CONFIG['charset']);
 			$this->m->Text(strtr($mail['body'], $this->translate), $CONFIG['charset']);
 
 		}
 		
-		public function sentMail(){
+		public function sentMail($force = false){
 			global $CONFIG;
 			
 			if($this->m == null)
 				return;
 				
+			if(!$this->enabled && !$force)
+				return;
+			
 			//$m = new MAIL;
 			$this->m->From($CONFIG['admin_email']);
 			//$m->AddTo($to);

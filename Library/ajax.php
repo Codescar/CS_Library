@@ -32,10 +32,10 @@
 		global $db;
 		
 		$email = $_POST['test_mail_field'];
-		
+		echo "to mail: $email";
 		$m = new customMail("id", $db->db_escape_string($_POST['id']));
 		$m->AddTo($email);
-		$r = $m->sentMail();
+		$r = $m->sentMail(true);
 
 		echo $r ? "<p class=\"success\">Ελέγξτε τα μηνύματά σας!</p>" : "<p class=\"error\">Υπήρξε ένα πρόβλημα στην αποστολή του email!</p>";
 		

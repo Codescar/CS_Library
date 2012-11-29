@@ -4,28 +4,26 @@
 
 	global $CONFIG, $db;
 	
+	if(isset($_POST['change-enabled'])){
+		if(!isset($_POST['id']) || !isset($_POST['set']))
+			return;
+		
+		$id = $db->db_escape_string($_POST['id']);
+		$set = $_POST['set'] ? 1 : 0;
+		
+		$query = "UPDATE `{$db->table['mailTemplates']}` SET `enabled` = $set WHERE `id` = $id LIMIT 1;";
+		
+		$res = $db->query($query);
+		
+	}
+	
 	$query = "SELECT * FROM `{$db->table['mailTemplates']}` ;";
 		
 	$res = $db->query($query);
-	
-/*	$(document).ready(function() {
-        $('.test-mail .submit').click(function() {
-        	$('#output').html("test");
-            $.post('index.php?method=ajax&call=sent_test_mail',
-                    { 
-                		'test_mail_field' 	: $('.test-mail .test_mail_field').val(),
-						'id'				: $('.test-mail .id').val()
-        			 },
-                    function (data){ $('#output').html(data); },
-                    'json');
-            
-            return false;
-        });
-    });*/
+
 	?>
 	<div id="output"></div>
 	<script type="text/javascript">
-
 	$(document).ready(function() {
 		$(".test-mail .submit").click(function(){
 			var element = $(this);
@@ -40,19 +38,17 @@
     		 			$('#output').fadeOut(400);
                    		$('#output').fadeIn(400).html(data); 
                    	}
-			);
-			
+			);	
 			return false;
 		});
-	
 	});
-	
 	</script>
 	<table>
 	<tr>
 		<th>Τύπος</th>
 		<th>Τίτλος</th>
 		<th>Επεξεργασία</th>
+		<th>Ενεργοποιημένο</th>
 		<th>Δοκιμαστικό</th>
 	</tr>
 	<?php 	
@@ -62,6 +58,14 @@
 		<td><?php echo $row['type']; ?></td>
 		<td><?php echo $row['title']; ?></td>
 		<td><a href="index.php?show=admin&more=mailtemplates&action=edit&id=<?php echo $row['id']; ?>">Επεξεργασία</a></td>
+		<td><?php echo $row['enabled'] ? "<span style=\"color: green;\">Ενεργοποιημένο</span>" : "<span style=\"color: red;\">Απενεργοποιημένο</span>"; ?>
+			<form action="index.php?show=admin&more=mailtemplates" method="POST" >
+				<input type="hidden" name="change-enabled" />
+				<input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+				<input type="hidden" name="set" value="<?php echo $row['enabled'] ? "0" : "1"; ?>" />
+				<input type="submit" value="Αλλαγή" />
+			</form>
+		</td>
 		<td>
 			<form class="test-mail" id="test-mail-<?php echo $row['id']; ?>" action="" method="">
 				<input type="text" name="test_mail_field" class="test_mail_field" value="<?php echo $CONFIG['admin_email']; ?>" />
